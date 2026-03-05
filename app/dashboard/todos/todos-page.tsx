@@ -10,6 +10,7 @@ import {
   Timer,
   Search,
   X,
+  GripVertical,
 } from "lucide-react";
 
 import CollectionCard from "./components/collection-card";
@@ -797,7 +798,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
                     deleteCompletedPending || visibleCompletedIds.length === 0
                   }
                   onClick={handleDeleteCompleted}
-                  className="cursor-pointer inline-flex items-center gap-2 rounded-full lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 text-xs font-medium text-red-400 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60 bg-red-100"
+                  className="cursor-pointer inline-flex items-center gap-2 rounded-full lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 text-xs font-semibold text-white transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-60 bg-red-400"
                 >
                   Delete completed
                 </button>
@@ -892,23 +893,8 @@ const TodosPage: React.FC<TodosPageProps> = ({
                                       <p className="font-semibold lg:text-xs xl:text-sm leading-tight">
                                         {todo.title}
                                       </p>
-                                      <div className="flex flex-wrap items-center gap-2 lg:text-[9px] xl:text-[11px] text-muted-foreground">
-                                        {todo.tags.length === 0 ? (
-                                          <span className="text-muted-foreground/70">
-                                            No tags yet
-                                          </span>
-                                        ) : (
-                                          todo.tags.map((tag) => (
-                                            <span
-                                              key={tag}
-                                              className="lg:px-2 lg:py-0.5 rounded-full bg-muted text-muted-foreground"
-                                            >
-                                              {tag}
-                                            </span>
-                                          ))
-                                        )}
-                                      </div>
                                     </div>
+                                    <GripVertical className="w-4 h-4 text-muted-foreground" />
                                   </div>
                                   <div className="lg:mt-2 xl:mt-3 flex items-center justify-between text-muted-foreground">
                                     <div className="flex items-center gap-2">

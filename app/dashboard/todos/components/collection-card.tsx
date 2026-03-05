@@ -131,7 +131,7 @@ const CollectionCard: FC<CollectionCardProps> = ({
           </span>
           <Link
             href={`/dashboard/todos/collections/${collection.id}`}
-            className="inline-flex items-center gap-1 rounded-full border border-muted lg:px-2.5 xl:px-3 lg:py-1 xl:py-1.5 lg:text-[9px] xl:text-[10px] 2xl:text-[11px] font-semibold text-foreground transition hover:bg-muted-foreground/5"
+            className="inline-flex items-center gap-1 rounded-full border border-gray-100 hover:border-white lg:px-2.5 xl:px-3 lg:py-1 xl:py-1.5 lg:text-[9px] xl:text-[10px] 2xl:text-[11px] font-semibold text-foreground transition"
           >
             View todos
           </Link>

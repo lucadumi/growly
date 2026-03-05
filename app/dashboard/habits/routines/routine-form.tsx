@@ -286,20 +286,9 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
       className="lg:space-y-4 xl:space-y-6"
     >
       <div className="lg:space-y-3 xl:space-y-5">
-        <div className="flex items-center justify-between lg:gap-2 xl:gap-3">
-          <div>
-            <p className="lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold uppercase tracking-[0.18em] text-primary">
-              Routine basics
-            </p>
-            <h2 className="lg:text-base xl:text-lg 2xl:text-xl font-semibold text-foreground">
-              Set the stage
-            </h2>
-          </div>
-        </div>
         <div className="lg:space-y-3 xl:space-y-4">
           <label className="lg:space-y-1 xl:space-y-2 block">
-            <span className="lg:text-xs xl:text-sm font-semibold flex items-center lg:gap-1.5 xl:gap-2">
-              <Target className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+            <span className="lg:text-xs xl:text-sm font-semibold flex items-center">
               Routine name
             </span>
             <input
@@ -307,25 +296,23 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
               onChange={handleChange("name")}
               placeholder="Daily launch sequence"
               maxLength={80}
-              className="w-full rounded-2xl border border-gray-100 bg-white lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground placeholder:text-muted-foreground shadow-inner focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+              className="w-full rounded-2xl border border-gray-100 bg-white lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
               required
             />
           </label>
           <label className="lg:space-y-1 xl:space-y-2 block">
-            <span className="lg:text-xs xl:text-sm font-semibold flex items-center lg:gap-1.5 xl:gap-2">
-              <Clock3 className="lg:h-3 lg:w-3 xl:h-4 xl:w-4 text-primary" />
+            <span className="lg:text-xs xl:text-sm font-semibold flex items-center">
               Anchor moment
             </span>
             <input
               value={form.anchor}
               onChange={handleChange("anchor")}
               placeholder="Right after morning coffee"
-              className="w-full rounded-2xl border border-gray-100 bg-white lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground placeholder:text-muted-foreground shadow-inner focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+              className="w-full rounded-2xl border border-gray-100 bg-white lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </label>
           <label className="lg:space-y-1 xl:space-y-2 block">
             <span className="lg:text-xs xl:text-sm font-semibold flex items-center gap-2">
-              <CalendarDays className="lg:h-3 lg:w-3 xl:h-4 xl:w-4 text-primary" />
               Why this routine matters
             </span>
             <textarea
@@ -333,7 +320,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
               onChange={handleChange("notes")}
               rows={3}
               placeholder="Remind future you where this momentum is headed."
-              className="w-full rounded-2xl border border-gray-100 bg-white lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground placeholder:text-muted-foreground shadow-inner focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none"
+              className="w-full rounded-2xl border border-gray-100 bg-white lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none"
             />
           </label>
         </div>
@@ -342,10 +329,10 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
       <div className="lg:space-y-3 xl:space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <p className="lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+            <p className="lg:text-xs xl:text-sm 2xl:text-base font-semibold text-foreground">
               Focus window
             </p>
-            <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
+            <p className="lg:text-[10px] xl:text-[11px] 2xl:text-xs text-muted-foreground">
               Pick when the routine should feel most alive.
             </p>
           </div>
@@ -382,7 +369,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
       ) : null}
 
       <div className="lg:space-y-3 xl:space-y-4">
-        <div className="flex items-center justify-between lg:gap-1.5 xl:gap-2">
+        <div className="flex items-center justify-between">
           <div>
             <p className="lg:text-[11px] 2xl:text-sm xl:text-xs font-semibold uppercase tracking-[0.18em] text-primary">
               Habit stack
@@ -402,7 +389,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
               value={filter}
               onChange={(event) => setFilter(event.target.value)}
               placeholder="Filter by habit name, focus, or cadence"
-              className="w-full rounded-full border border-gray-100 bg-white lg:px-3 xl:px-4 lg:py-1 xl:py-2 lg:pl-6 xl:pl-10 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground placeholder:text-muted-foreground shadow-inner focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+              className="w-full rounded-full border border-gray-100 bg-white lg:px-3 xl:px-4 lg:py-1 xl:py-2 lg:pl-6 xl:pl-10 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </div>
           <button
@@ -428,13 +415,13 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
                     key={habit.id}
                     type="button"
                     onClick={() => toggleHabit(habit.id)}
-                    className={`relative w-full rounded-2xl border lg:p-3 xl:p-4 text-left transition shadow-sm ${
+                    className={`relative w-full rounded-2xl border lg:p-3 xl:p-4 text-left transition ${
                       isActive
-                        ? "border-primary bg-primary/5 text-foreground ring-1 ring-primary/30"
-                        : "border-gray-100 bg-white hover:border-primary/40"
+                        ? "border-primary ring-1 ring-primary/30"
+                        : "border-gray-100 bg-white"
                     }`}
                   >
-                    <div className="flex items-start justify-between lg:gap-1 xl:gap-2">
+                    <div className="flex items-center justify-between lg:gap-1 xl:gap-2">
                       <div>
                         <p className="lg:text-xs xl:text-sm 2xl:text-base font-semibold">
                           {habit.name}
@@ -478,7 +465,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
                 <div className="flex flex-row lg:gap-2 xl:gap-3">
                   <Link
                     href="/dashboard/habits/routines"
-                    className="lg:px-3 xl:px-4 lg:py-1 xl:py-2 rounded-full lg:text-[11px] xl:text-xs 2xl:text-sm border border-gray-200 bg-white hover:border-primary/40 transition shadow-sm"
+                    className="lg:px-3 xl:px-4 lg:py-1 xl:py-2 rounded-full lg:text-[11px] xl:text-xs 2xl:text-sm border border-gray-200 bg-white hover:border-primary/40 transition"
                   >
                     Back to routines
                   </Link>

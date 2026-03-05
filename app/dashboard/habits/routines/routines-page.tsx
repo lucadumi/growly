@@ -32,7 +32,7 @@ type RoutinesPageProps = {
 };
 
 const dropClasses =
-  "rounded-2xl border-2 border-dashed transition shadow-sm bg-card/30 hover:border-primary/60";
+  "rounded-2xl border-2 border-dashed transition bg-card/30 hover:border-primary/60";
 
 const RoutinesPage: React.FC<RoutinesPageProps> = ({
   initialBacklog,
@@ -249,7 +249,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
 
   return (
     <>
-      <main className="relative overflow-hidden w-full min-h-screen lg:pt-18 xl:pt-24 2xl:pt-28 text-foreground g:pb-8 xl:pb-12 2xl:pb-16 bg-linear-to-b from-white/90 via-light-yellow/55 to-green-soft/15">
+      <main className="relative overflow-hidden w-full min-h-screen lg:pt-18 xl:pt-24 2xl:pt-28 text-foreground g:pb-8 xl:pb-12 2xl:pb-16 bg-card">
         <div className="lg:px-4 xl:px-8 2xl:px-28 lg:space-y-6 xl:space-y-8">
           <PageHeading
             badgeLabel="Routines"
@@ -258,7 +258,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
             actions={
               <div className="flex flex-row lg:gap-2 xl:gap-3">
                 <Button
-                  className="lg:text-[10px] font-semibold xl:text-xs 2xl:text-sm text-white shadow-[0_5px_10px_rgba(240,144,41,0.35)]  hover:shadow-none hover:brightness-105 transition lg:h-6 xl:h-8 2xl:h-10 bg-primary lg:px-3 xl:px-4"
+                  className="lg:text-[10px] font-semibold xl:text-xs 2xl:text-sm text-white hover:brightness-105 transition lg:h-6 xl:h-8 2xl:h-10 bg-primary lg:px-3 xl:px-4"
                   onClick={openCreateRoutine}
                 >
                   Create routine
@@ -287,8 +287,8 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
             <div
               className={`relative overflow-hidden ${dropClasses} ${
                 hoverTarget === "backlog"
-                  ? "border-primary/80 bg-primary/5"
-                  : "border-gray-100 bg-card/30"
+                  ? "border-primary/80"
+                  : "border-gray-200"
               } lg:p-4 xl:p-5 h-full`}
               onDragOver={(event) => event.preventDefault()}
               onDragEnter={() => setHoverTarget("backlog")}
@@ -297,9 +297,6 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
             >
               <div className="flex items-center justify-between lg:mb-2 xl:mb-3">
                 <div>
-                  <p className="lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold uppercase tracking-[0.16em] text-primary">
-                    Unassigned
-                  </p>
                   <h2 className="lg:text-sm xl:text-base 2xl:text-lg font-semibold lg:mb-0.5 xl:mb-1">
                     Habit backlog
                   </h2>
@@ -321,7 +318,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                       key={habit.id}
                       draggable
                       onDragStart={handleDragStart(habit.id, "backlog")}
-                      className="rounded-xl lg:border xl:border-2 border-gray-100 bg-card lg:px-3 xl:px-4 lg:py-2 xl:py-3 shadow-sm flex items-center justify-between lg:gap-2 xl:gap-3 hover:border-primary/50 cursor-grab"
+                      className="rounded-xl border border-gray-100 bg-card lg:px-3 xl:px-4 lg:py-2 xl:py-3 flex items-center justify-between lg:gap-2 xl:gap-3 cursor-grab"
                     >
                       <div>
                         <p className="font-semibold lg:text-xs xl:text-sm 2xl:text-base">
@@ -354,15 +351,11 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                 >
                   <div className="flex items-start justify-between lg:gap-1 xl:gap-2">
                     <div className="space-y-1">
-                      <div className="inline-flex items-center gap-2 xl:mb-2 2xl:mb-3 lg:text-[9px] xl:text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                        <Target className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
-                        Routine
-                      </div>
                       <h3 className="lg:text-sm xl:text-base 2xl:text-lg font-semibold leading-tight">
                         {routine.name}
                       </h3>
                       <div className="flex items-center lg:gap-1 xl:gap-2 lg:text-[11px] xl:text-xs text-muted-foreground">
-                        <Clock3 className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                        <Clock3 className="lg:w-2 lg:h-2 xl:w-3 xl:h-3 text-primary" />
                         <span>{routine.anchor ?? "Not set"}</span>
                       </div>
                     </div>
@@ -407,7 +400,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                           key={habit.id}
                           draggable
                           onDragStart={handleDragStart(habit.id, routine.id)}
-                          className="rounded-xl border border-gray-100 bg-card/50 lg:px-3 xl:px-4 lg:py-2 xl:py-3 shadow-sm flex items-center justify-between lg:gap-2 xl:gap-3 hover:border-primary/50 cursor-grab"
+                          className="rounded-xl border border-gray-100 bg-card/50 lg:px-3 xl:px-4 lg:py-2 xl:py-3 flex items-center justify-between lg:gap-2 xl:gap-3 cursor-grab"
                         >
                           <div>
                             <p className="lg:text-xs xl:text-sm 2xl:text-base font-semibold">
@@ -439,7 +432,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
             onClick={closeCreateRoutine}
           />
           <div
-            className={`relative h-full w-full max-w-5xl bg-card shadow-2xl flex flex-col transition-transform duration-300 ease-out ${createRoutineVisible ? "translate-x-0" : "translate-x-full"}`}
+            className={`relative h-full w-full max-w-5xl bg-card border-l-8 border-gray-100 flex flex-col transition-transform duration-300 ease-out ${createRoutineVisible ? "translate-x-0" : "translate-x-full"}`}
           >
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
               <div>
@@ -454,7 +447,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                 <button
                   type="submit"
                   form="create-routine-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white shadow-[0_5px_10px_rgba(240,144,41,0.35)] hover:brightness-105 transition"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white hover:brightness-105 transition"
                 >
                   Create routine
                 </button>
@@ -493,7 +486,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
             onClick={closeEditRoutine}
           />
           <div
-            className={`relative h-full w-full max-w-5xl bg-card shadow-2xl flex flex-col transition-transform duration-300 ease-out ${editRoutineVisible ? "translate-x-0" : "translate-x-full"}`}
+            className={`relative h-full w-full max-w-5xl bg-card border-l-8 border-gray-100 flex flex-col transition-transform duration-300 ease-out ${editRoutineVisible ? "translate-x-0" : "translate-x-full"}`}
           >
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
               <div>
@@ -508,7 +501,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                 <button
                   type="submit"
                   form="edit-routine-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white shadow-[0_5px_10px_rgba(240,144,41,0.35)] hover:brightness-105 transition"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white hover:brightness-105 transition"
                 >
                   Update routine
                 </button>

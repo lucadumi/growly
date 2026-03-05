@@ -17,70 +17,34 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t lg:border-b-4 xl:border-b-6 2xl:border-b-8 border-b-primary border-muted/60 bg-card text-foreground shadow-gray-200/40 overflow-visible">
-      <div className="mx-auto lg:px-4 xl:px-8 2xl:px-28 space-y-10 xl:pt-8 xl:pb-6 lg:pb-4 lg:pt-6 2xl:pt-10 2xl:pb-8">
-        <div className="grid lg:gap-4 xl:gap-6 2xl:gap-8 lg:grid-cols-[1.4fr_1fr_1fr]">
-          <div className="flex flex-col justify-between">
-            <div className="flex items-center lg:gap-2 xl:gap-3">
-              <div className="space-y-1 lg:text-xs xl:text-sm 2xl:text-base">
-                <p className="font-semibold text-foreground">Growly</p>
-                <p className="lg:text-[11px] xl:text-xs text-muted-foreground">
-                  Stay consistent, win the tiny moments.
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center lg:gap-2 xl:gap-3 lg:text-[9px] xl:text-[11px] 2xl:text-sm">
-              <span className="rounded-full bg-card/70 text-primary font-semibold">
-                Tiny wins, every day.
-              </span>
-              <span className="text-muted-foreground/70">
-                &copy; {year} Growly
-              </span>
-            </div>
-          </div>
+    <footer className="border-t border-muted/60 bg-card">
+      <div className="mx-auto px-6 lg:px-10 xl:px-16 2xl:px-28 py-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-6">
+          <span className="text-sm font-semibold text-foreground">Growly</span>
+          <nav className="flex items-center gap-4 text-xs text-muted-foreground">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="hover:text-primary transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
 
-          <div className="lg:space-y-2 xl:space-y-3">
-            <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground/80">
-              Navigate
-            </p>
-            <nav className="flex flex-col lg:gap-4 2xl:gap-6 lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground/90">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="hover:text-primary transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          <div className="flex flex-col justify-between lg:text-[10px] xl:text-xs 2xl:text-sm text-muted-foreground">
-            <div className="lg:space-y-2 xl:space-y-3">
-              <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground/80">
-                Keep in touch
-              </p>
-              <p className="leading-relaxed">
-                Questions or ideas? Reach out any time and we will keep the tiny
-                wins coming.
-              </p>
-              <div className="lg:text-[9px] xl:text-[11px] 2xl:text-xs tracking-[0.2em] text-primary">
-                hello@growly.app
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center lg:gap-6 xl:gap-8 text-muted-foreground/80">
-              {legalLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className="hover:text-primary transition-colors"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </div>
+        <div className="flex items-center gap-4 text-xs text-muted-foreground/70">
+          {legalLinks.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="hover:text-primary transition-colors"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <span>&copy; {year}</span>
         </div>
       </div>
     </footer>
