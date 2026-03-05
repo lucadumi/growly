@@ -14,7 +14,6 @@ import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { TodoStatus } from "@prisma/client";
 
-import GradientCircle from "@/app/components/ui/gradient-circle";
 import PageHeading from "@/app/components/page-heading";
 
 type TrendPoint = { label: string; value: number };
@@ -266,21 +265,7 @@ const AnalyticsClient: React.FC<Props> = ({
       : 0;
 
   return (
-    <main className="relative lg:px-4 xl:px-8 2xl:px-28 lg:pt-18 xl:pt-24 2xl:pt-28 lg:pb-8 xl:pb-12 2xl:pb-16 min-h-screen w-full bg-linear-to-br from-white via-light-yellow/40 to-green-soft/20 text-foreground overflow-hidden">
-      <GradientCircle
-        size={260}
-        position={{ top: "-70px", right: "-40px" }}
-        color="rgba(240,144,41,0.25)"
-        fadeColor="rgba(240,144,41,0)"
-        className="scale-125"
-      />
-      <GradientCircle
-        size={300}
-        position={{ bottom: "-100px", left: "-60px" }}
-        color="rgba(76,215,180,0.18)"
-        fadeColor="rgba(76,215,180,0)"
-        className="scale-110"
-      />
+    <main className="relative lg:px-4 xl:px-8 2xl:px-28 lg:pt-18 xl:pt-24 2xl:pt-28 lg:pb-8 xl:pb-12 2xl:pb-16 min-h-screen w-full bg-card text-foreground overflow-hidden">
       <div className="lg:space-y-5 xl:space-y-7">
         <PageHeading
           badgeLabel="Analytics"
@@ -289,42 +274,42 @@ const AnalyticsClient: React.FC<Props> = ({
         />
 
         <section className="grid lg:grid-cols-4 lg:gap-3 xl:gap-4">
-          <div className="rounded-2xl bg-card shadow-sm lg:p-3 xl:p-4 flex flex-col justify-between gap-2">
+          <div className="rounded-2xl bg-primary text-background lg:p-3 xl:p-4 flex flex-col justify-between gap-2">
             <div className="flex items-start justify-between">
               <div className="flex flex-col justify-between h-full">
-                <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.16em] text-primary">
+                <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.16em]">
                   Active streak
                 </p>
                 <h3 className="lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold">
                   {summary.averageStreak}d
                 </h3>
-                <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
+                <p className="lg:text-[11px] xl:text-xs 2xl:text-sm">
                   Average streak across {summary.totalHabits} habits
                 </p>
               </div>
-              <div className="lg:w-9 lg:h-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                <Flame className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 text-primary" />
+              <div className="lg:w-9 lg:h-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11 rounded-full bg-black/10 flex items-center justify-center shrink-0">
+                <Flame className="lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
               </div>
             </div>
             {summary.streakGoalDays && summary.streakGoalDays > 0 && (
               <div className="lg:space-y-1 xl:space-y-1.5">
-                <div className="flex items-center justify-between lg:text-[9px] xl:text-[10px] text-muted-foreground">
+                <div className="flex items-center justify-between lg:text-[9px] xl:text-[10px]">
                   <span className="flex items-center gap-1">
                     <Target className="w-2.5 h-2.5" />
                     Goal: {summary.streakGoalDays}d
                   </span>
-                  <span className="font-semibold text-primary">
+                  <span className="font-semibold">
                     {summary.streakGoalProgress ?? 0}%
                   </span>
                 </div>
-                <div className="w-full bg-primary/10 rounded-full lg:h-1 xl:h-1.5">
+                <div className="w-full bg-gray-100 rounded-full lg:h-1 xl:h-1.5">
                   <div
-                    className="h-full rounded-full bg-primary transition-all duration-500"
+                    className="h-full rounded-full bg-muted-foreground transition-all duration-500"
                     style={{ width: `${summary.streakGoalProgress ?? 0}%` }}
                   />
                 </div>
                 {summary.streakGoalGap != null && summary.streakGoalGap > 0 && (
-                  <p className="lg:text-[9px] xl:text-[10px] text-muted-foreground">
+                  <p className="lg:text-[9px] xl:text-[10px]">
                     {summary.streakGoalGap}d to go
                   </p>
                 )}
@@ -332,56 +317,56 @@ const AnalyticsClient: React.FC<Props> = ({
             )}
           </div>
 
-          <div className="rounded-2xl bg-card shadow-sm lg:p-3 xl:p-4 flex items-start justify-between">
+          <div className="rounded-2xl bg-green-soft text-white lg:p-3 xl:p-4 flex items-start justify-between">
             <div className="flex flex-col justify-between h-full">
-              <p className="lg:text-[9px] xl:text-[11px] font-semibold uppercase tracking-[0.16em] text-green-600">
+              <p className="lg:text-[9px] xl:text-[11px] font-semibold uppercase tracking-[0.16em]">
                 Consistency
               </p>
               <h3 className="lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold">
                 {summary.averageSuccessRate}%
               </h3>
-              <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
+              <p className="lg:text-[11px] xl:text-xs 2xl:text-sm">
                 Completion across {summary.lookbackLabel}
               </p>
             </div>
-            <div className="lg:h-9 lg:w-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11 rounded-full bg-green-soft/30 flex items-center justify-center">
-              <Activity className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 text-green-soft" />
+            <div className="lg:h-9 lg:w-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11 rounded-full bg-black/20 flex items-center justify-center">
+              <Activity className="lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
             </div>
           </div>
 
-          <div className="rounded-2xl bg-card shadow-sm lg:p-3 xl:p-4 flex items-start justify-between">
+          <div className="rounded-2xl bg-coral text-white lg:p-3 xl:p-4 flex items-start justify-between">
             <div className="flex flex-col justify-between h-full">
-              <p className="lg:text-[11px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.16em] text-coral">
+              <p className="lg:text-[11px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.16em]">
                 Completion lift
               </p>
               <h3 className="lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold">
                 {summary.averageCompletion}%
               </h3>
-              <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
+              <p className="lg:text-[11px] xl:text-xs 2xl:text-sm">
                 Average daily completion
               </p>
             </div>
-            <div className="lg:w-9 lg:h-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11 rounded-full bg-coral/10 flex items-center justify-center">
-              <ArrowUpRight className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 text-coral" />
+            <div className="lg:w-9 lg:h-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11 rounded-full bg-black/20 flex items-center justify-center">
+              <ArrowUpRight className="lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
             </div>
           </div>
 
-          <div className="rounded-2xl bg-card shadow-sm lg:p-3 xl:p-4 flex items-start justify-between">
+          <div className="rounded-2xl bg-sky-400 text-white lg:p-3 xl:p-4 flex items-start justify-between">
             <div className="flex flex-col justify-between h-full">
-              <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.16em] text-sky-500">
+              <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.16em]">
                 Leader
               </p>
               <h3 className="lg:text-base xl:text-lg 2xl:text-xl font-semibold">
                 {summary.topStreak?.name ?? "Waiting for data"}
               </h3>
-              <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
+              <p className="lg:text-[11px] xl:text-xs 2xl:text-sm">
                 {summary.topStreak
                   ? `${summary.topStreak.streak} day streak`
                   : "Log habits to start a streak"}
               </p>
             </div>
-            <div className="lg:w-9 lg:h-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11 rounded-full bg-sky-600/30 flex items-center justify-center">
-              <ChessQueen className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 text-sky-600" />
+            <div className="lg:w-9 lg:h-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11 rounded-full bg-black/20 flex items-center justify-center">
+              <ChessQueen className="lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
             </div>
           </div>
         </section>
@@ -390,9 +375,6 @@ const AnalyticsClient: React.FC<Props> = ({
           <div className="col-span-2 flex flex-col h-full">
             <div className="flex items-start justify-between lg:mb-3 xl:mb-4">
               <div>
-                <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-                  Trend
-                </p>
                 <h3 className="lg:text-base xl:text-lg 2xl:text-xl font-semibold">
                   Momentum curve
                 </h3>
@@ -400,13 +382,12 @@ const AnalyticsClient: React.FC<Props> = ({
                   Completion over time, weighted by all habits.
                 </p>
               </div>
-              <div className="flex items-center gap-2 rounded-full bg-card/30 border border-gray-100 lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 lg:text-[8px] xl:text-[10px] 2xl:text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                <BarChart3 className="lg:w-2.5 lg:h-2.5 xl:w-3 xl:h-3 2xl:w-4 2xl:h-4" />
+              <div className="lg:text-[8px] xl:text-[10px] 2xl:text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 {summary.lookbackLabel}
               </div>
             </div>
 
-            <div className="relative flex-1 overflow-hidden bg-card shadow-inner lg:rounded-2xl xl:rounded-3xl lg:px-4 xl:px-6 lg:py-6 xl:py-8 flex flex-col lg:gap-2 xl:gap-3 lg:flex-none lg:h-[500px] xl:flex-1">
+            <div className="relative flex-1 overflow-hidden flex flex-col lg:gap-2 xl:gap-3 lg:flex-none lg:h-[500px] xl:flex-1">
               <div ref={chartAreaRef} className="relative flex-1">
                 <svg
                   viewBox={`0 0 ${chartWidth} ${chartHeight}`}
@@ -514,7 +495,6 @@ const AnalyticsClient: React.FC<Props> = ({
                         stroke="url(#strokeGradient)"
                         strokeWidth="3"
                         strokeLinecap="round"
-                        className="drop-shadow-sm"
                       />
                     ) : (
                       <rect
@@ -580,12 +560,9 @@ const AnalyticsClient: React.FC<Props> = ({
           </div>
 
           <div className="lg:space-y-3 xl:space-y-4">
-            <div className="lg:rounded-2xl xl:rounded-3xl bg-card shadow-inner lg:p-4 xl:p-6 flex flex-col lg:gap-3 xl:gap-4">
+            <div className="flex flex-col lg:gap-3 xl:gap-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="lg:text-[9px] xl:text-[10px] 2xl:text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
-                    Cadence map
-                  </p>
                   <h3 className="lg:text-sm xl:text-base 2xl:text-lg font-semibold">
                     Weekday rhythm
                   </h3>
@@ -593,14 +570,14 @@ const AnalyticsClient: React.FC<Props> = ({
                     {currentWeekLabel}
                   </p>
                 </div>
-                <div className="lg:h-9 lg:w-9 xl:h-10 xl:w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Rotate3D className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 text-primary" />
-                </div>
               </div>
 
               <div className="grid grid-cols-7 lg:gap-4 xl:gap-3 lg:mt-1.5 xl:mt-2">
                 {weekdayPerformance.map((day) => {
-                  const barHeight = Math.min(100, Math.max(0, Math.round(day.value * 100)));
+                  const barHeight = Math.min(
+                    100,
+                    Math.max(0, Math.round(day.value * 100)),
+                  );
                   const isToday = day.dateLabel === todayDateLabel;
                   const barColor =
                     day.value >= 0.75
@@ -618,20 +595,24 @@ const AnalyticsClient: React.FC<Props> = ({
                       className="flex flex-col items-center lg:gap-1 xl:gap-2 text-center"
                     >
                       <div
-                        className={`lg:h-24 xl:h-28 w-full rounded-full bg-card/40 overflow-hidden flex items-end transition-all ${isToday ? "ring-2 ring-primary ring-offset-1" : "border border-gray-100"}`}
+                        className={`lg:h-24 xl:h-28 w-full rounded-full bg-card/40 overflow-hidden flex items-end transition-all ${isToday ? "ring-2 ring-primary" : "border border-gray-100"}`}
                       >
                         <div
                           className={`w-full ${barColor} transition-all duration-500`}
                           style={{ height: `${barHeight}%` }}
                         />
                       </div>
-                      <div className={`lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold ${isToday ? "text-primary" : ""}`}>
+                      <div
+                        className={`lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold ${isToday ? "text-primary" : ""}`}
+                      >
                         {day.label}
                       </div>
                       <div className="lg:text-[9px] xl:text-[11px] 2xl:text-xs text-muted-foreground">
                         {day.dateLabel}
                       </div>
-                      <div className={`lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold ${isToday ? "text-primary" : "text-muted-foreground"}`}>
+                      <div
+                        className={`lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold ${isToday ? "text-primary" : "text-muted-foreground"}`}
+                      >
                         {barHeight}%
                       </div>
                     </div>
@@ -643,9 +624,6 @@ const AnalyticsClient: React.FC<Props> = ({
             <div>
               <div className="flex items-center justify-between lg:mb-2 xl:mb-4">
                 <div>
-                  <p className="lg:text-[9px] xl:text-[10px] 2xl:text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
-                    Todos overview
-                  </p>
                   <h3 className="lg:text-sm xl:text-base 2xl:text-lg font-semibold">
                     Status pie
                   </h3>
@@ -666,14 +644,14 @@ const AnalyticsClient: React.FC<Props> = ({
                 <div className="flex items-center lg:gap-4 xl:gap-6 lg:pt-4 xl:pt-6">
                   <div className="relative lg:h-36 lg:w-36 xl:h-52 xl:w-52 shrink-0">
                     <div
-                      className="h-full w-full rounded-full shadow-inner"
+                      className="h-full w-full rounded-full"
                       style={{
                         background: pieGradient
                           ? `conic-gradient(${pieGradient})`
                           : "radial-gradient(circle, #f4f4f5 0%, #e5e7eb 100%)",
                       }}
                     />
-                    <div className="absolute inset-4 rounded-full bg-white flex flex-col items-center justify-center text-center shadow-sm">
+                    <div className="absolute inset-4 rounded-full bg-white flex flex-col items-center justify-center text-center">
                       <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs uppercase tracking-[0.16em] text-muted-foreground">
                         Total
                       </p>
@@ -692,15 +670,12 @@ const AnalyticsClient: React.FC<Props> = ({
                       return (
                         <div
                           key={segment.status}
-                          className="flex justify-between items-center rounded-2xl bg-card shadow-inner lg:pl-3 xl:pl-4 lg:pr-2 xl:pr-3 lg:py-1 xl:py-2"
+                          className="flex justify-between items-center rounded-2xl bg-card lg:pl-3 xl:pl-4 lg:pr-2 xl:pr-3 lg:py-1 xl:py-2 border border-gray-100"
                         >
                           <p className="lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold">
                             {meta.label}
                           </p>
                           <div className="flex items-center lg:gap-1 xl:gap-1.5">
-                            <span className="lg:text-[9px] xl:text-[10px] text-muted-foreground tabular-nums">
-                              {segment.count}
-                            </span>
                             <div
                               className="rounded-full flex items-center justify-center lg:px-2 lg:py-0.5 xl:py-1 lg:text-[8px] xl:text-[11px] 2xl:text-xs font-bold"
                               style={{
@@ -720,71 +695,6 @@ const AnalyticsClient: React.FC<Props> = ({
             </div>
           </div>
         </section>
-
-        {/* Routine performance */}
-        {sortedRoutines.length > 0 && (
-          <section>
-            <div className="flex items-start justify-between lg:mb-3 xl:mb-4">
-              <div>
-                <p className="lg:text-[9px] xl:text-[11px] font-semibold uppercase tracking-[0.16em] text-primary">
-                  Routines
-                </p>
-                <h3 className="lg:text-base xl:text-lg 2xl:text-xl font-semibold">
-                  Routine performance
-                </h3>
-                <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
-                  Average habit completion per routine, ranked.
-                </p>
-              </div>
-            </div>
-            <div
-              ref={routineChartRef}
-              className="rounded-2xl xl:rounded-3xl bg-card shadow-inner lg:p-4 xl:p-6 flex flex-col lg:gap-4 xl:gap-5 border border-gray-100"
-            >
-              {sortedRoutines.map((routine) => {
-                const barColor =
-                  routine.completion >= 75
-                    ? "bg-green-500"
-                    : routine.completion >= 50
-                      ? "bg-amber-400"
-                      : "bg-coral";
-                return (
-                  <div
-                    key={routine.id}
-                    className="flex items-center lg:gap-3 xl:gap-4"
-                  >
-                    <div className="lg:w-32 xl:w-40 shrink-0">
-                      <p className="lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold truncate">
-                        {routine.name}
-                      </p>
-                      {routine.anchor && (
-                        <p className="lg:text-[9px] xl:text-[10px] text-muted-foreground truncate">
-                          {routine.anchor}
-                        </p>
-                      )}
-                    </div>
-                    <div className="flex-1 flex items-center lg:gap-2 xl:gap-3">
-                      <div className="flex-1 bg-gray-100 rounded-full lg:h-2 xl:h-2.5">
-                        <div
-                          className={`h-full rounded-full ${barColor} transition-all duration-500`}
-                          style={{ width: `${routine.completion}%` }}
-                        />
-                      </div>
-                      <span className="lg:text-[11px] xl:text-xs font-semibold lg:w-8 xl:w-10 text-right tabular-nums">
-                        {routine.completion}%
-                      </span>
-                      <span className="lg:text-[9px] xl:text-[10px] text-muted-foreground lg:w-14 xl:w-16">
-                        {routine.habitCount} habit
-                        {routine.habitCount !== 1 ? "s" : ""}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-        )}
-
       </div>
     </main>
   );
