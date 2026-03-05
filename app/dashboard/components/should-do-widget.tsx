@@ -196,7 +196,7 @@ const ShouldDoWidget: React.FC<ShouldDoWidgetProps> = () => {
 
   return (
     <div className="flex flex-col h-full text-foreground">
-      <div className="flex items-start justify-between lg:mb-6 xl:mb-8 2xl:mb-10">
+      <div className="flex items-start justify-between lg:mb-4 xl:mb-6 2xl:mb-8">
         <div className="lg:space-y-0.5 xl:space-y-1">
           <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
             Should Do!
@@ -232,7 +232,7 @@ const ShouldDoWidget: React.FC<ShouldDoWidgetProps> = () => {
             return (
               <div
                 key={idea.id}
-                className="flex-1 shadow-inner shadow-black/10 select-none border border-muted border-dashed bg-white flex items-center justify-between lg:py-1 xl:py-2 2xl:py-3 lg:px-3 xl:px-4 2xl:px-5 lg:rounded-xl 2xl:rounded-2xl hover:bg-gray-100 transition-colors"
+                className="flex-1 cursor-pointer select-none border-2 border-gray-200 border-dashed bg-white flex items-center justify-between lg:py-1 xl:py-2 2xl:py-3 lg:px-3 xl:px-4 2xl:px-5 lg:rounded-xl 2xl:rounded-2xl"
               >
                 <div className="flex items-center lg:gap-2 xl:gap-3 min-w-0">
                   <span className="shrink-0">
@@ -267,11 +267,7 @@ const ShouldDoWidget: React.FC<ShouldDoWidgetProps> = () => {
                   type="button"
                   onClick={() => handleLike(idea.id)}
                   disabled={likingId === idea.id || isSeed}
-                  className={`group inline-flex items-center justify-center rounded-full border lg:px-1.5 xl:px-2.5 lg:py-1 xl:py-2 transition-transform duration-200 ease-out active:scale-95 hover:-translate-y-0.5 shadow-sm ${
-                    isLiked
-                      ? "border-primary bg-primary text-white shadow-[0_10px_30px_-16px_rgba(59,130,246,0.8)]"
-                      : "border-gray-200 bg-white text-muted-foreground hover:border-primary/40 hover:shadow-[0_10px_30px_-18px_rgba(59,130,246,0.7)]"
-                  } ${isSeed ? "opacity-60 cursor-not-allowed" : ""}`}
+                  className={`group inline-flex items-center justify-center rounded-full lg:px-1.5 xl:px-2.5 lg:py-1 xl:py-2 transition-transform duration-200 ease-out active:scale-95 text-coral hover:-translate-y-0.5 ${isSeed ? "opacity-60 cursor-not-allowed" : ""}`}
                   aria-pressed={isLiked}
                   aria-label={
                     isSeed
@@ -281,11 +277,7 @@ const ShouldDoWidget: React.FC<ShouldDoWidgetProps> = () => {
                         : "Like this idea"
                   }
                 >
-                  <Heart
-                    className={`lg:w-3 lg:h-3 xl:w-4 xl:h-4 transition-transform duration-200 ease-out group-hover:scale-110 ${
-                      isLiked ? "text-white" : "text-primary"
-                    }`}
-                  />
+                  <Heart className="lg:w-3.5 lg:h-3.5 xl:w-4.5 xl:h-4.5 transition-transform duration-200 ease-out group-hover:scale-110" />
                 </button>
               </div>
             );

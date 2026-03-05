@@ -117,180 +117,177 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
   const formattedCompletionRate = `${Math.round(completionRate)}%`;
 
   return (
-    <div className="flex lg:gap-2 xl:gap-4 2xl:gap-6 h-fit text-foreground">
-      <div className="flex flex-col lg:gap-2 xl:gap-3">
-        <div className="flex items-center justify-between lg:gap-3 xl:gap-4">
-          <h2 className="lg:text-base xl:text-lg 2xl:text-xl font-semibold">
-            Analytics
-          </h2>
-          <PillButton href="/dashboard/analytics" variant="ghost">
-            <BarChart3 className="lg:w-2.5 lg:h-2.5 xl:w-3.5 xl:h-3.5 text-muted-foreground" />
-            Open
-          </PillButton>
-        </div>
-        <div className="lg:py-2 lg:px-2 xl:px-4 2xl:py-4 xl:max-h-max lg:rounded-2xl 2xl:rounded-3xl border-0 shadow-md bg-linear-to-br from-green-soft to-green-600">
-          <div className="flex items-center lg:gap-1 xl:gap-2 lg:mb-1 xl:mb-2">
-            <div className="lg:w-5 lg:h-5 xl:w-7 xl:h-7 2xl:w-8 2xl:h-8 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <TrendingUp className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 text-white" />
-            </div>
-            <span className="text-white/80 lg:text-[11px] xl:text-xs 2xl:text-sm">
-              Positive Habits
-            </span>
-          </div>
-          <div className="lg:text-2xl xl:text-3xl font-bold text-white xl:mb-1">
-            {formattedDelta}
-          </div>
-          <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs text-white/70">
-            vs previous week
-          </p>
-        </div>
-
-        <div className="lg:py-2 lg:px-2 xl:px-4 2xl:py-4 xl:max-h-max lg:rounded-2xl 2xl:rounded-3xl border-0 shadow-md bg-linear-to-br from-blue-300 to-blue-600">
-          <div className="flex items-center lg:gap-1 xl:gap-2 lg:mb-1 xl:mb-2">
-            <div className="lg:w-5 lg:h-5 xl:w-7 xl:h-7 2xl:w-8 2xl:h-8 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-              <CheckCircle className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 text-white" />
-            </div>
-            <span className="text-white/80 lg:text-[11px] xl:text-xs 2xl:text-sm">
-              Completion Rate
-            </span>
-          </div>
-          <div className="lg:text-2xl xl:text-3xl font-bold text-white xl:mb-1">
-            {formattedCompletionRate}
-          </div>
-          <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs text-white/70">
-            Average goal success across habits
-          </p>
-        </div>
-
-        <div className="h-full lg:p-1 xl:p-2 lg:rounded-2xl 2xl:rounded-3xl border-0 shadow-md bg-analytics-dark text-analytics-dark-foreground relative overflow-hidden">
-          <div className="absolute lg:-top-1 xl:-top-2 left-1/2 -translate-x-1/2 lg:w-36 xl:w-48 2xl:w-56 pointer-events-none select-none">
-            <Image
-              src={confettiImage}
-              width={1000}
-              height={1000}
-              alt="Confetti"
-              className="w-full h-full"
-            />
-          </div>
-          <div className="relative z-10 lg:pt-6 2xl:pt-2 flex flex-col justify-between h-full lg:gap-1 xl:gap-2 2xl:gap-3 items-center">
-            <div className="select-none lg:w-10 lg:h-10 xl:w-12 xl:h-12 bg-gray-300/30 rounded-full flex items-center justify-center lg:text-base xl:text-lg font-semibold">
-              🎁
-            </div>
-            <span className="lg:text-xs xl:text-sm 2xl:text-md opacity-80">
-              Habits Wrapped
-            </span>
-            <div className="lg:text-2xl xl:text-3xl font-bold">
-              {currentYear}
-            </div>
-            <Button className="bg-white hover:bg-card/90 text-card-foreground lg:h-7 xl:h-9 2xl:h-10 lg:text-[10px] xl:text-xs 2xl:text-sm lg:mt-1 xl:mt-2 transition-all duration-100 inline-flex items-center justify-center px-4 rounded-full border border-gray-100 shadow-sm">
-              View
-            </Button>
-          </div>
-        </div>
+    <div className="flex flex-col lg:gap-2 xl:gap-4 2xl:gap-6 h-fit text-foreground">
+      <div className="flex items-center justify-between lg:gap-3 xl:gap-4">
+        <h2 className="lg:text-base xl:text-lg 2xl:text-xl font-semibold">
+          Analytics
+        </h2>
+        <PillButton href="/dashboard/analytics" variant="ghost">
+          View details
+        </PillButton>
       </div>
-
-      <div className="space-y-4 grow w-full h-full">
-        <div className="lg:px-3 lg:pt-2 xl:px-4 2xl:px-6 xl:pt-4 2xl:pt-6 lg:rounded-xl xl:rounded-2xl 2xl:rounded-3xl shadow-inner bg-muted/30 shadow-black/10 h-full">
-          <div className="flex items-center justify-between lg:mb-2 xl:mb-4 2xl:mb-6 lg:gap-1 xl:gap-2">
-            <div className="lg:space-y-0.5 xl:space-y-1">
-              <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-                Favorite Habits
-              </h3>
-              {selectedDay ? (
-                <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs text-muted-foreground">
-                  {selectedDay.label} - {selectedDay.completion}% of daily goals
-                  completed
-                </p>
-              ) : (
-                <p className="xl:text-[11px] 2xl:text-xs text-muted-foreground">
-                  No recent check-ins yet
-                </p>
-              )}
+      <div className="flex gap-4">
+        <div className="min-w-40 flex lg:gap-2 xl:gap-3">
+          <div className="flex flex-col lg:gap-2 xl:gap-3">
+            <div className="lg:py-2 lg:px-2 xl:px-3 2xl:py-4 xl:max-h-max rounded-tl-none lg:rounded-b-2xl 2xl:rounded-b-3xl lg:rounded-tr-2xl 2xl:rounded-tr-3xl border-0 bg-[#41ab5d]">
+              <div className="flex items-center lg:gap-1 xl:gap-2 lg:mb-1 xl:mb-2">
+                <div className="lg:w-5 lg:h-5 xl:w-7 xl:h-7 2xl:w-8 2xl:h-8 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <TrendingUp className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 text-white" />
+                </div>
+                <span className="text-white/80 lg:text-[11px] xl:text-xs 2xl:text-sm">
+                  Positive Habits
+                </span>
+              </div>
+              <div className="lg:text-2xl xl:text-3xl font-bold text-white xl:mb-1">
+                {formattedDelta}
+              </div>
             </div>
 
-            <div className="flex items-center lg:gap-2 xl:gap-3">
-              <div className="flex gap-1 shadow-sm rounded-full bg-white">
-                <Button className="lg:h-6 lg:w-6 xl:h-8 xl:w-8 2xl:h-10 2xl:w-10 border-muted border">
-                  <Search className="lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 2xl:w-4 2xl:h-4" />
-                </Button>
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={searchQuery}
-                  onChange={(event) => setSearchQuery(event.target.value)}
-                  className="pl-1 pr-4 outline-none lg:w-20 xl:w-28 lg:text-[10px] xl:text-xs 2xl:text-sm text-muted-foreground bg-transparent rounded-full placeholder:text-muted-foreground"
+            <div className="lg:py-2 lg:px-2 xl:px-3 2xl:py-4 xl:max-h-max lg:rounded-2xl 2xl:rounded-3xl border-0 bg-blue-500">
+              <div className="flex items-center lg:gap-1 xl:gap-2 lg:mb-1 xl:mb-2">
+                <div className="lg:w-5 lg:h-5 xl:w-7 xl:h-7 2xl:w-8 2xl:h-8 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                  <CheckCircle className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 text-white" />
+                </div>
+                <span className="text-white/80 lg:text-[11px] xl:text-xs 2xl:text-sm">
+                  Completion Rate
+                </span>
+              </div>
+              <div className="lg:text-2xl xl:text-3xl font-bold text-white xl:mb-1">
+                {formattedCompletionRate}
+              </div>
+            </div>
+
+            <div className="h-full lg:p-1 xl:p-2 lg:rounded-2xl 2xl:rounded-3xl border-0 bg-analytics-dark text-analytics-dark-foreground relative overflow-hidden">
+              <div className="absolute lg:-top-1 xl:-top-2 left-1/2 -translate-x-1/2 lg:w-36 xl:w-48 2xl:w-56 pointer-events-none select-none">
+                <Image
+                  src={confettiImage}
+                  width={1000}
+                  height={1000}
+                  alt="Confetti"
+                  className="w-full h-full"
                 />
               </div>
+              <div className="relative z-10 lg:pt-6 2xl:pt-2 flex flex-col justify-between h-full lg:gap-1 xl:gap-2 2xl:gap-3 items-center">
+                <div className="select-none lg:w-8 lg:h-8 xl:w-10 xl:h-10 bg-gray-300/30 rounded-full flex items-center justify-center lg:text-lg xl:text-xl font-semibold">
+                  🎁
+                </div>
+                <span className="lg:text-xs xl:text-sm 2xl:text-md opacity-80">
+                  Habits Wrapped
+                </span>
+                <div className="lg:text-2xl xl:text-3xl font-bold">
+                  {currentYear}
+                </div>
+                <Button className="bg-white hover:bg-card/90 text-card-foreground lg:h-7 xl:h-9 2xl:h-10 lg:text-[10px] xl:text-xs 2xl:text-sm lg:mt-1 xl:mt-2 transition-all duration-100 inline-flex items-center justify-center px-4 rounded-full border border-gray-100 shadow-sm">
+                  View
+                </Button>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="space-y-4 overflow-x-auto flex flex-col h-full">
-            <div className="grid grid-cols-5 xl:gap-1 2xl:gap-2 lg:text-[8px] xl:text-[10px] 2xl:text-xs text-muted-foreground mb-2 min-w-max sm:min-w-0 flex-none">
-              {recentDays.length === 0 ? (
-                <div className="col-span-5 text-muted-foreground text-center py-2">
-                  No recent days to show
+        <div className="space-y-4 grow w-full h-full">
+          <div className="lg:px-3 lg:pt-2 xl:px-4 2xl:px-6 xl:pt-4 2xl:pt-6 lg:rounded-xl xl:rounded-2xl 2xl:rounded-3xl bg-card border-8 border-gray-100 shadow-black/10 h-full pb-4">
+            <div className="flex items-center justify-between lg:mb-2 xl:mb-4 2xl:mb-6 lg:gap-1 xl:gap-2">
+              <div className="lg:space-y-0.5 xl:space-y-1">
+                <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
+                  Favorite Habits
+                </h3>
+                {selectedDay ? (
+                  <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs text-muted-foreground">
+                    {selectedDay.label} - {selectedDay.completion}% of daily
+                    goals completed
+                  </p>
+                ) : (
+                  <p className="xl:text-[11px] 2xl:text-xs text-muted-foreground">
+                    No recent check-ins yet
+                  </p>
+                )}
+              </div>
+
+              <div className="flex items-center lg:gap-2 xl:gap-3">
+                <div className="flex gap-1 bg-white">
+                  <Button className="lg:h-6 lg:w-6 xl:h-8 xl:w-8 2xl:h-10 2xl:w-10 border-muted border">
+                    <Search className="lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 2xl:w-4 2xl:h-4" />
+                  </Button>
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    value={searchQuery}
+                    onChange={(event) => setSearchQuery(event.target.value)}
+                    className="pl-1 pr-4 outline-none lg:w-20 xl:w-28 lg:text-[10px] xl:text-xs 2xl:text-sm text-muted-foreground bg-transparent rounded-full placeholder:text-muted-foreground"
+                  />
                 </div>
-              ) : (
-                recentDays.map((day, index) => (
-                  <div
-                    key={day.key}
-                    className={`lg:pb-1 xl:pb-2 text-center border-b-2 hover:border-muted-foreground cursor-pointer ${
-                      selectedDayIndex === index
-                        ? "border-muted-foreground"
-                        : "border-white"
-                    }`}
-                    onClick={() => setSelectedDayIndex(index)}
-                    title={`${day.completion}% complete`}
-                  >
-                    {day.label}
-                  </div>
-                ))
-              )}
+              </div>
             </div>
 
-            {habitsWithColors.length === 0 ? (
-              <div className="flex-1 w-full lg:max-h-36 xl:max-h-40 grid place-items-center lg:rounded-xl xl:rounded-2xl border border-dashed border-muted/60 bg-muted/10 px-3 text-center whitespace-normal overflow-hidden text-muted-foreground lg:text-[10px] xl:text-xs 2xl:text-sm">
-                Log habit progress to see who is leading.
-              </div>
-            ) : (
-              <div className="relative flex flex-1 overflow-hidden justify-start">
-                {habitsWithColors.map((habit) => {
-                  const heightPercent = Math.max(
-                    0,
-                    Math.min(100, habit.percentage),
-                  );
-                  const barWidthPercent = `${100 / baseHabitCount}%`;
-                  return (
+            <div className="space-y-4 overflow-x-auto flex flex-col h-full">
+              <div className="grid grid-cols-5 xl:gap-1 2xl:gap-2 lg:text-[8px] xl:text-[10px] 2xl:text-xs text-muted-foreground mb-2 min-w-max sm:min-w-0 flex-none">
+                {recentDays.length === 0 ? (
+                  <div className="col-span-5 text-muted-foreground text-center py-2">
+                    No recent days to show
+                  </div>
+                ) : (
+                  recentDays.map((day, index) => (
                     <div
-                      key={habit.id}
-                      className="group h-10/12 relative flex flex-col items-center justify-between lg:p-1 xl:p-2 transition hover:bg-primary/20"
-                      style={{
-                        flex: `0 0 ${barWidthPercent}`,
-                        maxWidth: barWidthPercent,
-                      }}
+                      key={day.key}
+                      className={`lg:pb-1 xl:pb-2 text-center border-b-2 hover:border-muted-foreground cursor-pointer ${
+                        selectedDayIndex === index
+                          ? "border-muted-foreground"
+                          : "border-gray-200"
+                      }`}
+                      onClick={() => setSelectedDayIndex(index)}
+                      title={`${day.completion}% complete`}
                     >
-                      <div className="flex flex-col items-center gap-1 text-center lg:min-h-12 xl:min-h-16">
-                        <div className="lg:text-[11px] xl:text-xs text-wrap xl:mt-1 2xl:mt-2 truncate w-full font-medium">
-                          {habit.name}
-                        </div>
-                        <div className="lg:text-[7px] xl:text-[9px] 2xl:text-[10px] sm:text-xs text-muted-foreground lg:mb-0.5 xl:mb-1">
-                          {habit.percentage}%
-                        </div>
-                      </div>
-                      <div className="flex-1 w-full flex items-start">
-                        <div
-                          className={`w-full ${habit.color} shadow-md rounded-lg sm:rounded-xl transition-all hover:opacity-80`}
-                          style={{
-                            height: `${heightPercent}%`,
-                            maxHeight: "100%",
-                          }}
-                        ></div>
-                      </div>
+                      {day.label}
                     </div>
-                  );
-                })}
+                  ))
+                )}
               </div>
-            )}
+
+              {habitsWithColors.length === 0 ? (
+                <div className="flex-1 w-full lg:max-h-36 xl:max-h-40 grid place-items-center lg:rounded-xl xl:rounded-2xl border border-dashed border-muted/60 bg-muted/10 px-3 text-center whitespace-normal overflow-hidden text-muted-foreground lg:text-[10px] xl:text-xs 2xl:text-sm">
+                  Log habit progress to see who is leading.
+                </div>
+              ) : (
+                <div className="relative flex flex-1 overflow-hidden justify-start">
+                  {habitsWithColors.map((habit) => {
+                    const heightPercent = Math.max(
+                      0,
+                      Math.min(100, habit.percentage),
+                    );
+                    const barWidthPercent = `${100 / baseHabitCount}%`;
+                    return (
+                      <div
+                        key={habit.id}
+                        className="group h-10/12 relative flex flex-col items-center justify-between lg:p-1 xl:p-2 transition hover:bg-gray-100"
+                        style={{
+                          flex: `0 0 ${barWidthPercent}`,
+                          maxWidth: barWidthPercent,
+                        }}
+                      >
+                        <div className="flex flex-col items-center gap-1 text-center lg:min-h-10 xl:min-h-12">
+                          <div className="lg:text-[11px] xl:text-xs text-wrap xl:mt-1 2xl:mt-2 truncate w-full font-medium">
+                            {habit.name}
+                          </div>
+                          <div className="lg:text-[7px] xl:text-[9px] 2xl:text-[10px] sm:text-xs text-muted-foreground lg:mb-0.5 xl:mb-1">
+                            {habit.percentage}%
+                          </div>
+                        </div>
+                        <div className="flex-1 w-full flex items-start">
+                          <div
+                            className={`w-full ${habit.color} rounded-lg sm:rounded-xl transition-all hover:opacity-80`}
+                            style={{
+                              height: `${heightPercent}%`,
+                              maxHeight: "100%",
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

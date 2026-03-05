@@ -4,6 +4,7 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "Dashboard", href: "/dashboard" },
   { label: "Todos", href: "/dashboard/todos" },
+  { label: "Habits", href: "/dashboard/habits" },
 ];
 
 const legalLinks = [
@@ -16,14 +17,14 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative border-t lg:border-b-4 xl:border-b-6 2xl:border-b-8 border-b-primary border-muted/60 bg-card text-foreground shadow-inner shadow-gray-200/40 overflow-visible">
+    <footer className="relative border-t lg:border-b-4 xl:border-b-6 2xl:border-b-8 border-b-primary border-muted/60 bg-card text-foreground shadow-gray-200/40 overflow-visible">
       <div className="mx-auto lg:px-4 xl:px-8 2xl:px-28 space-y-10 xl:pt-8 xl:pb-6 lg:pb-4 lg:pt-6 2xl:pt-10 2xl:pb-8">
         <div className="grid lg:gap-4 xl:gap-6 2xl:gap-8 lg:grid-cols-[1.4fr_1fr_1fr]">
           <div className="flex flex-col justify-between">
             <div className="flex items-center lg:gap-2 xl:gap-3">
               <div className="space-y-1 lg:text-xs xl:text-sm 2xl:text-base">
                 <p className="font-semibold text-foreground">Growly</p>
-                <p className="lg:text-xs xl:text-sm text-muted-foreground">
+                <p className="lg:text-[11px] xl:text-xs text-muted-foreground">
                   Stay consistent, win the tiny moments.
                 </p>
               </div>
@@ -39,15 +40,15 @@ export default function Footer() {
           </div>
 
           <div className="lg:space-y-2 xl:space-y-3">
-            <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground/80">
+            <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground/80">
               Navigate
             </p>
-            <nav className="flex flex-col lg:gap-1 2xl:gap-2 lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground/90">
+            <nav className="flex flex-col lg:gap-4 2xl:gap-6 lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground/90">
               {navLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="rounded-xl lg:px-2 xl:px-3 lg:py-1 xl:py-2 hover:bg-card/70 hover:text-primary transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -57,14 +58,14 @@ export default function Footer() {
 
           <div className="flex flex-col justify-between lg:text-[10px] xl:text-xs 2xl:text-sm text-muted-foreground">
             <div className="lg:space-y-2 xl:space-y-3">
-              <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.3em] text-muted-foreground/80">
+              <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground/80">
                 Keep in touch
               </p>
               <p className="leading-relaxed">
                 Questions or ideas? Reach out any time and we will keep the tiny
                 wins coming.
               </p>
-              <div className="lg:text-[9px] xl:text-[11px] 2xl:text-xs uppercase tracking-[0.4em] text-primary">
+              <div className="lg:text-[9px] xl:text-[11px] 2xl:text-xs tracking-[0.2em] text-primary">
                 hello@growly.app
               </div>
             </div>

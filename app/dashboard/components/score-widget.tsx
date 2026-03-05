@@ -137,13 +137,11 @@ const ScoreWidget: React.FC = () => {
   return (
     <div className="text-foreground lg:py-2 xl:py-3 2xl:py-4">
       <div className="flex items-center justify-between lg:mb-1 xl:mb-2">
-        <h3 className="lg:text-xs xl:text-sm font-semibold uppercase tracking-wider">
-          Habit Score
-        </h3>
+        <h3 className="lg:text-xs xl:text-lg font-semibold">Habit Score</h3>
       </div>
       <div className="flex flex-col lg:gap-2 xl:gap-3 2xl:gap-4">
         <div className="flex items-center justify-between">
-          <div className="flex flex-col items-center lg:px-2 lg:py-1 xl:px-3 xl:py-2 2xl:px-4 2xl:py-3 lg:rounded-sm xl:rounded-lg bg-secondary/50 text-primary select-none">
+          <div className="flex flex-col items-center lg:rounded-sm xl:rounded-lg text-primary select-none">
             <span className="lg:text-base xl:text-lg 2xl:text-xl font-extrabold leading-none">
               {level}
             </span>
@@ -202,12 +200,16 @@ const ScoreWidget: React.FC = () => {
             <span className={isNearLevelUp ? "text-amber-500 font-bold" : ""}>
               {isNearLevelUp ? "Almost there!" : `XP to Level ${nextLevel}:`}
             </span>
-            <span className={`font-extrabold ${isNearLevelUp ? "text-amber-500" : "text-green-soft"}`}>
+            <span
+              className={`font-extrabold ${isNearLevelUp ? "text-amber-500" : "text-green-soft"}`}
+            >
               {formatNumber(xpGainedInLevel)} /{" "}
               {formatNumber(xpNeededForLevelUp)}
             </span>
           </p>
-          <div className={`w-full rounded-full lg:h-1.5 xl:h-2.5 bg-muted relative overflow-hidden ${isNearLevelUp ? "ring-1 ring-amber-400/50" : ""}`}>
+          <div
+            className={`w-full rounded-full lg:h-1.5 xl:h-2.5 bg-muted relative overflow-hidden ${isNearLevelUp ? "ring-1 ring-amber-400/50" : ""}`}
+          >
             <div
               className={progressFillClassName}
               style={{ width: `${safeProgress}%` }}

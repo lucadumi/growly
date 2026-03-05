@@ -69,6 +69,12 @@ const buildUpdateData = (body: any): Prisma.TodoUpdateInput => {
   if (has("iconColor")) {
     data.iconColor = body.iconColor || "#E5E7EB";
   }
+  if (has("location")) {
+    data.location = body.location || null;
+  }
+  if (has("scheduledTime")) {
+    data.scheduledTime = body.scheduledTime || null;
+  }
 
   return data;
 };

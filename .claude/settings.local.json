@@ -3,7 +3,9 @@
     "allow": [
       "Bash(npx tsc --noEmit)",
       "Bash(npx tsc --noEmit --skipLibCheck)",
-      "Bash(npx tsc --noEmit --project tsconfig.json)"
+      "Bash(npx tsc --noEmit --project tsconfig.json)",
+      "Bash(npx prisma db push)",
+      "Bash(npx prisma:*)"
     ]
   }
 }

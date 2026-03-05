@@ -3,7 +3,14 @@
 import Link from "next/link";
 import type { FC } from "react";
 import { useRef } from "react";
-import { Check, icons, LucideIcon, Sparkles } from "lucide-react";
+import {
+  Check,
+  Clock3,
+  icons,
+  LucideIcon,
+  MapPin,
+  Sparkles,
+} from "lucide-react";
 
 export interface TodoItem {
   id: string;
@@ -14,6 +21,8 @@ export interface TodoItem {
   statusLabel: string;
   statusColor: string;
   status: "PLANNED" | "IN_PROGRESS" | "COMPLETED" | "MISSED";
+  location?: string | null;
+  scheduledTime?: string | null;
 }
 
 interface TodoProps {
@@ -32,6 +41,7 @@ interface CheckedBoxProps {
 
 const CheckedBox: FC<CheckedBoxProps> = ({ checked, onClick, disabled }) => {
   const ref = useRef<HTMLButtonElement | null>(null);
+  const isDisabled = disabled || checked;
 
   return (
     <button
@@ -40,17 +50,17 @@ const CheckedBox: FC<CheckedBoxProps> = ({ checked, onClick, disabled }) => {
       onClick={(event) => {
         event.preventDefault();
         event.stopPropagation();
-        if (!disabled && onClick) {
+        if (!isDisabled && onClick) {
           onClick(ref.current || undefined);
         }
       }}
-      disabled={disabled}
+      disabled={isDisabled}
       aria-label={checked ? "Completed" : "Mark complete"}
       className={`${
         checked
           ? "bg-green-soft border-green-soft"
-          : "border-primary bg-transparent"
-      } border shrink-0 lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 rounded-full grid place-items-center transition hover:scale-105 disabled:opacity-60`}
+          : "border-gray-300 bg-transparent"
+      } border shrink-0 lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 rounded-[5px] grid place-items-center transition hover:scale-105 disabled:opacity-60 disabled:scale-100 disabled:cursor-not-allowed`}
     >
       {checked ? (
         <Check className="lg:w-2 lg:h-2 xl:w-3 xl:h-3 2xl:w-4 2xl:h-4 text-white" />
@@ -61,6 +71,13 @@ const CheckedBox: FC<CheckedBoxProps> = ({ checked, onClick, disabled }) => {
   );
 };
 
+const formatTime = (time: string) => {
+  const [h, m] = time.split(":").map(Number);
+  const period = h >= 12 ? "pm" : "am";
+  const hour = h % 12 === 0 ? 12 : h % 12;
+  return `${hour}:${String(m).padStart(2, "0")}${period}`;
+};
+
 const Todo: FC<TodoProps> = ({
   todo,
   href,
@@ -69,15 +86,12 @@ const Todo: FC<TodoProps> = ({
   disabled = false,
 }) => {
   return (
-    <div className="relative flex items-start bg-muted/20 lg:gap-2 xl:gap-3 select-none hover:opacity-80 border border-muted-foreground/5 lg:p-2 2xl:p-3 shadow-inner hover:shadow-none transition lg:rounded-xl xl:rounded-2xl">
+    <div className="relative flex items-center lg:gap-2 xl:gap-3 select-none hover:opacity-80  hover:shadow-none transition lg:rounded-xl xl:rounded-2xl">
       <Link
         href={href || "#"}
         className="flex items-start lg:gap-2 xl:gap-3 flex-1 min-w-0 group"
       >
-        <div
-          className="grid place-items-center lg:w-10 lg:h-10 xl:w-12 xl:h-12 lg:rounded-sm xl:rounded-lg 2xl:rounded-xl shrink-0 border border-white shadow-sm"
-          style={{ backgroundColor: todo.iconColor || "#E5E7EB" }}
-        >
+        <div className="grid place-items-center lg:w-10 lg:h-10 xl:w-12 xl:h-12 lg:rounded-sm xl:rounded-md bg-gray-50 shrink-0">
           {(() => {
             const IconComp =
               (icons as Record<string, LucideIcon>)[todo.iconKey] || Sparkles;
@@ -87,36 +101,29 @@ const Todo: FC<TodoProps> = ({
           })()}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="relative mb-1">
+          <div className="mb-1">
             <div
-              className={`font-medium lg:text-[11px] xl:text-[13px] 2xl:text-[15px] truncate transition-colors ${
+              className={`font-medium lg:text-[11px] xl:text-[13px] 2xl:text-[15px] truncate text-foreground transition-colors ${
                 todo.completed || isCompleting
-                  ? "text-muted-foreground"
-                  : "text-foreground"
+                  ? "line-through decoration-[1.5px] decoration-muted-foreground"
+                  : ""
               }`}
             >
               {todo.title}
             </div>
-            <span
-              className={`pointer-events-none absolute left-0 right-0 top-1/2 h-0.5 origin-left rounded-full bg-muted-foreground transition-transform duration-300 ${
-                todo.completed || isCompleting ? "scale-x-100" : "scale-x-0"
-              }`}
-            />
           </div>
 
-          <div className="flex items-center lg:gap-1 xl:gap-2 mb-1">
-            <span
-              className="inline-flex items-center gap-1 rounded-full lg:px-1 xl:px-2 xl:py-0.5 lg:text-[7px] xl:text-[10px] 2xl:text-[11px] font-semibold"
-              style={{
-                backgroundColor: `${todo.statusColor}20`,
-                color: todo.statusColor,
-              }}
-            >
-              <span
-                className="lg:h-1 lg:w-1 xl:h-2 xl:w-2 rounded-full"
-                style={{ backgroundColor: todo.statusColor }}
-              />
-              {todo.statusLabel}
+          <div className="flex items-center gap-1.5 flex-wrap mt-0.5">
+            <span className="inline-flex items-center gap-1.5 lg:text-[8px] xl:text-[10px] 2xl:text-[12px] text-muted-foreground">
+              <Clock3 className="lg:w-2 lg:h-2 xl:w-2.5 xl:h-2.5 shrink-0" />
+              {todo.scheduledTime ? formatTime(todo.scheduledTime) : "--:--"}
+            </span>
+            <span className="lg:text-[7px] xl:text-[9px] text-muted-foreground/30">
+              •
+            </span>
+            <span className="inline-flex items-center gap-1.5 lg:text-[8px] xl:text-[10px] 2xl:text-[12px] truncate text-muted-foreground">
+              <MapPin className="lg:w-2 lg:h-2 xl:w-2.5 xl:h-2.5 shrink-0" />
+              {todo.location || "No location"}
             </span>
           </div>
         </div>
@@ -126,7 +133,7 @@ const Todo: FC<TodoProps> = ({
         onClick={
           onComplete ? (origin) => onComplete(todo.id, origin) : undefined
         }
-        disabled={disabled}
+        disabled={disabled || !!todo.completed}
       />
       {isCompleting ? (
         <div

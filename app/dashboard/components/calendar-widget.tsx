@@ -194,9 +194,14 @@ const CalendarWidget: React.FC<CalendarWidgetProps> = ({ progressByDay }) => {
         </div>
       ))}
 
-      <div className="flex items-center lg:gap-0.5 xl:gap-1 2xl:gap-2 lg:mt-1 xl:mt-2 2xl:mt-3 lg:text-[9px] xl:text-xs 2xl:text-sm text-emerald-400 font-medium">
-        <ClipboardCheck className="lg:w-2 lg:h-2 xl:w-3 xl:h-3 2xl:w-4 2xl:h-4" />
-        <p>Today {Math.round(todayProgress * 100)}% of habits completed</p>
+      <div className="flex items-center lg:gap-0.5 xl:gap-1 2xl:gap-2 lg:mt-1 xl:mt-2 2xl:mt-3 lg:text-[9px] xl:text-xs 2xl:text-sm text-foreground font-medium">
+        <p>
+          Today{" "}
+          <span className="text-green-500">
+            {Math.round(todayProgress * 100)}%
+          </span>{" "}
+          of habits completed
+        </p>
       </div>
     </div>
   );

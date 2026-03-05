@@ -11,14 +11,10 @@ type Location = {
 };
 
 const seasonalBackgrounds: Record<string, string> = {
-  spring:
-    "radial-gradient(circle at 20% 20%, #e3f9e5 0, #f6fff2 25%, transparent 40%), linear-gradient(135deg, #d4f4dd 0%, #a1e5b9 50%, #7fd1ae 100%)",
-  summer:
-    "radial-gradient(circle at 80% 10%, #fff3c5 0, #ffe8a3 28%, transparent 45%), linear-gradient(135deg, #ffd89b 0%, #fcb69f 50%, #ff9a9e 100%)",
-  autumn:
-    "radial-gradient(circle at 15% 15%, #fff2db 0, #ffdfb8 30%, transparent 48%), linear-gradient(135deg, #f7c978 0%, #f78ca0 50%, #f9748f 100%)",
-  winter:
-    "radial-gradient(circle at 80% 20%, #d8ebff 0, #bddbff 32%, transparent 48%), linear-gradient(135deg, #8ec5fc 0%, #e0c3fc 100%)",
+  spring: "#7fd1ae",
+  summer: "#fcb69f",
+  autumn: "#f7c978",
+  winter: "#8ec5fc",
 };
 
 const DEGREE_SYMBOL = "\u00B0";
@@ -91,37 +87,9 @@ const getWeatherIcon = (code: number, isDay: boolean) => {
   return "/weather/sunny.png";
 };
 
-const getWeatherLabel = (code: number) => {
-  if (code === 0) {
-    return "Clear skies";
-  }
-
-  if ([1, 2, 3].includes(code)) {
-    return "Partly cloudy";
-  }
-
-  if ([45, 48].includes(code)) {
-    return "Foggy";
-  }
-
-  if ([51, 53, 55, 61, 63, 65, 66, 67].includes(code)) {
-    return "Light showers";
-  }
-
-  if ([71, 73, 75, 77, 85, 86].includes(code)) {
-    return "Snow";
-  }
-
-  if ([95, 96, 99].includes(code)) {
-    return "Thunderstorm";
-  }
-
-  return "Changing conditions";
-};
-
 const fetchWeatherData = async (
   loc: Location,
-  signal: AbortSignal
+  signal: AbortSignal,
 ): Promise<WeatherState> => {
   const endpoint = `https://api.open-meteo.com/v1/forecast?latitude=${loc.latitude}&longitude=${loc.longitude}&current_weather=true&hourly=precipitation&timezone=auto`;
   const response = await fetch(endpoint, { signal });
@@ -210,7 +178,7 @@ const WeatherWidget: FC = () => {
       try {
         const weatherState = await fetchWeatherData(
           location,
-          controller.signal
+          controller.signal,
         );
         if (controller.signal.aborted) {
           return;
@@ -231,7 +199,7 @@ const WeatherWidget: FC = () => {
         }
       }
     },
-    [location, locationStatus]
+    [location, locationStatus],
   );
 
   useEffect(() => {
@@ -263,7 +231,7 @@ const WeatherWidget: FC = () => {
   }, [loadWeather, location, locationStatus]);
 
   const activeSeason = getSeason(new Date().getMonth());
-  const backgroundImage = seasonalBackgrounds[activeSeason];
+  const backgroundColor = seasonalBackgrounds[activeSeason];
   const iconUrl = weather
     ? getWeatherIcon(weather.weatherCode, weather.isDay)
     : "/weather/sunny.png";
@@ -274,11 +242,6 @@ const WeatherWidget: FC = () => {
     ? "Enable location access to refresh weather"
     : "Refresh weather";
 
-  const weatherLabel = error
-    ? error
-    : weather
-    ? getWeatherLabel(weather.weatherCode)
-    : "Fetching current conditions...";
   const temperatureDisplay = weather
     ? formatTemperature(weather.temperature)
     : `--${DEGREE_SYMBOL}C`;
@@ -306,23 +269,23 @@ const WeatherWidget: FC = () => {
           disabled={!canRefresh || isManualRefreshing}
           aria-label="Refresh weather"
           title={refreshTitle}
-          className="inline-flex items-center justify-center rounded-full border border-white/60 bg-card/80 lg:w-7 lg:h-7 xl:w-8 xl:h-8 2xl:w-9 2xl:h-9 text-muted-foreground transition hover:border-primary/60 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center justify-center rounded-full bg-card/80 cursor-pointer text-muted-foreground transition hover:border-primary/60 hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50"
         >
           <RefreshCw
-            className={`lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 2xl:w-4 2xl:h-4 ${
+            className={`lg:w-3.5 lg:h-3.5 xl:w-4 xl:h-4 2xl:w-4.5 2xl:h-4.5 ${
               isManualRefreshing ? "animate-spin text-primary" : ""
             }`}
           />
         </button>
       </div>
       <div
-        className="relative text-foreground flex flex-col justify-top shadow-md lg:h-48 xl:h-64 2xl:h-80 bg-cover bg-bottom bg-no-repeat lg:p-3 xl:p-4 2xl:p-6 lg:rounded-xl 2xl:rounded-2xl"
-        style={{ backgroundImage }}
+        className="relative text-foreground flex flex-col justify-top shadow-sm lg:h-48 xl:h-64 2xl:h-80 bg-cover bg-bottom bg-no-repeat lg:p-3 xl:p-4 2xl:p-6 lg:rounded-xl 2xl:rounded-2xl"
+        style={{ backgroundColor }}
       >
         {status === "loading" && !weather && !isLocationUnavailable && (
           <div className="absolute inset-0 rounded-xl bg-card/90 flex flex-col items-center justify-center gap-2">
             <span className="lg:h-6 lg:w-6 xl:h-8 xl:w-8 animate-spin rounded-full border-4 border-white border-t-primary" />
-            <p className="lg:text-[9px] xl:text-[11px] uppercase tracking-[0.4em] text-muted-foreground/80">
+            <p className="lg:text-[9px] xl:text-[11px] uppercase tracking-[0.2em] text-muted-foreground/80">
               Loading weather
             </p>
           </div>
@@ -344,7 +307,7 @@ const WeatherWidget: FC = () => {
                 src={iconUrl}
                 width={100}
                 height={100}
-                alt={weatherLabel}
+                alt={"Weather"}
                 className="lg:w-6 lg:h-6 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 pointer-events-none"
               />
             </div>
@@ -352,9 +315,7 @@ const WeatherWidget: FC = () => {
             <p className="text-right lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold lg:mb-2 xl:mb-3">
               {temperatureDisplay}
             </p>
-            <p className="text-right lg:text-xs xl:text-sm 2xl:text-base uppercase tracking-[0.5em] text-muted-foreground/70">
-              {weatherLabel}
-            </p>
+
             {error && (
               <p className="text-right lg:text-[10px] xl:text-xs text-red-500/90 mt-1">
                 {error}

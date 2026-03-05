@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FC } from "react";
-import { CalendarDays, Clock3, Plus, Sparkles } from "lucide-react";
+import { CalendarDays, Clock3, Plus } from "lucide-react";
 import PillButton from "@/app/components/ui/pill-button";
 
 import { useXP } from "@/app/context/xp-context";
@@ -38,28 +38,26 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
 
   const activeTodos = useMemo(
     () => todos.filter((todo) => ACTIVE_STATUSES.includes(todo.status)),
-    [todos]
+    [todos],
   );
 
-  const topTodos = activeTodos.slice(0, 3);
-  const remainingCount = Math.max(activeCount - topTodos.length, 0);
-  const hasTodos = activeCount > 0;
-  const placeholderCount = hasTodos ? Math.max(3 - topTodos.length, 0) : 0;
+  const displayActiveTodos = activeTodos.slice(0, 5);
+  const completedTodos = useMemo(
+    () => todos.filter((todo) => todo.status === "COMPLETED"),
+    [todos],
+  );
+  const displayTodos = useMemo(() => {
+    if (activeTodos.length >= 5) {
+      return displayActiveTodos;
+    }
 
-  const placeholderMessages = [
-    {
-      title: "Plan your next win",
-      subtitle: "Drop in another todo to keep momentum.",
-    },
-    {
-      title: "Save this spot",
-      subtitle: "Add another todo to keep momentum.",
-    },
-    {
-      title: "Keep the streak",
-      subtitle: "Queue up something small to finish strong.",
-    },
-  ];
+    const needed = 5 - activeTodos.length;
+    const extraCompleted = completedTodos.slice(0, needed);
+    return [...activeTodos, ...extraCompleted];
+  }, [activeTodos, completedTodos, displayActiveTodos]);
+
+  const remainingCount = Math.max(activeCount - displayActiveTodos.length, 0);
+  const hasTodos = displayTodos.length > 0;
 
   const celebrate = useCallback((origin?: HTMLElement) => {
     if (typeof document === "undefined") return;
@@ -100,7 +98,7 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
         {
           duration: 850,
           easing: "cubic-bezier(0.16, 1, 0.3, 1)",
-        }
+        },
       ).onfinish = () => piece.remove();
     }
   }, []);
@@ -110,6 +108,7 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
       if (pendingId === id) return;
       const current = todos.find((todo) => todo.id === id);
       if (!current) return;
+      if (current.completed || current.status === "COMPLETED") return;
 
       setPendingId(id);
       setCompletingId(id);
@@ -119,11 +118,12 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
             ? {
                 ...todo,
                 completed: true,
+                status: "COMPLETED",
                 statusLabel: COMPLETED_STATUS.label,
                 statusColor: COMPLETED_STATUS.color,
               }
-            : todo
-        )
+            : todo,
+        ),
       );
       celebrate(origin);
 
@@ -141,12 +141,16 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
         addXP(XP_PER_TODO, "todo", {
           label: current.title,
         });
+        const shouldRemove = activeCount > displayActiveTodos.length;
+
         setActiveCount((prev) => Math.max(prev - 1, 0));
 
-        setTimeout(
-          () => setTodos((prev) => prev.filter((todo) => todo.id !== id)),
-          450
-        );
+        if (shouldRemove) {
+          setTimeout(
+            () => setTodos((prev) => prev.filter((todo) => todo.id !== id)),
+            450,
+          );
+        }
       } catch (error) {
         console.error(error);
         setTodos((prev) =>
@@ -158,8 +162,8 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
                   statusLabel: current.statusLabel,
                   statusColor: current.statusColor,
                 }
-              : todo
-          )
+              : todo,
+          ),
         );
       } finally {
         setTimeout(() => {
@@ -168,14 +172,14 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
         setPendingId(null);
       }
     },
-    [celebrate, pendingId, todos]
+    [activeCount, celebrate, pendingId, todos, displayActiveTodos.length],
   );
 
   return (
     <div className="lg:p-2 2xl:p-6 text-foreground">
       <div className="flex items-center justify-between lg:mb-2 xl:mb-4">
         <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-          Today&apos;s Todos
+          Today's Todos
         </h3>
         <div className="flex items-center lg:gap-2 xl:gap-3">
           <PillButton href="/dashboard/todos?create=1" variant="primary">
@@ -191,7 +195,7 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
       <div className="lg:space-y-2 xl:space-y-3 2xl:space-y-4 min-h-24">
         {hasTodos ? (
           <>
-            {topTodos.map((todo) => (
+            {displayTodos.map((todo) => (
               <Todo
                 key={todo.id}
                 todo={todo}
@@ -201,28 +205,9 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
                 disabled={pendingId === todo.id}
               />
             ))}
-            {Array.from({ length: placeholderCount }).map((_, index) => {
-              const message =
-                placeholderMessages[index % placeholderMessages.length];
-              return (
-                <div
-                  key={`placeholder-${index}`}
-                  className="flex items-center justify-between lg:gap-2 xl:gap-3 lg:rounded-xl xl:rounded-2xl border border-dashed border-gray-200 bg-white/70 lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-xs xl:text-sm text-muted-foreground"
-                >
-                  <div className="min-w-0">
-                    <p className="font-semibold text-foreground">
-                      {message.title}
-                    </p>
-                    <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs">
-                      {message.subtitle}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
           </>
         ) : (
-          <div className="lg:rounded-xl xl:rounded-2xl border border-dashed border-gray-200 bg-white/70 lg:px-3 xl:px-4 lg:py-4 xl:py-5 lg:text-xs xl:text-sm text-muted-foreground">
+          <div className="lg:rounded-xl xl:rounded-2xl border-2 border-dashed border-gray-200 bg-white/70 lg:px-3 xl:px-4 lg:py-4 xl:py-5 lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
             <p className="font-semibold text-foreground mb-1">No todos yet</p>
             <p>Start a new one to see it here.</p>
             <PillButton
@@ -230,7 +215,6 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
               variant="text"
               className="lg:mt-2 xl:mt-3 gap-2"
             >
-              <Sparkles className="lg:w-2 lg:h-2 xl:w-3 xl:h-3" />
               Create a todo
             </PillButton>
           </div>

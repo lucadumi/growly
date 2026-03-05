@@ -17,6 +17,8 @@ export interface TodoInput {
   tags?: string;
   iconName?: string;
   iconColor?: string;
+  location?: string;
+  scheduledTime?: string;
 }
 
 const requireUserId = async () => {
@@ -70,6 +72,8 @@ export async function createTodo(input: TodoInput) {
       tags: input.tags || null,
       iconName: input.iconName || "Notebook",
       iconColor: input.iconColor || "#E5E7EB",
+      location: input.location || null,
+      scheduledTime: input.scheduledTime || null,
       userId,
     },
   });
@@ -96,6 +100,8 @@ export async function updateTodo(id: string, input: TodoInput) {
       tags: input.tags || null,
       iconName: input.iconName || "Notebook",
       iconColor: input.iconColor || "#E5E7EB",
+      location: input.location || null,
+      scheduledTime: input.scheduledTime || null,
     },
   });
 

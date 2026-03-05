@@ -84,6 +84,8 @@ export async function POST(request: Request) {
         tags: body.tags || null,
         iconName: body.iconName || "Notebook",
         iconColor: body.iconColor || "#E5E7EB",
+        location: body.location || null,
+        scheduledTime: body.scheduledTime || null,
         userId,
         ...(collectionId
           ? { collections: { create: { collectionId } } }

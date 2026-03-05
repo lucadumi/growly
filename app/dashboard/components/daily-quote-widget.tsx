@@ -43,59 +43,42 @@ const DailyQuoteWidget: React.FC = () => {
   }, [fetchQuote]);
 
   return (
-    <div className="relative h-fit overflow-hidden rounded-2xl border border-muted/50 shadow-inner bg-secondary">
-      <div className="absolute inset-0 opacity-30 bg-white" />
-      <div className="relative flex h-full flex-col lg:gap-2 xl:gap-3 lg:p-1.5 xl:p-2">
-        <div className="flex items-center gap-4">
-          <span className="grid lg:h-6 xl:h-8 lg:w-7 xl:w-8 place-items-center rounded-full bg-card/50 backdrop-blur">
-            <Quote className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
-          </span>
-          <div className="leading-tight">
-            <p className="lg:text-[10px] xl:text-xs uppercase tracking-[0.12em] text-foreground">
-              Daily motivation
-            </p>
-          </div>
-        </div>
+    <div className="lg:p-2 2xl:p-6 text-foreground">
+      <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl lg:mb-2 xl:mb-4">
+        Daily motivation
+      </h3>
 
-        <div className="flex-1 lg:rounded-xl xl:rounded-2xl backdrop-blur bg-card/30">
-          {loading ? (
-            <div className="space-y-3 animate-pulse">
-              <div className="h-3 w-1/3 rounded bg-linear-to-r from-white/70 to-white/40" />
-              <div className="h-4 rounded bg-linear-to-r from-white/70 to-white/40" />
-              <div className="h-4 w-5/6 rounded bg-linear-to-r from-white/50 to-white/20" />
-              <div className="h-3 w-1/2 rounded bg-linear-to-r from-white/50 to-white/20" />
-            </div>
-          ) : error ? (
-            <div className="flex h-fit flex-col items-start justify-center lg:gap-2 xl:gap-3 lg:text-xs xl:text-sm lg:px-4 xl:px-5 lg:py-2 xl:py-3">
-              <p className="text-rose-100/90">{error}</p>
-              <Button
-                onClick={fetchQuote}
-                className="lg:h-7 xl:h-8 2xl:h-9 bg-white text-primary hover:bg-white/90 shadow-sm"
-              >
-                Try again
-              </Button>
-            </div>
-          ) : quote ? (
-            <div className="flex h-fit flex-col justify-between lg:gap-2 xl:gap-3 lg:px-4 xl:px-5 lg:py-2 xl:py-3 text-foreground/90 lg:rounded-xl xl:rounded-2xl shadow-inner shadow-black/10">
-              <div className="flex items-start">
-                <p className="lg:text-[9px] xl:text-xs 2xl:text-sm font-medium leading-relaxed ">
-                  "{quote.text}"
-                </p>
-              </div>
-              <div className="flex items-center justify-between lg:text-[8px] xl:text-[11px] 2xl:text-xs">
-                <span className="font-semibold text-primary">
-                  — {quote.author}
-                </span>
-                <span>{quote.date}</span>
-              </div>
-            </div>
-          ) : (
-            <p className="lg:text-[10px] xl:text-xs 2xl:text-sm">
-              No quote available right now.
-            </p>
-          )}
+      {loading ? (
+        <div className="space-y-2 animate-pulse">
+          <div className="h-2.5 w-full rounded-full bg-muted" />
+          <div className="h-2.5 w-4/5 rounded-full bg-muted" />
+          <div className="h-2.5 w-1/3 rounded-full bg-muted mt-3" />
         </div>
-      </div>
+      ) : error ? (
+        <div className="flex flex-col items-start lg:gap-2 xl:gap-3">
+          <p className="lg:text-[10px] xl:text-xs text-muted-foreground">{error}</p>
+          <Button
+            onClick={fetchQuote}
+            className="rounded-full border border-gray-200 bg-white text-primary lg:text-[10px] xl:text-xs font-semibold shadow-sm hover:border-primary/40"
+          >
+            Try again
+          </Button>
+        </div>
+      ) : quote ? (
+        <div className="flex flex-col lg:gap-2 xl:gap-3">
+          <p className="lg:text-[10px] xl:text-[12px] 2xl:text-sm text-foreground leading-relaxed">
+            <Quote className="inline lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 text-primary/40 mr-1 -mt-0.5" />
+            {quote.text}
+          </p>
+          <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs text-muted-foreground font-medium">
+            — {quote.author}
+          </p>
+        </div>
+      ) : (
+        <p className="lg:text-[10px] xl:text-xs text-muted-foreground">
+          No quote available right now.
+        </p>
+      )}
     </div>
   );
 };

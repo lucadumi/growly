@@ -9,6 +9,18 @@ import { useXP } from "@/app/context/xp-context";
 import { signOut } from "@/lib/actions/auth-actions";
 import { Bell, ChevronDown, Sprout, User } from "lucide-react";
 
+function timeAgo(timestamp: string): string {
+  const diff = Date.now() - new Date(timestamp).getTime();
+  const seconds = Math.floor(diff / 1000);
+  if (seconds < 60) return "just now";
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes}m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours}h ago`;
+  const days = Math.floor(hours / 24);
+  return `${days}d ago`;
+}
+
 const formatSegment = (segment: string) =>
   segment
     .replace(/[\[\]]/g, "")
@@ -85,7 +97,7 @@ function NotificationsDropdown() {
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         aria-label="Open notifications"
-        className="inline-flex items-center gap-1.5 rounded-full lg:p-1 xl:p-1.5 2xl:p-2 bg-card shadow-inner border border-gray-100 text-xs font-semibold text-muted-foreground transition hover:border-primary hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="inline-flex items-center gap-1.5 rounded-full lg:p-1 xl:p-1.5 2xl:p-2 bg-card border border-gray-100 text-xs font-semibold text-muted-foreground transition hover:border-card hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         <Bell
           className={`lg:h-3.5 lg:w-3.5 xl:h-4 xl:w-4 ${
@@ -105,7 +117,7 @@ function NotificationsDropdown() {
       </button>
 
       <div
-        className={`absolute right-0 top-full lg:mt-2 xl:mt-3 w-72 lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-card shadow-2xl shadow-gray-200 transition-all duration-200 ease-out z-50 ${
+        className={`absolute right-0 top-full lg:mt-2 xl:mt-3 w-72 lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-card shadow-xl transition-all duration-200 ease-out z-50 ${
           isOpen
             ? "opacity-100 visible translate-y-0 pointer-events-auto"
             : "opacity-0 invisible translate-y-2 pointer-events-none"
@@ -116,24 +128,21 @@ function NotificationsDropdown() {
             Notifications
           </p>
           <span className="lg:text-[9px] xl:text-[10px] text-muted-foreground">
-            {badgeLabel ? `${totalCount} new` : "Up to date"}
+            {badgeLabel ? `${totalCount} unread` : "Up to date"}
           </span>
         </div>
-        <div className="border-t border-gray-50 lg:px-3 xl:px-4 lg:py-2 xl:py-3 space-y-3">
+        <div className="border-t border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 space-y-3">
           <div>
-            <p className="lg:text-[9px] xl:text-[10px] uppercase tracking-[0.24em] text-primary font-semibold">
-              XP updates
-            </p>
             {activityLog.length === 0 ? (
               <p className="lg:text-[9px] xl:text-[10px] text-muted-foreground mt-1">
                 No XP activity yet. Complete a todo or habit to log XP.
               </p>
             ) : (
-              <div className="mt-1 grid gap-2">
+              <div className="grid gap-2">
                 {visibleXpNotifications.map((entry) => (
                   <div
                     key={entry.id}
-                    className="flex items-center justify-between gap-2 rounded-xl bg-muted/30 lg:px-2.5 xl:px-3 lg:py-1.5 xl:py-2"
+                    className="flex items-center justify-between gap-2"
                   >
                     <div className="flex flex-col min-w-0">
                       <span className="lg:text-[9px] xl:text-[11px] font-semibold text-foreground">
@@ -144,10 +153,12 @@ function NotificationsDropdown() {
                           {entry.detail}
                         </span>
                       ) : null}
+                      <span className="lg:text-[8px] xl:text-[9px] text-muted-foreground/60">
+                        {timeAgo(entry.timestamp)}
+                      </span>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
-                      <span className="lg:text-[10px] xl:text-xs font-bold text-primary">
-                        {entry.xp > 0 ? "+" : ""}
+                      <span className="lg:text-[10px] xl:text-xs font-bold text-muted-foreground">
                         {entry.xp} XP
                       </span>
                       <button
@@ -162,7 +173,7 @@ function NotificationsDropdown() {
                 ))}
                 {xpOverflow > 0 ? (
                   <p className="mt-1 text-[10px] text-muted-foreground">
-                    +{xpOverflow} more XP update
+                    + {xpOverflow} more XP update
                     {xpOverflow === 1 ? "" : "s"} not shown
                   </p>
                 ) : null}
@@ -180,7 +191,15 @@ function AccountDropdown({ session }: AccountDropdownProps) {
   const [isPending, startTransition] = useTransition();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
-  const { level, xpNeededForLevelUp, xpGainedInLevel, progress, todayXP, streakBonus, loading: xpLoading } = useXP();
+  const {
+    level,
+    xpNeededForLevelUp,
+    xpGainedInLevel,
+    progress,
+    todayXP,
+    streakBonus,
+    loading: xpLoading,
+  } = useXP();
   const xpToNextLevel = xpNeededForLevelUp - xpGainedInLevel;
   const isNearLevelUp = !xpLoading && progress >= 80;
 
@@ -217,7 +236,7 @@ function AccountDropdown({ session }: AccountDropdownProps) {
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         aria-label="Open account menu"
-        className="shadow-sm shadow-primary/20 inline-flex items-center justify-center lg:gap-2 xl:gap-3 rounded-full lg:px-3 xl:px-4 lg:py-1 xl:py-2 bg-card text-xs font-semibold text-primary transition hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="inline-flex items-center border border-gray-100 justify-center lg:gap-2 xl:gap-3 rounded-full lg:px-3 xl:px-4 lg:py-1 xl:py-2 bg-card text-xs font-semibold text-primary transition hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         <User className="lg:h-3 lg:w-3 xl:h-4 xl:w-4" />
         <p className="lg:text-[10px] xl:text-xs 2xl:text-sm truncate">{name}</p>
@@ -229,7 +248,7 @@ function AccountDropdown({ session }: AccountDropdownProps) {
       </button>
 
       <div
-        className={`absolute right-0 top-full lg:mt-2 xl:mt-3 lg:w-40 xl:w-56 lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-white shadow-2xl shadow-gray-200 transition-all duration-200 ease-out z-50 ${
+        className={`absolute right-0 top-full lg:mt-2 xl:mt-3 lg:w-40 xl:w-56 lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-white shadow-xl transition-all duration-200 ease-out z-50 ${
           isOpen
             ? "opacity-100 visible translate-y-0 pointer-events-auto"
             : "opacity-0 invisible translate-y-2 pointer-events-none"
@@ -250,17 +269,17 @@ function AccountDropdown({ session }: AccountDropdownProps) {
                 Lv.{level}
               </span>
               {isNearLevelUp ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-600 border border-amber-200 lg:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-semibold">
+                <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-600 lg:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-semibold">
                   {xpToNextLevel} XP to level up!
                 </span>
               ) : todayXP > 0 ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-green-50 text-green-600 border border-green-200 lg:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-semibold">
-                  +{todayXP} XP today
+                <span className="inline-flex items-center gap-1 rounded-full bg-green-50 text-green-600 lg:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-semibold">
+                  {todayXP} XP today
                 </span>
               ) : null}
               {streakBonus > 0 && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-yellow-50 text-yellow-600 border border-yellow-200 lg:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-semibold">
-                  +{streakBonus} streak
+                <span className="inline-flex items-center gap-1 rounded-full bg-yellow-50 text-yellow-600 lg:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-semibold">
+                  {streakBonus} streak
                 </span>
               )}
             </div>
@@ -312,7 +331,7 @@ export default function Header() {
   const isLinkActive = (href: string) =>
     normalizedPathname === href || normalizedPathname.startsWith(`${href}/`);
   return (
-    <header className="fixed top-0 left-0 w-full shadow-sm border-b border-gray-50 backdrop-blur-sm z-40">
+    <header className="fixed top-0 left-0 w-full border-b border-gray-100 backdrop-blur-sm z-40">
       <div className="lg:px-6 xl:px-8 2xl:px-28 mx-auto lg:h-12 xl:h-16 2xl:h-20 grid grid-cols-[minmax(0,1fr)_minmax(0,auto)_minmax(0,1fr)] items-center gap-4">
         <div className="flex items-center min-w-0 gap-4">
           <Sprout className="lg:w-4 lg:h-4 xl:w-6 xl:h-6 2xl:w-8 2xl:h-8 text-green-soft" />
@@ -354,7 +373,7 @@ export default function Header() {
                   aria-current={active ? "page" : undefined}
                   className={`rounded-full lg:px-2 xl:px-3 2xl:px-4 lg:py-0.5 xl:py-1 lg:text-[8px] xl:text-[10px] 2xl:text-[11px] font-semibold transition ${
                     active
-                      ? "bg-primary text-white shadow-[0_2px_20px_rgba(240,144,41,0.35)]"
+                      ? "bg-primary text-white"
                       : "border border-gray-100 text-muted-foreground hover:border-primary/60 hover:text-primary"
                   } focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary`}
                 >

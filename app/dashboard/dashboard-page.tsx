@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import CelebrationToast from "../components/celebration-toast";
-import GradientCircle from "../components/ui/gradient-circle";
 import AnalyticsWidget from "./components/analytics-widget";
 import type { AnalyticsWidgetData } from "./components/analytics-widget";
 import CalendarWidget from "./components/calendar-widget";
@@ -27,17 +26,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   privateAccount,
 }) => {
   return (
-    <main className="relative w-full lg:pt-14 xl:pt-20 bg-linear-to-b from-white/90 via-light-yellow/55 to-green-soft/15 overflow-hidden">
-      <GradientCircle
-        size={210}
-        position={{ top: "-50px", right: "-50px" }}
-        color="rgba(135, 197, 161, 0.35)"
-        fadeColor="rgba(135, 197, 161, 0)"
-        className="scale-[1.2]"
-      />
-      <div className="pointer-events-none absolute -left-24 -top-12 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
-      <div className="pointer-events-none absolute -right-16 top-48 h-64 w-64 rounded-full bg-green-soft/20 blur-3xl" />
-      <div className="pointer-events-none absolute left-1/2 bottom-10 h-48 w-48 -translate-x-1/2 rounded-full bg-yellow-soft/25 blur-3xl" />
+    <main className="relative w-full lg:pt-14 xl:pt-20 bg-card overflow-hidden">
       <div className="grid lg:grid-cols-5 xl:grid-cols-10 lg:gap-5 xl:gap-6 lg:px-6 xl:px-8 2xl:px-28 lg:pb-8 xl:pb-12 2xl:pb-16">
         <div className="h-full lg:col-span-1 xl:col-span-2 grid lg:gap-3 xl:gap-4 2xl:gap-6">
           <GreetingWidget />

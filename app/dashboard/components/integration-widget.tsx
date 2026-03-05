@@ -20,7 +20,7 @@ const IntegrationWidget = () => {
         Empower yourself with habit tracking while enjoying uninterrupted music
       </p>
 
-      <Button className="shadow-sm shadow-green-soft hover:shadow-none bg-foreground hover:bg-foreground/90 text-background lg:h-7 xl:h-9 2xl:h-11 lg:text-xs xl:text-sm 2xl:text-base transition-all duration-200">
+      <Button className="hover:shadow-none bg-foreground hover:bg-foreground/90 text-background lg:h-7 xl:h-9 2xl:h-11 lg:text-xs xl:text-sm 2xl:text-base transition-all duration-200">
         <LinkIcon className="lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 2xl:w-4 2xl:h-4 mr-2" />
         Link Account
       </Button>

@@ -16,12 +16,14 @@ import type React from "react";
 import {
   type LucideIcon,
   ChevronDown,
+  Clock,
   Flag,
   Group,
   Hash,
   icons,
   ImageIcon,
   ListChecks,
+  MapPin,
   Palette,
   Sparkles,
   Trash,
@@ -29,6 +31,7 @@ import {
 } from "lucide-react";
 
 import Button from "@/app/components/ui/button";
+import TimeInput from "@/app/components/ui/time-input";
 import type { TodoInput } from "@/lib/actions/todo-actions";
 import PageHeading from "@/app/components/page-heading";
 import { useUnsavedChangesGuard } from "@/app/hooks/use-unsaved-changes-guard";
@@ -47,6 +50,8 @@ interface FormState {
   status: StatusLabel;
   iconName: string;
   iconColor: string;
+  location: string;
+  scheduledTime: string;
 }
 
 interface TodoFormProps {
@@ -64,6 +69,8 @@ interface TodoFormProps {
     tags?: string | null;
     iconName?: string | null;
     iconColor?: string | null;
+    location?: string | null;
+    scheduledTime?: string | null;
   };
 }
 
@@ -275,6 +282,8 @@ const buildDefaultForm = (
     status: toStatusLabel(initialTodo?.status),
     iconName: initialTodo?.iconName || "NotebookPen",
     iconColor: initialTodo?.iconColor || "#E5E7EB",
+    location: initialTodo?.location || "",
+    scheduledTime: initialTodo?.scheduledTime || "",
   };
 };
 
@@ -529,6 +538,8 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
       tags: serializeTags(form.tags),
       iconName: form.iconName,
       iconColor: form.iconColor,
+      location: form.location || undefined,
+      scheduledTime: form.scheduledTime || undefined,
       ...(collectionId && mode !== "edit" ? { collectionId } : {}),
     });
 
@@ -980,6 +991,37 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
                       ) : null}
                     </div>
                   </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="lg:space-y-1 xl:space-y-2">
+                    <div className="flex items-center gap-2 lg:text-xs xl:text-sm font-semibold">
+                      <Clock className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                      <span>Time</span>
+                    </div>
+                    <TimeInput
+                      time={form.scheduledTime}
+                      onChange={(value) => {
+                        setForm((prev) => ({ ...prev, scheduledTime: value }));
+                        markDirty();
+                      }}
+                    />
+                  </div>
+
+                  <label className="lg:space-y-1 xl:space-y-2">
+                    <div className="flex items-center gap-2 lg:text-xs xl:text-sm font-semibold">
+                      <MapPin className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                      <span>Location</span>
+                    </div>
+                    <div className={dropdownSelectWrapperClassName}>
+                      <input
+                        value={form.location}
+                        onChange={handleChange("location")}
+                        placeholder="e.g. K-Cafe, Home, Office"
+                        className={inputClassName}
+                      />
+                    </div>
+                  </label>
                 </div>
 
                 <label className="lg:space-y-1 xl:space-y-2">

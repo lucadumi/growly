@@ -86,12 +86,12 @@ export default async function RootLayout({
     <html lang="en" className={`${montserrat.variable} antialiased`}>
       <body>
         <SessionProvider initialSession={session}>
-            <XPProvider>
-              <ToastProvider>
+          <XPProvider>
+            <ToastProvider>
               <ModalProvider>
-        <div className="min-h-screen flex flex-col text-foreground">
-          <NavigationLoader />
-          <Header />
+                <div className="min-h-screen flex flex-col text-foreground">
+                  <NavigationLoader />
+                  <Header />
                   <main className="flex-1 w-full h-full">{children}</main>
                   <Footer />
                   <CelebrationToast />
@@ -99,7 +99,7 @@ export default async function RootLayout({
                   {session ? (
                     <Link
                       href="/dashboard"
-                      className="fixed lg:bottom-4 lg:right-4 xl:bottom-5 xl:right-5 z-50 grid place-items-center rounded-full bg-primary lg:p-2 xl:p-3 2xl:p-4 font-semibold text-white shadow-md shadow-primary transition hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                      className="fixed lg:bottom-4 lg:right-4 xl:bottom-5 xl:right-5 z-50 grid place-items-center rounded-full bg-primary lg:p-2 xl:p-3 2xl:p-4 font-semibold text-white shadow-md transition hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                       aria-label="Open dashboard"
                     >
                       <LayoutPanelTop className="lg:w-5 xl:w-6 lg:h-5 xl:h-6" />
@@ -107,8 +107,8 @@ export default async function RootLayout({
                   ) : null}
                 </div>
               </ModalProvider>
-              </ToastProvider>
-            </XPProvider>
+            </ToastProvider>
+          </XPProvider>
         </SessionProvider>
       </body>
     </html>

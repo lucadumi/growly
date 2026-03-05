@@ -43,6 +43,7 @@ const TodosWidget = async () => {
   const activeWhere = {
     userId: session.user.id,
     status: { in: ACTIVE_STATUSES },
+    archived: false,
   };
 
   const [upcomingTodos, newestTodo, totalActive] = await Promise.all([
@@ -71,10 +72,24 @@ const TodosWidget = async () => {
     prioritizedTodos.push(newestTodo);
   }
 
-  const todosFromDb = prioritizedTodos.slice(0, DISPLAY_TODOS_LIMIT);
+  const activeTodosFromDb = prioritizedTodos.slice(0, DISPLAY_TODOS_LIMIT);
+  const needsCompleted = activeTodosFromDb.length < 5;
+  const completedTodosFromDb = needsCompleted
+    ? await prisma.todo.findMany({
+        where: {
+          userId: session.user.id,
+          status: "COMPLETED",
+          archived: false,
+        },
+        orderBy: [{ updatedAt: "desc" }],
+        take: 5 - activeTodosFromDb.length,
+      })
+    : [];
+
+  const todosFromDb = [...activeTodosFromDb, ...completedTodosFromDb];
 
   const todos: TodoItem[] = todosFromDb.map(
-    ({ title, priority, status, id, iconName, iconColor }) => {
+    ({ title, priority, status, id, iconName, iconColor, location, scheduledTime }) => {
       const hasCustomIcon = Boolean(
         (icons as Record<string, unknown>)[iconName || ""]
       );
@@ -97,6 +112,8 @@ const TodosWidget = async () => {
         statusLabel: label,
         statusColor: color,
         status: normalizedStatus,
+        location: location ?? null,
+        scheduledTime: scheduledTime ?? null,
       };
     }
   );
