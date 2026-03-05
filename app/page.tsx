@@ -81,7 +81,7 @@ export default function LandingPage() {
   }, [showModal, setShowModal]);
 
   return (
-    <main className="relative min-h-screen lg:pt-16 xl:pt-24 2xl:pt-28 lg:pb-8 xl:pb-12 2xl:pb-16 bg-linear-to-b from-white/90 via-light-yellow/55 to-green-soft/15 overflow-hidden">
+    <main className="relative min-h-screen lg:pt-16 xl:pt-24 2xl:pt-28 lg:pb-8 xl:pb-12 2xl:pb-16 bg-card overflow-hidden">
       {showModal && (
         <div
           onClick={handleOverlayClick}
@@ -90,10 +90,6 @@ export default function LandingPage() {
           <AuthModal />
         </div>
       )}
-
-      <div className="absolute -left-24 -top-12 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
-      <div className="absolute -right-16 top-48 h-64 w-64 rounded-full bg-green-soft/20 blur-3xl" />
-      <div className="absolute left-1/2 bottom-10 h-48 w-48 -translate-x-1/2 rounded-full bg-yellow-soft/25 blur-3xl" />
 
       <section className="relative z-10 lg:px-4 2xl:px-28 xl:px-8">
         <div className="grid lg:grid-cols-2 lg:gap-8 xl:gap-12 items-center">
@@ -113,7 +109,7 @@ export default function LandingPage() {
               <div className="flex flex-row lg:gap-3 xl:gap-4 items-center">
                 <Link
                   href="/dashboard"
-                  className="lg:text-xs xl:text-sm 2xl:text-base w-auto lg:px-4 xl:px-5 2xl:px-6 lg:py-1 xl:py-2 2xl:py-3 rounded-full bg-primary text-white font-semibold shadow-lg shadow-primary/30 hover:-translate-y-0.5 transition-all inline-flex items-center justify-center gap-2"
+                  className="lg:text-xs xl:text-sm 2xl:text-base w-auto lg:px-4 xl:px-5 2xl:px-6 lg:py-1 xl:py-2 2xl:py-3 rounded-full bg-primary text-white font-semibold hover:-translate-y-0.5 transition-all inline-flex items-center justify-center gap-2"
                 >
                   Go to dashboard
                   <ArrowRight className="lg:h-3 lg:w-3 xl:h-4 xl:w-4" />
@@ -123,7 +119,7 @@ export default function LandingPage() {
               <div className="flex flex-row lg:gap-3 xl:gap-4 items-center w-fit">
                 <Button
                   onClick={() => setShowModal(true)}
-                  className="lg:text-xs xl:text-sm 2xl:text-base lg:px-4 xl:px-5 2xl:px-6 lg:py-1 xl:py-2 2xl:py-3 bg-primary text-white font-semibold shadow-lg shadow-primary/30 hover:-translate-y-0.5 transition-all"
+                  className="lg:text-xs xl:text-sm 2xl:text-base lg:px-4 xl:px-5 2xl:px-6 lg:py-1 xl:py-2 2xl:py-3 bg-primary text-white font-semibold hover:-translate-y-0.5 transition-all"
                 >
                   Start a streak
                   <ArrowRight className="lg:h-3 lg:w-3 xl:h-4 xl:w-4" />
@@ -148,8 +144,7 @@ export default function LandingPage() {
           </div>
 
           <div className="relative">
-            <div className="absolute inset-0 lg:rounded-2xl xl:rounded-3xl bg-linear-to-br from-primary/15 via-white to-green-soft/20 blur-3xl" />
-            <div className="relative rounded-3xl bg-muted/30 backdrop-blur shadow-inner shadow-black/10 lg:p-4 xl:p-6 lg:space-y-3 xl:space-y-4">
+            <div className="relative rounded-3xl bg-card lg:space-y-3 xl:space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
@@ -159,16 +154,13 @@ export default function LandingPage() {
                     Momentum map
                   </p>
                 </div>
-                <span className="lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 rounded-full bg-coral/70 text-coral-foreground lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold">
-                  + 24 XP
-                </span>
               </div>
 
               <div className="grid grid-cols-3 lg:gap-2 xl:gap-3">
                 {proof.map((item) => (
                   <div
                     key={item.label}
-                    className="rounded-2xl bg-card border border-gray-200 lg:p-3 xl:p-4"
+                    className="rounded-2xl bg-card border border-gray-100 lg:p-3 xl:p-4"
                   >
                     <p className="lg:text-[11px] xl:text-xs text-muted-foreground">
                       {item.label}
@@ -180,10 +172,10 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              <div className="rounded-2xl bg-card shadow-sm lg:p-4 xl:p-5 lg:space-y-2 xl:space-y-3">
+              <div className="rounded-b-2xl rounded-tr-2xl bg-yellow-soft text-white lg:p-4 xl:p-5 lg:space-y-2 xl:space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center lg:gap-1.5 xl:gap-2">
-                    <CalendarRange className="lg:h-3 lg:w-3 xl:h-4 xl:w-4 text-yellow-soft" />
+                    <CalendarRange className="lg:h-3 lg:w-3 xl:h-4 xl:w-4 text-primary" />
                     <p className="lg:text-xs xl:text-sm">Monday ritual stack</p>
                   </div>
                   <span className="lg:text-[11px] xl:text-xs 2xl:text-sm text-green-soft font-semibold">
@@ -195,7 +187,7 @@ export default function LandingPage() {
                     (habit) => (
                       <div
                         key={habit}
-                        className="flex-1 rounded-xl bg-muted/50 border-dotted border-2 border-gray-200 lg:px-2 xl:px-3 lg:py-1 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm"
+                        className="flex-1 rounded-xl bg-card text-muted-foreground lg:px-2 xl:px-3 lg:py-1 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm"
                       >
                         {habit}
                       </div>
@@ -213,7 +205,7 @@ export default function LandingPage() {
       </section>
 
       <section className="relative z-10 lg:px-4 2xl:px-28 xl:px-8 lg:mt-10 xl:mt-14 2xl:mt-16">
-        <div className="flex flex-col lg:gap-8 xl:gap-10 bg-muted/30 backdrop-blur shadow-inner shadow-black/10 lg:rounded-2xl xl:rounded-3xl lg:p-12 xl:p-10 2xl:p-8">
+        <div className="flex flex-col lg:gap-8 xl:gap-10 bg-card border-8 border-gray-100 lg:rounded-2xl xl:rounded-3xl lg:p-12 xl:p-10 2xl:p-8">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between lg:gap-3 xl:gap-4">
             <div className="lg:space-y-2 xl:space-y-3">
               <p className="lg:text-xs xl:text-sm 2xl:text-base uppercase tracking-[0.2em] text-muted-foreground">
@@ -234,7 +226,7 @@ export default function LandingPage() {
             {highlights.map(({ title, description, icon: Icon }) => (
               <div
                 key={title}
-                className="group rounded-2xl bg-card shadow-sm lg:p-4 xl:p-5 2xl:p-6 lg:space-y-2 xl:space-y-3 hover:-translate-y-1 transition-transform"
+                className="group rounded-2xl bg-card border-2 border-dashed border-gray-200 lg:p-4 xl:p-5 2xl:p-6 lg:space-y-2 xl:space-y-3 hover:-translate-y-1 transition-transform"
               >
                 <div className="lg:h-10 lg:w-10 xl:h-11 xl:w-11 rounded-2xl bg-primary/15 text-primary grid place-items-center lg:mb-1 xl:mb-2 group-hover:scale-105 transition">
                   <Icon className="lg:h-4 lg:w-4 xl:h-5 xl:w-5" />
@@ -269,7 +261,7 @@ export default function LandingPage() {
             {session ? (
               <Link
                 href="/dashboard/habits/routines"
-                className="lg:text-xs xl:text-sm 2xl:text-base sm:w-auto lg:px-4 xl:px-5 2xl:px-6 lg:py-1 xl:py-2 2xl:py-3 rounded-full bg-primary text-white font-semibold shadow-lg shadow-primary/30 hover:-translate-y-0.5 transition-all inline-flex items-center justify-center gap-2"
+                className="lg:text-xs xl:text-sm 2xl:text-base sm:w-auto lg:px-4 xl:px-5 2xl:px-6 lg:py-1 xl:py-2 2xl:py-3 rounded-full bg-primary text-white font-semibold hover:-translate-y-0.5 transition-all inline-flex items-center justify-center gap-2"
               >
                 Create my routine
                 <ArrowRight className="lg:w-3 lg:h-3 xl:h-4 xl:w-4" />
@@ -277,7 +269,7 @@ export default function LandingPage() {
             ) : (
               <Button
                 onClick={() => setShowModal(true)}
-                className="lg:text-xs xl:text-sm 2xl:text-base sm:w-auto lg:px-4 xl:px-5 2xl:px-6 lg:py-1 xl:py-2 2xl:py-3 bg-primary text-white font-semibold shadow-lg shadow-primary/30 hover:-translate-y-0.5 transition-all"
+                className="lg:text-xs xl:text-sm 2xl:text-base sm:w-auto lg:px-4 xl:px-5 2xl:px-6 lg:py-1 xl:py-2 2xl:py-3 bg-primary text-white font-semibold hover:-translate-y-0.5 transition-all"
               >
                 Create my routine
                 <ArrowRight className="lg:w-3 lg:h-3 xl:h-4 xl:w-4" />
