@@ -1,0 +1,78 @@
+export const dynamic = "force-dynamic";
+
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
+import HabitsBoard from "./habits-board";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { buildHabitAnalytics } from "@/lib/habit-analytics";
+
+export default async function HabitsPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    redirect("/");
+  }
+
+  const habits = await prisma.habit.findMany({
+    where: {
+      userId: session.user.id,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const routines = await prisma.routine.findMany({
+    where: { userId: session.user.id },
+    include: {
+      habits: {
+        orderBy: { position: "asc" },
+        select: { habitId: true },
+      },
+    },
+    orderBy: { createdAt: "asc" },
+  });
+
+  const progressEntries = await prisma.habitDailyProgress.findMany({
+    where: {
+      habit: {
+        userId: session.user.id,
+      },
+    },
+    select: {
+      habitId: true,
+      date: true,
+      progress: true,
+    },
+  });
+
+  const { habitsWithStats, progressByDay } = buildHabitAnalytics(
+    habits,
+    progressEntries,
+  );
+
+  const serializedProgressEntries = progressEntries.map((entry) => ({
+    ...entry,
+    date: entry.date.toISOString(),
+  }));
+
+  const serializedRoutines = routines.map((r) => ({
+    id: r.id,
+    name: r.name,
+    habitIds: r.habits.map((h) => h.habitId),
+  }));
+
+  return (
+    <HabitsBoard
+      userName={session.user.name ?? null}
+      habits={habitsWithStats}
+      progressByDay={progressByDay}
+      progressEntries={serializedProgressEntries}
+      routines={serializedRoutines}
+    />
+  );
+}
