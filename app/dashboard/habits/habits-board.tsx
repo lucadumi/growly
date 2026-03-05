@@ -16,7 +16,6 @@ import {
 
 import HabitForm from "./components/habit-form";
 
-import PageGradient from "@/app/components/ui/page-gradient";
 import PageHeading from "@/app/components/page-heading";
 import HabitsTabs from "./components/habits-tabs";
 import { formatDayKey, type ProgressByDayMap } from "@/lib/habit-progress";
@@ -140,6 +139,7 @@ export default function HabitsBoard({
   const [period, setPeriod] = useState<Period>("week");
   const [offset, setOffset] = useState(0);
   const [viewMode, setViewMode] = useState<"list" | "grid">("list");
+  const [disableViewTransitions, setDisableViewTransitions] = useState(false);
   const [showAddHabit, setShowAddHabit] = useState(false);
   const [addHabitVisible, setAddHabitVisible] = useState(false);
 
@@ -277,9 +277,19 @@ export default function HabitsBoard({
     return { label: String(yr), days: null, months };
   })();
 
+  const triggerViewSwitch = (update: () => void) => {
+    setDisableViewTransitions(true);
+    update();
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setDisableViewTransitions(false));
+    });
+  };
+
   const handlePeriodChange = (p: Period) => {
-    setPeriod(p);
-    setOffset(0);
+    triggerViewSwitch(() => {
+      setPeriod(p);
+      setOffset(0);
+    });
   };
 
   const isCurrentPeriod = offset === 0;
@@ -461,20 +471,20 @@ export default function HabitsBoard({
     isComplete: boolean,
     title: string,
     key: string,
+    sizeClass = "h-8 w-8",
+    iconClass = "h-4 w-4",
   ) => (
     <div key={key} className="flex justify-center" title={title}>
       <span
-        className={`flex h-8 w-8 items-center justify-center rounded-md transition-all ${cellClass} ${isToday && !isInactive ? `ring-2 ring-offset-1 ${ring}` : ""}`}
+        className={`flex ${sizeClass} items-center justify-center rounded-md ${cellClass} ${isToday && !isInactive ? `ring-2 ring-offset-1 ${ring}` : ""}`}
       >
-        {isComplete && <Check className="h-4 w-4 text-white/90" />}
+        {isComplete && <Check className={`${iconClass} text-white/90`} />}
       </span>
     </div>
   );
 
   return (
-    <main className="relative lg:px-4 xl:px-8 2xl:px-28 lg:pt-18 xl:pt-24 2xl:pt-28 lg:pb-8 xl:pb-12 2xl:pb-16 min-h-screen w-full bg-linear-to-br from-white via-light-yellow/40 to-green-soft/20 text-foreground overflow-hidden">
-      <PageGradient />
-
+    <main className="relative lg:px-4 xl:px-8 2xl:px-28 lg:pt-18 xl:pt-24 2xl:pt-28 lg:pb-8 xl:pb-12 2xl:pb-16 min-h-screen w-full bg-card text-foreground overflow-hidden">
       <div className="lg:space-y-6 xl:space-y-8 lg:mb-6 xl:mb-8">
         <PageHeading
           badgeLabel="Your habits"
@@ -487,11 +497,11 @@ export default function HabitsBoard({
       <div className="mx-auto w-full">
         <div className="grid lg:gap-4 xl:gap-6 lg:grid-cols-[1.3fr_0.7fr]">
           {/* ── Left: main board ── */}
-          <section className="space-y-5">
+          <section
+            className={`space-y-5 ${disableViewTransitions ? "view-switching" : ""}`}
+          >
             {/* Today progress bar */}
-            <div className="rounded-2xl bg-card px-5 py-4 shadow-sm space-y-3 relative overflow-hidden">
-              <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-primary/10 blur-2xl" />
-              <div className="pointer-events-none absolute -left-4 bottom-0 h-16 w-16 rounded-full bg-green-soft/15 blur-xl" />
+            <div className="rounded-2xl px-5 py-4 border border-gray-100 space-y-3 relative overflow-hidden">
               <div className="flex items-center justify-between text-sm">
                 <span className="font-semibold text-foreground">
                   {today.toLocaleDateString("en-US", {
@@ -529,7 +539,7 @@ export default function HabitsBoard({
 
             {/* Toolbar */}
             <div className="flex items-center justify-between gap-4">
-              <div className="flex items-center gap-1 rounded-full bg-muted shadow-inner p-1 text-xs font-semibold text-muted-foreground">
+              <div className="flex items-center gap-1 rounded-full bg-gray-200 p-1 text-xs font-semibold text-muted-foreground">
                 {(["Week", "Month", "Year"] as const).map((label) => {
                   const p = label.toLowerCase() as Period;
                   return (
@@ -539,7 +549,7 @@ export default function HabitsBoard({
                       onClick={() => handlePeriodChange(p)}
                       className={`rounded-full px-4 py-2 transition ${
                         period === p
-                          ? "bg-white text-foreground shadow-sm"
+                          ? "bg-white text-foreground"
                           : "hover:text-foreground"
                       }`}
                     >
@@ -551,7 +561,7 @@ export default function HabitsBoard({
               <button
                 type="button"
                 onClick={openAddHabit}
-                className="inline-flex items-center gap-2 rounded-full bg-primary lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 text-xs font-semibold text-white shadow-[0_4px_14px_rgba(240,144,41,0.35)] transition hover:brightness-105 active:scale-95"
+                className="inline-flex items-center gap-2 rounded-full bg-primary lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 text-xs font-semibold text-white transition hover:brightness-105 active:scale-95"
               >
                 <Plus className="h-4 w-4" />
                 Add Habit
@@ -559,13 +569,10 @@ export default function HabitsBoard({
             </div>
 
             {/* Board card */}
-            <div className="rounded-2xl bg-card shadow-sm overflow-hidden border border-gray-100">
+            <div className="rounded-2xl bg-card overflow-hidden border-8 border-gray-100">
               {/* Card header */}
-              <div className="flex items-center justify-between gap-4 px-5 pt-5 pb-4 border-b border-gray-50 bg-linear-to-r from-muted/30 to-transparent">
+              <div className="flex items-center justify-between gap-4 px-5 pt-5 pb-4 border-b border-gray-100 bg-gray-100">
                 <div className="space-y-1">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
-                    Habit tracker
-                  </div>
                   <div className="text-sm font-bold text-foreground">
                     {displayConfig.label}
                   </div>
@@ -584,17 +591,21 @@ export default function HabitsBoard({
                     <div className="flex items-center gap-0.5 rounded-full bg-muted/50 p-0.5">
                       <button
                         type="button"
-                        onClick={() => setViewMode("list")}
+                        onClick={() =>
+                          triggerViewSwitch(() => setViewMode("list"))
+                        }
                         aria-pressed={viewMode === "list"}
-                        className={`grid h-7 w-7 place-items-center rounded-full transition ${viewMode === "list" ? "bg-white text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+                        className={`grid h-7 w-7 place-items-center rounded-full transition ${viewMode === "list" ? "bg-white text-foreground" : "text-muted-foreground hover:text-foreground"}`}
                       >
                         <List className="h-3.5 w-3.5" />
                       </button>
                       <button
                         type="button"
-                        onClick={() => setViewMode("grid")}
+                        onClick={() =>
+                          triggerViewSwitch(() => setViewMode("grid"))
+                        }
                         aria-pressed={viewMode === "grid"}
-                        className={`grid h-7 w-7 place-items-center rounded-full transition ${viewMode === "grid" ? "bg-white text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+                        className={`grid h-7 w-7 place-items-center rounded-full transition ${viewMode === "grid" ? "bg-white text-foreground" : "text-muted-foreground hover:text-foreground"}`}
                       >
                         <LayoutGrid className="h-3.5 w-3.5" />
                       </button>
@@ -605,7 +616,9 @@ export default function HabitsBoard({
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
-                      onClick={() => setOffset((o) => o - 1)}
+                      onClick={() =>
+                        triggerViewSwitch(() => setOffset((o) => o - 1))
+                      }
                       className="grid h-8 w-8 place-items-center rounded-full border border-gray-100 bg-white text-muted-foreground transition hover:border-gray-200 hover:text-foreground"
                       aria-label={`Previous ${period}`}
                     >
@@ -614,7 +627,7 @@ export default function HabitsBoard({
                     {!isCurrentPeriod && (
                       <button
                         type="button"
-                        onClick={() => setOffset(0)}
+                        onClick={() => triggerViewSwitch(() => setOffset(0))}
                         className="rounded-full border border-gray-100 bg-white px-3 py-1 text-xs font-semibold text-muted-foreground transition hover:border-gray-200 hover:text-foreground"
                       >
                         Today
@@ -622,7 +635,9 @@ export default function HabitsBoard({
                     )}
                     <button
                       type="button"
-                      onClick={() => setOffset((o) => o + 1)}
+                      onClick={() =>
+                        triggerViewSwitch(() => setOffset((o) => o + 1))
+                      }
                       disabled={isCurrentPeriod}
                       className="grid h-8 w-8 place-items-center rounded-full border border-gray-100 bg-white text-muted-foreground transition hover:border-gray-200 hover:text-foreground disabled:opacity-30 disabled:cursor-not-allowed"
                       aria-label={`Next ${period}`}
@@ -705,7 +720,7 @@ export default function HabitsBoard({
                               }
                             >
                               <span
-                                className={`flex h-8 w-8 items-center justify-center rounded-md transition-all ${cellClass}`}
+                                className={`flex h-8 w-8 items-center justify-center rounded-md ${cellClass}`}
                               >
                                 {isComplete && (
                                   <Check className="h-4 w-4 text-white/90" />
@@ -726,7 +741,7 @@ export default function HabitsBoard({
                 <div className="px-5 py-5 overflow-x-auto">
                   <div
                     style={{
-                      minWidth: `${148 + (displayConfig.days?.length ?? 0) * 20 + 52}px`,
+                      minWidth: `${148 + (displayConfig.days?.length ?? 0) * 12 + 52}px`,
                     }}
                   >
                     {/* Day-of-month headers */}
@@ -734,7 +749,7 @@ export default function HabitsBoard({
                       className="mb-3 gap-0.5 text-[10px] font-semibold text-muted-foreground"
                       style={{
                         display: "grid",
-                        gridTemplateColumns: `148px repeat(${displayConfig.days?.length ?? 0}, 1fr) 52px`,
+                        gridTemplateColumns: `148px repeat(${displayConfig.days?.length ?? 0}, minmax(12px, 1fr)) 52px`,
                       }}
                     >
                       <span />
@@ -760,7 +775,7 @@ export default function HabitsBoard({
                           className="gap-0.5 items-center"
                           style={{
                             display: "grid",
-                            gridTemplateColumns: `148px repeat(${displayConfig.days?.length ?? 0}, 1fr) 52px`,
+                            gridTemplateColumns: `148px repeat(${displayConfig.days?.length ?? 0}, minmax(12px, 1fr)) 52px`,
                           }}
                         >
                           <div className="flex items-center gap-2 min-w-0">
@@ -795,6 +810,8 @@ export default function HabitsBoard({
                                   ? `${fmt(cell.progress)} – completed`
                                   : `${fmt(cell.progress)} logged`,
                               `${row.habit.id}-${idx}`,
+                              "w-full max-w-6 aspect-square",
+                              "h-3 w-3",
                             );
                           })}
                           <div className="text-right text-xs font-bold text-muted-foreground">
@@ -966,18 +983,15 @@ export default function HabitsBoard({
           </section>
 
           {/* ── Right: sidebar ── */}
-          <aside className="flex flex-col overflow-hidden space-y-3 p-4 rounded-3xl bg-linear-to-b from-muted/40 to-muted/20 shadow-inner border border-gray-100">
+          <aside className="flex flex-col overflow-hidden space-y-3">
             <div className="shrink-0 flex items-center justify-between px-1 mb-1">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary mb-0.5">
-                  Daily check-in
-                </p>
                 <p className="text-sm font-bold text-foreground">
                   Today's habits
                 </p>
               </div>
               <span
-                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-0.5 text-xs font-semibold ${completedToday === activeToday.length && activeToday.length > 0 ? "bg-green-soft/20 text-green-soft" : "bg-muted text-muted-foreground"}`}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-0.5 text-xs font-semibold ${completedToday === activeToday.length && activeToday.length > 0 ? "bg-green-soft/20 text-green-soft" : "bg-gray-200 text-muted-foreground"}`}
               >
                 {completedToday}/{activeToday.length}
               </span>
@@ -1013,7 +1027,7 @@ export default function HabitsBoard({
                     return (
                       <div
                         key={item.habit.id}
-                        className={`rounded-2xl bg-card px-3 py-3 shadow-sm transition-all ${
+                        className={`rounded-2xl bg-card px-3 py-3 border border-gray-100 transition-all ${
                           item.isComplete && item.palette.card
                         }`}
                       >
@@ -1024,9 +1038,6 @@ export default function HabitsBoard({
                             className="flex items-center gap-2 min-w-0 group text-left"
                             title="Edit habit"
                           >
-                            <span
-                              className={`h-2.5 w-2.5 shrink-0 rounded-full ${item.palette.dot}`}
-                            />
                             <span className="truncate text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
                               {item.habit.name}
                             </span>
@@ -1057,7 +1068,7 @@ export default function HabitsBoard({
                               {item.pct}%
                             </span>
                           </div>
-                          <div className="h-1.5 w-full rounded-full bg-muted/40 overflow-hidden">
+                          <div className="h-1.5 w-full rounded-full bg-gray-100 overflow-hidden">
                             <div
                               className={`h-full rounded-full transition-all duration-500 ${item.palette.bar}`}
                               style={{ width: `${item.pct}%` }}
@@ -1086,7 +1097,7 @@ export default function HabitsBoard({
                             type="button"
                             onClick={() => handleAdd(item.habit.id)}
                             disabled={isPending}
-                            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-primary/20 bg-primary/8 px-3 py-1.5 text-xs font-semibold text-primary transition hover:border-primary/40 hover:bg-primary/12 disabled:opacity-50"
+                            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary transition hover:border-primary/40 hover:bg-primary/12 disabled:opacity-50"
                           >
                             <Plus className="h-3.5 w-3.5" />
                             Add
@@ -1153,7 +1164,7 @@ export default function HabitsBoard({
             onClick={closeEditHabit}
           />
           <div
-            className={`relative h-full w-full max-w-5xl bg-card shadow-2xl flex flex-col transition-transform duration-300 ease-out ${editHabitVisible ? "translate-x-0" : "translate-x-full"}`}
+            className={`relative h-full w-full max-w-5xl border-l-8 border-gray-100 bg-card flex flex-col transition-transform duration-300 ease-out ${editHabitVisible ? "translate-x-0" : "translate-x-full"}`}
           >
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
               <div>
@@ -1239,7 +1250,7 @@ export default function HabitsBoard({
             onClick={closeAddHabit}
           />
           <div
-            className={`relative h-full w-full max-w-5xl bg-card shadow-2xl flex flex-col transition-transform duration-300 ease-out ${addHabitVisible ? "translate-x-0" : "translate-x-full"}`}
+            className={`relative h-full w-full max-w-5xl bg-card border-l-8 border-gray-100 flex flex-col transition-transform duration-300 ease-out ${addHabitVisible ? "translate-x-0" : "translate-x-full"}`}
           >
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
               <div>
@@ -1254,7 +1265,7 @@ export default function HabitsBoard({
                 <button
                   type="submit"
                   form="add-habit-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white shadow-[0_4px_14px_rgba(240,144,41,0.35)] transition hover:brightness-105 active:scale-95"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white transition hover:brightness-105 active:scale-95"
                 >
                   Create habit
                 </button>

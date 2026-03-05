@@ -182,3 +182,9 @@ body {
 .friends-scrollbar::-webkit-scrollbar-corner {
   background-color: transparent;
 }
+
+.view-switching,
+.view-switching * {
+  transition: none !important;
+  animation: none !important;
+}

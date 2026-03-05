@@ -969,10 +969,10 @@ const TodosPage: React.FC<TodosPageProps> = ({
 
                   {(collectionMessage || collectionError) && (
                     <div
-                      className={`rounded-xl border lg:px-2 xl:px-3 lg:py-1 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm ${
+                      className={`rounded-xl lg:px-2 xl:px-3 lg:py-1 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm ${
                         collectionMessage
-                          ? "border-green-soft/50 bg-green-soft/10 text-foreground"
-                          : "border-destructive/60 bg-destructive/10 text-destructive"
+                          ? "bg-green-soft/10 text-foreground"
+                          : "bg-destructive/10 text-destructive"
                       }`}
                     >
                       {collectionMessage || collectionError}

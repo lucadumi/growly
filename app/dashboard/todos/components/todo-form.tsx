@@ -10,15 +10,7 @@ import {
   useState,
 } from "react";
 import type React from "react";
-import {
-  ChevronDown,
-  Clock,
-  Flag,
-  Group,
-  Hash,
-  ListChecks,
-  MapPin,
-} from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import Button from "@/app/components/ui/button";
 import TimeInput from "@/app/components/ui/time-input";
@@ -373,12 +365,8 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
               >
                 <div className="grid lg:gap-3 xl:gap-4">
                   <label className="lg:space-y-1 xl:space-y-2">
-                    <div className="flex items-center lg:gap-2 lg:text-xs xl:text-sm font-semibold">
-                      <Hash className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                    <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                       <span>Title</span>
-                      <span className="lg:text-[9px] xl:text-[11px] text-muted-foreground font-normal">
-                        Required
-                      </span>
                     </div>
                     <div className={dropdownSelectWrapperClassName}>
                       <input
@@ -391,8 +379,7 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
                   </label>
 
                   <label className="lg:space-y-1 xl:space-y-2">
-                    <div className="flex items-center gap-2 lg:text-xs xl:text-sm font-semibold">
-                      <ListChecks className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                    <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                       <span>Description</span>
                     </div>
                     <div className={dropdownSelectWrapperClassName}>
@@ -409,8 +396,7 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <label className="lg:space-y-1 xl:space-y-2">
-                    <div className="flex items-center gap-2 lg:text-xs xl:text-sm font-semibold">
-                      <Group className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                    <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                       <span>Category</span>
                     </div>
                     <div className={dropdownSelectWrapperClassName}>
@@ -478,8 +464,7 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
                   </label>
 
                   <div className="lg:space-y-1 xl:space-y-2">
-                    <div className="flex items-center gap-2 lg:text-xs xl:text-sm font-semibold">
-                      <Flag className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                    <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                       <span>Priority</span>
                     </div>
                     <div className="grid grid-cols-4 lg:gap-1 xl:gap-2">
@@ -510,8 +495,7 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="lg:space-y-1 xl:space-y-2">
-                    <div className="flex items-center gap-2 lg:text-xs xl:text-sm font-semibold">
-                      <Clock className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                    <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                       <span>Time</span>
                     </div>
                     <TimeInput
@@ -524,8 +508,7 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
                   </div>
 
                   <label className="lg:space-y-1 xl:space-y-2">
-                    <div className="flex items-center gap-2 lg:text-xs xl:text-sm font-semibold">
-                      <MapPin className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                    <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                       <span>Location</span>
                     </div>
                     <div className={dropdownSelectWrapperClassName}>

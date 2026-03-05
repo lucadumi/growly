@@ -16,7 +16,7 @@ const tabDefinitions: TabDefinition[] = [
 ];
 
 const baseContainerClassName =
-  "inline-flex items-center gap-2 lg:p-1 xl:p-2 rounded-full border border-gray-200 bg-white shadow-md shadow-primary/20 overflow-hidden lg:text-[11px] xl:text-xs 2xl:text-sm";
+  "inline-flex items-center gap-2 lg:p-1 xl:p-2 rounded-full border border-gray-200 bg-white overflow-hidden lg:text-[11px] xl:text-xs 2xl:text-sm";
 const baseTabClassName =
   "lg:px-3 xl:px-4 lg:py-1 xl:py-2 font-semibold transition whitespace-nowrap rounded-full";
 const baseActiveTabClassName = "bg-primary text-white";
@@ -42,7 +42,7 @@ export default function HabitsTabs({
 }: HabitsTabsProps) {
   const containerClasses = joinClasses(
     baseContainerClassName,
-    containerClassName
+    containerClassName,
   );
 
   return (
@@ -53,8 +53,8 @@ export default function HabitsTabs({
           baseTabClassName,
           tabClassName,
           isActive
-            ? activeTabClassName ?? baseActiveTabClassName
-            : inactiveTabClassName ?? baseInactiveTabClassName
+            ? (activeTabClassName ?? baseActiveTabClassName)
+            : (inactiveTabClassName ?? baseInactiveTabClassName),
         );
 
         if (isActive) {

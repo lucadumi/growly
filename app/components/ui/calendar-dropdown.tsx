@@ -10,7 +10,7 @@ const padTwo = (value: number) => String(value).padStart(2, "0");
 
 const isoFromDate = (date: Date) =>
   `${date.getFullYear()}-${padTwo(date.getMonth() + 1)}-${padTwo(
-    date.getDate()
+    date.getDate(),
   )}`;
 
 const parseIsoDate = (value?: string | null) => {
@@ -196,7 +196,7 @@ const CalendarDropdown: React.FC<CalendarDropdownProps> = ({
       ref={panelRef}
       role="dialog"
       aria-modal="true"
-      className="lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-white lg:px-3 xl:px-4 2xl:px-5 lg:py-2 xl:py-3 2xl:py-4 shadow-xl max-w-sm"
+      className="lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-white lg:px-3 xl:px-4 2xl:px-5 lg:py-2 xl:py-3 2xl:py-4 shadow-md max-w-sm"
       style={{
         position: "absolute",
         zIndex: 9999,
@@ -218,7 +218,7 @@ const CalendarDropdown: React.FC<CalendarDropdownProps> = ({
             type="button"
             onClick={() =>
               setViewDate(
-                (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
+                (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1),
               )
             }
             className="rounded-2xl border border-gray-200 lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 font-medium transition hover:border-primary/60"
@@ -229,7 +229,7 @@ const CalendarDropdown: React.FC<CalendarDropdownProps> = ({
             type="button"
             onClick={() =>
               setViewDate(
-                (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
+                (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1),
               )
             }
             className="rounded-2xl border border-gray-200 lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 font-medium transition hover:border-primary/60"
@@ -267,19 +267,17 @@ const CalendarDropdown: React.FC<CalendarDropdownProps> = ({
                 className={`lg:h-6 lg:w-6 xl:h-7 xl:w-7 2xl:h-8 2xl:w-8 rounded-full text-center font-semibold transition ${
                   inMonth ? "text-foreground" : "text-muted-foreground"
                 } ${
-                  isSelected
-                    ? "bg-primary text-white shadow-sm"
-                    : "hover:bg-primary/10"
+                  isSelected ? "bg-primary text-white" : "hover:bg-primary/10"
                 } ${isToday ? "border border-primary/40" : ""}`}
               >
                 {date.getDate()}
               </button>
             );
-          })
+          }),
         )}
       </div>
     </div>,
-    portalTarget
+    portalTarget,
   );
 };
 

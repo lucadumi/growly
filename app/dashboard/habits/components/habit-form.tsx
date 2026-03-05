@@ -9,16 +9,7 @@ import {
   useState,
 } from "react";
 import { useRouter } from "next/navigation";
-import {
-  AlarmCheck,
-  AlarmClockCheck,
-  CalendarDays,
-  ChevronDown,
-  Hash,
-  ListChecks,
-  Recycle,
-  Goal,
-} from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import Button from "@/app/components/ui/button";
 import CalendarDropdown from "@/app/components/ui/calendar-dropdown";
@@ -37,7 +28,7 @@ interface HabitFormProps {
 }
 
 const fieldButtonClassName =
-  "w-full flex items-center justify-between rounded-2xl lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm font-medium text-foreground shadow-inner transition-all hover:border-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-0";
+  "w-full flex items-center justify-between rounded-2xl lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm font-medium text-foreground transition-all hover:border-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-0";
 
 const inputClassName =
   "w-full border-none bg-transparent lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:outline-none";
@@ -46,7 +37,7 @@ const countClassName =
   "w-full border-none bg-transparent lg:px-4 lg:py-2 xl:px-6 2xl:px-8 xl:py-4 lg:text-2xl xl:text-3xl 2xl:text-4xl text-foreground placeholder:text-muted-foreground focus:outline-none focus-visible:outline-none";
 
 const dropdownSelectWrapperClassName =
-  "relative overflow-visible rounded-2xl bg-card/30 shadow-inner transition-colors hover:border-primary/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-0";
+  "relative overflow-visible rounded-2xl bg-card/30 border border-gray-100 hover:border-primary/40 transition-colors hover:border-primary/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-0";
 
 const cadenceOptions: Cadence[] = ["Daily", "Weekly", "Monthly"];
 const reminderOptions = [
@@ -343,7 +334,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
       {guardDialog}
 
       {saved ? (
-        <div className="rounded-2xl border border-green-soft/60 bg-green-soft/15 lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground mb-4">
+        <div className="rounded-2xl bg-green-soft/15 lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm text-foreground mb-4">
           Habit saved. It is now synced to your dashboard.
         </div>
       ) : null}
@@ -356,8 +347,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
         >
           <div className="flex-1 lg:space-y-3 xl:space-y-4">
             <label className="lg:space-y-1 xl:space-y-2 block">
-              <div className="flex items-center lg:gap-1.5 xl:gap-2 lg:text-xs xl:text-sm font-semibold">
-                <Hash className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+              <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                 <span>Habit name</span>
               </div>
               <div className={dropdownSelectWrapperClassName}>
@@ -373,8 +363,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
             </label>
 
             <label className="lg:space-y-1 xl:space-y-2 block">
-              <div className="flex items-center lg:gap-1.5 xl:gap-2 lg:text-xs xl:text-sm font-semibold">
-                <ListChecks className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+              <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                 <span>Description</span>
               </div>
               <div className={dropdownSelectWrapperClassName}>
@@ -390,13 +379,12 @@ const HabitForm: React.FC<HabitFormProps> = ({
 
             <label className="lg:space-y-2 xl:space-y-3 block">
               <div className="flex items-center gap-2 lg:text-xs xl:text-sm font-semibold">
-                <Goal className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
                 <span>Goal value</span>
               </div>
               <p className="lg:text-[10px] xl:text-xs text-muted-foreground">
                 Set the amount and the unit that counts as a win.
               </p>
-              <div className="flex flex-wrap gap-2 p-1 w-fit rounded-full bg-primary/30">
+              <div className="flex flex-wrap gap-2 p-1 w-fit rounded-full bg-gray-200">
                 {unitCategories.map((category) => (
                   <button
                     key={category}
@@ -408,10 +396,10 @@ const HabitForm: React.FC<HabitFormProps> = ({
                       }));
                       markDirty();
                     }}
-                    className={`rounded-full border lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 lg:text-[11px] xl:text-xs font-semibold transition ${
+                    className={`rounded-full lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 lg:text-[11px] xl:text-xs font-semibold transition ${
                       form.goalUnitCategory === category
-                        ? "border-primary bg-primary text-white shadow-sm"
-                        : "border-gray-200 bg-white text-foreground hover:border-primary/40"
+                        ? "bg-primary text-white"
+                        : "bg-white text-foreground"
                     }`}
                   >
                     {category}
@@ -445,7 +433,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
                         }}
                         className={`rounded-full border lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 lg:text-[11px] xl:text-xs font-semibold transition ${
                           form.goalUnit === unit
-                            ? "border-primary bg-primary/10 text-primary"
+                            ? "border-white bg-primary/10 text-primary"
                             : "border-gray-200 bg-white text-foreground hover:border-primary/40"
                         }`}
                       >
@@ -477,8 +465,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
 
             <div className="grid lg:grid-cols-2 lg:gap-2 xl:gap-4">
               <label className="lg:space-y-1 xl:space-y-2 block">
-                <div className="flex items-center lg:gap-1.5 xl:gap-2 lg:text-xs xl:text-sm font-semibold">
-                  <Recycle className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                   <span>Cadence</span>
                 </div>
                 <div className={dropdownSelectWrapperClassName}>
@@ -515,7 +502,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
                             )}`
                           : undefined
                       }
-                      className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg ${
+                      className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md ${
                         cadenceDropDirection === "down"
                           ? "top-full mt-2"
                           : "bottom-full mb-2"
@@ -540,10 +527,8 @@ const HabitForm: React.FC<HabitFormProps> = ({
                               markDirty();
                               closeCadenceMenu();
                             }}
-                            className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-xs xl:text-sm transition last:border-b-0 ${
-                              form.cadence === cadence
-                                ? "bg-primary/10 text-primary font-semibold"
-                                : "text-foreground hover:bg-primary/5"
+                            className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs transition last:border-b-0 ${
+                              form.cadence === cadence && "font-semibold"
                             }`}
                           >
                             {cadence}
@@ -556,8 +541,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
               </label>
 
               <label className="lg:space-y-1 xl:space-y-2 block">
-                <div className="flex items-center lg:gap-1.5 xl:gap-2 lg:text-xs xl:text-sm font-semibold">
-                  <CalendarDays className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                   <span>Start date</span>
                 </div>
                 <div className={dropdownSelectWrapperClassName}>
@@ -599,8 +583,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
               </label>
 
               <label className="lg:space-y-1 xl:space-y-2 block">
-                <div className="flex items-center lg:gap-1.5 xl:gap-2 lg:text-xs xl:text-sm font-semibold">
-                  <AlarmClockCheck className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                   <span>Preferred time</span>
                 </div>
                 <TimeInput
@@ -610,8 +593,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
               </label>
 
               <label className="lg:space-y-1 xl:space-y-2 block">
-                <div className="flex items-center lg:gap-1.5 xl:gap-2 lg:text-xs xl:text-sm font-semibold">
-                  <AlarmCheck className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />
+                <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                   <span>Reminder</span>
                 </div>
                 <div className={dropdownSelectWrapperClassName}>
@@ -648,7 +630,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
                             )}`
                           : undefined
                       }
-                      className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg ${
+                      className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md ${
                         reminderDropDirection === "down"
                           ? "top-full mt-2"
                           : "bottom-full mb-2"
@@ -674,9 +656,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
                               closeReminderMenu();
                             }}
                             className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs 2xl:text-sm transition last:border-b-0 ${
-                              form.reminder === reminder
-                                ? "bg-primary/10 text-primary font-semibold"
-                                : "text-foreground hover:bg-primary/5"
+                              form.reminder === reminder && "font-semibold"
                             }`}
                           >
                             {reminder}
@@ -695,7 +675,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
             <div className="flex items-center gap-2 pt-1">
               <Button
                 type="submit"
-                className="font-medium lg:px-3 xl:px-5 2xl:px-7 lg:py-1 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm bg-primary text-white shadow-[0_6px_14px_rgba(240,144,41,0.35)] hover:brightness-105 transition disabled:cursor-not-allowed disabled:brightness-90"
+                className="font-medium lg:px-3 xl:px-5 2xl:px-7 lg:py-1 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm bg-primary text-white hover:brightness-105 transition disabled:cursor-not-allowed disabled:brightness-90"
                 disabled={isSubmitting}
               >
                 {isSubmitting
@@ -708,7 +688,6 @@ const HabitForm: React.FC<HabitFormProps> = ({
           )}
         </form>
       </div>
-
     </>
   );
 };

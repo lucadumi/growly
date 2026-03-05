@@ -11,7 +11,6 @@ import {
 } from "react";
 import { CalendarDays, Check, Clock3, Search, Target } from "lucide-react";
 
-import PageGradient from "@/app/components/ui/page-gradient";
 import PageHeading from "@/app/components/page-heading";
 import { useUnsavedChangesGuard } from "@/app/hooks/use-unsaved-changes-guard";
 
@@ -470,7 +469,6 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
         <div className="space-y-6">{formGrid}</div>
       ) : (
         <main className="relative overflow-hidden w-full min-h-screen lg:pt-18 xl:pt-24 2xl:pt-28 text-foreground lg:pb-8 xl:pb-12 2xl:pb-16 bg-linear-to-t from-white/90 via-light-yellow/55 to-green-soft/15">
-          <PageGradient />
           <div className="lg:px-4 xl:px-8 2xl:px-28 space-y-8">
             <PageHeading
               badgeLabel={pageHeading.badgeLabel}

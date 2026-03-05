@@ -3,11 +3,10 @@ import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Clock3, Edit, GripVertical, Target, Trash2, X } from "lucide-react";
 
-import PageGradient from "@/app/components/ui/page-gradient";
 import { useRouter } from "next/navigation";
 import PageHeading from "@/app/components/page-heading";
 import HabitsTabs from "../components/habits-tabs";
-import GradientCircle from "@/app/components/ui/gradient-circle";
+
 import Button from "@/app/components/ui/button";
 import RoutineFormPage from "./routine-form";
 
@@ -61,7 +60,9 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
   useEffect(() => {
     const isOpen = showCreateRoutine || showEditRoutine;
     document.body.style.overflow = isOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [showCreateRoutine, showEditRoutine]);
 
   const moveHabit = (habitId: string, source: string, target: string) => {
@@ -249,7 +250,6 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
   return (
     <>
       <main className="relative overflow-hidden w-full min-h-screen lg:pt-18 xl:pt-24 2xl:pt-28 text-foreground g:pb-8 xl:pb-12 2xl:pb-16 bg-linear-to-b from-white/90 via-light-yellow/55 to-green-soft/15">
-        <PageGradient />
         <div className="lg:px-4 xl:px-8 2xl:px-28 lg:space-y-6 xl:space-y-8">
           <PageHeading
             badgeLabel="Routines"
@@ -296,13 +296,6 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
               onDrop={handleDrop("backlog")}
             >
               <div className="flex items-center justify-between lg:mb-2 xl:mb-3">
-                <GradientCircle
-                  size={210}
-                  position={{ top: "-50px", right: "-50px" }}
-                  color="rgba(135, 197, 161, 0.35)"
-                  fadeColor="rgba(135, 197, 161, 0)"
-                  className="scale-[2]"
-                />
                 <div>
                   <p className="lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold uppercase tracking-[0.16em] text-primary">
                     Unassigned
