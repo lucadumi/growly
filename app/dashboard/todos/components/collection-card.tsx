@@ -63,10 +63,10 @@ const CollectionCard: FC<CollectionCardProps> = ({
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`relative rounded-2xl border bg-card shadow-sm overflow-hidden transition-all ${
+      className={`relative rounded-2xl border bg-card overflow-hidden transition-all ${
         isDropTarget
           ? "border-primary/60 ring-2 ring-primary/30 bg-primary/5 scale-[1.01]"
-          : "border-gray-100 hover:border-primary/30 hover:shadow-md"
+          : "border-gray-100 hover:border-primary/30"
       }`}
     >
       {/* Drop target overlay */}
@@ -82,12 +82,6 @@ const CollectionCard: FC<CollectionCardProps> = ({
         {/* Header row */}
         <div className="flex items-start justify-between lg:gap-2 xl:gap-3">
           <div className="space-y-1 min-w-0 flex-1">
-            <div className="flex items-center gap-1.5">
-              <FolderOpen className="lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 text-primary shrink-0" />
-              <p className="lg:text-[8px] xl:text-[9px] 2xl:text-[10px] uppercase tracking-[0.18em] text-primary font-semibold">
-                Collection
-              </p>
-            </div>
             <Link
               href={`/dashboard/todos/collections/${collection.id}`}
               className="block lg:text-sm xl:text-base font-bold text-foreground hover:text-primary transition truncate"
@@ -131,7 +125,7 @@ const CollectionCard: FC<CollectionCardProps> = ({
 
         {/* Footer: count + CTA */}
         <div className="flex items-center justify-between">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-muted lg:px-2 xl:px-2.5 lg:py-0.5 xl:py-1 lg:text-[9px] xl:text-[10px] 2xl:text-[11px] font-semibold text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 lg:px-2 xl:px-2.5 lg:py-0.5 xl:py-1 lg:text-[9px] xl:text-[10px] 2xl:text-[11px] font-semibold text-muted-foreground">
             <span className="h-1.5 w-1.5 rounded-full bg-primary/50" />
             {assignedCount} todo{assignedCount === 1 ? "" : "s"}
           </span>

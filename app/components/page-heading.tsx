@@ -25,10 +25,6 @@ const PageHeading: React.FC<PageHeadingProps> = ({
       }`}
     >
       <div className="space-y-2">
-        <div className="inline-flex items-center gap-2 rounded-full bg-light-yellow lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 lg:text-[8px] xl:text-[10px] 2xl:text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-700">
-          <Shrub className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
-          <span>{badgeLabel}</span>
-        </div>
         <div className="space-y-1">
           <h1
             className={`font-bold ${

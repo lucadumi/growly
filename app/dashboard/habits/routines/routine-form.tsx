@@ -14,7 +14,6 @@ import { CalendarDays, Check, Clock3, Search, Target } from "lucide-react";
 import PageGradient from "@/app/components/ui/page-gradient";
 import PageHeading from "@/app/components/page-heading";
 import { useUnsavedChangesGuard } from "@/app/hooks/use-unsaved-changes-guard";
-import { useToast } from "@/app/context/toast-context";
 
 type RoutineHabit = {
   id: string;

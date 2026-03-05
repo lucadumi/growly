@@ -49,10 +49,11 @@ const DailyQuoteWidget: React.FC = () => {
       </h3>
 
       {loading ? (
-        <div className="space-y-2 animate-pulse">
-          <div className="h-2.5 w-full rounded-full bg-muted" />
-          <div className="h-2.5 w-4/5 rounded-full bg-muted" />
-          <div className="h-2.5 w-1/3 rounded-full bg-muted mt-3" />
+        <div className="space-y-3 animate-pulse">
+          <div className="h-3 w-2/3 rounded-full bg-muted/70" />
+          <div className="h-3 w-full rounded-full bg-muted/70" />
+          <div className="h-3 w-5/6 rounded-full bg-muted/70" />
+          <div className="h-3 w-1/2 rounded-full bg-muted/70" />
         </div>
       ) : error ? (
         <div className="flex flex-col items-start lg:gap-2 xl:gap-3">

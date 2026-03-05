@@ -3,21 +3,12 @@
 import Link from "next/link";
 import type { FC } from "react";
 import { useRef } from "react";
-import {
-  Check,
-  Clock3,
-  icons,
-  LucideIcon,
-  MapPin,
-  Sparkles,
-} from "lucide-react";
+import { Check, Clock3, MapPin } from "lucide-react";
 
 export interface TodoItem {
   id: string;
   title: string;
-  iconKey: string;
   completed: boolean;
-  iconColor: string;
   statusLabel: string;
   statusColor: string;
   status: "PLANNED" | "IN_PROGRESS" | "COMPLETED" | "MISSED";
@@ -91,15 +82,6 @@ const Todo: FC<TodoProps> = ({
         href={href || "#"}
         className="flex items-start lg:gap-2 xl:gap-3 flex-1 min-w-0 group"
       >
-        <div className="grid place-items-center lg:w-10 lg:h-10 xl:w-12 xl:h-12 lg:rounded-sm xl:rounded-md bg-gray-50 shrink-0">
-          {(() => {
-            const IconComp =
-              (icons as Record<string, LucideIcon>)[todo.iconKey] || Sparkles;
-            return (
-              <IconComp className="lg:w-4 xl:w-5 lg:h-4 xl:h-5 text-slate-500" />
-            );
-          })()}
-        </div>
         <div className="flex-1 min-w-0">
           <div className="mb-1">
             <div

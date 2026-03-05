@@ -1,5 +1,4 @@
 import { headers } from "next/headers";
-import { icons } from "lucide-react";
 
 import type { TodoStatus } from "@prisma/client";
 
@@ -89,10 +88,7 @@ const TodosWidget = async () => {
   const todosFromDb = [...activeTodosFromDb, ...completedTodosFromDb];
 
   const todos: TodoItem[] = todosFromDb.map(
-    ({ title, priority, status, id, iconName, iconColor, location, scheduledTime }) => {
-      const hasCustomIcon = Boolean(
-        (icons as Record<string, unknown>)[iconName || ""]
-      );
+    ({ title, status, id, location, scheduledTime }) => {
       const normalizedStatus = normalizeStatus(status);
       const { label, color } =
         STATUS_META[normalizedStatus] || STATUS_META.PLANNED;
@@ -100,22 +96,14 @@ const TodosWidget = async () => {
       return {
         id,
         title,
-        iconKey: hasCustomIcon && iconName ? iconName : "Sparkles",
         completed: normalizedStatus === "COMPLETED",
-        iconColor:
-          iconColor ||
-          (priority?.toUpperCase() === "HIGH"
-            ? "#FECACA"
-            : priority?.toUpperCase() === "CRITICAL"
-            ? "#FCA5A5"
-            : "#E5E7EB"),
         statusLabel: label,
         statusColor: color,
         status: normalizedStatus,
         location: location ?? null,
         scheduledTime: scheduledTime ?? null,
       };
-    }
+    },
   );
 
   return <TodosWidgetClient initialTodos={todos} totalActive={totalActive} />;

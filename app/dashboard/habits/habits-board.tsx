@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
   ChevronLeft,
@@ -157,6 +157,15 @@ export default function HabitsBoard({
   const [editHabitVisible, setEditHabitVisible] = useState(false);
 
   const [isDeletingHabit, setIsDeletingHabit] = useState(false);
+
+  useEffect(() => {
+    if (showAddHabit || showEditHabit) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }
+  }, [showAddHabit, showEditHabit]);
 
   const openEditHabit = (habit: Habit) => {
     setSelectedHabit(habit);

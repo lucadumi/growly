@@ -117,7 +117,7 @@ function NotificationsDropdown() {
       </button>
 
       <div
-        className={`absolute right-0 top-full lg:mt-2 xl:mt-3 w-72 lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-card shadow-xl transition-all duration-200 ease-out z-50 ${
+        className={`absolute right-0 top-full lg:mt-2 xl:mt-3 w-72 lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-card shadow-md transition-all duration-200 ease-out z-50 ${
           isOpen
             ? "opacity-100 visible translate-y-0 pointer-events-auto"
             : "opacity-0 invisible translate-y-2 pointer-events-none"
@@ -248,7 +248,7 @@ function AccountDropdown({ session }: AccountDropdownProps) {
       </button>
 
       <div
-        className={`absolute right-0 top-full lg:mt-2 xl:mt-3 lg:w-40 xl:w-56 lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-white shadow-xl transition-all duration-200 ease-out z-50 ${
+        className={`absolute right-0 top-full lg:mt-2 xl:mt-3 lg:w-40 xl:w-56 lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-white shadow-md transition-all duration-200 ease-out z-50 ${
           isOpen
             ? "opacity-100 visible translate-y-0 pointer-events-auto"
             : "opacity-0 invisible translate-y-2 pointer-events-none"

@@ -279,15 +279,26 @@ const WeatherWidget: FC = () => {
         </button>
       </div>
       <div
-        className="relative text-foreground flex flex-col justify-top shadow-sm lg:h-48 xl:h-64 2xl:h-80 bg-cover bg-bottom bg-no-repeat lg:p-3 xl:p-4 2xl:p-6 lg:rounded-xl 2xl:rounded-2xl"
+        className="relative text-foreground flex flex-col justify-top lg:h-48 xl:h-64 2xl:h-80 bg-cover bg-bottom bg-no-repeat lg:p-3 xl:p-4 2xl:p-6 lg:rounded-xl 2xl:rounded-2xl"
         style={{ backgroundColor }}
       >
         {status === "loading" && !weather && !isLocationUnavailable && (
-          <div className="absolute inset-0 rounded-xl bg-card/90 flex flex-col items-center justify-center gap-2">
-            <span className="lg:h-6 lg:w-6 xl:h-8 xl:w-8 animate-spin rounded-full border-4 border-white border-t-primary" />
-            <p className="lg:text-[9px] xl:text-[11px] uppercase tracking-[0.2em] text-muted-foreground/80">
-              Loading weather
-            </p>
+          <div className="absolute inset-0 rounded-xl bg-card/90 backdrop-blur-sm lg:p-3 xl:p-4 2xl:p-6 flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <div className="h-10 w-10 rounded-xl bg-muted/60 animate-pulse" />
+              <div className="h-8 w-24 rounded-full bg-muted/60 animate-pulse" />
+            </div>
+            <div className="space-y-3 mt-auto">
+              <div className="h-8 w-28 rounded-full bg-muted/60 animate-pulse" />
+              <div className="grid grid-cols-3 gap-3">
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <div key={index} className="space-y-2">
+                    <div className="h-2.5 w-16 rounded-full bg-muted/60 animate-pulse" />
+                    <div className="h-4 w-full rounded-full bg-muted/60 animate-pulse" />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
         {isLocationUnavailable ? (
