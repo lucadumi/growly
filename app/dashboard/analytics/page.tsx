@@ -104,7 +104,7 @@ export default async function AnalyticsPage() {
 
   const todoGroups = await prisma.todo.groupBy({
     by: ["status"],
-    where: { userId: session.user.id },
+    where: { userId: session.user.id, archived: false },
     _count: true,
   });
 

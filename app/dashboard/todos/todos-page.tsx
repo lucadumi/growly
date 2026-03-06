@@ -41,6 +41,7 @@ interface TodosPageProps {
   };
 }
 
+
 const buttonBase =
   "w-full rounded-full flex items-center justify-center select-none gap-2 cursor-pointer";
 
@@ -1086,10 +1087,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
                             const collectionTodos = todos.filter((todo) =>
                               todo.collectionIds.includes(collection.id),
                             );
-                            const assignedCount = Math.max(
-                              collection.todoIds.length,
-                              collectionTodos.length,
-                            );
+                            const assignedCount = collectionTodos.length;
 
                             return (
                               <CollectionCard

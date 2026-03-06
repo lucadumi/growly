@@ -159,6 +159,7 @@ const TodosWidgetClient: FC<TodosWidgetClientProps> = ({
               ? {
                   ...todo,
                   completed: current.completed,
+                  status: current.status,
                   statusLabel: current.statusLabel,
                   statusColor: current.statusColor,
                 }
