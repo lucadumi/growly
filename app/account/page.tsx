@@ -28,7 +28,7 @@ const focusAreas = [
     description:
       "Reflect on the rituals that feel effortless and adjust the rest.",
     icon: CalendarDays,
-    iconBg: "bg-sky-100",
+    iconBg: "bg-sky-400",
     iconText: "text-sky-600",
   },
   {
@@ -36,14 +36,14 @@ const focusAreas = [
     description:
       "Schedule gentle breaks so your streaks survive the hard days.",
     icon: Flame,
-    iconBg: "bg-coral/30",
+    iconBg: "bg-coral",
     iconText: "text-coral",
   },
   {
     title: "Guardrails",
     description: "Review quiet reminders and permissions to keep focus sacred.",
     icon: ShieldCheck,
-    iconBg: "bg-green-soft/30",
+    iconBg: "bg-green-soft",
     iconText: "text-green-soft",
   },
 ];
@@ -60,21 +60,6 @@ const quickLinks = [
   {
     label: "Check analytics",
     href: "/dashboard/analytics",
-  },
-];
-
-const statStyles = [
-  {
-    icon: Flame,
-    iconColor: "text-primary",
-  },
-  {
-    icon: TrendingUp,
-    iconColor: "text-green-600",
-  },
-  {
-    icon: Star,
-    iconColor: "text-amber-500",
   },
 ];
 
@@ -173,14 +158,7 @@ export default async function AccountPage() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-linear-to-b from-white/90 via-light-yellow/55 to-green-soft/15 lg:pb-8 xl:pb-12 2xl:pb-16 lg:pt-18 xl:pt-24 2xl:pt-28">
-      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute -left-24 -top-20 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(255,214,102,0.65),transparent_65%)] blur-3xl" />
-        <div className="absolute bottom-10 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(79,153,120,0.45),transparent_60%)] blur-3xl" />
-        <div className="absolute -right-24 top-20 h-72 w-72 rounded-full bg-[radial-gradient(circle_at_center,rgba(99,145,255,0.45),transparent_60%)] blur-3xl" />
-        <div className="absolute right-1/3 bottom-1/3 h-64 w-64 rounded-full bg-[radial-gradient(circle_at_center,rgba(240,144,41,0.18),transparent_60%)] blur-3xl" />
-      </div>
-
+    <main className="relative min-h-screen overflow-hidden bg-card lg:pb-8 xl:pb-12 2xl:pb-16 lg:pt-18 xl:pt-24 2xl:pt-28">
       <div className="relative z-10 lg:px-24 xl:px-48 2xl:px-80">
         <div className="mx-auto flex flex-col gap-10">
           <section className="space-y-8">
@@ -203,9 +181,9 @@ export default async function AccountPage() {
               {/* Left column */}
               <div className="flex min-h-0 flex-col lg:h-full lg:space-y-4 xl:space-y-6">
                 {/* Profile card — warm gradient */}
-                <div className="lg:space-y-3 xl:space-y-5 lg:rounded-2xl xl:rounded-3xl bg-card lg:p-4 xl:p-6 shadow-sm">
+                <div className="lg:space-y-3 xl:space-y-5 lg:rounded-2xl xl:rounded-3xl bg-card lg:p-4 xl:p-6 border border-gray-100">
                   <div className="flex items-center gap-4">
-                    <div className="grid lg:h-12 lg:w-12 xl:h-16 2xl:h-20 xl:w-16 2xl:w-20 shrink-0 place-items-center rounded-2xl bg-primary lg:text-lg xl:text-xl 2xl:text-2xl font-bold text-white shadow-lg shadow-primary/30">
+                    <div className="grid lg:h-12 lg:w-12 xl:h-16 2xl:h-20 xl:w-16 2xl:w-20 shrink-0 place-items-center rounded-2xl bg-primary lg:text-lg xl:text-xl 2xl:text-2xl font-bold text-white">
                       {initials}
                     </div>
                     <div className="flex flex-col gap-1 min-w-0">
@@ -229,7 +207,7 @@ export default async function AccountPage() {
                     {["Release notes", "Privacy", "Support"].map((link) => (
                       <span
                         key={link}
-                        className="rounded-full border border-muted bg-card px-2.5 lg:py-0.5 xl:py-1 lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold text-muted-foreground"
+                        className="rounded-full border border-gray-100 bg-card px-2.5 lg:py-0.5 xl:py-1 lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold text-muted-foreground"
                       >
                         {link}
                       </span>
@@ -238,7 +216,7 @@ export default async function AccountPage() {
                 </div>
 
                 {/* Edit profile — left accent border */}
-                <div className="lg:rounded-2xl xl:rounded-3xl bg-card lg:p-4 xl:p-6 shadow-sm">
+                <div className="lg:rounded-2xl xl:rounded-3xl bg-card lg:p-4 xl:p-6 border border-gray-100">
                   <EditProfileForm
                     initialName={editableName}
                     initialEmail={editableEmail}
@@ -246,7 +224,7 @@ export default async function AccountPage() {
                 </div>
 
                 {/* Sign out */}
-                <div className="lg:rounded-2xl xl:rounded-3xl bg-card lg:p-4 xl:p-6 shadow-sm flex flex-col lg:gap-3 xl:gap-4 2xl:gap-5">
+                <div className="lg:rounded-2xl xl:rounded-3xl bg-card lg:p-4 xl:p-6 border border-gray-100 flex flex-col lg:gap-3 xl:gap-4 2xl:gap-5">
                   <div className="lg:space-y-2 xl:space-y-3">
                     <p className="lg:text-[11px] xl:text-xs 2xl:text-sm uppercase tracking-[0.4em] text-muted-foreground">
                       Need a break?
@@ -263,32 +241,24 @@ export default async function AccountPage() {
               {/* Right column */}
               <div className="flex min-h-0 flex-col lg:h-full gap-4 xl:gap-6">
                 {/* Momentum card */}
-                <div className="lg:rounded-2xl xl:rounded-3xl bg-muted/30 lg:p-4 xl:p-6 shadow-inner h-fit">
-                  <p className="lg:text-[11px] xl:text-xs 2xl:text-sm uppercase tracking-[0.4em] text-primary font-semibold">
-                    Momentum
-                  </p>
+                <div className="lg:rounded-2xl xl:rounded-3xl bg-yellow-soft text-white lg:p-4 xl:p-6 h-fit">
                   {analytics ? (
                     <>
-                      <p className="lg:text-lg xl:text-xl 2xl:text-2xl font-semibold text-foreground lg:mt-0.5 xl:mt-1">
+                      <p className="lg:text-lg xl:text-xl 2xl:text-2xl font-semibold lg:mt-0.5 xl:mt-1">
                         {analytics.stats[0]?.value ?? "—"} streak
                       </p>
-                      <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground lg:mt-1 xl:mt-1.5">
+                      <p className="lg:text-[11px] xl:text-xs 2xl:text-sm lg:mt-1 xl:mt-1.5">
                         Focused energy made possible by calm reminders and
                         gentle check-ins.
                       </p>
                       <div className="lg:mt-4 xl:mt-5 2xl:mt-6 grid lg:gap-2 xl:gap-3">
                         {analytics.stats.map((stat, i) => {
-                          const style = statStyles[i] ?? statStyles[0];
-                          const Icon = style.icon;
                           return (
                             <div
                               key={stat.label}
-                              className={`flex items-center justify-between rounded-2xl bg-card lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm shadow-sm`}
+                              className={`flex items-center justify-between rounded-2xl bg-card lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm`}
                             >
                               <div className="flex items-center gap-2">
-                                <Icon
-                                  className={`lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 ${style.iconColor}`}
-                                />
                                 <span className="text-muted-foreground">
                                   {stat.label}
                                 </span>
@@ -341,7 +311,7 @@ export default async function AccountPage() {
                   <Link
                     key={action.label}
                     href={action.href}
-                    className={`rounded-full bg-card border-2 border-dotted lg:px-3 xl:px-4 lg:py-1 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold transition border-gray-300`}
+                    className={`rounded-full bg-card border-2 border-dotted lg:px-3 xl:px-4 lg:py-1 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold transition border-gray-200 hover:border-gray-300`}
                   >
                     {action.label}
                   </Link>
@@ -362,31 +332,25 @@ export default async function AccountPage() {
             </div>
 
             <div className="grid lg:gap-3 xl:gap-4 grid-cols-3">
-              {focusAreas.map(
-                ({ title, description, icon: Icon, iconBg, iconText }) => (
-                  <div
-                    key={title}
-                    className="lg:space-y-2 xl:space-y-3 rounded-2xl bg-card lg:p-4 xl:p-5 shadow-sm"
-                  >
-                    <div
-                      className={`flex lg:h-7 lg:w-7 xl:h-9 2xl:h-11 xl:w-9 2xl:w-11 items-center justify-center rounded-2xl ${iconBg}`}
-                    >
-                      <Icon
-                        className={`lg:w-3 lg:h-3 xl:w-4 2xl:h-5 xl:h-4 2xl:w-5 ${iconText}`}
-                      />
-                    </div>
-                    <p className="lg:text-sm xl:text-base 2xl:text-lg font-semibold text-foreground">
-                      {title}
-                    </p>
-                    <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
-                      {description}
-                    </p>
+              {focusAreas.map(({ title, description, icon: Icon, iconBg }) => (
+                <div
+                  key={title}
+                  className={`${iconBg} text-white lg:space-y-2 xl:space-y-3 rounded-2xl bg-card lg:p-4 xl:p-5`}
+                >
+                  <div className="flex lg:h-7 lg:w-7 xl:h-9 2xl:h-11 xl:w-9 2xl:w-11 items-center justify-center rounded-full bg-black/20">
+                    <Icon className="lg:w-3 lg:h-3 xl:w-4 2xl:h-5 xl:h-4 2xl:w-5" />
                   </div>
-                ),
-              )}
+                  <p className="lg:text-sm xl:text-base 2xl:text-lg font-semibold">
+                    {title}
+                  </p>
+                  <p className="lg:text-[11px] xl:text-xs 2xl:text-sm">
+                    {description}
+                  </p>
+                </div>
+              ))}
             </div>
 
-            <div className="lg:rounded-2xl xl:rounded-3xl shadow-inner bg-red-50/60 border border-red-100/80 lg:p-4 xl:p-6">
+            <div className="lg:rounded-2xl xl:rounded-3xl border-8 border-rose-100 lg:p-4 xl:p-6">
               <DeleteAccountForm />
             </div>
           </section>
