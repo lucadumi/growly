@@ -131,7 +131,7 @@ function NotificationsDropdown() {
             {badgeLabel ? `${totalCount} unread` : "Up to date"}
           </span>
         </div>
-        <div className="border-t border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 space-y-3">
+        <div className="border-t border-gray-50 lg:px-3 xl:px-4 lg:py-2 xl:py-3 space-y-3">
           <div>
             {activityLog.length === 0 ? (
               <p className="lg:text-[9px] xl:text-[10px] text-muted-foreground mt-1">
