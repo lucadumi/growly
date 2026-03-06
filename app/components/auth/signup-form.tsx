@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useSession } from "@/app/context/session-context";
+import { ModalContext } from "@/app/context/modal-context";
 
 import { signUp } from "@/lib/actions/auth-actions";
 
@@ -40,6 +41,7 @@ const GENERIC_SIGNUP_ERROR =
 const SignupForm: React.FC<FormProps> = ({ setIsLogin }) => {
   const router = useRouter();
   const { setSession } = useSession();
+  const { setShowModal } = useContext(ModalContext) ?? {};
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -68,6 +70,7 @@ const SignupForm: React.FC<FormProps> = ({ setIsLogin }) => {
         setSession(session);
       }
 
+      setShowModal?.(false);
       router.push("/dashboard");
       router.refresh();
     } catch (err) {

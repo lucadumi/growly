@@ -3,7 +3,6 @@
 import type { HabitRiskLevel } from "../types";
 import { normalizeGoal } from "./habits-board-utils";
 
-export type { HabitRiskLevel } from "../types";
 
 export type HabitRisk = {
   score: number;

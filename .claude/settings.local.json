@@ -5,7 +5,10 @@
       "Bash(npx tsc --noEmit --skipLibCheck)",
       "Bash(npx tsc --noEmit --project tsconfig.json)",
       "Bash(npx prisma db push)",
-      "Bash(npx prisma:*)"
+      "Bash(npx prisma:*)",
+      "Bash(grep -rn \"\"\"ui/card\"\"\\\\|from.*\\\\/card\" app/ lib/ --include=\"*.ts\" --include=\"*.tsx\")",
+      "Bash(grep -rn 'from \"\"\\\\.\\\\./types\"\"' app/dashboard/habits/ --include=\"*.ts\" --include=\"*.tsx\")",
+      "Bash(grep -rn 'from \"\"\\\\./types\"\"\\\\|from \"\"\\\\.\\\\./types\"\"' app/dashboard/ --include=\"*.ts\" --include=\"*.tsx\")"
     ]
   }
 }

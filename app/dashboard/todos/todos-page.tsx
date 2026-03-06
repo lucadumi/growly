@@ -702,7 +702,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
                         {isCollectionView && (
                           <Link
                             href="/dashboard/todos"
-                            className={`${buttonBase} lg:text-[10px] xl:text-xs 2xl:text-sm lg:h-6 xl:h-8 2xl:h-10 lg:px-3 xl:px-4 2xl:px-6 bg-white border border-gray-100 hover:border-primary/40`}
+                            className={`${buttonBase} lg:text-[10px] xl:text-xs 2xl:text-sm lg:h-6 xl:h-8 2xl:h-10 lg:px-3 xl:px-4 2xl:px-6 bg-white border border-gray-100 hover:border-white`}
                           >
                             Back to all todos
                           </Link>

@@ -47,46 +47,34 @@ export default function DeleteAccountForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="lg:space-y-3 xl:space-y-4">
-      <div className="space-y-1">
-        <p className="lg:text-[11px] xl:text-xs uppercase tracking-[0.3em] text-muted-foreground">
-          Reset for good
-        </p>
-      </div>
+    <form onSubmit={handleSubmit} className="lg:space-y-2 xl:space-y-3">
+      <input
+        type="text"
+        value={confirmation}
+        onChange={(event) => setConfirmation(event.target.value)}
+        placeholder={CONFIRMATION_TEXT}
+        className="w-full rounded-full bg-card border border-gray-100 lg:px-3 xl:px-4 lg:py-1 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm focus:outline-none focus:ring-2 focus:ring-rose-100"
+      />
 
-      <div className="lg:space-y-1 xl:space-y-2">
-        {message && (
-          <p
-            className={`lg:text-[11px] xl:text-xs font-semibold ${
-              status === "error"
-                ? "text-destructive"
-                : "text-green-soft-foreground"
-            }`}
-          >
-            {message}
-          </p>
-        )}
-        <div className="flex gap-4">
-          <div className="grow">
-            <input
-              type="text"
-              value={confirmation}
-              onChange={(event) => setConfirmation(event.target.value)}
-              placeholder={CONFIRMATION_TEXT}
-              className="w-full rounded-full bg-card border border-gray-100 lg:px-3 xl:px-4 lg:py-1 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm focus:outline-none focus:ring-2 focus:ring-rose-100"
-            />
-          </div>
-          <div>
-            <Button
-              type="submit"
-              disabled={!canSubmit}
-              className="px-4 bg-red-400 lg:text-[11px] font-semibold xl:text-xs 2xl:text-sm text-white transition lg:py-1 xl:py-2 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isPending ? "Deleting…" : "Delete my account"}
-            </Button>
-          </div>
-        </div>
-      </div>
+      {message && (
+        <p
+          className={`lg:text-[11px] xl:text-xs font-semibold ${
+            status === "error"
+              ? "text-destructive"
+              : "text-green-soft-foreground"
+          }`}
+        >
+          {message}
+        </p>
+      )}
+
+      <Button
+        type="submit"
+        disabled={!canSubmit}
+        className="lg:text-[11px] xl:text-xs 2xl:text-sm text-white font-semibold bg-red-400 transition lg:py-1 xl:py-2 disabled:opacity-40 disabled:cursor-not-allowed"
+      >
+        {isPending ? "Deleting…" : "Delete account"}
+      </Button>
     </form>
   );
 }

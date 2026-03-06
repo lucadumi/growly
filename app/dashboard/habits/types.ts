@@ -3,7 +3,6 @@
 import type { ReactNode } from "react";
 import type { Habit as PrismaHabit } from "@prisma/client";
 
-import type { ProgressByDayMap } from "@/lib/habit-progress";
 
 export type HabitRiskLevel = "low" | "medium" | "high";
 
@@ -49,12 +48,6 @@ export type PlaybookItem = {
 export type MenuPosition = {
   top: number;
   left: number;
-};
-
-export type HabitsBoardProps = {
-  habits: Habit[];
-  progressByDay: ProgressByDayMap;
-  reflections: HabitReflection[];
 };
 
 export type PortalProps = {

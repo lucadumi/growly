@@ -52,16 +52,6 @@ export default function EditProfileForm({
 
   return (
     <form onSubmit={handleSubmit} className="lg:space-y-3 xl:space-y-4">
-      <div className="flex flex-col lg:gap-0.5 xl:gap-1 2xl:gap-2">
-        <label className="lg:text-[11px] xl:text-xs 2xl:text-sm uppercase tracking-[0.4em] text-muted-foreground">
-          Edit profile
-        </label>
-        <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
-          Keep your name and email current so Growly can stay aligned with your
-          rituals.
-        </p>
-      </div>
-
       <div className="grid lg:gap-2 xl:gap-3">
         {message && (
           <div

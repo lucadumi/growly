@@ -263,27 +263,6 @@ function AccountDropdown({ session }: AccountDropdownProps) {
               {email}
             </p>
           )}
-          {!xpLoading && (
-            <div className="mt-2 flex flex-wrap gap-1">
-              <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 text-primary lg:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-bold uppercase tracking-wide">
-                Lv.{level}
-              </span>
-              {isNearLevelUp ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 text-amber-600 lg:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-semibold">
-                  {xpToNextLevel} XP to level up!
-                </span>
-              ) : todayXP > 0 ? (
-                <span className="inline-flex items-center gap-1 rounded-full bg-green-50 text-green-600 lg:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-semibold">
-                  {todayXP} XP today
-                </span>
-              ) : null}
-              {streakBonus > 0 && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-yellow-50 text-yellow-600 lg:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-semibold">
-                  {streakBonus} streak
-                </span>
-              )}
-            </div>
-          )}
         </div>
         <div className="border-t border-gray-50 lg:p-1 xl:p-2 space-y-1 lg:text-[8px] xl:text-[11px]">
           <Link

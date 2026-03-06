@@ -3,9 +3,7 @@
 import {
   Activity,
   ArrowUpRight,
-  BarChart3,
   Flame,
-  Rotate3D,
   ChessQueen,
   ChartPie,
   Target,
