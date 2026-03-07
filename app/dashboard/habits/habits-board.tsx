@@ -1056,8 +1056,8 @@ export default function HabitsBoard({
                           <div className="space-y-1.5 mb-4">
                             <div className="flex items-center justify-between text-xs font-semibold">
                               <span className="text-muted-foreground">
-                                {fmt(item.progress)} / {fmt(item.goal)}{" "}
-                                {item.unit}
+                                {fmt(item.progress)} / {fmt(item.goal)}
+                                {item.unit !== "count" && ` ${item.unit}`}
                               </span>
                               <span
                                 className={

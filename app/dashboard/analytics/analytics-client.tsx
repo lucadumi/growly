@@ -753,7 +753,7 @@ const AnalyticsClient: React.FC<Props> = ({
                     (a, b) =>
                       b.streak - a.streak || b.successRate - a.successRate,
                   )
-                  .slice(0, 8)
+                  .slice(0, 3)
                   .map((habit, index) => (
                     <div
                       key={habit.id}
