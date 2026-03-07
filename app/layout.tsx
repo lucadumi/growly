@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import Link from "next/link";
+import { Analytics } from "@vercel/analytics/next";
 
 import Header from "./components/layout/header";
 import MobileAppGate from "./components/layout/mobile-app-gate";
@@ -70,6 +71,7 @@ export default async function RootLayout({
       <html lang="en" className={`${montserrat.variable} antialiased`}>
         <body>
           <MobileAppGate />
+          <Analytics />
         </body>
       </html>
     );
@@ -103,6 +105,7 @@ export default async function RootLayout({
             </ModalProvider>
           </XPProvider>
         </SessionProvider>
+        <Analytics />
       </body>
     </html>
   );
