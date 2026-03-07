@@ -57,7 +57,7 @@ export default function CommunitySearch() {
           className="w-full rounded-xl border border-gray-100 bg-white lg:pl-8 xl:pl-10 lg:pr-4 xl:pr-5 lg:py-2 xl:py-2.5 lg:text-[11px] xl:text-xs focus:border-primary/40 focus:outline-none"
         />
         {loading && (
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-gray-300 border-t-transparent animate-spin" />
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 rounded border-2 border-gray-300 border-t-transparent animate-spin" />
         )}
       </div>
 

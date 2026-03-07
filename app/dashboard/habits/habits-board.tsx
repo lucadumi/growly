@@ -157,6 +157,9 @@ export default function HabitsBoard({
   const [editHabitVisible, setEditHabitVisible] = useState(false);
 
   const [isDeletingHabit, setIsDeletingHabit] = useState(false);
+  const [selectedRoutineId, setSelectedRoutineId] = useState<string | null>(
+    null,
+  );
 
   useEffect(() => {
     if (showAddHabit || showEditHabit) {
@@ -997,6 +1000,31 @@ export default function HabitsBoard({
                   {completedToday}/{activeToday.length}
                 </span>
               </div>
+              {routines.length > 0 && (
+                <div className="shrink-0 flex flex-wrap gap-1 px-1 mb-3">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedRoutineId(null)}
+                    className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold transition ${selectedRoutineId === null ? "bg-primary text-white" : "bg-gray-100 text-muted-foreground hover:text-foreground"}`}
+                  >
+                    All
+                  </button>
+                  {routines.map((r) => (
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() =>
+                        setSelectedRoutineId((prev) =>
+                          prev === r.id ? null : r.id,
+                        )
+                      }
+                      className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold transition ${selectedRoutineId === r.id ? "bg-primary text-white" : "bg-gray-100 text-muted-foreground hover:text-foreground"}`}
+                    >
+                      {r.name}
+                    </button>
+                  ))}
+                </div>
+              )}
 
               <div className="flex-1 overflow-y-auto min-h-0 space-y-3 pr-0.5">
                 {sidebarHabits.length === 0 ? (
@@ -1010,13 +1038,21 @@ export default function HabitsBoard({
                   </div>
                 ) : (
                   (() => {
+                    const filteredSidebarHabits = selectedRoutineId
+                      ? sidebarHabits.filter((h) =>
+                          routines
+                            .find((r) => r.id === selectedRoutineId)
+                            ?.habitIds.includes(h.habit.id),
+                        )
+                      : sidebarHabits;
+
                     const sidebarById = new Map(
-                      sidebarHabits.map((h) => [h.habit.id, h]),
+                      filteredSidebarHabits.map((h) => [h.habit.id, h]),
                     );
                     const assignedIds = new Set(
                       routines.flatMap((r) => r.habitIds),
                     );
-                    const ungrouped = sidebarHabits.filter(
+                    const ungrouped = filteredSidebarHabits.filter(
                       (h) => !assignedIds.has(h.habit.id),
                     );
 
@@ -1116,6 +1152,16 @@ export default function HabitsBoard({
                         </div>
                       );
                     };
+
+                    if (filteredSidebarHabits.length === 0) {
+                      return (
+                        <div className="rounded-2xl bg-card/30 px-5 py-6">
+                          <p className="text-xs text-muted-foreground">
+                            No habits scheduled today for this routine.
+                          </p>
+                        </div>
+                      );
+                    }
 
                     return (
                       <>

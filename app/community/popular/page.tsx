@@ -31,12 +31,13 @@ export default async function PopularPage() {
     description: h.description ?? null,
     cadence: h.cadence,
     category: h.category ?? null,
+    timeOfDay: h.timeOfDay ?? null,
+    reminder: h.reminder ?? null,
     votesCount: h.votesCount,
     votedByCurrentUser: likedSet.has(h.id),
     ownedByCurrentUser: h.userId === session.user.id,
-    authorName: h.user?.name ?? null,
-    authorUsername: h.user?.username ?? null,
     createdAt: h.createdAt.toISOString(),
+    user: h.user ? { name: h.user.name, username: h.user.username } : null,
   }));
 
   return <PopularClient initialHabits={serialized} />;

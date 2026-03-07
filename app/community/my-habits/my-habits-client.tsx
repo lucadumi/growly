@@ -1,36 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
-import {
-  ArrowUp,
-  CheckCircle2,
-  ChevronDown,
-  Plus,
-  Sprout,
-  Trash2,
-  X,
-} from "lucide-react";
+import { ArrowUp, CheckCircle2, ChevronDown, Sprout, X } from "lucide-react";
 
 import PageHeading from "@/app/components/page-heading";
-
-type PostHabit = {
-  id: string;
-  title: string;
-  description: string | null;
-  cadence: string;
-  category: string | null;
-  votesCount: number;
-  createdAt: string;
-};
+import PostCard, { type PostHabitData } from "@/app/community/post-card";
 
 type UserHabit = {
   id: string;
   name: string;
   description: string | null;
   cadence: string;
+  timeOfDay: string | null;
+  reminder: string | null;
   alreadyShared: boolean;
+  routineIds: string[];
 };
+
+type Routine = { id: string; name: string };
 
 type Stats = {
   totalShared: number;
@@ -48,33 +36,156 @@ const CATEGORIES = [
   "Sleep",
   "Nutrition",
   "Relationships",
-  "Other",
 ];
-
-const CADENCE_LABEL: Record<string, string> = {
-  daily: "Daily",
-  weekly: "Weekly",
-  weekdays: "Weekdays",
-  weekends: "Weekends",
-  "3x per week": "3× / week",
-  monthly: "Monthly",
-};
 
 function ShareModal({
   userHabits,
+  routines,
   onClose,
   onCreate,
 }: {
   userHabits: UserHabit[];
+  routines: Routine[];
   onClose: () => void;
-  onCreate: (h: PostHabit) => void;
+  onCreate: (h: PostHabitData) => void;
 }) {
   const [selectedId, setSelectedId] = useState<string>("");
   const [category, setCategory] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [habitMenuOpen, setHabitMenuOpen] = useState(false);
+  const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
+  const [habitDropDirection, setHabitDropDirection] = useState<"down" | "up">(
+    "down",
+  );
+  const [categoryDropDirection, setCategoryDropDirection] = useState<
+    "down" | "up"
+  >("down");
+  const habitToggleRef = useRef<HTMLButtonElement | null>(null);
+  const habitPanelRef = useRef<HTMLDivElement | null>(null);
+  const categoryToggleRef = useRef<HTMLButtonElement | null>(null);
+  const categoryPanelRef = useRef<HTMLDivElement | null>(null);
+
+  const [routineFilter, setRoutineFilter] = useState("");
 
   const selected = userHabits.find((h) => h.id === selectedId);
+  const available = userHabits.filter((h) => !h.alreadyShared);
+  const filteredAvailable = routineFilter
+    ? available.filter((h) => h.routineIds.includes(routineFilter))
+    : available;
+
+  const dropdownSelectWrapperClassName =
+    "relative overflow-visible rounded-2xl bg-card/30 border border-gray-100 hover:border-primary/40 transition-colors hover:border-primary/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-0";
+
+  const fieldButtonClassName =
+    "w-full flex items-center justify-between rounded-2xl lg:px-3 xl:px-4 lg:py-2 xl:py-2.5 lg:text-[11px] xl:text-xs font-medium text-foreground transition-all hover:border-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-0";
+
+  const sanitizeDropdownValue = (value: string) =>
+    value.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase();
+  const habitDropdownOptionsId = "share-habit-dropdown-options";
+  const categoryDropdownOptionsId = "share-category-dropdown-options";
+
+  const updateDropdownDirection = (
+    toggleRef: React.RefObject<HTMLButtonElement | null>,
+    panelRef: React.RefObject<HTMLDivElement | null>,
+    setDirection: React.Dispatch<React.SetStateAction<"down" | "up">>,
+  ) => {
+    if (typeof window === "undefined") return;
+    const toggleRect = toggleRef.current?.getBoundingClientRect();
+    if (!toggleRect) return;
+    const panelHeight = panelRef.current?.getBoundingClientRect().height ?? 0;
+    const spacing = 8;
+    const spaceBelow = window.innerHeight - toggleRect.bottom;
+    const spaceAbove = toggleRect.top;
+    if (spaceBelow >= panelHeight + spacing) {
+      setDirection("down");
+    } else if (spaceAbove >= panelHeight + spacing) {
+      setDirection("up");
+    } else {
+      setDirection("down");
+    }
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!habitMenuOpen) return undefined;
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node | null;
+      if (
+        habitPanelRef.current?.contains(target) ||
+        habitToggleRef.current?.contains(target)
+      ) {
+        return;
+      }
+      setHabitMenuOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [habitMenuOpen]);
+
+  useEffect(() => {
+    if (!categoryMenuOpen) return undefined;
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node | null;
+      if (
+        categoryPanelRef.current?.contains(target) ||
+        categoryToggleRef.current?.contains(target)
+      ) {
+        return;
+      }
+      setCategoryMenuOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [categoryMenuOpen]);
+
+  useLayoutEffect(() => {
+    if (!habitMenuOpen) return undefined;
+    const update = () =>
+      updateDropdownDirection(
+        habitToggleRef,
+        habitPanelRef,
+        setHabitDropDirection,
+      );
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update, true);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update, true);
+    };
+  }, [habitMenuOpen]);
+
+  useLayoutEffect(() => {
+    if (!categoryMenuOpen) return undefined;
+    const update = () =>
+      updateDropdownDirection(
+        categoryToggleRef,
+        categoryPanelRef,
+        setCategoryDropDirection,
+      );
+    update();
+    window.addEventListener("resize", update);
+    window.addEventListener("scroll", update, true);
+    return () => {
+      window.removeEventListener("resize", update);
+      window.removeEventListener("scroll", update, true);
+    };
+  }, [categoryMenuOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,10 +204,12 @@ function ShareModal({
           description: selected.description ?? null,
           cadence: selected.cadence,
           category: category || null,
+          timeOfDay: selected.timeOfDay ?? null,
+          reminder: selected.reminder ?? null,
         }),
       });
       const data = (await res.json()) as {
-        postHabit?: PostHabit;
+        postHabit?: PostHabitData;
         error?: string;
       };
       if (!res.ok) {
@@ -112,14 +225,9 @@ function ShareModal({
     }
   };
 
-  const inputClass =
-    "w-full rounded-xl border border-gray-100 lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-xs focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white";
-
-  const available = userHabits.filter((h) => !h.alreadyShared);
-
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/20 backdrop-blur-sm lg:p-4 xl:p-6">
-      <div className="w-full max-w-md rounded-3xl bg-card shadow-2xl lg:p-6 xl:p-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20 lg:p-4 xl:p-6">
+      <div className="w-full max-w-md rounded-3xl bg-card lg:p-6 xl:p-8">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="font-bold lg:text-base xl:text-lg">Share a habit</h2>
@@ -130,7 +238,7 @@ function ShareModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full p-1.5 hover:bg-muted transition"
+            className="rounded-full text-muted-foreground p-1.5 transition"
           >
             <X className="w-4 h-4" />
           </button>
@@ -172,43 +280,109 @@ function ShareModal({
             )}
 
             {/* Habit selector */}
-            <label className="flex flex-col gap-1 lg:text-[11px] xl:text-xs">
-              <span className="text-muted-foreground">
+            <div className="flex flex-col gap-1">
+              <span className="lg:text-[11px] xl:text-xs text-muted-foreground">
                 Choose a habit <span className="text-destructive">*</span>
               </span>
-              <div className="relative">
-                <select
-                  value={selectedId}
-                  onChange={(e) => setSelectedId(e.target.value)}
-                  className={`${inputClass} appearance-none pr-8`}
-                >
-                  <option value="">— Select a habit —</option>
-                  {available.map((h) => (
-                    <option key={h.id} value={h.id}>
-                      {h.name}
-                    </option>
+              {routines.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mb-1">
+                  <button
+                    type="button"
+                    onClick={() => setRoutineFilter("")}
+                    className={`rounded-full lg:px-2.5 xl:px-3 lg:py-0.5 xl:py-1 lg:text-[10px] xl:text-[11px] font-medium transition ${
+                      routineFilter === ""
+                        ? "bg-primary text-white"
+                        : "bg-muted/50 text-muted-foreground hover:bg-muted"
+                    }`}
+                  >
+                    All
+                  </button>
+                  {routines.map((r) => (
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() => setRoutineFilter(r.id)}
+                      className={`rounded-full lg:px-2.5 xl:px-3 lg:py-0.5 xl:py-1 lg:text-[10px] xl:text-[11px] font-medium transition ${
+                        routineFilter === r.id
+                          ? "bg-primary text-white"
+                          : "bg-muted/50 text-muted-foreground hover:bg-muted"
+                      }`}
+                    >
+                      {r.name}
+                    </button>
                   ))}
-                </select>
-                <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground" />
-              </div>
-            </label>
-
-            {/* Preview */}
-            {selected && (
-              <div className="rounded-xl border border-primary/20 bg-primary/5 lg:p-3 xl:p-4 space-y-1">
-                <p className="font-semibold lg:text-[11px] xl:text-xs">
-                  {selected.name}
-                </p>
-                {selected.description && (
-                  <p className="text-muted-foreground lg:text-[9px] xl:text-[10px] line-clamp-2">
-                    {selected.description}
-                  </p>
+                </div>
+              )}
+              <div className={dropdownSelectWrapperClassName}>
+                <button
+                  type="button"
+                  ref={habitToggleRef}
+                  onClick={() => {
+                    setHabitMenuOpen((open) => !open);
+                    setCategoryMenuOpen(false);
+                  }}
+                  aria-haspopup="listbox"
+                  aria-expanded={habitMenuOpen}
+                  aria-controls={habitDropdownOptionsId}
+                  className={fieldButtonClassName}
+                >
+                  <span
+                    className={`truncate ${selected ? "" : "text-muted-foreground"}`}
+                  >
+                    {selected ? selected.name : "Select a habit"}
+                  </span>
+                  <ChevronDown
+                    className={`lg:w-2.5 lg:h-2.5 xl:h-3 xl:w-3 transition-transform ${
+                      habitMenuOpen
+                        ? "rotate-180 text-primary"
+                        : "text-muted-foreground"
+                    }`}
+                  />
+                </button>
+                {habitMenuOpen && (
+                  <div
+                    ref={habitPanelRef}
+                    id={habitDropdownOptionsId}
+                    role="listbox"
+                    aria-activedescendant={
+                      selected
+                        ? `habit-option-${sanitizeDropdownValue(selected.id)}`
+                        : undefined
+                    }
+                    className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-y-auto rounded-2xl border border-gray-100 bg-white shadow-md ${
+                      habitDropDirection === "down"
+                        ? "top-full mt-2"
+                        : "bottom-full mb-2"
+                    }`}
+                  >
+                    {filteredAvailable.map((habit) => {
+                      const optionId = `habit-option-${sanitizeDropdownValue(
+                        habit.id,
+                      )}`;
+                      return (
+                        <button
+                          key={habit.id}
+                          id={optionId}
+                          type="button"
+                          role="option"
+                          aria-selected={selectedId === habit.id}
+                          onClick={() => {
+                            setSelectedId(habit.id);
+                            setHabitMenuOpen(false);
+                            setError("");
+                          }}
+                          className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs transition last:border-b-0 ${
+                            selectedId === habit.id && "font-semibold"
+                          }`}
+                        >
+                          {habit.name}
+                        </button>
+                      );
+                    })}
+                  </div>
                 )}
-                <span className="inline-flex rounded-full bg-white border border-gray-100 lg:px-2 xl:px-2.5 lg:py-0.5 lg:text-[9px] xl:text-[10px] text-muted-foreground font-medium">
-                  {CADENCE_LABEL[selected.cadence] ?? selected.cadence}
-                </span>
               </div>
-            )}
+            </div>
 
             {/* Category */}
             <label className="flex flex-col gap-1 lg:text-[11px] xl:text-xs">
@@ -216,20 +390,88 @@ function ShareModal({
                 Category{" "}
                 <span className="text-muted-foreground/60">(optional)</span>
               </span>
-              <div className="relative">
-                <select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                  className={`${inputClass} appearance-none pr-8`}
+              <div className={dropdownSelectWrapperClassName}>
+                <button
+                  type="button"
+                  ref={categoryToggleRef}
+                  onClick={() => {
+                    setCategoryMenuOpen((open) => !open);
+                    setHabitMenuOpen(false);
+                  }}
+                  aria-haspopup="listbox"
+                  aria-expanded={categoryMenuOpen}
+                  aria-controls={categoryDropdownOptionsId}
+                  className={fieldButtonClassName}
                 >
-                  <option value="">— None —</option>
-                  {CATEGORIES.map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground" />
+                  <span
+                    className={`truncate ${category ? "" : "text-muted-foreground"}`}
+                  >
+                    {category || "None"}
+                  </span>
+                  <ChevronDown
+                    className={`lg:w-2.5 lg:h-2.5 xl:h-3 xl:w-3 transition-transform ${
+                      categoryMenuOpen
+                        ? "rotate-180 text-primary"
+                        : "text-muted-foreground"
+                    }`}
+                  />
+                </button>
+                {categoryMenuOpen && (
+                  <div
+                    ref={categoryPanelRef}
+                    id={categoryDropdownOptionsId}
+                    role="listbox"
+                    aria-activedescendant={
+                      category
+                        ? `category-option-${sanitizeDropdownValue(category)}`
+                        : "category-option-none"
+                    }
+                    className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-y-auto rounded-2xl border border-gray-100 bg-white shadow-md ${
+                      categoryDropDirection === "down"
+                        ? "top-full mt-2"
+                        : "bottom-full mb-2"
+                    }`}
+                  >
+                    <button
+                      id="category-option-none"
+                      type="button"
+                      role="option"
+                      aria-selected={!category}
+                      onClick={() => {
+                        setCategory("");
+                        setCategoryMenuOpen(false);
+                      }}
+                      className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs transition ${
+                        !category && "font-semibold"
+                      }`}
+                    >
+                      None
+                    </button>
+                    {CATEGORIES.map((c) => {
+                      const optionId = `category-option-${sanitizeDropdownValue(
+                        c,
+                      )}`;
+                      return (
+                        <button
+                          key={c}
+                          id={optionId}
+                          type="button"
+                          role="option"
+                          aria-selected={category === c}
+                          onClick={() => {
+                            setCategory(c);
+                            setCategoryMenuOpen(false);
+                          }}
+                          className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs transition last:border-b-0 ${
+                            category === c && "font-semibold"
+                          }`}
+                        >
+                          {c}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </label>
 
@@ -237,7 +479,7 @@ function ShareModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 rounded-full border border-gray-200 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-xs font-semibold hover:border-gray-300 transition"
+                className="flex-1 rounded-full border border-gray-200 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-xs font-semibold hover:bg-gray-100 transition"
               >
                 Cancel
               </button>
@@ -260,14 +502,15 @@ export default function MyHabitsClient({
   initialHabits,
   stats: _stats,
   userHabits,
+  routines,
 }: {
-  initialHabits: PostHabit[];
+  initialHabits: PostHabitData[];
   stats: Stats;
   userHabits: UserHabit[];
+  routines: Routine[];
 }) {
   const [habits, setHabits] = useState(initialHabits);
   const [showCreate, setShowCreate] = useState(false);
-  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const currentStats = {
     totalShared: habits.length,
@@ -278,20 +521,14 @@ export default function MyHabitsClient({
         : null,
   };
 
-  const handleCreate = (habit: PostHabit) => {
+  const handleCreate = (habit: PostHabitData) => {
     setHabits((prev) =>
       [habit, ...prev].sort((a, b) => b.votesCount - a.votesCount),
     );
   };
 
-  const handleDelete = async (id: string) => {
-    setDeletingId(id);
-    try {
-      const res = await fetch(`/api/post-habits/${id}`, { method: "DELETE" });
-      if (res.ok) setHabits((prev) => prev.filter((h) => h.id !== id));
-    } finally {
-      setDeletingId(null);
-    }
+  const handleDelete = (id: string) => {
+    setHabits((prev) => prev.filter((h) => h.id !== id));
   };
 
   return (
@@ -299,11 +536,12 @@ export default function MyHabitsClient({
       {showCreate && (
         <ShareModal
           userHabits={userHabits}
+          routines={routines}
           onClose={() => setShowCreate(false)}
           onCreate={handleCreate}
         />
       )}
-      <div className="lg:px-6 xl:px-8 2xl:px-28 lg:py-8 xl:py-12 grid lg:gap-8 xl:gap-10">
+      <div className="lg:px-6 xl:px-8 2xl:px-28 grid lg:gap-8 xl:gap-10 lg:pb-8 xl:pb-12 2xl:pb-16">
         <PageHeading
           badgeLabel="Community"
           title="My shared habits"
@@ -314,7 +552,7 @@ export default function MyHabitsClient({
               onClick={() => setShowCreate(true)}
               className="flex items-center gap-2 rounded-full bg-primary text-white lg:px-4 xl:px-5 lg:py-1.5 xl:py-2 lg:text-[10px] xl:text-xs font-semibold hover:-translate-y-0.5 transition"
             >
-              <Plus className="w-3 h-3" /> Share a habit
+              Share a habit
             </button>
           }
         />
@@ -376,7 +614,7 @@ export default function MyHabitsClient({
 
         {/* Habits list */}
         {habits.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-gray-200 bg-muted/20 lg:p-10 xl:p-14 text-center">
+          <div className="rounded-3xl border-2 border-dashed border-gray-200 bg-muted/20 lg:p-10 xl:p-14 text-center">
             <Sprout className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
             <p className="font-semibold lg:text-sm xl:text-base">
               Nothing shared yet.
@@ -390,61 +628,19 @@ export default function MyHabitsClient({
               onClick={() => setShowCreate(true)}
               className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary text-white lg:px-5 xl:px-6 lg:py-1.5 xl:py-2 lg:text-[10px] xl:text-xs font-semibold hover:-translate-y-0.5 transition"
             >
-              <Plus className="w-3 h-3" /> Share your first habit
+              Share your first habit
             </button>
           </div>
         ) : (
           <div className="grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-3 xl:gap-4">
             {habits.map((habit) => (
-              <div
+              <PostCard
                 key={habit.id}
-                className="rounded-2xl border border-gray-100 bg-white lg:p-4 xl:p-5 flex flex-col gap-2"
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <p className="font-semibold lg:text-[11px] xl:text-xs 2xl:text-sm leading-snug flex-1">
-                    {habit.title}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => handleDelete(habit.id)}
-                    disabled={deletingId === habit.id}
-                    className="shrink-0 rounded-full p-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition disabled:opacity-40"
-                    title="Remove from community"
-                  >
-                    <Trash2 className="w-3 h-3" />
-                  </button>
-                </div>
-
-                {habit.description && (
-                  <p className="text-muted-foreground lg:text-[9px] xl:text-[10px] line-clamp-2">
-                    {habit.description}
-                  </p>
-                )}
-
-                <div className="flex items-center flex-wrap gap-1.5">
-                  <span className="inline-flex rounded-full bg-muted lg:px-2 xl:px-2.5 lg:py-0.5 lg:text-[9px] xl:text-[10px] text-muted-foreground font-medium">
-                    {CADENCE_LABEL[habit.cadence] ?? habit.cadence}
-                  </span>
-                  {habit.category && (
-                    <span className="inline-flex rounded-full bg-primary/10 text-primary lg:px-2 xl:px-2.5 lg:py-0.5 lg:text-[9px] xl:text-[10px] font-medium">
-                      {habit.category}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex items-center justify-between mt-auto pt-2 border-t border-gray-50">
-                  <span className="flex items-center gap-1 text-coral lg:text-[10px] xl:text-xs font-semibold">
-                    <ArrowUp className="w-3 h-3" /> {habit.votesCount} vote
-                    {habit.votesCount !== 1 ? "s" : ""}
-                  </span>
-                  <span className="text-muted-foreground lg:text-[9px] xl:text-[10px]">
-                    {new Date(habit.createdAt).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </span>
-                </div>
-              </div>
+                habit={habit}
+                showDelete
+                onDelete={handleDelete}
+                compact={false}
+              />
             ))}
           </div>
         )}
@@ -452,7 +648,7 @@ export default function MyHabitsClient({
         <div className="text-center">
           <Link
             href="/community/popular"
-            className="text-muted-foreground lg:text-[10px] xl:text-xs hover:text-primary transition underline-offset-2 hover:underline"
+            className="text-muted-foreground lg:text-[10px] xl:text-xs underline-offset-2 hover:underline"
           >
             See how your habits rank in the community →
           </Link>

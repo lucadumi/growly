@@ -269,17 +269,22 @@ model NotificationRead {
 }
 
 model PostHabit {
-  id          String          @id @default(uuid())
-  title       String
-  description String?
-  cadence     String          @default("daily")
-  category    String?
-  votesCount  Int             @default(0)
-  userId      String
-  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  votes       PostHabitLike[]
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @default(now()) @updatedAt
+  id               String          @id @default(uuid())
+  title            String
+  description      String?
+  cadence          String          @default("daily")
+  category         String?
+  timeOfDay        String?
+  reminder         String?
+  goalAmount       Float           @default(1)
+  goalUnit         String          @default("count")
+  goalUnitCategory String          @default("Quantity")
+  votesCount       Int             @default(0)
+  userId           String
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  votes            PostHabitLike[]
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @default(now()) @updatedAt
 
   @@index([userId])
   @@index([votesCount])

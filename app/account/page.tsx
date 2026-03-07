@@ -179,9 +179,8 @@ export default async function AccountPage() {
 
   const NUM_WEEKS = 8;
   const weekLabels = Array.from({ length: NUM_WEEKS }, (_, w) => {
-    const d = new Date();
-    d.setUTCDate(d.getUTCDate() - (NUM_WEEKS - 1 - w) * 7);
-    return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    const weeksAgo = NUM_WEEKS - 1 - w;
+    return weeksAgo === 0 ? "Now" : `${weeksAgo}w`;
   });
 
   const habitLineData = habitsWithStats
@@ -356,109 +355,117 @@ export default async function AccountPage() {
               </div>
 
               {/* Habit health */}
-              <div className="flex-1 flex flex-col">
+              <div className="flex-1 flex flex-col min-h-0">
                 <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
                   Habit health
                 </h3>
                 <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                  21-day success rate.
+                  Weekly completion over 8 weeks.
                 </p>
-                <div className="flex-1 lg:rounded-2xl xl:rounded-3xl border-8 border-gray-100 lg:p-3 xl:p-4 flex flex-col lg:gap-2 xl:gap-3">
+                <div className="flex-1 min-h-0 overflow-hidden lg:rounded-2xl xl:rounded-3xl border-8 border-gray-100 lg:p-3 xl:p-4 flex flex-col lg:gap-2 xl:gap-3">
                   {habitLineData.length > 0 ? (
                     <>
                       <svg
-                        viewBox="0 0 300 130"
+                        viewBox="0 0 300 145"
                         xmlns="http://www.w3.org/2000/svg"
                         className="w-full"
-                        preserveAspectRatio="none"
+                        overflow="hidden"
                       >
-                        {/* Horizontal grid lines + y labels */}
-                        {[0, 25, 50, 75, 100].map((tick) => {
-                          const y = 8 + 102 - (tick / 100) * 102;
+                        {/* Y-axis gridlines and labels */}
+                        {[0, 25, 50, 75, 100].map((pct) => {
+                          const y = (8 + (1 - pct / 100) * 112).toFixed(1);
                           return (
-                            <g key={tick}>
+                            <g key={pct}>
                               <line
-                                x1={28}
-                                x2={296}
+                                x1="40"
                                 y1={y}
+                                x2="285"
                                 y2={y}
-                                stroke="rgba(148,163,184,0.3)"
+                                stroke="rgba(0,0,0,0.06)"
                                 strokeWidth="1"
                               />
                               <text
-                                x={24}
-                                y={y + 3.5}
+                                x="36"
+                                y={y}
                                 textAnchor="end"
-                                fontSize="8"
+                                dominantBaseline="middle"
+                                fontSize="7"
                                 fill="rgba(100,116,139,0.65)"
                               >
-                                {tick}
+                                {pct}%
                               </text>
                             </g>
                           );
                         })}
-                        {/* Habit polylines + dots */}
-                        {habitLineData.map((habit) => (
-                          <g key={habit.id}>
-                            <polyline
-                              points={habit.weeklyRates
-                                .map((rate, w) => {
-                                  const x = 28 + w * (268 / (NUM_WEEKS - 1));
-                                  const y = 8 + 102 - (rate / 100) * 102;
-                                  return `${x.toFixed(1)},${y.toFixed(1)}`;
-                                })
-                                .join(" ")}
-                              fill="none"
-                              stroke={habit.color}
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            {habit.weeklyRates.map((rate, w) => {
-                              const x = 28 + w * (268 / (NUM_WEEKS - 1));
-                              const y = 8 + 102 - (rate / 100) * 102;
-                              return (
-                                <circle
-                                  key={w}
-                                  cx={x.toFixed(1)}
-                                  cy={y.toFixed(1)}
-                                  r="2.5"
-                                  fill="white"
-                                  stroke={habit.color}
-                                  strokeWidth="1.5"
-                                />
-                              );
-                            })}
-                          </g>
-                        ))}
-                        {/* X axis labels (every other week) */}
+                        {/* X-axis labels */}
                         {weekLabels.map((label, w) => {
-                          if (w % 2 !== 0 && w !== NUM_WEEKS - 1) return null;
-                          const x = 28 + w * (268 / (NUM_WEEKS - 1));
+                          const x = (40 + (w / (NUM_WEEKS - 1)) * 245).toFixed(1);
                           return (
                             <text
                               key={w}
-                              x={x.toFixed(1)}
-                              y={128}
+                              x={x}
+                              y="138"
                               textAnchor="middle"
-                              fontSize="7.5"
-                              fill="rgba(100,116,139,0.65)"
+                              fontSize="7"
+                              fontWeight={label === "Now" ? "700" : "400"}
+                              fill={
+                                label === "Now"
+                                  ? "rgba(100,116,139,0.95)"
+                                  : "rgba(100,116,139,0.5)"
+                              }
                             >
                               {label}
                             </text>
                           );
                         })}
+                        {/* Habit lines */}
+                        {habitLineData.map((habit) => {
+                          const pts = habit.weeklyRates
+                            .map((rate, w) => {
+                              const x = 40 + (w / (NUM_WEEKS - 1)) * 245;
+                              const y = 8 + (1 - rate / 100) * 112;
+                              return `${x.toFixed(1)},${y.toFixed(1)}`;
+                            })
+                            .join(" ");
+                          return (
+                            <g key={habit.id}>
+                              <polyline
+                                points={pts}
+                                fill="none"
+                                stroke={habit.color}
+                                strokeWidth="1.5"
+                                strokeLinejoin="round"
+                                strokeLinecap="round"
+                                opacity="0.9"
+                              />
+                              {habit.weeklyRates.map((rate, w) => {
+                                const x = (40 + (w / (NUM_WEEKS - 1)) * 245).toFixed(1);
+                                const y = (8 + (1 - rate / 100) * 112).toFixed(1);
+                                return (
+                                  <circle
+                                    key={w}
+                                    cx={x}
+                                    cy={y}
+                                    r="2.2"
+                                    fill={habit.color}
+                                    opacity="0.9"
+                                  />
+                                );
+                              })}
+                            </g>
+                          );
+                        })}
                       </svg>
                       {/* Legend */}
-                      <div className="flex flex-wrap lg:gap-x-2 xl:gap-x-3 gap-y-1">
-                        {habitLineData.map((h) => (
-                          <div key={h.id} className="flex items-center gap-1">
+                      <div className="flex flex-wrap lg:gap-x-2.5 xl:gap-x-3 gap-y-1">
+                        {habitLineData.map((habit) => (
+                          <div key={habit.id} className="flex items-center gap-1">
                             <div
-                              className="lg:w-1.5 lg:h-1.5 xl:w-2 xl:h-2 rounded-full shrink-0"
-                              style={{ backgroundColor: h.color }}
+                              className="rounded-full lg:w-2 lg:h-2 xl:w-2.5 xl:h-2.5 shrink-0"
+                              style={{ backgroundColor: habit.color }}
                             />
-                            <span className="text-muted-foreground lg:text-[8px] xl:text-[9px] 2xl:text-[10px] truncate max-w-[72px]">
-                              {h.name}
+                            <span className="lg:text-[8px] xl:text-[9px] 2xl:text-[10px] text-muted-foreground">
+                              {habit.name}
                             </span>
                           </div>
                         ))}
