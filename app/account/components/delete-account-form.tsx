@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Button from "@/app/components/ui/button";
 import { deleteAccountAction } from "@/app/account/actions/delete-account";
 
-const CONFIRMATION_TEXT = "DELETE";
+const CONFIRMATION_TEXT = "I want to delete my account";
 
 export default function DeleteAccountForm() {
   const [confirmation, setConfirmation] = useState("");
@@ -16,14 +16,14 @@ export default function DeleteAccountForm() {
   const router = useRouter();
 
   const canSubmit =
-    confirmation.trim().toUpperCase() === CONFIRMATION_TEXT && !isPending;
+    confirmation.trim() === CONFIRMATION_TEXT && !isPending;
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!canSubmit) {
       setStatus("error");
-      setMessage(`Type "${CONFIRMATION_TEXT}" to confirm account deletion.`);
+      setMessage(`Type "${CONFIRMATION_TEXT}" exactly to confirm.`);
       return;
     }
 

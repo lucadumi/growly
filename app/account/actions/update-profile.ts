@@ -24,11 +24,32 @@ export async function updateProfileAction(formData: FormData) {
     throw new Error("Unable to locate your account. Please sign in again.");
   }
 
+  const username = formData.get("username")?.toString().trim().toLowerCase().replace(/^@/, "") || null;
+  const bio = formData.get("bio")?.toString().trim() || null;
+  const location = formData.get("location")?.toString().trim() || null;
+  const focusArea = formData.get("focusArea")?.toString().trim() || null;
+  const privateAccount = formData.get("privateAccount") === "true";
+
+  if (username) {
+    const existing = await prisma.user.findUnique({
+      where: { username },
+      select: { id: true },
+    });
+    if (existing && existing.id !== userId) {
+      throw new Error("That username is already taken. Please choose another.");
+    }
+  }
+
   await prisma.user.update({
     where: { id: userId },
     data: {
       name: name.toString().trim(),
       email: email.toString().trim().toLowerCase(),
+      username,
+      bio,
+      location,
+      focusArea,
+      privateAccount,
     },
   });
 

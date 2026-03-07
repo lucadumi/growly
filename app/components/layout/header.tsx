@@ -7,7 +7,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "@/app/context/session-context";
 import { useXP } from "@/app/context/xp-context";
 import { signOut } from "@/lib/actions/auth-actions";
-import { Bell, ChevronDown, Sprout, User } from "lucide-react";
+import Image from "next/image";
+import { Bell, ChevronDown, Sprout } from "lucide-react";
 
 function timeAgo(timestamp: string): string {
   const diff = Date.now() - new Date(timestamp).getTime();
@@ -191,17 +192,6 @@ function AccountDropdown({ session }: AccountDropdownProps) {
   const [isPending, startTransition] = useTransition();
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
-  const {
-    level,
-    xpNeededForLevelUp,
-    xpGainedInLevel,
-    progress,
-    todayXP,
-    streakBonus,
-    loading: xpLoading,
-  } = useXP();
-  const xpToNextLevel = xpNeededForLevelUp - xpGainedInLevel;
-  const isNearLevelUp = !xpLoading && progress >= 80;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -236,9 +226,17 @@ function AccountDropdown({ session }: AccountDropdownProps) {
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         aria-label="Open account menu"
-        className="inline-flex items-center border border-gray-100 justify-center lg:gap-2 xl:gap-3 rounded-full lg:px-3 xl:px-4 lg:py-1 xl:py-2 bg-card text-xs font-semibold text-primary transition hover:bg-primary hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="inline-flex items-center border border-gray-100 justify-center lg:gap-2 xl:gap-3 rounded-full lg:px-3 xl:px-4 lg:py-1 xl:py-2 bg-card text-xs font-semibold text-primary transition hover:bg-primary hover:text-white hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
-        <User className="lg:h-3 lg:w-3 xl:h-4 xl:w-4" />
+        <div className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 rounded-full overflow-hidden shrink-0">
+          <Image
+            src="/placeholder.png"
+            alt={name}
+            width={20}
+            height={20}
+            className="w-full h-full object-cover"
+          />
+        </div>
         <p className="lg:text-[10px] xl:text-xs 2xl:text-sm truncate">{name}</p>
         <ChevronDown
           className={`lg:h-2 lg:w-2 xl:w-3 xl:h-3 2xl:w-4 2xl:h-4 transition-transform duration-200 ${
@@ -304,6 +302,7 @@ export default function Header() {
     { label: "Todos", href: "/dashboard/todos" },
     { label: "Habits", href: "/dashboard/habits" },
     { label: "Analytics", href: "/dashboard/analytics" },
+    { label: "Community", href: "/community" },
   ];
 
   const normalizedPathname = pathname ?? "";

@@ -20,9 +20,9 @@ model User {
   emailVerified     Boolean            @default(false)
   image             String?
   username          String?            @unique
-  headline          String?
   focusArea         String?
   location          String?
+  bio               String?
   privateAccount    Boolean            @default(false)
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @default(now()) @updatedAt
@@ -37,6 +37,8 @@ model User {
   shouldDoLikes     ShouldDoLike[]
   notificationReads NotificationRead[]
   streakGoalDays    Int?               @default(21)
+  postHabits        PostHabit[]
+  postHabitLikes    PostHabitLike[]
 
   @@unique([email])
   @@map("user")
@@ -264,6 +266,39 @@ model NotificationRead {
   @@unique([userId, notificationId])
   @@index([userId])
   @@map("notification_read")
+}
+
+model PostHabit {
+  id          String          @id @default(uuid())
+  title       String
+  description String?
+  cadence     String          @default("daily")
+  category    String?
+  votesCount  Int             @default(0)
+  userId      String
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  votes       PostHabitLike[]
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @default(now()) @updatedAt
+
+  @@index([userId])
+  @@index([votesCount])
+  @@map("post_habit")
+}
+
+model PostHabitLike {
+  id          String    @id @default(uuid())
+  postHabitId String
+  userId      String
+  createdAt   DateTime  @default(now())
+
+  postHabit PostHabit @relation(fields: [postHabitId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postHabitId, userId])
+  @@index([postHabitId])
+  @@index([userId])
+  @@map("post_habit_like")
 }
 
 enum TodoPriority {
