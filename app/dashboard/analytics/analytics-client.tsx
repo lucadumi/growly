@@ -733,14 +733,6 @@ const AnalyticsClient: React.FC<Props> = ({
                   {summary.lookbackLabel.toLowerCase()}
                 </p>
               </div>
-              {summary.bestStreak > 0 && (
-                <div className="shrink-0 flex items-center lg:gap-1 xl:gap-1.5 rounded-full bg-amber-50 border border-amber-200 lg:px-2 xl:px-3 lg:py-1 xl:py-1.5">
-                  <Flame className="lg:w-2.5 lg:h-2.5 xl:w-3 xl:h-3 text-amber-500" />
-                  <span className="lg:text-[9px] xl:text-[11px] font-semibold text-amber-600">
-                    Best: {summary.bestStreak}d
-                  </span>
-                </div>
-              )}
             </div>
             {habits.length === 0 ? (
               <div className="rounded-2xl border-2 border-dashed border-gray-200 bg-white/70 lg:px-3 xl:px-4 lg:py-4 xl:py-5 lg:text-[11px] xl:text-xs text-muted-foreground">

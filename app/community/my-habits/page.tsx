@@ -15,7 +15,6 @@ export default async function MyHabitsPage() {
     prisma.postHabit.findMany({
       where: { userId: session.user.id },
       orderBy: [{ votesCount: "desc" }, { createdAt: "desc" }],
-      include: { _count: { select: { votes: true } } },
     }),
     prisma.postHabitLike.count({
       where: { postHabit: { userId: session.user.id } },

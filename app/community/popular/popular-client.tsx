@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Clock, Filter, Flame, TrendingUp } from "lucide-react";
+import { Clock, Filter, Sprout, TrendingUp } from "lucide-react";
 
 import PageHeading from "@/app/components/page-heading";
 import PostCard, { type PostHabitData } from "@/app/community/post-card";
@@ -122,12 +122,12 @@ export default function PopularClient({
 
         {/* Habits grid */}
         {filtered.length === 0 ? (
-          <div className="rounded-3xl border border-dashed border-gray-200 bg-muted/20 lg:p-10 xl:p-14 text-center">
-            <Flame className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
+          <div className="rounded-3xl border-2 border-dashed border-gray-200 bg-muted/20 lg:p-10 xl:p-14 text-center">
+            <Sprout className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
             <p className="font-semibold lg:text-sm xl:text-base text-foreground">
               No habits here yet.
             </p>
-            <p className="text-muted-foreground lg:text-xs xl:text-sm mt-1">
+            <p className="text-muted-foreground lg:text-[11px] xl:text-xs mt-1">
               {activeCategory !== "All"
                 ? `No shared habits in "${activeCategory}" yet.`
                 : "Be the first to share a habit with the community!"}
