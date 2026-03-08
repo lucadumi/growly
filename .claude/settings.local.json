@@ -13,7 +13,8 @@
       "Bash(node scripts/seed-habits.mjs)",
       "Bash(ls b:/growly/app/profile/[username]/)",
       "Bash(grep -A5 '\"\"scripts\"\"')",
-      "Bash(grep -v \"^$\")"
+      "Bash(grep -v \"^$\")",
+      "Bash(node -e \"const m = require\\(''./node_modules/@prisma/adapter-neon/dist/index.js''\\); console.log\\(Object.keys\\(m\\)\\)\")"
     ]
   }
 }
