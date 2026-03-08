@@ -11,7 +11,7 @@ export default async function MyHabitsPage() {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) redirect("/");
 
-  const [myPostHabits, totalVotesResult, userHabits, userRoutines] = await Promise.all([
+  const [myPostHabits, totalVotesResult, userHabits, userRoutines, dbUser] = await Promise.all([
     prisma.postHabit.findMany({
       where: { userId: session.user.id },
       orderBy: [{ votesCount: "desc" }, { createdAt: "desc" }],
@@ -28,6 +28,10 @@ export default async function MyHabitsPage() {
       where: { userId: session.user.id },
       orderBy: { name: "asc" },
       select: { id: true, name: true, habits: { select: { habitId: true } } },
+    }),
+    prisma.user.findUnique({
+      where: { id: session.user.id },
+      select: { username: true },
     }),
   ]);
 
@@ -58,7 +62,7 @@ export default async function MyHabitsPage() {
     goalUnitCategory: h.goalUnitCategory,
     votesCount: h.votesCount,
     createdAt: h.createdAt.toISOString(),
-    user: { name: session.user.name, username: session.user.username ?? null },
+    user: { name: session.user.name, username: dbUser?.username ?? null },
   }));
 
   const serializedHabits = userHabits.map((h) => ({

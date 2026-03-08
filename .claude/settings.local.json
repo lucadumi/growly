@@ -11,7 +11,9 @@
       "Bash(grep -rn 'from \"\"\\\\./types\"\"\\\\|from \"\"\\\\.\\\\./types\"\"' app/dashboard/ --include=\"*.ts\" --include=\"*.tsx\")",
       "Bash(node -e \"require\\(''@prisma/client''\\)\")",
       "Bash(node scripts/seed-habits.mjs)",
-      "Bash(ls b:/growly/app/profile/[username]/)"
+      "Bash(ls b:/growly/app/profile/[username]/)",
+      "Bash(grep -A5 '\"\"scripts\"\"')",
+      "Bash(grep -v \"^$\")"
     ]
   }
 }
