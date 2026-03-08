@@ -64,7 +64,7 @@ const GreetingWidget: React.FC<GreetingWidgetProps> = () => {
           </Link>
 
           <Button className="border border-muted hover:text-foreground text-foreground hover:bg-muted/20 lg:h-8 xl:h-10 2xl:h-12 lg:text-xs xl:text-sm 2xl:text-base transition-all duration-100">
-            <Link href="#">Browse Popular Habits</Link>
+            <Link href="/community/popular">Browse Popular Habits</Link>
           </Button>
         </div>
       </div>

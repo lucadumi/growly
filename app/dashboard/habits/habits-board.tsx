@@ -54,46 +54,46 @@ const PALETTE = [
   {
     dot: "bg-primary",
     cellFull: "bg-primary/75",
-    cellPartial: "bg-primary/25 border border-primary/30",
+    cellPartial: "bg-primary/25",
     text: "text-primary",
     bar: "bg-primary",
-    card: "bg-primary/8 border-primary/25",
+    card: "bg-primary/8 border-white",
     ring: "ring-primary/25",
   },
   {
     dot: "bg-coral",
     cellFull: "bg-coral/75",
-    cellPartial: "bg-coral/25 border border-coral/30",
+    cellPartial: "bg-coral/25",
     text: "text-coral",
     bar: "bg-coral",
-    card: "bg-coral/8 border-coral/25",
+    card: "bg-coral/8 border-white",
     ring: "ring-coral/25",
   },
   {
     dot: "bg-green-soft",
     cellFull: "bg-green-soft/75",
-    cellPartial: "bg-green-soft/25 border border-green-soft/30",
+    cellPartial: "bg-green-soft/25",
     text: "text-green-soft",
     bar: "bg-green-soft",
-    card: "bg-green-soft/8 border-green-soft/25",
+    card: "bg-green-soft/8 border-white",
     ring: "ring-green-soft/25",
   },
   {
     dot: "bg-yellow-soft",
     cellFull: "bg-yellow-soft/75",
-    cellPartial: "bg-yellow-soft/30 border border-yellow-soft/40",
+    cellPartial: "bg-yellow-soft/30",
     text: "text-yellow-soft",
     bar: "bg-yellow-soft",
-    card: "bg-yellow-soft/10 border-yellow-soft/30",
+    card: "bg-yellow-soft/10 border-white",
     ring: "ring-yellow-soft/30",
   },
   {
     dot: "bg-accent",
     cellFull: "bg-accent/75",
-    cellPartial: "bg-accent/25 border border-accent/30",
+    cellPartial: "bg-accent/25",
     text: "text-accent",
     bar: "bg-accent",
-    card: "bg-accent/8 border-accent/25",
+    card: "bg-accent/8 border-white",
     ring: "ring-accent/25",
   },
 ];
@@ -157,6 +157,9 @@ export default function HabitsBoard({
   const [editHabitVisible, setEditHabitVisible] = useState(false);
 
   const [isDeletingHabit, setIsDeletingHabit] = useState(false);
+  const [selectedRoutineId, setSelectedRoutineId] = useState<string | null>(
+    null,
+  );
 
   useEffect(() => {
     if (showAddHabit || showEditHabit) {
@@ -997,6 +1000,31 @@ export default function HabitsBoard({
                   {completedToday}/{activeToday.length}
                 </span>
               </div>
+              {routines.length > 0 && (
+                <div className="shrink-0 flex flex-wrap gap-1 px-1 mb-3">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedRoutineId(null)}
+                    className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold transition ${selectedRoutineId === null ? "bg-primary text-white" : "bg-gray-100 text-muted-foreground hover:text-foreground"}`}
+                  >
+                    All
+                  </button>
+                  {routines.map((r) => (
+                    <button
+                      key={r.id}
+                      type="button"
+                      onClick={() =>
+                        setSelectedRoutineId((prev) =>
+                          prev === r.id ? null : r.id,
+                        )
+                      }
+                      className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold transition ${selectedRoutineId === r.id ? "bg-primary text-white" : "bg-gray-100 text-muted-foreground hover:text-foreground"}`}
+                    >
+                      {r.name}
+                    </button>
+                  ))}
+                </div>
+              )}
 
               <div className="flex-1 overflow-y-auto min-h-0 space-y-3 pr-0.5">
                 {sidebarHabits.length === 0 ? (
@@ -1010,13 +1038,21 @@ export default function HabitsBoard({
                   </div>
                 ) : (
                   (() => {
+                    const filteredSidebarHabits = selectedRoutineId
+                      ? sidebarHabits.filter((h) =>
+                          routines
+                            .find((r) => r.id === selectedRoutineId)
+                            ?.habitIds.includes(h.habit.id),
+                        )
+                      : sidebarHabits;
+
                     const sidebarById = new Map(
-                      sidebarHabits.map((h) => [h.habit.id, h]),
+                      filteredSidebarHabits.map((h) => [h.habit.id, h]),
                     );
                     const assignedIds = new Set(
                       routines.flatMap((r) => r.habitIds),
                     );
-                    const ungrouped = sidebarHabits.filter(
+                    const ungrouped = filteredSidebarHabits.filter(
                       (h) => !assignedIds.has(h.habit.id),
                     );
 
@@ -1056,8 +1092,8 @@ export default function HabitsBoard({
                           <div className="space-y-1.5 mb-4">
                             <div className="flex items-center justify-between text-xs font-semibold">
                               <span className="text-muted-foreground">
-                                {fmt(item.progress)} / {fmt(item.goal)}{" "}
-                                {item.unit}
+                                {fmt(item.progress)} / {fmt(item.goal)}
+                                {item.unit !== "count" && ` ${item.unit}`}
                               </span>
                               <span
                                 className={
@@ -1116,6 +1152,16 @@ export default function HabitsBoard({
                         </div>
                       );
                     };
+
+                    if (filteredSidebarHabits.length === 0) {
+                      return (
+                        <div className="rounded-2xl bg-card/30 px-5 py-6">
+                          <p className="text-xs text-muted-foreground">
+                            No habits scheduled today for this routine.
+                          </p>
+                        </div>
+                      );
+                    }
 
                     return (
                       <>

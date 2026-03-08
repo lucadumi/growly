@@ -4,10 +4,6 @@ generator client {
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
-generator defaultClient {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -20,9 +16,10 @@ model User {
   emailVerified     Boolean            @default(false)
   image             String?
   username          String?            @unique
-  bio               String?
+  headline          String?
   focusArea         String?
   location          String?
+  bio               String?
   privateAccount    Boolean            @default(false)
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @default(now()) @updatedAt
@@ -103,7 +100,7 @@ model Todo {
   location      String?
   scheduledTime String?
   createdAt     DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  updatedAt     DateTime         @updatedAt
   userId      String
   user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   collections CollectionTodo[]
@@ -269,22 +266,22 @@ model NotificationRead {
 }
 
 model PostHabit {
-  id               String          @id @default(uuid())
-  title            String
-  cadence          String          @default("daily")
-  userId           String
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @default(now()) @updatedAt
-  description      String?
-  votesCount       Int             @default(0)
-  category         String?
-  goalAmount       Float           @default(1)
-  goalUnit         String          @default("count")
-  goalUnitCategory String          @default("Quantity")
-  reminder         String?
-  timeOfDay        String?
-  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  likes            PostHabitLike[]
+  id              String          @id @default(uuid())
+  title           String
+  description     String?
+  cadence         String
+  category        String?
+  timeOfDay       String?
+  reminder        String?
+  goalAmount      Float           @default(1)
+  goalUnit        String          @default("count")
+  goalUnitCategory String         @default("Quantity")
+  votesCount      Int             @default(0)
+  userId          String
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes           PostHabitLike[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @default(now()) @updatedAt
 
   @@index([userId])
   @@index([votesCount])
@@ -296,10 +293,11 @@ model PostHabitLike {
   postHabitId String
   userId      String
   createdAt   DateTime  @default(now())
-  postHabit   PostHabit @relation(fields: [postHabitId], references: [id], onDelete: Cascade)
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([postHabitId, userId])
+  postHabit PostHabit @relation(fields: [postHabitId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postHabitId, userId], name: "postHabitId_userId")
   @@index([postHabitId])
   @@index([userId])
   @@map("post_habit_like")

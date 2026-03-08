@@ -33,7 +33,13 @@ type RoutineFormProps = {
   initialHabitIds?: string[];
   formId?: string;
   panelMode?: boolean;
-  onSuccess?: () => void;
+  onSuccess?: (result: {
+    id: string;
+    name: string;
+    anchor: string | null;
+    notes: string | null;
+    habitIds: string[];
+  }) => void;
 };
 
 type StatusTone = "success" | "error" | "info";
@@ -234,7 +240,14 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
         }
         setIsDirty(false);
         if (onSuccess) {
-          onSuccess();
+          const data = await response.json().catch(() => null);
+          onSuccess({
+            id: mode === "create" ? (data?.routineId ?? "") : (routineId ?? ""),
+            name: form.name.trim(),
+            anchor: form.anchor.trim() || null,
+            notes: form.notes.trim() || null,
+            habitIds: selectedHabitIds,
+          });
           return true;
         }
         if (mode === "create" && !skipRedirect) {

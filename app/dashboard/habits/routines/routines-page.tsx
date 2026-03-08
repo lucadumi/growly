@@ -3,7 +3,7 @@ import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Clock3, Edit, GripVertical, Target, Trash2, X } from "lucide-react";
 
-import { useRouter } from "next/navigation";
+
 import PageHeading from "@/app/components/page-heading";
 import HabitsTabs from "../components/habits-tabs";
 
@@ -54,8 +54,6 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
   const [selectedRoutine, setSelectedRoutine] = useState<Routine | null>(null);
   const [showEditRoutine, setShowEditRoutine] = useState(false);
   const [editRoutineVisible, setEditRoutineVisible] = useState(false);
-
-  const router = useRouter(); // used for refresh after create/edit
 
   useEffect(() => {
     const isOpen = showCreateRoutine || showEditRoutine;
@@ -341,8 +339,8 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                   key={routine.id}
                   className={`${dropClasses} ${
                     hoverTarget === routine.id
-                      ? "border-primary/80 bg-primary/5"
-                      : "border-gray-100 bg-card/30"
+                      ? "border-primary/40"
+                      : "border-gray-200"
                   } lg:p-3 xl:p-4 2xl:p-5 flex flex-col gap-4`}
                   onDragOver={(event) => event.preventDefault()}
                   onDragEnter={() => setHoverTarget(routine.id)}
@@ -374,7 +372,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                             handleDeleteRoutine(routine.id, routine.habits)
                           }
                           disabled={deletingRoutineId === routine.id}
-                          className="inline-flex items-center lg:gap-1.5 xl:gap-2 rounded-full cursor-pointer text-red-400 disabled:cursor-not-allowed disabled:opacity-70"
+                          className="inline-flex lg:text-[9px] xl:text-[11px] 2xl:text-xs items-center lg:gap-1.5 xl:gap-2 rounded-full cursor-pointer text-red-400 disabled:cursor-not-allowed disabled:opacity-70"
                         >
                           <span>
                             {deletingRoutineId === routine.id ? (
@@ -466,9 +464,24 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                 habits={allHabits}
                 formId="create-routine-form"
                 panelMode
-                onSuccess={() => {
+                onSuccess={(result) => {
+                  const habitMap = new Map(allHabits.map((h) => [h.id, h]));
+                  const routineHabits = result.habitIds
+                    .map((id) => habitMap.get(id))
+                    .filter(Boolean) as Habit[];
+                  setRoutines((prev) => [
+                    ...prev,
+                    {
+                      id: result.id,
+                      name: result.name,
+                      anchor: result.anchor,
+                      notes: result.notes,
+                      habits: routineHabits,
+                    },
+                  ]);
+                  const assignedIds = new Set(result.habitIds);
+                  setBacklog((prev) => prev.filter((h) => !assignedIds.has(h.id)));
                   closeCreateRoutine();
-                  router.refresh();
                 }}
               />
             </div>
@@ -526,9 +539,20 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                 initialHabitIds={selectedRoutine.habits.map((h) => h.id)}
                 formId="edit-routine-form"
                 panelMode
-                onSuccess={() => {
+                onSuccess={(result) => {
+                  const habitMap = new Map(allHabits.map((h) => [h.id, h]));
+                  const routineHabits = result.habitIds
+                    .map((id) => habitMap.get(id))
+                    .filter(Boolean) as Habit[];
+                  const newRoutines = routines.map((r) =>
+                    r.id !== result.id
+                      ? r
+                      : { ...r, name: result.name, anchor: result.anchor, notes: result.notes, habits: routineHabits },
+                  );
+                  const assignedIds = new Set(newRoutines.flatMap((r) => r.habits.map((h) => h.id)));
+                  setRoutines(newRoutines);
+                  setBacklog(allHabits.filter((h) => !assignedIds.has(h.id)));
                   closeEditRoutine();
-                  router.refresh();
                 }}
               />
             </div>

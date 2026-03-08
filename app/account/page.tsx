@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { CalendarDays, Flame, ShieldCheck } from "lucide-react";
@@ -65,13 +66,6 @@ export default async function AccountPage() {
   const email = session.user?.email ?? "No email on file";
   const editableName = session.user?.name ?? "";
   const editableEmail = session.user?.email ?? "";
-  const initials = name
-    .split(" ")
-    .map((node) => node.charAt(0))
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-
   const [
     habits,
     progressEntries,
@@ -111,7 +105,14 @@ export default async function AccountPage() {
     prisma.routine.count({ where: { userId: session.user.id } }),
     prisma.user.findUnique({
       where: { id: session.user.id },
-      select: { createdAt: true },
+      select: {
+        createdAt: true,
+        username: true,
+        bio: true,
+        location: true,
+        focusArea: true,
+        privateAccount: true,
+      },
     }),
   ]);
 
@@ -176,6 +177,37 @@ export default async function AccountPage() {
 
   const analytics: AccountAnalytics = { stats, weekDays, habitSlices };
 
+  const NUM_WEEKS = 8;
+  const weekLabels = Array.from({ length: NUM_WEEKS }, (_, w) => {
+    const weeksAgo = NUM_WEEKS - 1 - w;
+    return weeksAgo === 0 ? "Now" : `${weeksAgo}w`;
+  });
+
+  const habitLineData = habitsWithStats
+    .slice()
+    .sort((a, b) => b.successRate - a.successRate)
+    .slice(0, 5)
+    .map((habit, i) => ({
+      id: habit.id,
+      name: habit.name.length > 15 ? habit.name.slice(0, 13) + "…" : habit.name,
+      color: HABIT_COLORS[i % HABIT_COLORS.length],
+      weeklyRates: Array.from({ length: NUM_WEEKS }, (_, w) => {
+        const weekEnd = new Date();
+        weekEnd.setUTCDate(weekEnd.getUTCDate() - (NUM_WEEKS - 1 - w) * 7);
+        weekEnd.setUTCHours(23, 59, 59, 999);
+        const weekStart = new Date(weekEnd);
+        weekStart.setUTCDate(weekStart.getUTCDate() - 6);
+        weekStart.setUTCHours(0, 0, 0, 0);
+        const entries = progressEntries.filter((e) => {
+          const d = new Date(e.date);
+          return e.habitId === habit.id && d >= weekStart && d <= weekEnd;
+        });
+        return Math.round(
+          (entries.filter((e) => e.progress >= 1).length / 7) * 100,
+        );
+      }),
+    }));
+
   const topHabits = habitsWithStats
     .filter((h) => (h.streak ?? 0) > 0)
     .sort((a, b) => (b.streak ?? 0) - (a.streak ?? 0))
@@ -204,8 +236,14 @@ export default async function AccountPage() {
               Your Growly identity.
             </p>
             <div className="flex items-center gap-4">
-              <div className="grid lg:h-12 lg:w-12 xl:h-16 xl:w-16 2xl:h-20 2xl:w-20 shrink-0 place-items-center rounded-2xl bg-primary lg:text-lg xl:text-xl 2xl:text-2xl font-bold text-white">
-                {initials}
+              <div className="lg:h-12 lg:w-12 xl:h-16 xl:w-16 2xl:h-20 2xl:w-20 shrink-0 rounded-2xl border border-gray-100 overflow-hidden pointer-events-none select-none">
+                <Image
+                  src={"/placeholder.png"}
+                  alt={name}
+                  width={80}
+                  height={80}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="flex flex-col gap-1 min-w-0">
                 <p className="lg:text-sm xl:text-base 2xl:text-lg font-semibold text-foreground truncate">
@@ -250,7 +288,7 @@ export default async function AccountPage() {
           </div>
 
           {/* Edit profile widget */}
-          <div className="h-full">
+          <div className="h-full flex flex-col">
             <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
               Edit profile
             </h3>
@@ -260,31 +298,12 @@ export default async function AccountPage() {
             <EditProfileForm
               initialName={editableName}
               initialEmail={editableEmail}
+              initialUsername={userRecord?.username}
+              initialBio={userRecord?.bio}
+              initialLocation={userRecord?.location}
+              initialFocusArea={userRecord?.focusArea}
+              initialPrivateAccount={userRecord?.privateAccount}
             />
-          </div>
-
-          {/* Sign out widget */}
-          <div className="h-full">
-            <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-              Need a break?
-            </h3>
-            <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-              Log out and return to your calm landing page.
-            </p>
-            <SignOutButton />
-          </div>
-
-          {/* Danger zone widget */}
-          <div className="h-full flex flex-col justify-between">
-            <div>
-              <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-                Danger zone
-              </h3>
-              <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                Permanent actions that cannot be undone.
-              </p>
-            </div>
-            <DeleteAccountForm />
           </div>
         </div>
 
@@ -292,7 +311,6 @@ export default async function AccountPage() {
         <div className="lg:col-span-3 xl:col-span-7 grid lg:gap-5 xl:gap-6">
           {/* Top row: Momentum + Quick links */}
           <div className="grid row-span-2 grid-cols-2 lg:gap-3 xl:gap-4">
-            {/* This week + Habit health stack */}
             <div className="col-span-1 h-full flex flex-col lg:gap-4 xl:gap-5">
               {/* This week */}
               <div>
@@ -337,93 +355,117 @@ export default async function AccountPage() {
               </div>
 
               {/* Habit health */}
-              <div className="flex-1 flex flex-col">
+              <div className="flex-1 flex flex-col min-h-0">
                 <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
                   Habit health
                 </h3>
                 <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                  21-day success rate.
+                  Weekly completion over 8 weeks.
                 </p>
-                <div className="flex-1 lg:rounded-2xl xl:rounded-3xl border-8 border-gray-100 lg:p-4 xl:p-6 flex items-center lg:gap-3 xl:gap-4">
-                  {analytics.habitSlices.length > 0 ? (
+                <div className="flex-1 min-h-0 overflow-hidden lg:rounded-2xl xl:rounded-3xl border-8 border-gray-100 lg:p-3 xl:p-4 flex flex-col lg:gap-2 xl:gap-3">
+                  {habitLineData.length > 0 ? (
                     <>
                       <svg
-                        viewBox="0 0 80 80"
-                        className="shrink-0 lg:w-24 lg:h-24 xl:w-28 xl:h-28 2xl:w-32 2xl:h-32"
+                        viewBox="0 0 300 145"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-full"
+                        overflow="hidden"
                       >
-                        <circle
-                          cx="40"
-                          cy="40"
-                          r="32"
-                          fill="none"
-                          strokeWidth="10"
-                          stroke="currentColor"
-                          className="text-muted-foreground/15"
-                        />
-                        {(() => {
-                          const C = 2 * Math.PI * 32;
-                          const total =
-                            analytics.habitSlices.reduce(
-                              (s, h) => s + Math.max(h.successRate, 0),
-                              0,
-                            ) || 1;
-                          let cum = 0;
-                          return analytics.habitSlices.map((slice, i) => {
-                            const rawLen =
-                              (Math.max(slice.successRate, 0) / total) * C;
-                            const len = Math.max(rawLen - 2, 1);
-                            const offset = C / 4 - cum;
-                            cum += rawLen;
-                            return (
-                              <circle
-                                key={i}
-                                cx="40"
-                                cy="40"
-                                r="32"
+                        {/* Y-axis gridlines and labels */}
+                        {[0, 25, 50, 75, 100].map((pct) => {
+                          const y = (8 + (1 - pct / 100) * 112).toFixed(1);
+                          return (
+                            <g key={pct}>
+                              <line
+                                x1="40"
+                                y1={y}
+                                x2="285"
+                                y2={y}
+                                stroke="rgba(0,0,0,0.06)"
+                                strokeWidth="1"
+                              />
+                              <text
+                                x="36"
+                                y={y}
+                                textAnchor="end"
+                                dominantBaseline="middle"
+                                fontSize="7"
+                                fill="rgba(100,116,139,0.65)"
+                              >
+                                {pct}%
+                              </text>
+                            </g>
+                          );
+                        })}
+                        {/* X-axis labels */}
+                        {weekLabels.map((label, w) => {
+                          const x = (40 + (w / (NUM_WEEKS - 1)) * 245).toFixed(1);
+                          return (
+                            <text
+                              key={w}
+                              x={x}
+                              y="138"
+                              textAnchor="middle"
+                              fontSize="7"
+                              fontWeight={label === "Now" ? "700" : "400"}
+                              fill={
+                                label === "Now"
+                                  ? "rgba(100,116,139,0.95)"
+                                  : "rgba(100,116,139,0.5)"
+                              }
+                            >
+                              {label}
+                            </text>
+                          );
+                        })}
+                        {/* Habit lines */}
+                        {habitLineData.map((habit) => {
+                          const pts = habit.weeklyRates
+                            .map((rate, w) => {
+                              const x = 40 + (w / (NUM_WEEKS - 1)) * 245;
+                              const y = 8 + (1 - rate / 100) * 112;
+                              return `${x.toFixed(1)},${y.toFixed(1)}`;
+                            })
+                            .join(" ");
+                          return (
+                            <g key={habit.id}>
+                              <polyline
+                                points={pts}
                                 fill="none"
-                                stroke={slice.color}
-                                strokeWidth="10"
-                                strokeDasharray={`${len.toFixed(2)} ${C.toFixed(2)}`}
-                                strokeDashoffset={offset.toFixed(2)}
+                                stroke={habit.color}
+                                strokeWidth="1.5"
+                                strokeLinejoin="round"
+                                strokeLinecap="round"
+                                opacity="0.9"
                               />
-                            );
-                          });
-                        })()}
-                        <text
-                          x="40"
-                          y="45"
-                          textAnchor="middle"
-                          fontSize="13"
-                          fontWeight="700"
-                          fill="currentColor"
-                          className="text-foreground"
-                        >
-                          {Math.round(
-                            analytics.habitSlices.reduce(
-                              (s, h) => s + h.successRate,
-                              0,
-                            ) / analytics.habitSlices.length,
-                          )}
-                          %
-                        </text>
+                              {habit.weeklyRates.map((rate, w) => {
+                                const x = (40 + (w / (NUM_WEEKS - 1)) * 245).toFixed(1);
+                                const y = (8 + (1 - rate / 100) * 112).toFixed(1);
+                                return (
+                                  <circle
+                                    key={w}
+                                    cx={x}
+                                    cy={y}
+                                    r="2.2"
+                                    fill={habit.color}
+                                    opacity="0.9"
+                                  />
+                                );
+                              })}
+                            </g>
+                          );
+                        })}
                       </svg>
-                      <div className="flex flex-col lg:gap-1.5 xl:gap-2 min-w-0 flex-1">
-                        {analytics.habitSlices.map((slice) => (
-                          <div
-                            key={slice.name}
-                            className="flex items-center justify-between lg:gap-1.5 xl:gap-2"
-                          >
-                            <div className="flex items-center lg:gap-1 xl:gap-1.5 min-w-0">
-                              <div
-                                className="lg:w-1.5 lg:h-1.5 xl:w-2 xl:h-2 rounded-full shrink-0"
-                                style={{ backgroundColor: slice.color }}
-                              />
-                              <span className="text-muted-foreground lg:text-[9px] xl:text-[10px] 2xl:text-xs truncate">
-                                {slice.name}
-                              </span>
-                            </div>
-                            <span className="text-foreground lg:text-[9px] xl:text-[10px] 2xl:text-xs font-semibold shrink-0">
-                              {slice.successRate}%
+                      {/* Legend */}
+                      <div className="flex flex-wrap lg:gap-x-2.5 xl:gap-x-3 gap-y-1">
+                        {habitLineData.map((habit) => (
+                          <div key={habit.id} className="flex items-center gap-1">
+                            <div
+                              className="rounded-full lg:w-2 lg:h-2 xl:w-2.5 xl:h-2.5 shrink-0"
+                              style={{ backgroundColor: habit.color }}
+                            />
+                            <span className="lg:text-[8px] xl:text-[9px] 2xl:text-[10px] text-muted-foreground">
+                              {habit.name}
                             </span>
                           </div>
                         ))}
@@ -436,11 +478,7 @@ export default async function AccountPage() {
                   )}
                 </div>
               </div>
-            </div>
 
-            {/* Momentum widget */}
-            <div className="col-span-1 flex flex-col justify-between">
-              {/* Quick links widget */}
               <div className="flex flex-col">
                 <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
                   Quick links
@@ -460,21 +498,35 @@ export default async function AccountPage() {
                   ))}
                 </div>
               </div>
+            </div>
 
-              <div>
-                <div className="lg:rounded-2xl xl:rounded-3xl bg-rose-300 text-white lg:p-4 xl:p-6">
-                  <p className="lg:text-lg xl:text-xl 2xl:text-2xl font-semibold">
-                    {analytics.stats[0]?.value ?? "—"} streak
-                  </p>
-                  <p className="lg:text-[11px] xl:text-xs 2xl:text-sm lg:mt-1 xl:mt-1.5">
-                    Focused energy made possible by calm reminders and gentle
-                    check-ins.
-                  </p>
+            <div className="col-span-1 grid lg:gap-4 xl:gap-5">
+              <div className="row-span-1 h-full">
+                <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
+                  Need a break?
+                </h3>
+                <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
+                  Log out and return to your calm landing page.
+                </p>
+                <SignOutButton />
+              </div>
+
+              <div className="h-full row-span-2">
+                <div className="h-full lg:rounded-2xl xl:rounded-3xl bg-rose-300 text-white lg:p-4 xl:p-6 flex flex-col justify-between">
+                  <div>
+                    <p className="lg:text-lg xl:text-xl 2xl:text-2xl font-semibold">
+                      {analytics.stats[0]?.value ?? "—"} streak
+                    </p>
+                    <p className="lg:text-[11px] xl:text-xs 2xl:text-sm lg:mt-1 xl:mt-1.5">
+                      Focused energy made possible by calm reminders and gentle
+                      check-ins.
+                    </p>
+                  </div>
                   <div className="lg:mt-4 xl:mt-5 2xl:mt-6 grid lg:gap-2 xl:gap-3">
                     {analytics.stats.map((stat) => (
                       <div
                         key={stat.label}
-                        className="flex items-center justify-between rounded-2xl bg-card lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm"
+                        className="flex items-center justify-between rounded-2xl bg-card lg:px-3 xl:px-4 lg:py-3 xl:py-4 lg:text-[11px] xl:text-xs 2xl:text-sm"
                       >
                         <span className="text-muted-foreground">
                           {stat.label}
@@ -487,10 +539,21 @@ export default async function AccountPage() {
                   </div>
                 </div>
               </div>
+
+              <div className="h-full row-span-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
+                    Danger zone
+                  </h3>
+                  <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
+                    Permanent actions that cannot be undone.
+                  </p>
+                </div>
+                <DeleteAccountForm />
+              </div>
             </div>
           </div>
 
-          {/* Weekly focus widget */}
           <div>
             <h3 className="row-span-1 font-semibold lg:text-base xl:text-lg 2xl:text-xl">
               Weekly focus
@@ -559,7 +622,6 @@ export default async function AccountPage() {
               )}
             </div>
 
-            {/* Todo progress */}
             <div>
               <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
                 Todo progress
