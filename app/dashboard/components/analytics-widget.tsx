@@ -1,6 +1,13 @@
 "use client";
 
-import { BarChart3, CheckCircle, Search, TrendingUp } from "lucide-react";
+import {
+  BarChart3,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+  TrendingUp,
+} from "lucide-react";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 
@@ -58,6 +65,8 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
     Math.max(0, recentDays.length - 1),
   );
   const [searchQuery, setSearchQuery] = useState("");
+  const [habitPage, setHabitPage] = useState(0);
+  const HABITS_PER_PAGE = 7;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -79,6 +88,10 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
     }
     setSelectedDayIndex((current) => Math.min(current, recentDays.length - 1));
   }, [recentDays.length]);
+
+  useEffect(() => {
+    setHabitPage(0);
+  }, [searchQuery, selectedDayIndex]);
 
   const selectedDay = useMemo(() => {
     if (recentDays.length === 0) {
@@ -110,6 +123,12 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
     ...habit,
     color: barColors[index % barColors.length],
   }));
+
+  const totalHabitPages = Math.ceil(habitsWithColors.length / HABITS_PER_PAGE);
+  const pagedHabits = habitsWithColors.slice(
+    habitPage * HABITS_PER_PAGE,
+    (habitPage + 1) * HABITS_PER_PAGE,
+  );
 
   const formattedDelta = `${
     positiveDelta >= 0 ? "+" : ""
@@ -157,7 +176,7 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
               </div>
             </div>
 
-            <div className="h-full lg:p-1 xl:p-2 lg:rounded-2xl 2xl:rounded-3xl border-0 bg-analytics-dark text-analytics-dark-foreground relative overflow-hidden">
+            <div className="h-full lg:p-1 xl:p-2 lg:rounded-2xl 2xl:rounded-3xl border-0 bg-foreground text-white relative overflow-hidden">
               <div className="absolute lg:-top-1 xl:-top-2 left-1/2 -translate-x-1/2 lg:w-36 xl:w-48 2xl:w-56 pointer-events-none select-none">
                 <Image
                   src={confettiImage}
@@ -177,7 +196,7 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
                 <div className="lg:text-2xl xl:text-3xl font-bold">
                   {currentYear}
                 </div>
-                <Button className="bg-white hover:bg-card/90 text-card-foreground lg:h-7 xl:h-9 2xl:h-10 lg:text-[10px] xl:text-xs 2xl:text-sm lg:mt-1 xl:mt-2 transition-all duration-100 inline-flex items-center justify-center px-4 rounded-full border border-gray-100 shadow-sm">
+                <Button className="bg-white hover:bg-card/90 text-foreground lg:h-7 xl:h-9 2xl:h-10 lg:text-[10px] xl:text-xs 2xl:text-sm lg:mt-1 xl:mt-2 transition-all duration-100 inline-flex items-center justify-center px-4 rounded-full border border-gray-100">
                   View
                 </Button>
               </div>
@@ -246,34 +265,48 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
 
               {habitsWithColors.length === 0 ? (
                 <div className="flex-1 w-full lg:max-h-36 xl:max-h-40 grid place-items-center lg:rounded-xl xl:rounded-2xl border border-dashed border-muted/60 bg-muted/10 px-3 text-center whitespace-normal overflow-hidden text-muted-foreground lg:text-[10px] xl:text-xs 2xl:text-sm">
-                  Log habit progress to see who is leading.
+                  Log habit progress to see which is leading.
                 </div>
               ) : (
-                <div className="relative flex flex-1 overflow-hidden justify-start">
-                  {habitsWithColors.map((habit) => {
-                    const heightPercent = Math.max(
-                      0,
-                      Math.min(100, habit.percentage),
-                    );
-                    const barWidthPercent = `${100 / baseHabitCount}%`;
-                    return (
-                      <div
-                        key={habit.id}
-                        className="group h-10/12 relative flex flex-col items-center justify-between lg:p-1 xl:p-2 transition hover:bg-gray-100"
-                        style={{
-                          flex: `0 0 ${barWidthPercent}`,
-                          maxWidth: barWidthPercent,
-                        }}
-                      >
-                        <div className="flex flex-col items-center gap-1 text-center lg:min-h-10 xl:min-h-12">
-                          <div className="lg:text-[11px] xl:text-xs text-wrap xl:mt-1 2xl:mt-2 truncate w-full font-medium">
+                <div className="relative flex flex-col flex-1 overflow-hidden">
+                  <div className="flex w-full">
+                    {pagedHabits.map((habit) => {
+                      const barWidthPercent = `${100 / HABITS_PER_PAGE}%`;
+                      return (
+                        <div
+                          key={habit.id}
+                          className="flex flex-col items-center gap-1 text-center lg:p-1 xl:p-2"
+                          style={{
+                            flex: `0 0 ${barWidthPercent}`,
+                            maxWidth: barWidthPercent,
+                          }}
+                        >
+                          <div className="lg:text-[11px] xl:text-xs xl:mt-1 2xl:mt-2 truncate w-full font-medium">
                             {habit.name}
                           </div>
                           <div className="lg:text-[7px] xl:text-[9px] 2xl:text-[10px] sm:text-xs text-muted-foreground lg:mb-0.5 xl:mb-1">
                             {habit.percentage}%
                           </div>
                         </div>
-                        <div className="flex-1 w-full flex items-start">
+                      );
+                    })}
+                  </div>
+                  <div className="flex w-full lg:h-52 xl:h-60 2xl:h-72">
+                    {pagedHabits.map((habit) => {
+                      const heightPercent = Math.max(
+                        0,
+                        Math.min(100, habit.percentage),
+                      );
+                      const barWidthPercent = `${100 / HABITS_PER_PAGE}%`;
+                      return (
+                        <div
+                          key={habit.id}
+                          className="group relative flex items-start h-full lg:px-1 xl:px-2 transition hover:bg-gray-100"
+                          style={{
+                            flex: `0 0 ${barWidthPercent}`,
+                            maxWidth: barWidthPercent,
+                          }}
+                        >
                           <div
                             className={`w-full ${habit.color} rounded-lg sm:rounded-xl transition-all hover:opacity-80`}
                             style={{
@@ -282,9 +315,36 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
                             }}
                           ></div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
+                  {totalHabitPages > 1 && (
+                    <div className="flex items-center justify-center lg:gap-2 xl:gap-3 lg:mt-2 xl:mt-3">
+                      <button
+                        type="button"
+                        onClick={() => setHabitPage((p) => Math.max(0, p - 1))}
+                        disabled={habitPage === 0}
+                        className="rounded-full lg:p-0.5 xl:p-1 border border-gray-200 text-muted-foreground hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed transition"
+                      >
+                        <ChevronLeft className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
+                      </button>
+                      <span className="lg:text-[9px] xl:text-[11px] text-muted-foreground">
+                        {habitPage + 1} / {totalHabitPages}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setHabitPage((p) =>
+                            Math.min(totalHabitPages - 1, p + 1),
+                          )
+                        }
+                        disabled={habitPage === totalHabitPages - 1}
+                        className="rounded-full lg:p-0.5 xl:p-1 border border-gray-200 text-muted-foreground hover:text-primary disabled:opacity-30 disabled:cursor-not-allowed transition"
+                      >
+                        <ChevronRight className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>

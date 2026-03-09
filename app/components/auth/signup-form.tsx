@@ -147,7 +147,10 @@ const SignupForm: React.FC<FormProps> = ({ setIsLogin }) => {
         </div>
 
         {error ? (
-          <p className="lg:text-xs xl:text-sm text-destructive" role="alert">
+          <p
+            className="lg:text-[11px] xl:text-xs 2xl:text-sm red-400"
+            role="alert"
+          >
             {error}
           </p>
         ) : null}
@@ -159,7 +162,6 @@ const SignupForm: React.FC<FormProps> = ({ setIsLogin }) => {
         >
           {isLoading ? "Creating..." : "Sign Up"}
         </Button>
-
       </form>
     </div>
   );

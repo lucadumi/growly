@@ -1,8 +1,8 @@
 generator client {
   provider      = "prisma-client-js"
   output        = "../lib/generated/prisma"
-  engineType    = "library"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
+  engineType    = "library"
 }
 
 datasource db {
@@ -11,40 +11,35 @@ datasource db {
 }
 
 model User {
-  id                String             @id
+  id                String              @id
   name              String
-  email             String
-  emailVerified     Boolean            @default(false)
-  image             String?
-  username          String?            @unique
+  email             String              @unique
+  emailVerified     Boolean             @default(false)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @default(now()) @updatedAt
+  streakGoalDays    Int?                @default(21)
+  privateAccount    Boolean             @default(false)
+  username          String?             @unique
   focusArea         String?
-  location          String?
   bio               String?
-  privateAccount    Boolean            @default(false)
-  createdAt         DateTime           @default(now())
-  updatedAt         DateTime           @default(now()) @updatedAt
-  sessions          Session[]
+  location          String?
   accounts          Account[]
-  todos             Todo[]
-  habits            Habit[]
-  habitReflections  HabitReflection[]
   collections       Collection[]
-  routines          Routine[]
-  shouldDos         ShouldDo[]
-  shouldDoLikes     ShouldDoLike[]
-  notificationReads NotificationRead[]
+  habits            Habit[]
+  notification_read notification_read[]
   postHabits        PostHabit[]
   postHabitLikes    PostHabitLike[]
-  streakGoalDays    Int?               @default(21)
+  routines          Routine[]
+  sessions          Session[]
+  todos             Todo[]
 
-  @@unique([email])
   @@map("user")
 }
 
 model Session {
   id        String   @id
   expiresAt DateTime
-  token     String
+  token     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   ipAddress String?
@@ -52,7 +47,6 @@ model Session {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
   @@map("session")
 }
 
@@ -61,7 +55,6 @@ model Account {
   accountId             String
   providerId            String
   userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?
   refreshToken          String?
   idToken               String?
@@ -71,6 +64,7 @@ model Account {
   password              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("account")
 }
@@ -87,25 +81,29 @@ model Verification {
 }
 
 model Todo {
-  id            String           @id @default(uuid())
-  title         String
-  description   String?
-  category      String?
-  priority      TodoPriority     @default(MEDIUM)
-  status        TodoStatus       @default(PLANNED)
-  tags          String?
-  iconName      String           @default("Notebook")
-  iconColor     String           @default("#E5E7EB")
-  archived      Boolean          @default(false)
-  location      String?
-  scheduledTime String?
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
-  userId        String
-  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  collections   CollectionTodo[]
+  id              String           @id @default(uuid())
+  title           String
+  description     String?
+  category        String?
+  priority        TodoPriority     @default(MEDIUM)
+  status          TodoStatus       @default(PLANNED)
+  dueAt           DateTime?
+  durationMinutes Int?
+  location        String?
+  reminder        String?
+  recurrence      String?
+  tags            String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  userId          String
+  iconColor       String           @default("#E5E7EB")
+  iconName        String           @default("Notebook")
+  archived        Boolean          @default(false)
+  collections     CollectionTodo[]
+  user            User             @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([id, userId])
+  @@index([userId, dueAt])
   @@map("todo")
 }
 
@@ -114,10 +112,10 @@ model Collection {
   name        String
   description String?
   userId      String
-  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items       CollectionTodo[]
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items       CollectionTodo[]
 
   @@index([userId, name])
   @@map("collection")
@@ -127,9 +125,9 @@ model CollectionTodo {
   id           String     @id @default(uuid())
   collectionId String
   todoId       String
+  createdAt    DateTime   @default(now())
   collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
   todo         Todo       @relation(fields: [todoId], references: [id], onDelete: Cascade)
-  createdAt    DateTime   @default(now())
 
   @@unique([collectionId, todoId], name: "collectionId_todoId")
   @@map("collection_todo")
@@ -146,15 +144,18 @@ model Habit {
   goalAmount           Float                @default(1)
   goalUnit             String               @default("count")
   goalUnitCategory     String               @default("Quantity")
-  dailyProgress        Float                @default(0)
   createdAt            DateTime             @default(now())
   updatedAt            DateTime             @default(now()) @updatedAt
   userId               String
+  sourcePopularPostId  String?
+  dailyProgress        Float                @default(0)
   user                 User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
-  routineHabits        RoutineHabit[]
   dailyProgressEntries HabitDailyProgress[]
+  post_habit           PostHabit[]
+  routineHabits        RoutineHabit[]
 
   @@unique([id, userId])
+  @@unique([userId, sourcePopularPostId])
   @@index([userId])
   @@map("habit")
 }
@@ -166,59 +167,12 @@ model HabitDailyProgress {
   progress  Float    @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
-
-  habit Habit @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  habit     Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
 
   @@unique([habitId, date])
   @@index([habitId])
   @@index([date])
   @@map("habit_daily_progress")
-}
-
-model HabitReflection {
-  id        String   @id @default(uuid())
-  userId    String
-  entryDate DateTime
-  note      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, entryDate])
-  @@map("habit_reflection")
-}
-
-model ShouldDo {
-  id          String         @id @default(uuid())
-  title       String
-  description String?
-  iconKey     String?
-  iconColor   String?
-  likesCount  Int            @default(0)
-  userId      String
-  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  likes       ShouldDoLike[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @default(now()) @updatedAt
-
-  @@index([userId])
-  @@map("should_do")
-}
-
-model ShouldDoLike {
-  id         String   @id @default(uuid())
-  shouldDoId String
-  userId     String
-  createdAt  DateTime @default(now())
-
-  shouldDo ShouldDo @relation(fields: [shouldDoId], references: [id], onDelete: Cascade)
-  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([shouldDoId, userId])
-  @@index([shouldDoId])
-  @@index([userId])
-  @@map("should_do_like")
 }
 
 model Routine {
@@ -227,10 +181,10 @@ model Routine {
   anchor    String?
   notes     String?
   userId    String
-  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  habits    RoutineHabit[]
   createdAt DateTime       @default(now())
   updatedAt DateTime       @default(now()) @updatedAt
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  habits    RoutineHabit[]
 
   @@index([userId])
   @@map("routine")
@@ -242,9 +196,8 @@ model RoutineHabit {
   habitId   String
   position  Int      @default(0)
   createdAt DateTime @default(now())
-
-  routine Routine @relation(fields: [routineId], references: [id], onDelete: Cascade)
-  habit   Habit   @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  habit     Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  routine   Routine  @relation(fields: [routineId], references: [id], onDelete: Cascade)
 
   @@unique([routineId, habitId])
   @@index([routineId])
@@ -252,55 +205,57 @@ model RoutineHabit {
   @@map("routine_habit")
 }
 
-model NotificationRead {
-  id             String   @id @default(uuid())
-  userId         String
-  notificationId String
-  createdAt      DateTime @default(now())
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, notificationId])
-  @@index([userId])
-  @@map("notification_read")
-}
-
 model PostHabit {
-  id               String          @id @default(uuid())
-  title            String
-  description      String?
-  cadence          String
-  category         String?
-  timeOfDay        String?
-  reminder         String?
-  goalAmount       Float           @default(1)
-  goalUnit         String          @default("count")
-  goalUnitCategory String          @default("Quantity")
-  votesCount       Int             @default(0)
-  userId           String
-  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  likes            PostHabitLike[]
-  createdAt        DateTime        @default(now())
-  updatedAt        DateTime        @default(now()) @updatedAt
+  id         String          @id @default(uuid())
+  title      String
+  summary    String?
+  highlight  String?
+  anchor     String?
+  duration   String?
+  cadence    String
+  category   HabitCategory
+  timeWindow HabitTimeWindow @default(Anytime)
+  commitment HabitCommitment
+  benefits   String[]        @default([])
+  steps      String[]        @default([])
+  guardrails String[]        @default([])
+  habitId    String
+  userId     String
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @default(now()) @updatedAt
+  likesCount Int             @default(0)
+  habit      Habit           @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes      PostHabitLike[]
 
   @@index([userId])
-  @@index([votesCount])
+  @@index([habitId])
   @@map("post_habit")
 }
 
 model PostHabitLike {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   postHabitId String
   userId      String
-  createdAt   DateTime @default(now())
-
-  postHabit PostHabit @relation(fields: [postHabitId], references: [id], onDelete: Cascade)
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  postHabit   PostHabit @relation(fields: [postHabitId], references: [id], onDelete: Cascade)
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([postHabitId, userId], name: "postHabitId_userId")
   @@index([postHabitId])
   @@index([userId])
   @@map("post_habit_like")
+}
+
+model notification_read {
+  id             String   @id
+  userId         String
+  notificationId String
+  createdAt      DateTime @default(now())
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, notificationId])
+  @@index([userId])
 }
 
 enum TodoPriority {
@@ -315,4 +270,26 @@ enum TodoStatus {
   IN_PROGRESS
   COMPLETED
   MISSED
+}
+
+enum HabitCategory {
+  Movement
+  Energy
+  Focus
+  Recovery
+  Mindset
+  Health
+}
+
+enum HabitCommitment {
+  Quick
+  Standard
+  Deep
+}
+
+enum HabitTimeWindow {
+  Anytime
+  Morning
+  Workday
+  Evening
 }

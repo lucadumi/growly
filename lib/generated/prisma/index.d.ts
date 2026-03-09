@@ -59,21 +59,6 @@ export type Habit = $Result.DefaultSelection<Prisma.$HabitPayload>
  */
 export type HabitDailyProgress = $Result.DefaultSelection<Prisma.$HabitDailyProgressPayload>
 /**
- * Model HabitReflection
- * 
- */
-export type HabitReflection = $Result.DefaultSelection<Prisma.$HabitReflectionPayload>
-/**
- * Model ShouldDo
- * 
- */
-export type ShouldDo = $Result.DefaultSelection<Prisma.$ShouldDoPayload>
-/**
- * Model ShouldDoLike
- * 
- */
-export type ShouldDoLike = $Result.DefaultSelection<Prisma.$ShouldDoLikePayload>
-/**
  * Model Routine
  * 
  */
@@ -84,11 +69,6 @@ export type Routine = $Result.DefaultSelection<Prisma.$RoutinePayload>
  */
 export type RoutineHabit = $Result.DefaultSelection<Prisma.$RoutineHabitPayload>
 /**
- * Model NotificationRead
- * 
- */
-export type NotificationRead = $Result.DefaultSelection<Prisma.$NotificationReadPayload>
-/**
  * Model PostHabit
  * 
  */
@@ -98,6 +78,11 @@ export type PostHabit = $Result.DefaultSelection<Prisma.$PostHabitPayload>
  * 
  */
 export type PostHabitLike = $Result.DefaultSelection<Prisma.$PostHabitLikePayload>
+/**
+ * Model notification_read
+ * 
+ */
+export type notification_read = $Result.DefaultSelection<Prisma.$notification_readPayload>
 
 /**
  * Enums
@@ -122,6 +107,37 @@ export const TodoStatus: {
 
 export type TodoStatus = (typeof TodoStatus)[keyof typeof TodoStatus]
 
+
+export const HabitCategory: {
+  Movement: 'Movement',
+  Energy: 'Energy',
+  Focus: 'Focus',
+  Recovery: 'Recovery',
+  Mindset: 'Mindset',
+  Health: 'Health'
+};
+
+export type HabitCategory = (typeof HabitCategory)[keyof typeof HabitCategory]
+
+
+export const HabitCommitment: {
+  Quick: 'Quick',
+  Standard: 'Standard',
+  Deep: 'Deep'
+};
+
+export type HabitCommitment = (typeof HabitCommitment)[keyof typeof HabitCommitment]
+
+
+export const HabitTimeWindow: {
+  Anytime: 'Anytime',
+  Morning: 'Morning',
+  Workday: 'Workday',
+  Evening: 'Evening'
+};
+
+export type HabitTimeWindow = (typeof HabitTimeWindow)[keyof typeof HabitTimeWindow]
+
 }
 
 export type TodoPriority = $Enums.TodoPriority
@@ -131,6 +147,18 @@ export const TodoPriority: typeof $Enums.TodoPriority
 export type TodoStatus = $Enums.TodoStatus
 
 export const TodoStatus: typeof $Enums.TodoStatus
+
+export type HabitCategory = $Enums.HabitCategory
+
+export const HabitCategory: typeof $Enums.HabitCategory
+
+export type HabitCommitment = $Enums.HabitCommitment
+
+export const HabitCommitment: typeof $Enums.HabitCommitment
+
+export type HabitTimeWindow = $Enums.HabitTimeWindow
+
+export const HabitTimeWindow: typeof $Enums.HabitTimeWindow
 
 /**
  * ##  Prisma Client ʲˢ
@@ -341,36 +369,6 @@ export class PrismaClient<
   get habitDailyProgress(): Prisma.HabitDailyProgressDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.habitReflection`: Exposes CRUD operations for the **HabitReflection** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more HabitReflections
-    * const habitReflections = await prisma.habitReflection.findMany()
-    * ```
-    */
-  get habitReflection(): Prisma.HabitReflectionDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.shouldDo`: Exposes CRUD operations for the **ShouldDo** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more ShouldDos
-    * const shouldDos = await prisma.shouldDo.findMany()
-    * ```
-    */
-  get shouldDo(): Prisma.ShouldDoDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.shouldDoLike`: Exposes CRUD operations for the **ShouldDoLike** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more ShouldDoLikes
-    * const shouldDoLikes = await prisma.shouldDoLike.findMany()
-    * ```
-    */
-  get shouldDoLike(): Prisma.ShouldDoLikeDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.routine`: Exposes CRUD operations for the **Routine** model.
     * Example usage:
     * ```ts
@@ -391,16 +389,6 @@ export class PrismaClient<
   get routineHabit(): Prisma.RoutineHabitDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.notificationRead`: Exposes CRUD operations for the **NotificationRead** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more NotificationReads
-    * const notificationReads = await prisma.notificationRead.findMany()
-    * ```
-    */
-  get notificationRead(): Prisma.NotificationReadDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.postHabit`: Exposes CRUD operations for the **PostHabit** model.
     * Example usage:
     * ```ts
@@ -419,6 +407,16 @@ export class PrismaClient<
     * ```
     */
   get postHabitLike(): Prisma.PostHabitLikeDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notification_read`: Exposes CRUD operations for the **notification_read** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Notification_reads
+    * const notification_reads = await prisma.notification_read.findMany()
+    * ```
+    */
+  get notification_read(): Prisma.notification_readDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -869,14 +867,11 @@ export namespace Prisma {
     CollectionTodo: 'CollectionTodo',
     Habit: 'Habit',
     HabitDailyProgress: 'HabitDailyProgress',
-    HabitReflection: 'HabitReflection',
-    ShouldDo: 'ShouldDo',
-    ShouldDoLike: 'ShouldDoLike',
     Routine: 'Routine',
     RoutineHabit: 'RoutineHabit',
-    NotificationRead: 'NotificationRead',
     PostHabit: 'PostHabit',
-    PostHabitLike: 'PostHabitLike'
+    PostHabitLike: 'PostHabitLike',
+    notification_read: 'notification_read'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -895,7 +890,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "account" | "verification" | "todo" | "collection" | "collectionTodo" | "habit" | "habitDailyProgress" | "habitReflection" | "shouldDo" | "shouldDoLike" | "routine" | "routineHabit" | "notificationRead" | "postHabit" | "postHabitLike"
+      modelProps: "user" | "session" | "account" | "verification" | "todo" | "collection" | "collectionTodo" | "habit" | "habitDailyProgress" | "routine" | "routineHabit" | "postHabit" | "postHabitLike" | "notification_read"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1565,228 +1560,6 @@ export namespace Prisma {
           }
         }
       }
-      HabitReflection: {
-        payload: Prisma.$HabitReflectionPayload<ExtArgs>
-        fields: Prisma.HabitReflectionFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.HabitReflectionFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.HabitReflectionFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload>
-          }
-          findFirst: {
-            args: Prisma.HabitReflectionFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.HabitReflectionFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload>
-          }
-          findMany: {
-            args: Prisma.HabitReflectionFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload>[]
-          }
-          create: {
-            args: Prisma.HabitReflectionCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload>
-          }
-          createMany: {
-            args: Prisma.HabitReflectionCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.HabitReflectionCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload>[]
-          }
-          delete: {
-            args: Prisma.HabitReflectionDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload>
-          }
-          update: {
-            args: Prisma.HabitReflectionUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload>
-          }
-          deleteMany: {
-            args: Prisma.HabitReflectionDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.HabitReflectionUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.HabitReflectionUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload>[]
-          }
-          upsert: {
-            args: Prisma.HabitReflectionUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$HabitReflectionPayload>
-          }
-          aggregate: {
-            args: Prisma.HabitReflectionAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateHabitReflection>
-          }
-          groupBy: {
-            args: Prisma.HabitReflectionGroupByArgs<ExtArgs>
-            result: $Utils.Optional<HabitReflectionGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.HabitReflectionCountArgs<ExtArgs>
-            result: $Utils.Optional<HabitReflectionCountAggregateOutputType> | number
-          }
-        }
-      }
-      ShouldDo: {
-        payload: Prisma.$ShouldDoPayload<ExtArgs>
-        fields: Prisma.ShouldDoFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.ShouldDoFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.ShouldDoFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload>
-          }
-          findFirst: {
-            args: Prisma.ShouldDoFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.ShouldDoFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload>
-          }
-          findMany: {
-            args: Prisma.ShouldDoFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload>[]
-          }
-          create: {
-            args: Prisma.ShouldDoCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload>
-          }
-          createMany: {
-            args: Prisma.ShouldDoCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.ShouldDoCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload>[]
-          }
-          delete: {
-            args: Prisma.ShouldDoDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload>
-          }
-          update: {
-            args: Prisma.ShouldDoUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload>
-          }
-          deleteMany: {
-            args: Prisma.ShouldDoDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.ShouldDoUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.ShouldDoUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload>[]
-          }
-          upsert: {
-            args: Prisma.ShouldDoUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoPayload>
-          }
-          aggregate: {
-            args: Prisma.ShouldDoAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateShouldDo>
-          }
-          groupBy: {
-            args: Prisma.ShouldDoGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ShouldDoGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.ShouldDoCountArgs<ExtArgs>
-            result: $Utils.Optional<ShouldDoCountAggregateOutputType> | number
-          }
-        }
-      }
-      ShouldDoLike: {
-        payload: Prisma.$ShouldDoLikePayload<ExtArgs>
-        fields: Prisma.ShouldDoLikeFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.ShouldDoLikeFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.ShouldDoLikeFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload>
-          }
-          findFirst: {
-            args: Prisma.ShouldDoLikeFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.ShouldDoLikeFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload>
-          }
-          findMany: {
-            args: Prisma.ShouldDoLikeFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload>[]
-          }
-          create: {
-            args: Prisma.ShouldDoLikeCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload>
-          }
-          createMany: {
-            args: Prisma.ShouldDoLikeCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.ShouldDoLikeCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload>[]
-          }
-          delete: {
-            args: Prisma.ShouldDoLikeDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload>
-          }
-          update: {
-            args: Prisma.ShouldDoLikeUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload>
-          }
-          deleteMany: {
-            args: Prisma.ShouldDoLikeDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.ShouldDoLikeUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.ShouldDoLikeUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload>[]
-          }
-          upsert: {
-            args: Prisma.ShouldDoLikeUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ShouldDoLikePayload>
-          }
-          aggregate: {
-            args: Prisma.ShouldDoLikeAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateShouldDoLike>
-          }
-          groupBy: {
-            args: Prisma.ShouldDoLikeGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ShouldDoLikeGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.ShouldDoLikeCountArgs<ExtArgs>
-            result: $Utils.Optional<ShouldDoLikeCountAggregateOutputType> | number
-          }
-        }
-      }
       Routine: {
         payload: Prisma.$RoutinePayload<ExtArgs>
         fields: Prisma.RoutineFieldRefs
@@ -1932,80 +1705,6 @@ export namespace Prisma {
           count: {
             args: Prisma.RoutineHabitCountArgs<ExtArgs>
             result: $Utils.Optional<RoutineHabitCountAggregateOutputType> | number
-          }
-        }
-      }
-      NotificationRead: {
-        payload: Prisma.$NotificationReadPayload<ExtArgs>
-        fields: Prisma.NotificationReadFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.NotificationReadFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.NotificationReadFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload>
-          }
-          findFirst: {
-            args: Prisma.NotificationReadFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.NotificationReadFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload>
-          }
-          findMany: {
-            args: Prisma.NotificationReadFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload>[]
-          }
-          create: {
-            args: Prisma.NotificationReadCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload>
-          }
-          createMany: {
-            args: Prisma.NotificationReadCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.NotificationReadCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload>[]
-          }
-          delete: {
-            args: Prisma.NotificationReadDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload>
-          }
-          update: {
-            args: Prisma.NotificationReadUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload>
-          }
-          deleteMany: {
-            args: Prisma.NotificationReadDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.NotificationReadUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.NotificationReadUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload>[]
-          }
-          upsert: {
-            args: Prisma.NotificationReadUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$NotificationReadPayload>
-          }
-          aggregate: {
-            args: Prisma.NotificationReadAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateNotificationRead>
-          }
-          groupBy: {
-            args: Prisma.NotificationReadGroupByArgs<ExtArgs>
-            result: $Utils.Optional<NotificationReadGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.NotificationReadCountArgs<ExtArgs>
-            result: $Utils.Optional<NotificationReadCountAggregateOutputType> | number
           }
         }
       }
@@ -2157,6 +1856,80 @@ export namespace Prisma {
           }
         }
       }
+      notification_read: {
+        payload: Prisma.$notification_readPayload<ExtArgs>
+        fields: Prisma.notification_readFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.notification_readFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.notification_readFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload>
+          }
+          findFirst: {
+            args: Prisma.notification_readFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.notification_readFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload>
+          }
+          findMany: {
+            args: Prisma.notification_readFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload>[]
+          }
+          create: {
+            args: Prisma.notification_readCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload>
+          }
+          createMany: {
+            args: Prisma.notification_readCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.notification_readCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload>[]
+          }
+          delete: {
+            args: Prisma.notification_readDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload>
+          }
+          update: {
+            args: Prisma.notification_readUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload>
+          }
+          deleteMany: {
+            args: Prisma.notification_readDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.notification_readUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.notification_readUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload>[]
+          }
+          upsert: {
+            args: Prisma.notification_readUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$notification_readPayload>
+          }
+          aggregate: {
+            args: Prisma.Notification_readAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotification_read>
+          }
+          groupBy: {
+            args: Prisma.notification_readGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Notification_readGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.notification_readCountArgs<ExtArgs>
+            result: $Utils.Optional<Notification_readCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2262,14 +2035,11 @@ export namespace Prisma {
     collectionTodo?: CollectionTodoOmit
     habit?: HabitOmit
     habitDailyProgress?: HabitDailyProgressOmit
-    habitReflection?: HabitReflectionOmit
-    shouldDo?: ShouldDoOmit
-    shouldDoLike?: ShouldDoLikeOmit
     routine?: RoutineOmit
     routineHabit?: RoutineHabitOmit
-    notificationRead?: NotificationReadOmit
     postHabit?: PostHabitOmit
     postHabitLike?: PostHabitLikeOmit
+    notification_read?: notification_readOmit
   }
 
   /* Types for Logging */
@@ -2350,33 +2120,27 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    sessions: number
     accounts: number
-    todos: number
-    habits: number
-    habitReflections: number
     collections: number
-    routines: number
-    shouldDos: number
-    shouldDoLikes: number
-    notificationReads: number
+    habits: number
+    notification_read: number
     postHabits: number
     postHabitLikes: number
+    routines: number
+    sessions: number
+    todos: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
-    todos?: boolean | UserCountOutputTypeCountTodosArgs
-    habits?: boolean | UserCountOutputTypeCountHabitsArgs
-    habitReflections?: boolean | UserCountOutputTypeCountHabitReflectionsArgs
     collections?: boolean | UserCountOutputTypeCountCollectionsArgs
-    routines?: boolean | UserCountOutputTypeCountRoutinesArgs
-    shouldDos?: boolean | UserCountOutputTypeCountShouldDosArgs
-    shouldDoLikes?: boolean | UserCountOutputTypeCountShouldDoLikesArgs
-    notificationReads?: boolean | UserCountOutputTypeCountNotificationReadsArgs
+    habits?: boolean | UserCountOutputTypeCountHabitsArgs
+    notification_read?: boolean | UserCountOutputTypeCountNotification_readArgs
     postHabits?: boolean | UserCountOutputTypeCountPostHabitsArgs
     postHabitLikes?: boolean | UserCountOutputTypeCountPostHabitLikesArgs
+    routines?: boolean | UserCountOutputTypeCountRoutinesArgs
+    sessions?: boolean | UserCountOutputTypeCountSessionsArgs
+    todos?: boolean | UserCountOutputTypeCountTodosArgs
   }
 
   // Custom InputTypes
@@ -2393,36 +2157,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SessionWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AccountWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountTodosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TodoWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountHabitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: HabitWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountHabitReflectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: HabitReflectionWhereInput
   }
 
   /**
@@ -2435,29 +2171,15 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountRoutinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoutineWhereInput
+  export type UserCountOutputTypeCountHabitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HabitWhereInput
   }
 
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountShouldDosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ShouldDoWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountShouldDoLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ShouldDoLikeWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountNotificationReadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NotificationReadWhereInput
+  export type UserCountOutputTypeCountNotification_readArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: notification_readWhereInput
   }
 
   /**
@@ -2472,6 +2194,27 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPostHabitLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PostHabitLikeWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRoutinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoutineWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SessionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTodosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TodoWhereInput
   }
 
 
@@ -2542,13 +2285,15 @@ export namespace Prisma {
    */
 
   export type HabitCountOutputType = {
-    routineHabits: number
     dailyProgressEntries: number
+    post_habit: number
+    routineHabits: number
   }
 
   export type HabitCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    routineHabits?: boolean | HabitCountOutputTypeCountRoutineHabitsArgs
     dailyProgressEntries?: boolean | HabitCountOutputTypeCountDailyProgressEntriesArgs
+    post_habit?: boolean | HabitCountOutputTypeCountPost_habitArgs
+    routineHabits?: boolean | HabitCountOutputTypeCountRoutineHabitsArgs
   }
 
   // Custom InputTypes
@@ -2565,46 +2310,22 @@ export namespace Prisma {
   /**
    * HabitCountOutputType without action
    */
-  export type HabitCountOutputTypeCountRoutineHabitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: RoutineHabitWhereInput
+  export type HabitCountOutputTypeCountDailyProgressEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: HabitDailyProgressWhereInput
   }
 
   /**
    * HabitCountOutputType without action
    */
-  export type HabitCountOutputTypeCountDailyProgressEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: HabitDailyProgressWhereInput
-  }
-
-
-  /**
-   * Count Type ShouldDoCountOutputType
-   */
-
-  export type ShouldDoCountOutputType = {
-    likes: number
-  }
-
-  export type ShouldDoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    likes?: boolean | ShouldDoCountOutputTypeCountLikesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * ShouldDoCountOutputType without action
-   */
-  export type ShouldDoCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoCountOutputType
-     */
-    select?: ShouldDoCountOutputTypeSelect<ExtArgs> | null
+  export type HabitCountOutputTypeCountPost_habitArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostHabitWhereInput
   }
 
   /**
-   * ShouldDoCountOutputType without action
+   * HabitCountOutputType without action
    */
-  export type ShouldDoCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ShouldDoLikeWhereInput
+  export type HabitCountOutputTypeCountRoutineHabitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RoutineHabitWhereInput
   }
 
 
@@ -2699,15 +2420,14 @@ export namespace Prisma {
     name: string | null
     email: string | null
     emailVerified: boolean | null
-    image: string | null
-    username: string | null
-    focusArea: string | null
-    location: string | null
-    bio: string | null
-    privateAccount: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     streakGoalDays: number | null
+    privateAccount: boolean | null
+    username: string | null
+    focusArea: string | null
+    bio: string | null
+    location: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2715,15 +2435,14 @@ export namespace Prisma {
     name: string | null
     email: string | null
     emailVerified: boolean | null
-    image: string | null
-    username: string | null
-    focusArea: string | null
-    location: string | null
-    bio: string | null
-    privateAccount: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     streakGoalDays: number | null
+    privateAccount: boolean | null
+    username: string | null
+    focusArea: string | null
+    bio: string | null
+    location: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2731,15 +2450,14 @@ export namespace Prisma {
     name: number
     email: number
     emailVerified: number
-    image: number
-    username: number
-    focusArea: number
-    location: number
-    bio: number
-    privateAccount: number
     createdAt: number
     updatedAt: number
     streakGoalDays: number
+    privateAccount: number
+    username: number
+    focusArea: number
+    bio: number
+    location: number
     _all: number
   }
 
@@ -2757,15 +2475,14 @@ export namespace Prisma {
     name?: true
     email?: true
     emailVerified?: true
-    image?: true
-    username?: true
-    focusArea?: true
-    location?: true
-    bio?: true
-    privateAccount?: true
     createdAt?: true
     updatedAt?: true
     streakGoalDays?: true
+    privateAccount?: true
+    username?: true
+    focusArea?: true
+    bio?: true
+    location?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2773,15 +2490,14 @@ export namespace Prisma {
     name?: true
     email?: true
     emailVerified?: true
-    image?: true
-    username?: true
-    focusArea?: true
-    location?: true
-    bio?: true
-    privateAccount?: true
     createdAt?: true
     updatedAt?: true
     streakGoalDays?: true
+    privateAccount?: true
+    username?: true
+    focusArea?: true
+    bio?: true
+    location?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2789,15 +2505,14 @@ export namespace Prisma {
     name?: true
     email?: true
     emailVerified?: true
-    image?: true
-    username?: true
-    focusArea?: true
-    location?: true
-    bio?: true
-    privateAccount?: true
     createdAt?: true
     updatedAt?: true
     streakGoalDays?: true
+    privateAccount?: true
+    username?: true
+    focusArea?: true
+    bio?: true
+    location?: true
     _all?: true
   }
 
@@ -2892,15 +2607,14 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified: boolean
-    image: string | null
-    username: string | null
-    focusArea: string | null
-    location: string | null
-    bio: string | null
-    privateAccount: boolean
     createdAt: Date
     updatedAt: Date
     streakGoalDays: number | null
+    privateAccount: boolean
+    username: string | null
+    focusArea: string | null
+    bio: string | null
+    location: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -2927,27 +2641,23 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     emailVerified?: boolean
-    image?: boolean
-    username?: boolean
-    focusArea?: boolean
-    location?: boolean
-    bio?: boolean
-    privateAccount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
-    sessions?: boolean | User$sessionsArgs<ExtArgs>
+    privateAccount?: boolean
+    username?: boolean
+    focusArea?: boolean
+    bio?: boolean
+    location?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
-    todos?: boolean | User$todosArgs<ExtArgs>
-    habits?: boolean | User$habitsArgs<ExtArgs>
-    habitReflections?: boolean | User$habitReflectionsArgs<ExtArgs>
     collections?: boolean | User$collectionsArgs<ExtArgs>
-    routines?: boolean | User$routinesArgs<ExtArgs>
-    shouldDos?: boolean | User$shouldDosArgs<ExtArgs>
-    shouldDoLikes?: boolean | User$shouldDoLikesArgs<ExtArgs>
-    notificationReads?: boolean | User$notificationReadsArgs<ExtArgs>
+    habits?: boolean | User$habitsArgs<ExtArgs>
+    notification_read?: boolean | User$notification_readArgs<ExtArgs>
     postHabits?: boolean | User$postHabitsArgs<ExtArgs>
     postHabitLikes?: boolean | User$postHabitLikesArgs<ExtArgs>
+    routines?: boolean | User$routinesArgs<ExtArgs>
+    sessions?: boolean | User$sessionsArgs<ExtArgs>
+    todos?: boolean | User$todosArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2956,15 +2666,14 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     emailVerified?: boolean
-    image?: boolean
-    username?: boolean
-    focusArea?: boolean
-    location?: boolean
-    bio?: boolean
-    privateAccount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
+    privateAccount?: boolean
+    username?: boolean
+    focusArea?: boolean
+    bio?: boolean
+    location?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2972,15 +2681,14 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     emailVerified?: boolean
-    image?: boolean
-    username?: boolean
-    focusArea?: boolean
-    location?: boolean
-    bio?: boolean
-    privateAccount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
+    privateAccount?: boolean
+    username?: boolean
+    focusArea?: boolean
+    bio?: boolean
+    location?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2988,31 +2696,27 @@ export namespace Prisma {
     name?: boolean
     email?: boolean
     emailVerified?: boolean
-    image?: boolean
-    username?: boolean
-    focusArea?: boolean
-    location?: boolean
-    bio?: boolean
-    privateAccount?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
+    privateAccount?: boolean
+    username?: boolean
+    focusArea?: boolean
+    bio?: boolean
+    location?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "username" | "focusArea" | "location" | "bio" | "privateAccount" | "createdAt" | "updatedAt" | "streakGoalDays", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "createdAt" | "updatedAt" | "streakGoalDays" | "privateAccount" | "username" | "focusArea" | "bio" | "location", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sessions?: boolean | User$sessionsArgs<ExtArgs>
     accounts?: boolean | User$accountsArgs<ExtArgs>
-    todos?: boolean | User$todosArgs<ExtArgs>
-    habits?: boolean | User$habitsArgs<ExtArgs>
-    habitReflections?: boolean | User$habitReflectionsArgs<ExtArgs>
     collections?: boolean | User$collectionsArgs<ExtArgs>
-    routines?: boolean | User$routinesArgs<ExtArgs>
-    shouldDos?: boolean | User$shouldDosArgs<ExtArgs>
-    shouldDoLikes?: boolean | User$shouldDoLikesArgs<ExtArgs>
-    notificationReads?: boolean | User$notificationReadsArgs<ExtArgs>
+    habits?: boolean | User$habitsArgs<ExtArgs>
+    notification_read?: boolean | User$notification_readArgs<ExtArgs>
     postHabits?: boolean | User$postHabitsArgs<ExtArgs>
     postHabitLikes?: boolean | User$postHabitLikesArgs<ExtArgs>
+    routines?: boolean | User$routinesArgs<ExtArgs>
+    sessions?: boolean | User$sessionsArgs<ExtArgs>
+    todos?: boolean | User$todosArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3021,33 +2725,29 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      sessions: Prisma.$SessionPayload<ExtArgs>[]
       accounts: Prisma.$AccountPayload<ExtArgs>[]
-      todos: Prisma.$TodoPayload<ExtArgs>[]
-      habits: Prisma.$HabitPayload<ExtArgs>[]
-      habitReflections: Prisma.$HabitReflectionPayload<ExtArgs>[]
       collections: Prisma.$CollectionPayload<ExtArgs>[]
-      routines: Prisma.$RoutinePayload<ExtArgs>[]
-      shouldDos: Prisma.$ShouldDoPayload<ExtArgs>[]
-      shouldDoLikes: Prisma.$ShouldDoLikePayload<ExtArgs>[]
-      notificationReads: Prisma.$NotificationReadPayload<ExtArgs>[]
+      habits: Prisma.$HabitPayload<ExtArgs>[]
+      notification_read: Prisma.$notification_readPayload<ExtArgs>[]
       postHabits: Prisma.$PostHabitPayload<ExtArgs>[]
       postHabitLikes: Prisma.$PostHabitLikePayload<ExtArgs>[]
+      routines: Prisma.$RoutinePayload<ExtArgs>[]
+      sessions: Prisma.$SessionPayload<ExtArgs>[]
+      todos: Prisma.$TodoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       email: string
       emailVerified: boolean
-      image: string | null
-      username: string | null
-      focusArea: string | null
-      location: string | null
-      bio: string | null
-      privateAccount: boolean
       createdAt: Date
       updatedAt: Date
       streakGoalDays: number | null
+      privateAccount: boolean
+      username: string | null
+      focusArea: string | null
+      bio: string | null
+      location: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3442,18 +3142,15 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    todos<T extends User$todosArgs<ExtArgs> = {}>(args?: Subset<T, User$todosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    habits<T extends User$habitsArgs<ExtArgs> = {}>(args?: Subset<T, User$habitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    habitReflections<T extends User$habitReflectionsArgs<ExtArgs> = {}>(args?: Subset<T, User$habitReflectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     collections<T extends User$collectionsArgs<ExtArgs> = {}>(args?: Subset<T, User$collectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    routines<T extends User$routinesArgs<ExtArgs> = {}>(args?: Subset<T, User$routinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    shouldDos<T extends User$shouldDosArgs<ExtArgs> = {}>(args?: Subset<T, User$shouldDosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    shouldDoLikes<T extends User$shouldDoLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$shouldDoLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    notificationReads<T extends User$notificationReadsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationReadsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    habits<T extends User$habitsArgs<ExtArgs> = {}>(args?: Subset<T, User$habitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notification_read<T extends User$notification_readArgs<ExtArgs> = {}>(args?: Subset<T, User$notification_readArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     postHabits<T extends User$postHabitsArgs<ExtArgs> = {}>(args?: Subset<T, User$postHabitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     postHabitLikes<T extends User$postHabitLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$postHabitLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    routines<T extends User$routinesArgs<ExtArgs> = {}>(args?: Subset<T, User$routinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    todos<T extends User$todosArgs<ExtArgs> = {}>(args?: Subset<T, User$todosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3487,15 +3184,14 @@ export namespace Prisma {
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
-    readonly image: FieldRef<"User", 'String'>
-    readonly username: FieldRef<"User", 'String'>
-    readonly focusArea: FieldRef<"User", 'String'>
-    readonly location: FieldRef<"User", 'String'>
-    readonly bio: FieldRef<"User", 'String'>
-    readonly privateAccount: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly streakGoalDays: FieldRef<"User", 'Int'>
+    readonly privateAccount: FieldRef<"User", 'Boolean'>
+    readonly username: FieldRef<"User", 'String'>
+    readonly focusArea: FieldRef<"User", 'String'>
+    readonly bio: FieldRef<"User", 'String'>
+    readonly location: FieldRef<"User", 'String'>
   }
     
 
@@ -3884,30 +3580,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.sessions
-   */
-  export type User$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Session
-     */
-    select?: SessionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Session
-     */
-    omit?: SessionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SessionInclude<ExtArgs> | null
-    where?: SessionWhereInput
-    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
-    cursor?: SessionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
-  }
-
-  /**
    * User.accounts
    */
   export type User$accountsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3929,78 +3601,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AccountScalarFieldEnum | AccountScalarFieldEnum[]
-  }
-
-  /**
-   * User.todos
-   */
-  export type User$todosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Todo
-     */
-    select?: TodoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Todo
-     */
-    omit?: TodoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TodoInclude<ExtArgs> | null
-    where?: TodoWhereInput
-    orderBy?: TodoOrderByWithRelationInput | TodoOrderByWithRelationInput[]
-    cursor?: TodoWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TodoScalarFieldEnum | TodoScalarFieldEnum[]
-  }
-
-  /**
-   * User.habits
-   */
-  export type User$habitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Habit
-     */
-    select?: HabitSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Habit
-     */
-    omit?: HabitOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitInclude<ExtArgs> | null
-    where?: HabitWhereInput
-    orderBy?: HabitOrderByWithRelationInput | HabitOrderByWithRelationInput[]
-    cursor?: HabitWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: HabitScalarFieldEnum | HabitScalarFieldEnum[]
-  }
-
-  /**
-   * User.habitReflections
-   */
-  export type User$habitReflectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-    where?: HabitReflectionWhereInput
-    orderBy?: HabitReflectionOrderByWithRelationInput | HabitReflectionOrderByWithRelationInput[]
-    cursor?: HabitReflectionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: HabitReflectionScalarFieldEnum | HabitReflectionScalarFieldEnum[]
   }
 
   /**
@@ -4028,99 +3628,51 @@ export namespace Prisma {
   }
 
   /**
-   * User.routines
+   * User.habits
    */
-  export type User$routinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$habitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Routine
+     * Select specific fields to fetch from the Habit
      */
-    select?: RoutineSelect<ExtArgs> | null
+    select?: HabitSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Routine
+     * Omit specific fields from the Habit
      */
-    omit?: RoutineOmit<ExtArgs> | null
+    omit?: HabitOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: RoutineInclude<ExtArgs> | null
-    where?: RoutineWhereInput
-    orderBy?: RoutineOrderByWithRelationInput | RoutineOrderByWithRelationInput[]
-    cursor?: RoutineWhereUniqueInput
+    include?: HabitInclude<ExtArgs> | null
+    where?: HabitWhereInput
+    orderBy?: HabitOrderByWithRelationInput | HabitOrderByWithRelationInput[]
+    cursor?: HabitWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: RoutineScalarFieldEnum | RoutineScalarFieldEnum[]
+    distinct?: HabitScalarFieldEnum | HabitScalarFieldEnum[]
   }
 
   /**
-   * User.shouldDos
+   * User.notification_read
    */
-  export type User$shouldDosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$notification_readArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ShouldDo
+     * Select specific fields to fetch from the notification_read
      */
-    select?: ShouldDoSelect<ExtArgs> | null
+    select?: notification_readSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ShouldDo
+     * Omit specific fields from the notification_read
      */
-    omit?: ShouldDoOmit<ExtArgs> | null
+    omit?: notification_readOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ShouldDoInclude<ExtArgs> | null
-    where?: ShouldDoWhereInput
-    orderBy?: ShouldDoOrderByWithRelationInput | ShouldDoOrderByWithRelationInput[]
-    cursor?: ShouldDoWhereUniqueInput
+    include?: notification_readInclude<ExtArgs> | null
+    where?: notification_readWhereInput
+    orderBy?: notification_readOrderByWithRelationInput | notification_readOrderByWithRelationInput[]
+    cursor?: notification_readWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ShouldDoScalarFieldEnum | ShouldDoScalarFieldEnum[]
-  }
-
-  /**
-   * User.shouldDoLikes
-   */
-  export type User$shouldDoLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    where?: ShouldDoLikeWhereInput
-    orderBy?: ShouldDoLikeOrderByWithRelationInput | ShouldDoLikeOrderByWithRelationInput[]
-    cursor?: ShouldDoLikeWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ShouldDoLikeScalarFieldEnum | ShouldDoLikeScalarFieldEnum[]
-  }
-
-  /**
-   * User.notificationReads
-   */
-  export type User$notificationReadsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-    where?: NotificationReadWhereInput
-    orderBy?: NotificationReadOrderByWithRelationInput | NotificationReadOrderByWithRelationInput[]
-    cursor?: NotificationReadWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: NotificationReadScalarFieldEnum | NotificationReadScalarFieldEnum[]
+    distinct?: Notification_readScalarFieldEnum | Notification_readScalarFieldEnum[]
   }
 
   /**
@@ -4169,6 +3721,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PostHabitLikeScalarFieldEnum | PostHabitLikeScalarFieldEnum[]
+  }
+
+  /**
+   * User.routines
+   */
+  export type User$routinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Routine
+     */
+    select?: RoutineSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Routine
+     */
+    omit?: RoutineOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoutineInclude<ExtArgs> | null
+    where?: RoutineWhereInput
+    orderBy?: RoutineOrderByWithRelationInput | RoutineOrderByWithRelationInput[]
+    cursor?: RoutineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RoutineScalarFieldEnum | RoutineScalarFieldEnum[]
+  }
+
+  /**
+   * User.sessions
+   */
+  export type User$sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Session
+     */
+    select?: SessionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Session
+     */
+    omit?: SessionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SessionInclude<ExtArgs> | null
+    where?: SessionWhereInput
+    orderBy?: SessionOrderByWithRelationInput | SessionOrderByWithRelationInput[]
+    cursor?: SessionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SessionScalarFieldEnum | SessionScalarFieldEnum[]
+  }
+
+  /**
+   * User.todos
+   */
+  export type User$todosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Todo
+     */
+    select?: TodoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Todo
+     */
+    omit?: TodoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TodoInclude<ExtArgs> | null
+    where?: TodoWhereInput
+    orderBy?: TodoOrderByWithRelationInput | TodoOrderByWithRelationInput[]
+    cursor?: TodoWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TodoScalarFieldEnum | TodoScalarFieldEnum[]
   }
 
   /**
@@ -7463,8 +7087,18 @@ export namespace Prisma {
 
   export type AggregateTodo = {
     _count: TodoCountAggregateOutputType | null
+    _avg: TodoAvgAggregateOutputType | null
+    _sum: TodoSumAggregateOutputType | null
     _min: TodoMinAggregateOutputType | null
     _max: TodoMaxAggregateOutputType | null
+  }
+
+  export type TodoAvgAggregateOutputType = {
+    durationMinutes: number | null
+  }
+
+  export type TodoSumAggregateOutputType = {
+    durationMinutes: number | null
   }
 
   export type TodoMinAggregateOutputType = {
@@ -7474,15 +7108,18 @@ export namespace Prisma {
     category: string | null
     priority: $Enums.TodoPriority | null
     status: $Enums.TodoStatus | null
-    tags: string | null
-    iconName: string | null
-    iconColor: string | null
-    archived: boolean | null
+    dueAt: Date | null
+    durationMinutes: number | null
     location: string | null
-    scheduledTime: string | null
+    reminder: string | null
+    recurrence: string | null
+    tags: string | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
+    iconColor: string | null
+    iconName: string | null
+    archived: boolean | null
   }
 
   export type TodoMaxAggregateOutputType = {
@@ -7492,15 +7129,18 @@ export namespace Prisma {
     category: string | null
     priority: $Enums.TodoPriority | null
     status: $Enums.TodoStatus | null
-    tags: string | null
-    iconName: string | null
-    iconColor: string | null
-    archived: boolean | null
+    dueAt: Date | null
+    durationMinutes: number | null
     location: string | null
-    scheduledTime: string | null
+    reminder: string | null
+    recurrence: string | null
+    tags: string | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
+    iconColor: string | null
+    iconName: string | null
+    archived: boolean | null
   }
 
   export type TodoCountAggregateOutputType = {
@@ -7510,18 +7150,29 @@ export namespace Prisma {
     category: number
     priority: number
     status: number
-    tags: number
-    iconName: number
-    iconColor: number
-    archived: number
+    dueAt: number
+    durationMinutes: number
     location: number
-    scheduledTime: number
+    reminder: number
+    recurrence: number
+    tags: number
     createdAt: number
     updatedAt: number
     userId: number
+    iconColor: number
+    iconName: number
+    archived: number
     _all: number
   }
 
+
+  export type TodoAvgAggregateInputType = {
+    durationMinutes?: true
+  }
+
+  export type TodoSumAggregateInputType = {
+    durationMinutes?: true
+  }
 
   export type TodoMinAggregateInputType = {
     id?: true
@@ -7530,15 +7181,18 @@ export namespace Prisma {
     category?: true
     priority?: true
     status?: true
-    tags?: true
-    iconName?: true
-    iconColor?: true
-    archived?: true
+    dueAt?: true
+    durationMinutes?: true
     location?: true
-    scheduledTime?: true
+    reminder?: true
+    recurrence?: true
+    tags?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
+    iconColor?: true
+    iconName?: true
+    archived?: true
   }
 
   export type TodoMaxAggregateInputType = {
@@ -7548,15 +7202,18 @@ export namespace Prisma {
     category?: true
     priority?: true
     status?: true
-    tags?: true
-    iconName?: true
-    iconColor?: true
-    archived?: true
+    dueAt?: true
+    durationMinutes?: true
     location?: true
-    scheduledTime?: true
+    reminder?: true
+    recurrence?: true
+    tags?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
+    iconColor?: true
+    iconName?: true
+    archived?: true
   }
 
   export type TodoCountAggregateInputType = {
@@ -7566,15 +7223,18 @@ export namespace Prisma {
     category?: true
     priority?: true
     status?: true
-    tags?: true
-    iconName?: true
-    iconColor?: true
-    archived?: true
+    dueAt?: true
+    durationMinutes?: true
     location?: true
-    scheduledTime?: true
+    reminder?: true
+    recurrence?: true
+    tags?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
+    iconColor?: true
+    iconName?: true
+    archived?: true
     _all?: true
   }
 
@@ -7616,6 +7276,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: TodoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TodoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TodoMinAggregateInputType
@@ -7646,6 +7318,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: TodoCountAggregateInputType | true
+    _avg?: TodoAvgAggregateInputType
+    _sum?: TodoSumAggregateInputType
     _min?: TodoMinAggregateInputType
     _max?: TodoMaxAggregateInputType
   }
@@ -7657,16 +7331,21 @@ export namespace Prisma {
     category: string | null
     priority: $Enums.TodoPriority
     status: $Enums.TodoStatus
-    tags: string | null
-    iconName: string
-    iconColor: string
-    archived: boolean
+    dueAt: Date | null
+    durationMinutes: number | null
     location: string | null
-    scheduledTime: string | null
+    reminder: string | null
+    recurrence: string | null
+    tags: string | null
     createdAt: Date
     updatedAt: Date
     userId: string
+    iconColor: string
+    iconName: string
+    archived: boolean
     _count: TodoCountAggregateOutputType | null
+    _avg: TodoAvgAggregateOutputType | null
+    _sum: TodoSumAggregateOutputType | null
     _min: TodoMinAggregateOutputType | null
     _max: TodoMaxAggregateOutputType | null
   }
@@ -7692,17 +7371,20 @@ export namespace Prisma {
     category?: boolean
     priority?: boolean
     status?: boolean
-    tags?: boolean
-    iconName?: boolean
-    iconColor?: boolean
-    archived?: boolean
+    dueAt?: boolean
+    durationMinutes?: boolean
     location?: boolean
-    scheduledTime?: boolean
+    reminder?: boolean
+    recurrence?: boolean
+    tags?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
+    iconColor?: boolean
+    iconName?: boolean
+    archived?: boolean
     collections?: boolean | Todo$collectionsArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | TodoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["todo"]>
 
@@ -7713,15 +7395,18 @@ export namespace Prisma {
     category?: boolean
     priority?: boolean
     status?: boolean
-    tags?: boolean
-    iconName?: boolean
-    iconColor?: boolean
-    archived?: boolean
+    dueAt?: boolean
+    durationMinutes?: boolean
     location?: boolean
-    scheduledTime?: boolean
+    reminder?: boolean
+    recurrence?: boolean
+    tags?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    iconColor?: boolean
+    iconName?: boolean
+    archived?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["todo"]>
 
@@ -7732,15 +7417,18 @@ export namespace Prisma {
     category?: boolean
     priority?: boolean
     status?: boolean
-    tags?: boolean
-    iconName?: boolean
-    iconColor?: boolean
-    archived?: boolean
+    dueAt?: boolean
+    durationMinutes?: boolean
     location?: boolean
-    scheduledTime?: boolean
+    reminder?: boolean
+    recurrence?: boolean
+    tags?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    iconColor?: boolean
+    iconName?: boolean
+    archived?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["todo"]>
 
@@ -7751,21 +7439,24 @@ export namespace Prisma {
     category?: boolean
     priority?: boolean
     status?: boolean
-    tags?: boolean
-    iconName?: boolean
-    iconColor?: boolean
-    archived?: boolean
+    dueAt?: boolean
+    durationMinutes?: boolean
     location?: boolean
-    scheduledTime?: boolean
+    reminder?: boolean
+    recurrence?: boolean
+    tags?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    iconColor?: boolean
+    iconName?: boolean
+    archived?: boolean
   }
 
-  export type TodoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "priority" | "status" | "tags" | "iconName" | "iconColor" | "archived" | "location" | "scheduledTime" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["todo"]>
+  export type TodoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "priority" | "status" | "dueAt" | "durationMinutes" | "location" | "reminder" | "recurrence" | "tags" | "createdAt" | "updatedAt" | "userId" | "iconColor" | "iconName" | "archived", ExtArgs["result"]["todo"]>
   export type TodoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     collections?: boolean | Todo$collectionsArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | TodoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TodoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7778,8 +7469,8 @@ export namespace Prisma {
   export type $TodoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Todo"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       collections: Prisma.$CollectionTodoPayload<ExtArgs>[]
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7788,15 +7479,18 @@ export namespace Prisma {
       category: string | null
       priority: $Enums.TodoPriority
       status: $Enums.TodoStatus
-      tags: string | null
-      iconName: string
-      iconColor: string
-      archived: boolean
+      dueAt: Date | null
+      durationMinutes: number | null
       location: string | null
-      scheduledTime: string | null
+      reminder: string | null
+      recurrence: string | null
+      tags: string | null
       createdAt: Date
       updatedAt: Date
       userId: string
+      iconColor: string
+      iconName: string
+      archived: boolean
     }, ExtArgs["result"]["todo"]>
     composites: {}
   }
@@ -8191,8 +7885,8 @@ export namespace Prisma {
    */
   export interface Prisma__TodoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     collections<T extends Todo$collectionsArgs<ExtArgs> = {}>(args?: Subset<T, Todo$collectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CollectionTodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8228,15 +7922,18 @@ export namespace Prisma {
     readonly category: FieldRef<"Todo", 'String'>
     readonly priority: FieldRef<"Todo", 'TodoPriority'>
     readonly status: FieldRef<"Todo", 'TodoStatus'>
-    readonly tags: FieldRef<"Todo", 'String'>
-    readonly iconName: FieldRef<"Todo", 'String'>
-    readonly iconColor: FieldRef<"Todo", 'String'>
-    readonly archived: FieldRef<"Todo", 'Boolean'>
+    readonly dueAt: FieldRef<"Todo", 'DateTime'>
+    readonly durationMinutes: FieldRef<"Todo", 'Int'>
     readonly location: FieldRef<"Todo", 'String'>
-    readonly scheduledTime: FieldRef<"Todo", 'String'>
+    readonly reminder: FieldRef<"Todo", 'String'>
+    readonly recurrence: FieldRef<"Todo", 'String'>
+    readonly tags: FieldRef<"Todo", 'String'>
     readonly createdAt: FieldRef<"Todo", 'DateTime'>
     readonly updatedAt: FieldRef<"Todo", 'DateTime'>
     readonly userId: FieldRef<"Todo", 'String'>
+    readonly iconColor: FieldRef<"Todo", 'String'>
+    readonly iconName: FieldRef<"Todo", 'String'>
+    readonly archived: FieldRef<"Todo", 'Boolean'>
   }
     
 
@@ -10862,10 +10559,11 @@ export namespace Prisma {
     goalAmount: number | null
     goalUnit: string | null
     goalUnitCategory: string | null
-    dailyProgress: number | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
+    sourcePopularPostId: string | null
+    dailyProgress: number | null
   }
 
   export type HabitMaxAggregateOutputType = {
@@ -10879,10 +10577,11 @@ export namespace Prisma {
     goalAmount: number | null
     goalUnit: string | null
     goalUnitCategory: string | null
-    dailyProgress: number | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
+    sourcePopularPostId: string | null
+    dailyProgress: number | null
   }
 
   export type HabitCountAggregateOutputType = {
@@ -10896,10 +10595,11 @@ export namespace Prisma {
     goalAmount: number
     goalUnit: number
     goalUnitCategory: number
-    dailyProgress: number
     createdAt: number
     updatedAt: number
     userId: number
+    sourcePopularPostId: number
+    dailyProgress: number
     _all: number
   }
 
@@ -10925,10 +10625,11 @@ export namespace Prisma {
     goalAmount?: true
     goalUnit?: true
     goalUnitCategory?: true
-    dailyProgress?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
+    sourcePopularPostId?: true
+    dailyProgress?: true
   }
 
   export type HabitMaxAggregateInputType = {
@@ -10942,10 +10643,11 @@ export namespace Prisma {
     goalAmount?: true
     goalUnit?: true
     goalUnitCategory?: true
-    dailyProgress?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
+    sourcePopularPostId?: true
+    dailyProgress?: true
   }
 
   export type HabitCountAggregateInputType = {
@@ -10959,10 +10661,11 @@ export namespace Prisma {
     goalAmount?: true
     goalUnit?: true
     goalUnitCategory?: true
-    dailyProgress?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
+    sourcePopularPostId?: true
+    dailyProgress?: true
     _all?: true
   }
 
@@ -11063,10 +10766,11 @@ export namespace Prisma {
     goalAmount: number
     goalUnit: string
     goalUnitCategory: string
-    dailyProgress: number
     createdAt: Date
     updatedAt: Date
     userId: string
+    sourcePopularPostId: string | null
+    dailyProgress: number
     _count: HabitCountAggregateOutputType | null
     _avg: HabitAvgAggregateOutputType | null
     _sum: HabitSumAggregateOutputType | null
@@ -11099,13 +10803,15 @@ export namespace Prisma {
     goalAmount?: boolean
     goalUnit?: boolean
     goalUnitCategory?: boolean
-    dailyProgress?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    sourcePopularPostId?: boolean
+    dailyProgress?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    routineHabits?: boolean | Habit$routineHabitsArgs<ExtArgs>
     dailyProgressEntries?: boolean | Habit$dailyProgressEntriesArgs<ExtArgs>
+    post_habit?: boolean | Habit$post_habitArgs<ExtArgs>
+    routineHabits?: boolean | Habit$routineHabitsArgs<ExtArgs>
     _count?: boolean | HabitCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["habit"]>
 
@@ -11120,10 +10826,11 @@ export namespace Prisma {
     goalAmount?: boolean
     goalUnit?: boolean
     goalUnitCategory?: boolean
-    dailyProgress?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    sourcePopularPostId?: boolean
+    dailyProgress?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["habit"]>
 
@@ -11138,10 +10845,11 @@ export namespace Prisma {
     goalAmount?: boolean
     goalUnit?: boolean
     goalUnitCategory?: boolean
-    dailyProgress?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    sourcePopularPostId?: boolean
+    dailyProgress?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["habit"]>
 
@@ -11156,17 +10864,19 @@ export namespace Prisma {
     goalAmount?: boolean
     goalUnit?: boolean
     goalUnitCategory?: boolean
-    dailyProgress?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
+    sourcePopularPostId?: boolean
+    dailyProgress?: boolean
   }
 
-  export type HabitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "cadence" | "startDate" | "timeOfDay" | "reminder" | "goalAmount" | "goalUnit" | "goalUnitCategory" | "dailyProgress" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["habit"]>
+  export type HabitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "cadence" | "startDate" | "timeOfDay" | "reminder" | "goalAmount" | "goalUnit" | "goalUnitCategory" | "createdAt" | "updatedAt" | "userId" | "sourcePopularPostId" | "dailyProgress", ExtArgs["result"]["habit"]>
   export type HabitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    routineHabits?: boolean | Habit$routineHabitsArgs<ExtArgs>
     dailyProgressEntries?: boolean | Habit$dailyProgressEntriesArgs<ExtArgs>
+    post_habit?: boolean | Habit$post_habitArgs<ExtArgs>
+    routineHabits?: boolean | Habit$routineHabitsArgs<ExtArgs>
     _count?: boolean | HabitCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type HabitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11180,8 +10890,9 @@ export namespace Prisma {
     name: "Habit"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      routineHabits: Prisma.$RoutineHabitPayload<ExtArgs>[]
       dailyProgressEntries: Prisma.$HabitDailyProgressPayload<ExtArgs>[]
+      post_habit: Prisma.$PostHabitPayload<ExtArgs>[]
+      routineHabits: Prisma.$RoutineHabitPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11194,10 +10905,11 @@ export namespace Prisma {
       goalAmount: number
       goalUnit: string
       goalUnitCategory: string
-      dailyProgress: number
       createdAt: Date
       updatedAt: Date
       userId: string
+      sourcePopularPostId: string | null
+      dailyProgress: number
     }, ExtArgs["result"]["habit"]>
     composites: {}
   }
@@ -11593,8 +11305,9 @@ export namespace Prisma {
   export interface Prisma__HabitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    routineHabits<T extends Habit$routineHabitsArgs<ExtArgs> = {}>(args?: Subset<T, Habit$routineHabitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutineHabitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     dailyProgressEntries<T extends Habit$dailyProgressEntriesArgs<ExtArgs> = {}>(args?: Subset<T, Habit$dailyProgressEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitDailyProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    post_habit<T extends Habit$post_habitArgs<ExtArgs> = {}>(args?: Subset<T, Habit$post_habitArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    routineHabits<T extends Habit$routineHabitsArgs<ExtArgs> = {}>(args?: Subset<T, Habit$routineHabitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutineHabitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11634,10 +11347,11 @@ export namespace Prisma {
     readonly goalAmount: FieldRef<"Habit", 'Float'>
     readonly goalUnit: FieldRef<"Habit", 'String'>
     readonly goalUnitCategory: FieldRef<"Habit", 'String'>
-    readonly dailyProgress: FieldRef<"Habit", 'Float'>
     readonly createdAt: FieldRef<"Habit", 'DateTime'>
     readonly updatedAt: FieldRef<"Habit", 'DateTime'>
     readonly userId: FieldRef<"Habit", 'String'>
+    readonly sourcePopularPostId: FieldRef<"Habit", 'String'>
+    readonly dailyProgress: FieldRef<"Habit", 'Float'>
   }
     
 
@@ -12034,30 +11748,6 @@ export namespace Prisma {
   }
 
   /**
-   * Habit.routineHabits
-   */
-  export type Habit$routineHabitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the RoutineHabit
-     */
-    select?: RoutineHabitSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the RoutineHabit
-     */
-    omit?: RoutineHabitOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: RoutineHabitInclude<ExtArgs> | null
-    where?: RoutineHabitWhereInput
-    orderBy?: RoutineHabitOrderByWithRelationInput | RoutineHabitOrderByWithRelationInput[]
-    cursor?: RoutineHabitWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RoutineHabitScalarFieldEnum | RoutineHabitScalarFieldEnum[]
-  }
-
-  /**
    * Habit.dailyProgressEntries
    */
   export type Habit$dailyProgressEntriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -12079,6 +11769,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: HabitDailyProgressScalarFieldEnum | HabitDailyProgressScalarFieldEnum[]
+  }
+
+  /**
+   * Habit.post_habit
+   */
+  export type Habit$post_habitArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PostHabit
+     */
+    select?: PostHabitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the PostHabit
+     */
+    omit?: PostHabitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PostHabitInclude<ExtArgs> | null
+    where?: PostHabitWhereInput
+    orderBy?: PostHabitOrderByWithRelationInput | PostHabitOrderByWithRelationInput[]
+    cursor?: PostHabitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PostHabitScalarFieldEnum | PostHabitScalarFieldEnum[]
+  }
+
+  /**
+   * Habit.routineHabits
+   */
+  export type Habit$routineHabitsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the RoutineHabit
+     */
+    select?: RoutineHabitSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the RoutineHabit
+     */
+    omit?: RoutineHabitOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RoutineHabitInclude<ExtArgs> | null
+    where?: RoutineHabitWhereInput
+    orderBy?: RoutineHabitOrderByWithRelationInput | RoutineHabitOrderByWithRelationInput[]
+    cursor?: RoutineHabitWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RoutineHabitScalarFieldEnum | RoutineHabitScalarFieldEnum[]
   }
 
   /**
@@ -13202,3304 +12940,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: HabitDailyProgressInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model HabitReflection
-   */
-
-  export type AggregateHabitReflection = {
-    _count: HabitReflectionCountAggregateOutputType | null
-    _min: HabitReflectionMinAggregateOutputType | null
-    _max: HabitReflectionMaxAggregateOutputType | null
-  }
-
-  export type HabitReflectionMinAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    entryDate: Date | null
-    note: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type HabitReflectionMaxAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    entryDate: Date | null
-    note: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type HabitReflectionCountAggregateOutputType = {
-    id: number
-    userId: number
-    entryDate: number
-    note: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type HabitReflectionMinAggregateInputType = {
-    id?: true
-    userId?: true
-    entryDate?: true
-    note?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type HabitReflectionMaxAggregateInputType = {
-    id?: true
-    userId?: true
-    entryDate?: true
-    note?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type HabitReflectionCountAggregateInputType = {
-    id?: true
-    userId?: true
-    entryDate?: true
-    note?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type HabitReflectionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which HabitReflection to aggregate.
-     */
-    where?: HabitReflectionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of HabitReflections to fetch.
-     */
-    orderBy?: HabitReflectionOrderByWithRelationInput | HabitReflectionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: HabitReflectionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` HabitReflections from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` HabitReflections.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned HabitReflections
-    **/
-    _count?: true | HabitReflectionCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: HabitReflectionMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: HabitReflectionMaxAggregateInputType
-  }
-
-  export type GetHabitReflectionAggregateType<T extends HabitReflectionAggregateArgs> = {
-        [P in keyof T & keyof AggregateHabitReflection]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateHabitReflection[P]>
-      : GetScalarType<T[P], AggregateHabitReflection[P]>
-  }
-
-
-
-
-  export type HabitReflectionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: HabitReflectionWhereInput
-    orderBy?: HabitReflectionOrderByWithAggregationInput | HabitReflectionOrderByWithAggregationInput[]
-    by: HabitReflectionScalarFieldEnum[] | HabitReflectionScalarFieldEnum
-    having?: HabitReflectionScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: HabitReflectionCountAggregateInputType | true
-    _min?: HabitReflectionMinAggregateInputType
-    _max?: HabitReflectionMaxAggregateInputType
-  }
-
-  export type HabitReflectionGroupByOutputType = {
-    id: string
-    userId: string
-    entryDate: Date
-    note: string
-    createdAt: Date
-    updatedAt: Date
-    _count: HabitReflectionCountAggregateOutputType | null
-    _min: HabitReflectionMinAggregateOutputType | null
-    _max: HabitReflectionMaxAggregateOutputType | null
-  }
-
-  type GetHabitReflectionGroupByPayload<T extends HabitReflectionGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<HabitReflectionGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof HabitReflectionGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], HabitReflectionGroupByOutputType[P]>
-            : GetScalarType<T[P], HabitReflectionGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type HabitReflectionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    entryDate?: boolean
-    note?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["habitReflection"]>
-
-  export type HabitReflectionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    entryDate?: boolean
-    note?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["habitReflection"]>
-
-  export type HabitReflectionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    entryDate?: boolean
-    note?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["habitReflection"]>
-
-  export type HabitReflectionSelectScalar = {
-    id?: boolean
-    userId?: boolean
-    entryDate?: boolean
-    note?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type HabitReflectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "entryDate" | "note" | "createdAt" | "updatedAt", ExtArgs["result"]["habitReflection"]>
-  export type HabitReflectionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type HabitReflectionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type HabitReflectionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $HabitReflectionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "HabitReflection"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      userId: string
-      entryDate: Date
-      note: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["habitReflection"]>
-    composites: {}
-  }
-
-  type HabitReflectionGetPayload<S extends boolean | null | undefined | HabitReflectionDefaultArgs> = $Result.GetResult<Prisma.$HabitReflectionPayload, S>
-
-  type HabitReflectionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<HabitReflectionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: HabitReflectionCountAggregateInputType | true
-    }
-
-  export interface HabitReflectionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['HabitReflection'], meta: { name: 'HabitReflection' } }
-    /**
-     * Find zero or one HabitReflection that matches the filter.
-     * @param {HabitReflectionFindUniqueArgs} args - Arguments to find a HabitReflection
-     * @example
-     * // Get one HabitReflection
-     * const habitReflection = await prisma.habitReflection.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends HabitReflectionFindUniqueArgs>(args: SelectSubset<T, HabitReflectionFindUniqueArgs<ExtArgs>>): Prisma__HabitReflectionClient<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one HabitReflection that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {HabitReflectionFindUniqueOrThrowArgs} args - Arguments to find a HabitReflection
-     * @example
-     * // Get one HabitReflection
-     * const habitReflection = await prisma.habitReflection.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends HabitReflectionFindUniqueOrThrowArgs>(args: SelectSubset<T, HabitReflectionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__HabitReflectionClient<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first HabitReflection that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HabitReflectionFindFirstArgs} args - Arguments to find a HabitReflection
-     * @example
-     * // Get one HabitReflection
-     * const habitReflection = await prisma.habitReflection.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends HabitReflectionFindFirstArgs>(args?: SelectSubset<T, HabitReflectionFindFirstArgs<ExtArgs>>): Prisma__HabitReflectionClient<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first HabitReflection that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HabitReflectionFindFirstOrThrowArgs} args - Arguments to find a HabitReflection
-     * @example
-     * // Get one HabitReflection
-     * const habitReflection = await prisma.habitReflection.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends HabitReflectionFindFirstOrThrowArgs>(args?: SelectSubset<T, HabitReflectionFindFirstOrThrowArgs<ExtArgs>>): Prisma__HabitReflectionClient<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more HabitReflections that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HabitReflectionFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all HabitReflections
-     * const habitReflections = await prisma.habitReflection.findMany()
-     * 
-     * // Get first 10 HabitReflections
-     * const habitReflections = await prisma.habitReflection.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const habitReflectionWithIdOnly = await prisma.habitReflection.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends HabitReflectionFindManyArgs>(args?: SelectSubset<T, HabitReflectionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a HabitReflection.
-     * @param {HabitReflectionCreateArgs} args - Arguments to create a HabitReflection.
-     * @example
-     * // Create one HabitReflection
-     * const HabitReflection = await prisma.habitReflection.create({
-     *   data: {
-     *     // ... data to create a HabitReflection
-     *   }
-     * })
-     * 
-     */
-    create<T extends HabitReflectionCreateArgs>(args: SelectSubset<T, HabitReflectionCreateArgs<ExtArgs>>): Prisma__HabitReflectionClient<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many HabitReflections.
-     * @param {HabitReflectionCreateManyArgs} args - Arguments to create many HabitReflections.
-     * @example
-     * // Create many HabitReflections
-     * const habitReflection = await prisma.habitReflection.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends HabitReflectionCreateManyArgs>(args?: SelectSubset<T, HabitReflectionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many HabitReflections and returns the data saved in the database.
-     * @param {HabitReflectionCreateManyAndReturnArgs} args - Arguments to create many HabitReflections.
-     * @example
-     * // Create many HabitReflections
-     * const habitReflection = await prisma.habitReflection.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many HabitReflections and only return the `id`
-     * const habitReflectionWithIdOnly = await prisma.habitReflection.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends HabitReflectionCreateManyAndReturnArgs>(args?: SelectSubset<T, HabitReflectionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a HabitReflection.
-     * @param {HabitReflectionDeleteArgs} args - Arguments to delete one HabitReflection.
-     * @example
-     * // Delete one HabitReflection
-     * const HabitReflection = await prisma.habitReflection.delete({
-     *   where: {
-     *     // ... filter to delete one HabitReflection
-     *   }
-     * })
-     * 
-     */
-    delete<T extends HabitReflectionDeleteArgs>(args: SelectSubset<T, HabitReflectionDeleteArgs<ExtArgs>>): Prisma__HabitReflectionClient<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one HabitReflection.
-     * @param {HabitReflectionUpdateArgs} args - Arguments to update one HabitReflection.
-     * @example
-     * // Update one HabitReflection
-     * const habitReflection = await prisma.habitReflection.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends HabitReflectionUpdateArgs>(args: SelectSubset<T, HabitReflectionUpdateArgs<ExtArgs>>): Prisma__HabitReflectionClient<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more HabitReflections.
-     * @param {HabitReflectionDeleteManyArgs} args - Arguments to filter HabitReflections to delete.
-     * @example
-     * // Delete a few HabitReflections
-     * const { count } = await prisma.habitReflection.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends HabitReflectionDeleteManyArgs>(args?: SelectSubset<T, HabitReflectionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more HabitReflections.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HabitReflectionUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many HabitReflections
-     * const habitReflection = await prisma.habitReflection.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends HabitReflectionUpdateManyArgs>(args: SelectSubset<T, HabitReflectionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more HabitReflections and returns the data updated in the database.
-     * @param {HabitReflectionUpdateManyAndReturnArgs} args - Arguments to update many HabitReflections.
-     * @example
-     * // Update many HabitReflections
-     * const habitReflection = await prisma.habitReflection.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more HabitReflections and only return the `id`
-     * const habitReflectionWithIdOnly = await prisma.habitReflection.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends HabitReflectionUpdateManyAndReturnArgs>(args: SelectSubset<T, HabitReflectionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one HabitReflection.
-     * @param {HabitReflectionUpsertArgs} args - Arguments to update or create a HabitReflection.
-     * @example
-     * // Update or create a HabitReflection
-     * const habitReflection = await prisma.habitReflection.upsert({
-     *   create: {
-     *     // ... data to create a HabitReflection
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the HabitReflection we want to update
-     *   }
-     * })
-     */
-    upsert<T extends HabitReflectionUpsertArgs>(args: SelectSubset<T, HabitReflectionUpsertArgs<ExtArgs>>): Prisma__HabitReflectionClient<$Result.GetResult<Prisma.$HabitReflectionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of HabitReflections.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HabitReflectionCountArgs} args - Arguments to filter HabitReflections to count.
-     * @example
-     * // Count the number of HabitReflections
-     * const count = await prisma.habitReflection.count({
-     *   where: {
-     *     // ... the filter for the HabitReflections we want to count
-     *   }
-     * })
-    **/
-    count<T extends HabitReflectionCountArgs>(
-      args?: Subset<T, HabitReflectionCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], HabitReflectionCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a HabitReflection.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HabitReflectionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends HabitReflectionAggregateArgs>(args: Subset<T, HabitReflectionAggregateArgs>): Prisma.PrismaPromise<GetHabitReflectionAggregateType<T>>
-
-    /**
-     * Group by HabitReflection.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {HabitReflectionGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends HabitReflectionGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: HabitReflectionGroupByArgs['orderBy'] }
-        : { orderBy?: HabitReflectionGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, HabitReflectionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetHabitReflectionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the HabitReflection model
-   */
-  readonly fields: HabitReflectionFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for HabitReflection.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__HabitReflectionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the HabitReflection model
-   */
-  interface HabitReflectionFieldRefs {
-    readonly id: FieldRef<"HabitReflection", 'String'>
-    readonly userId: FieldRef<"HabitReflection", 'String'>
-    readonly entryDate: FieldRef<"HabitReflection", 'DateTime'>
-    readonly note: FieldRef<"HabitReflection", 'String'>
-    readonly createdAt: FieldRef<"HabitReflection", 'DateTime'>
-    readonly updatedAt: FieldRef<"HabitReflection", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * HabitReflection findUnique
-   */
-  export type HabitReflectionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-    /**
-     * Filter, which HabitReflection to fetch.
-     */
-    where: HabitReflectionWhereUniqueInput
-  }
-
-  /**
-   * HabitReflection findUniqueOrThrow
-   */
-  export type HabitReflectionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-    /**
-     * Filter, which HabitReflection to fetch.
-     */
-    where: HabitReflectionWhereUniqueInput
-  }
-
-  /**
-   * HabitReflection findFirst
-   */
-  export type HabitReflectionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-    /**
-     * Filter, which HabitReflection to fetch.
-     */
-    where?: HabitReflectionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of HabitReflections to fetch.
-     */
-    orderBy?: HabitReflectionOrderByWithRelationInput | HabitReflectionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for HabitReflections.
-     */
-    cursor?: HabitReflectionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` HabitReflections from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` HabitReflections.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of HabitReflections.
-     */
-    distinct?: HabitReflectionScalarFieldEnum | HabitReflectionScalarFieldEnum[]
-  }
-
-  /**
-   * HabitReflection findFirstOrThrow
-   */
-  export type HabitReflectionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-    /**
-     * Filter, which HabitReflection to fetch.
-     */
-    where?: HabitReflectionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of HabitReflections to fetch.
-     */
-    orderBy?: HabitReflectionOrderByWithRelationInput | HabitReflectionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for HabitReflections.
-     */
-    cursor?: HabitReflectionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` HabitReflections from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` HabitReflections.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of HabitReflections.
-     */
-    distinct?: HabitReflectionScalarFieldEnum | HabitReflectionScalarFieldEnum[]
-  }
-
-  /**
-   * HabitReflection findMany
-   */
-  export type HabitReflectionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-    /**
-     * Filter, which HabitReflections to fetch.
-     */
-    where?: HabitReflectionWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of HabitReflections to fetch.
-     */
-    orderBy?: HabitReflectionOrderByWithRelationInput | HabitReflectionOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing HabitReflections.
-     */
-    cursor?: HabitReflectionWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` HabitReflections from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` HabitReflections.
-     */
-    skip?: number
-    distinct?: HabitReflectionScalarFieldEnum | HabitReflectionScalarFieldEnum[]
-  }
-
-  /**
-   * HabitReflection create
-   */
-  export type HabitReflectionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-    /**
-     * The data needed to create a HabitReflection.
-     */
-    data: XOR<HabitReflectionCreateInput, HabitReflectionUncheckedCreateInput>
-  }
-
-  /**
-   * HabitReflection createMany
-   */
-  export type HabitReflectionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many HabitReflections.
-     */
-    data: HabitReflectionCreateManyInput | HabitReflectionCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * HabitReflection createManyAndReturn
-   */
-  export type HabitReflectionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * The data used to create many HabitReflections.
-     */
-    data: HabitReflectionCreateManyInput | HabitReflectionCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * HabitReflection update
-   */
-  export type HabitReflectionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-    /**
-     * The data needed to update a HabitReflection.
-     */
-    data: XOR<HabitReflectionUpdateInput, HabitReflectionUncheckedUpdateInput>
-    /**
-     * Choose, which HabitReflection to update.
-     */
-    where: HabitReflectionWhereUniqueInput
-  }
-
-  /**
-   * HabitReflection updateMany
-   */
-  export type HabitReflectionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update HabitReflections.
-     */
-    data: XOR<HabitReflectionUpdateManyMutationInput, HabitReflectionUncheckedUpdateManyInput>
-    /**
-     * Filter which HabitReflections to update
-     */
-    where?: HabitReflectionWhereInput
-    /**
-     * Limit how many HabitReflections to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * HabitReflection updateManyAndReturn
-   */
-  export type HabitReflectionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * The data used to update HabitReflections.
-     */
-    data: XOR<HabitReflectionUpdateManyMutationInput, HabitReflectionUncheckedUpdateManyInput>
-    /**
-     * Filter which HabitReflections to update
-     */
-    where?: HabitReflectionWhereInput
-    /**
-     * Limit how many HabitReflections to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * HabitReflection upsert
-   */
-  export type HabitReflectionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-    /**
-     * The filter to search for the HabitReflection to update in case it exists.
-     */
-    where: HabitReflectionWhereUniqueInput
-    /**
-     * In case the HabitReflection found by the `where` argument doesn't exist, create a new HabitReflection with this data.
-     */
-    create: XOR<HabitReflectionCreateInput, HabitReflectionUncheckedCreateInput>
-    /**
-     * In case the HabitReflection was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<HabitReflectionUpdateInput, HabitReflectionUncheckedUpdateInput>
-  }
-
-  /**
-   * HabitReflection delete
-   */
-  export type HabitReflectionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-    /**
-     * Filter which HabitReflection to delete.
-     */
-    where: HabitReflectionWhereUniqueInput
-  }
-
-  /**
-   * HabitReflection deleteMany
-   */
-  export type HabitReflectionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which HabitReflections to delete
-     */
-    where?: HabitReflectionWhereInput
-    /**
-     * Limit how many HabitReflections to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * HabitReflection without action
-   */
-  export type HabitReflectionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the HabitReflection
-     */
-    select?: HabitReflectionSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the HabitReflection
-     */
-    omit?: HabitReflectionOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: HabitReflectionInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model ShouldDo
-   */
-
-  export type AggregateShouldDo = {
-    _count: ShouldDoCountAggregateOutputType | null
-    _avg: ShouldDoAvgAggregateOutputType | null
-    _sum: ShouldDoSumAggregateOutputType | null
-    _min: ShouldDoMinAggregateOutputType | null
-    _max: ShouldDoMaxAggregateOutputType | null
-  }
-
-  export type ShouldDoAvgAggregateOutputType = {
-    likesCount: number | null
-  }
-
-  export type ShouldDoSumAggregateOutputType = {
-    likesCount: number | null
-  }
-
-  export type ShouldDoMinAggregateOutputType = {
-    id: string | null
-    title: string | null
-    description: string | null
-    iconKey: string | null
-    iconColor: string | null
-    likesCount: number | null
-    userId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type ShouldDoMaxAggregateOutputType = {
-    id: string | null
-    title: string | null
-    description: string | null
-    iconKey: string | null
-    iconColor: string | null
-    likesCount: number | null
-    userId: string | null
-    createdAt: Date | null
-    updatedAt: Date | null
-  }
-
-  export type ShouldDoCountAggregateOutputType = {
-    id: number
-    title: number
-    description: number
-    iconKey: number
-    iconColor: number
-    likesCount: number
-    userId: number
-    createdAt: number
-    updatedAt: number
-    _all: number
-  }
-
-
-  export type ShouldDoAvgAggregateInputType = {
-    likesCount?: true
-  }
-
-  export type ShouldDoSumAggregateInputType = {
-    likesCount?: true
-  }
-
-  export type ShouldDoMinAggregateInputType = {
-    id?: true
-    title?: true
-    description?: true
-    iconKey?: true
-    iconColor?: true
-    likesCount?: true
-    userId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type ShouldDoMaxAggregateInputType = {
-    id?: true
-    title?: true
-    description?: true
-    iconKey?: true
-    iconColor?: true
-    likesCount?: true
-    userId?: true
-    createdAt?: true
-    updatedAt?: true
-  }
-
-  export type ShouldDoCountAggregateInputType = {
-    id?: true
-    title?: true
-    description?: true
-    iconKey?: true
-    iconColor?: true
-    likesCount?: true
-    userId?: true
-    createdAt?: true
-    updatedAt?: true
-    _all?: true
-  }
-
-  export type ShouldDoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ShouldDo to aggregate.
-     */
-    where?: ShouldDoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ShouldDos to fetch.
-     */
-    orderBy?: ShouldDoOrderByWithRelationInput | ShouldDoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: ShouldDoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ShouldDos from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ShouldDos.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned ShouldDos
-    **/
-    _count?: true | ShouldDoCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: ShouldDoAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: ShouldDoSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ShouldDoMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ShouldDoMaxAggregateInputType
-  }
-
-  export type GetShouldDoAggregateType<T extends ShouldDoAggregateArgs> = {
-        [P in keyof T & keyof AggregateShouldDo]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateShouldDo[P]>
-      : GetScalarType<T[P], AggregateShouldDo[P]>
-  }
-
-
-
-
-  export type ShouldDoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ShouldDoWhereInput
-    orderBy?: ShouldDoOrderByWithAggregationInput | ShouldDoOrderByWithAggregationInput[]
-    by: ShouldDoScalarFieldEnum[] | ShouldDoScalarFieldEnum
-    having?: ShouldDoScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ShouldDoCountAggregateInputType | true
-    _avg?: ShouldDoAvgAggregateInputType
-    _sum?: ShouldDoSumAggregateInputType
-    _min?: ShouldDoMinAggregateInputType
-    _max?: ShouldDoMaxAggregateInputType
-  }
-
-  export type ShouldDoGroupByOutputType = {
-    id: string
-    title: string
-    description: string | null
-    iconKey: string | null
-    iconColor: string | null
-    likesCount: number
-    userId: string
-    createdAt: Date
-    updatedAt: Date
-    _count: ShouldDoCountAggregateOutputType | null
-    _avg: ShouldDoAvgAggregateOutputType | null
-    _sum: ShouldDoSumAggregateOutputType | null
-    _min: ShouldDoMinAggregateOutputType | null
-    _max: ShouldDoMaxAggregateOutputType | null
-  }
-
-  type GetShouldDoGroupByPayload<T extends ShouldDoGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ShouldDoGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ShouldDoGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ShouldDoGroupByOutputType[P]>
-            : GetScalarType<T[P], ShouldDoGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type ShouldDoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    title?: boolean
-    description?: boolean
-    iconKey?: boolean
-    iconColor?: boolean
-    likesCount?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    likes?: boolean | ShouldDo$likesArgs<ExtArgs>
-    _count?: boolean | ShouldDoCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["shouldDo"]>
-
-  export type ShouldDoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    title?: boolean
-    description?: boolean
-    iconKey?: boolean
-    iconColor?: boolean
-    likesCount?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["shouldDo"]>
-
-  export type ShouldDoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    title?: boolean
-    description?: boolean
-    iconKey?: boolean
-    iconColor?: boolean
-    likesCount?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["shouldDo"]>
-
-  export type ShouldDoSelectScalar = {
-    id?: boolean
-    title?: boolean
-    description?: boolean
-    iconKey?: boolean
-    iconColor?: boolean
-    likesCount?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }
-
-  export type ShouldDoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "iconKey" | "iconColor" | "likesCount" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["shouldDo"]>
-  export type ShouldDoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-    likes?: boolean | ShouldDo$likesArgs<ExtArgs>
-    _count?: boolean | ShouldDoCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type ShouldDoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type ShouldDoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $ShouldDoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ShouldDo"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-      likes: Prisma.$ShouldDoLikePayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      title: string
-      description: string | null
-      iconKey: string | null
-      iconColor: string | null
-      likesCount: number
-      userId: string
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["shouldDo"]>
-    composites: {}
-  }
-
-  type ShouldDoGetPayload<S extends boolean | null | undefined | ShouldDoDefaultArgs> = $Result.GetResult<Prisma.$ShouldDoPayload, S>
-
-  type ShouldDoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ShouldDoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ShouldDoCountAggregateInputType | true
-    }
-
-  export interface ShouldDoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ShouldDo'], meta: { name: 'ShouldDo' } }
-    /**
-     * Find zero or one ShouldDo that matches the filter.
-     * @param {ShouldDoFindUniqueArgs} args - Arguments to find a ShouldDo
-     * @example
-     * // Get one ShouldDo
-     * const shouldDo = await prisma.shouldDo.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends ShouldDoFindUniqueArgs>(args: SelectSubset<T, ShouldDoFindUniqueArgs<ExtArgs>>): Prisma__ShouldDoClient<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one ShouldDo that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {ShouldDoFindUniqueOrThrowArgs} args - Arguments to find a ShouldDo
-     * @example
-     * // Get one ShouldDo
-     * const shouldDo = await prisma.shouldDo.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends ShouldDoFindUniqueOrThrowArgs>(args: SelectSubset<T, ShouldDoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ShouldDoClient<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ShouldDo that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoFindFirstArgs} args - Arguments to find a ShouldDo
-     * @example
-     * // Get one ShouldDo
-     * const shouldDo = await prisma.shouldDo.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends ShouldDoFindFirstArgs>(args?: SelectSubset<T, ShouldDoFindFirstArgs<ExtArgs>>): Prisma__ShouldDoClient<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ShouldDo that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoFindFirstOrThrowArgs} args - Arguments to find a ShouldDo
-     * @example
-     * // Get one ShouldDo
-     * const shouldDo = await prisma.shouldDo.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends ShouldDoFindFirstOrThrowArgs>(args?: SelectSubset<T, ShouldDoFindFirstOrThrowArgs<ExtArgs>>): Prisma__ShouldDoClient<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more ShouldDos that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all ShouldDos
-     * const shouldDos = await prisma.shouldDo.findMany()
-     * 
-     * // Get first 10 ShouldDos
-     * const shouldDos = await prisma.shouldDo.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const shouldDoWithIdOnly = await prisma.shouldDo.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends ShouldDoFindManyArgs>(args?: SelectSubset<T, ShouldDoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a ShouldDo.
-     * @param {ShouldDoCreateArgs} args - Arguments to create a ShouldDo.
-     * @example
-     * // Create one ShouldDo
-     * const ShouldDo = await prisma.shouldDo.create({
-     *   data: {
-     *     // ... data to create a ShouldDo
-     *   }
-     * })
-     * 
-     */
-    create<T extends ShouldDoCreateArgs>(args: SelectSubset<T, ShouldDoCreateArgs<ExtArgs>>): Prisma__ShouldDoClient<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many ShouldDos.
-     * @param {ShouldDoCreateManyArgs} args - Arguments to create many ShouldDos.
-     * @example
-     * // Create many ShouldDos
-     * const shouldDo = await prisma.shouldDo.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends ShouldDoCreateManyArgs>(args?: SelectSubset<T, ShouldDoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many ShouldDos and returns the data saved in the database.
-     * @param {ShouldDoCreateManyAndReturnArgs} args - Arguments to create many ShouldDos.
-     * @example
-     * // Create many ShouldDos
-     * const shouldDo = await prisma.shouldDo.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many ShouldDos and only return the `id`
-     * const shouldDoWithIdOnly = await prisma.shouldDo.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends ShouldDoCreateManyAndReturnArgs>(args?: SelectSubset<T, ShouldDoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a ShouldDo.
-     * @param {ShouldDoDeleteArgs} args - Arguments to delete one ShouldDo.
-     * @example
-     * // Delete one ShouldDo
-     * const ShouldDo = await prisma.shouldDo.delete({
-     *   where: {
-     *     // ... filter to delete one ShouldDo
-     *   }
-     * })
-     * 
-     */
-    delete<T extends ShouldDoDeleteArgs>(args: SelectSubset<T, ShouldDoDeleteArgs<ExtArgs>>): Prisma__ShouldDoClient<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one ShouldDo.
-     * @param {ShouldDoUpdateArgs} args - Arguments to update one ShouldDo.
-     * @example
-     * // Update one ShouldDo
-     * const shouldDo = await prisma.shouldDo.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends ShouldDoUpdateArgs>(args: SelectSubset<T, ShouldDoUpdateArgs<ExtArgs>>): Prisma__ShouldDoClient<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more ShouldDos.
-     * @param {ShouldDoDeleteManyArgs} args - Arguments to filter ShouldDos to delete.
-     * @example
-     * // Delete a few ShouldDos
-     * const { count } = await prisma.shouldDo.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends ShouldDoDeleteManyArgs>(args?: SelectSubset<T, ShouldDoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ShouldDos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many ShouldDos
-     * const shouldDo = await prisma.shouldDo.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends ShouldDoUpdateManyArgs>(args: SelectSubset<T, ShouldDoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ShouldDos and returns the data updated in the database.
-     * @param {ShouldDoUpdateManyAndReturnArgs} args - Arguments to update many ShouldDos.
-     * @example
-     * // Update many ShouldDos
-     * const shouldDo = await prisma.shouldDo.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more ShouldDos and only return the `id`
-     * const shouldDoWithIdOnly = await prisma.shouldDo.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends ShouldDoUpdateManyAndReturnArgs>(args: SelectSubset<T, ShouldDoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one ShouldDo.
-     * @param {ShouldDoUpsertArgs} args - Arguments to update or create a ShouldDo.
-     * @example
-     * // Update or create a ShouldDo
-     * const shouldDo = await prisma.shouldDo.upsert({
-     *   create: {
-     *     // ... data to create a ShouldDo
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the ShouldDo we want to update
-     *   }
-     * })
-     */
-    upsert<T extends ShouldDoUpsertArgs>(args: SelectSubset<T, ShouldDoUpsertArgs<ExtArgs>>): Prisma__ShouldDoClient<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of ShouldDos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoCountArgs} args - Arguments to filter ShouldDos to count.
-     * @example
-     * // Count the number of ShouldDos
-     * const count = await prisma.shouldDo.count({
-     *   where: {
-     *     // ... the filter for the ShouldDos we want to count
-     *   }
-     * })
-    **/
-    count<T extends ShouldDoCountArgs>(
-      args?: Subset<T, ShouldDoCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ShouldDoCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a ShouldDo.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ShouldDoAggregateArgs>(args: Subset<T, ShouldDoAggregateArgs>): Prisma.PrismaPromise<GetShouldDoAggregateType<T>>
-
-    /**
-     * Group by ShouldDo.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ShouldDoGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ShouldDoGroupByArgs['orderBy'] }
-        : { orderBy?: ShouldDoGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ShouldDoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetShouldDoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the ShouldDo model
-   */
-  readonly fields: ShouldDoFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for ShouldDo.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__ShouldDoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    likes<T extends ShouldDo$likesArgs<ExtArgs> = {}>(args?: Subset<T, ShouldDo$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the ShouldDo model
-   */
-  interface ShouldDoFieldRefs {
-    readonly id: FieldRef<"ShouldDo", 'String'>
-    readonly title: FieldRef<"ShouldDo", 'String'>
-    readonly description: FieldRef<"ShouldDo", 'String'>
-    readonly iconKey: FieldRef<"ShouldDo", 'String'>
-    readonly iconColor: FieldRef<"ShouldDo", 'String'>
-    readonly likesCount: FieldRef<"ShouldDo", 'Int'>
-    readonly userId: FieldRef<"ShouldDo", 'String'>
-    readonly createdAt: FieldRef<"ShouldDo", 'DateTime'>
-    readonly updatedAt: FieldRef<"ShouldDo", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * ShouldDo findUnique
-   */
-  export type ShouldDoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoInclude<ExtArgs> | null
-    /**
-     * Filter, which ShouldDo to fetch.
-     */
-    where: ShouldDoWhereUniqueInput
-  }
-
-  /**
-   * ShouldDo findUniqueOrThrow
-   */
-  export type ShouldDoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoInclude<ExtArgs> | null
-    /**
-     * Filter, which ShouldDo to fetch.
-     */
-    where: ShouldDoWhereUniqueInput
-  }
-
-  /**
-   * ShouldDo findFirst
-   */
-  export type ShouldDoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoInclude<ExtArgs> | null
-    /**
-     * Filter, which ShouldDo to fetch.
-     */
-    where?: ShouldDoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ShouldDos to fetch.
-     */
-    orderBy?: ShouldDoOrderByWithRelationInput | ShouldDoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ShouldDos.
-     */
-    cursor?: ShouldDoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ShouldDos from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ShouldDos.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ShouldDos.
-     */
-    distinct?: ShouldDoScalarFieldEnum | ShouldDoScalarFieldEnum[]
-  }
-
-  /**
-   * ShouldDo findFirstOrThrow
-   */
-  export type ShouldDoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoInclude<ExtArgs> | null
-    /**
-     * Filter, which ShouldDo to fetch.
-     */
-    where?: ShouldDoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ShouldDos to fetch.
-     */
-    orderBy?: ShouldDoOrderByWithRelationInput | ShouldDoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ShouldDos.
-     */
-    cursor?: ShouldDoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ShouldDos from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ShouldDos.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ShouldDos.
-     */
-    distinct?: ShouldDoScalarFieldEnum | ShouldDoScalarFieldEnum[]
-  }
-
-  /**
-   * ShouldDo findMany
-   */
-  export type ShouldDoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoInclude<ExtArgs> | null
-    /**
-     * Filter, which ShouldDos to fetch.
-     */
-    where?: ShouldDoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ShouldDos to fetch.
-     */
-    orderBy?: ShouldDoOrderByWithRelationInput | ShouldDoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing ShouldDos.
-     */
-    cursor?: ShouldDoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ShouldDos from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ShouldDos.
-     */
-    skip?: number
-    distinct?: ShouldDoScalarFieldEnum | ShouldDoScalarFieldEnum[]
-  }
-
-  /**
-   * ShouldDo create
-   */
-  export type ShouldDoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoInclude<ExtArgs> | null
-    /**
-     * The data needed to create a ShouldDo.
-     */
-    data: XOR<ShouldDoCreateInput, ShouldDoUncheckedCreateInput>
-  }
-
-  /**
-   * ShouldDo createMany
-   */
-  export type ShouldDoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many ShouldDos.
-     */
-    data: ShouldDoCreateManyInput | ShouldDoCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * ShouldDo createManyAndReturn
-   */
-  export type ShouldDoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * The data used to create many ShouldDos.
-     */
-    data: ShouldDoCreateManyInput | ShouldDoCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * ShouldDo update
-   */
-  export type ShouldDoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoInclude<ExtArgs> | null
-    /**
-     * The data needed to update a ShouldDo.
-     */
-    data: XOR<ShouldDoUpdateInput, ShouldDoUncheckedUpdateInput>
-    /**
-     * Choose, which ShouldDo to update.
-     */
-    where: ShouldDoWhereUniqueInput
-  }
-
-  /**
-   * ShouldDo updateMany
-   */
-  export type ShouldDoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update ShouldDos.
-     */
-    data: XOR<ShouldDoUpdateManyMutationInput, ShouldDoUncheckedUpdateManyInput>
-    /**
-     * Filter which ShouldDos to update
-     */
-    where?: ShouldDoWhereInput
-    /**
-     * Limit how many ShouldDos to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * ShouldDo updateManyAndReturn
-   */
-  export type ShouldDoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * The data used to update ShouldDos.
-     */
-    data: XOR<ShouldDoUpdateManyMutationInput, ShouldDoUncheckedUpdateManyInput>
-    /**
-     * Filter which ShouldDos to update
-     */
-    where?: ShouldDoWhereInput
-    /**
-     * Limit how many ShouldDos to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * ShouldDo upsert
-   */
-  export type ShouldDoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoInclude<ExtArgs> | null
-    /**
-     * The filter to search for the ShouldDo to update in case it exists.
-     */
-    where: ShouldDoWhereUniqueInput
-    /**
-     * In case the ShouldDo found by the `where` argument doesn't exist, create a new ShouldDo with this data.
-     */
-    create: XOR<ShouldDoCreateInput, ShouldDoUncheckedCreateInput>
-    /**
-     * In case the ShouldDo was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<ShouldDoUpdateInput, ShouldDoUncheckedUpdateInput>
-  }
-
-  /**
-   * ShouldDo delete
-   */
-  export type ShouldDoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoInclude<ExtArgs> | null
-    /**
-     * Filter which ShouldDo to delete.
-     */
-    where: ShouldDoWhereUniqueInput
-  }
-
-  /**
-   * ShouldDo deleteMany
-   */
-  export type ShouldDoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ShouldDos to delete
-     */
-    where?: ShouldDoWhereInput
-    /**
-     * Limit how many ShouldDos to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * ShouldDo.likes
-   */
-  export type ShouldDo$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    where?: ShouldDoLikeWhereInput
-    orderBy?: ShouldDoLikeOrderByWithRelationInput | ShouldDoLikeOrderByWithRelationInput[]
-    cursor?: ShouldDoLikeWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ShouldDoLikeScalarFieldEnum | ShouldDoLikeScalarFieldEnum[]
-  }
-
-  /**
-   * ShouldDo without action
-   */
-  export type ShouldDoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDo
-     */
-    select?: ShouldDoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDo
-     */
-    omit?: ShouldDoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model ShouldDoLike
-   */
-
-  export type AggregateShouldDoLike = {
-    _count: ShouldDoLikeCountAggregateOutputType | null
-    _min: ShouldDoLikeMinAggregateOutputType | null
-    _max: ShouldDoLikeMaxAggregateOutputType | null
-  }
-
-  export type ShouldDoLikeMinAggregateOutputType = {
-    id: string | null
-    shouldDoId: string | null
-    userId: string | null
-    createdAt: Date | null
-  }
-
-  export type ShouldDoLikeMaxAggregateOutputType = {
-    id: string | null
-    shouldDoId: string | null
-    userId: string | null
-    createdAt: Date | null
-  }
-
-  export type ShouldDoLikeCountAggregateOutputType = {
-    id: number
-    shouldDoId: number
-    userId: number
-    createdAt: number
-    _all: number
-  }
-
-
-  export type ShouldDoLikeMinAggregateInputType = {
-    id?: true
-    shouldDoId?: true
-    userId?: true
-    createdAt?: true
-  }
-
-  export type ShouldDoLikeMaxAggregateInputType = {
-    id?: true
-    shouldDoId?: true
-    userId?: true
-    createdAt?: true
-  }
-
-  export type ShouldDoLikeCountAggregateInputType = {
-    id?: true
-    shouldDoId?: true
-    userId?: true
-    createdAt?: true
-    _all?: true
-  }
-
-  export type ShouldDoLikeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ShouldDoLike to aggregate.
-     */
-    where?: ShouldDoLikeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ShouldDoLikes to fetch.
-     */
-    orderBy?: ShouldDoLikeOrderByWithRelationInput | ShouldDoLikeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: ShouldDoLikeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ShouldDoLikes from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ShouldDoLikes.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned ShouldDoLikes
-    **/
-    _count?: true | ShouldDoLikeCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: ShouldDoLikeMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: ShouldDoLikeMaxAggregateInputType
-  }
-
-  export type GetShouldDoLikeAggregateType<T extends ShouldDoLikeAggregateArgs> = {
-        [P in keyof T & keyof AggregateShouldDoLike]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateShouldDoLike[P]>
-      : GetScalarType<T[P], AggregateShouldDoLike[P]>
-  }
-
-
-
-
-  export type ShouldDoLikeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ShouldDoLikeWhereInput
-    orderBy?: ShouldDoLikeOrderByWithAggregationInput | ShouldDoLikeOrderByWithAggregationInput[]
-    by: ShouldDoLikeScalarFieldEnum[] | ShouldDoLikeScalarFieldEnum
-    having?: ShouldDoLikeScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: ShouldDoLikeCountAggregateInputType | true
-    _min?: ShouldDoLikeMinAggregateInputType
-    _max?: ShouldDoLikeMaxAggregateInputType
-  }
-
-  export type ShouldDoLikeGroupByOutputType = {
-    id: string
-    shouldDoId: string
-    userId: string
-    createdAt: Date
-    _count: ShouldDoLikeCountAggregateOutputType | null
-    _min: ShouldDoLikeMinAggregateOutputType | null
-    _max: ShouldDoLikeMaxAggregateOutputType | null
-  }
-
-  type GetShouldDoLikeGroupByPayload<T extends ShouldDoLikeGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<ShouldDoLikeGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof ShouldDoLikeGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], ShouldDoLikeGroupByOutputType[P]>
-            : GetScalarType<T[P], ShouldDoLikeGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type ShouldDoLikeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    shouldDoId?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    shouldDo?: boolean | ShouldDoDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["shouldDoLike"]>
-
-  export type ShouldDoLikeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    shouldDoId?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    shouldDo?: boolean | ShouldDoDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["shouldDoLike"]>
-
-  export type ShouldDoLikeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    shouldDoId?: boolean
-    userId?: boolean
-    createdAt?: boolean
-    shouldDo?: boolean | ShouldDoDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["shouldDoLike"]>
-
-  export type ShouldDoLikeSelectScalar = {
-    id?: boolean
-    shouldDoId?: boolean
-    userId?: boolean
-    createdAt?: boolean
-  }
-
-  export type ShouldDoLikeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "shouldDoId" | "userId" | "createdAt", ExtArgs["result"]["shouldDoLike"]>
-  export type ShouldDoLikeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    shouldDo?: boolean | ShouldDoDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type ShouldDoLikeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    shouldDo?: boolean | ShouldDoDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type ShouldDoLikeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    shouldDo?: boolean | ShouldDoDefaultArgs<ExtArgs>
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $ShouldDoLikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ShouldDoLike"
-    objects: {
-      shouldDo: Prisma.$ShouldDoPayload<ExtArgs>
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      shouldDoId: string
-      userId: string
-      createdAt: Date
-    }, ExtArgs["result"]["shouldDoLike"]>
-    composites: {}
-  }
-
-  type ShouldDoLikeGetPayload<S extends boolean | null | undefined | ShouldDoLikeDefaultArgs> = $Result.GetResult<Prisma.$ShouldDoLikePayload, S>
-
-  type ShouldDoLikeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ShouldDoLikeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ShouldDoLikeCountAggregateInputType | true
-    }
-
-  export interface ShouldDoLikeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ShouldDoLike'], meta: { name: 'ShouldDoLike' } }
-    /**
-     * Find zero or one ShouldDoLike that matches the filter.
-     * @param {ShouldDoLikeFindUniqueArgs} args - Arguments to find a ShouldDoLike
-     * @example
-     * // Get one ShouldDoLike
-     * const shouldDoLike = await prisma.shouldDoLike.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends ShouldDoLikeFindUniqueArgs>(args: SelectSubset<T, ShouldDoLikeFindUniqueArgs<ExtArgs>>): Prisma__ShouldDoLikeClient<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one ShouldDoLike that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {ShouldDoLikeFindUniqueOrThrowArgs} args - Arguments to find a ShouldDoLike
-     * @example
-     * // Get one ShouldDoLike
-     * const shouldDoLike = await prisma.shouldDoLike.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends ShouldDoLikeFindUniqueOrThrowArgs>(args: SelectSubset<T, ShouldDoLikeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ShouldDoLikeClient<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ShouldDoLike that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoLikeFindFirstArgs} args - Arguments to find a ShouldDoLike
-     * @example
-     * // Get one ShouldDoLike
-     * const shouldDoLike = await prisma.shouldDoLike.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends ShouldDoLikeFindFirstArgs>(args?: SelectSubset<T, ShouldDoLikeFindFirstArgs<ExtArgs>>): Prisma__ShouldDoLikeClient<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first ShouldDoLike that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoLikeFindFirstOrThrowArgs} args - Arguments to find a ShouldDoLike
-     * @example
-     * // Get one ShouldDoLike
-     * const shouldDoLike = await prisma.shouldDoLike.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends ShouldDoLikeFindFirstOrThrowArgs>(args?: SelectSubset<T, ShouldDoLikeFindFirstOrThrowArgs<ExtArgs>>): Prisma__ShouldDoLikeClient<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more ShouldDoLikes that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoLikeFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all ShouldDoLikes
-     * const shouldDoLikes = await prisma.shouldDoLike.findMany()
-     * 
-     * // Get first 10 ShouldDoLikes
-     * const shouldDoLikes = await prisma.shouldDoLike.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const shouldDoLikeWithIdOnly = await prisma.shouldDoLike.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends ShouldDoLikeFindManyArgs>(args?: SelectSubset<T, ShouldDoLikeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a ShouldDoLike.
-     * @param {ShouldDoLikeCreateArgs} args - Arguments to create a ShouldDoLike.
-     * @example
-     * // Create one ShouldDoLike
-     * const ShouldDoLike = await prisma.shouldDoLike.create({
-     *   data: {
-     *     // ... data to create a ShouldDoLike
-     *   }
-     * })
-     * 
-     */
-    create<T extends ShouldDoLikeCreateArgs>(args: SelectSubset<T, ShouldDoLikeCreateArgs<ExtArgs>>): Prisma__ShouldDoLikeClient<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many ShouldDoLikes.
-     * @param {ShouldDoLikeCreateManyArgs} args - Arguments to create many ShouldDoLikes.
-     * @example
-     * // Create many ShouldDoLikes
-     * const shouldDoLike = await prisma.shouldDoLike.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends ShouldDoLikeCreateManyArgs>(args?: SelectSubset<T, ShouldDoLikeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many ShouldDoLikes and returns the data saved in the database.
-     * @param {ShouldDoLikeCreateManyAndReturnArgs} args - Arguments to create many ShouldDoLikes.
-     * @example
-     * // Create many ShouldDoLikes
-     * const shouldDoLike = await prisma.shouldDoLike.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many ShouldDoLikes and only return the `id`
-     * const shouldDoLikeWithIdOnly = await prisma.shouldDoLike.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends ShouldDoLikeCreateManyAndReturnArgs>(args?: SelectSubset<T, ShouldDoLikeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a ShouldDoLike.
-     * @param {ShouldDoLikeDeleteArgs} args - Arguments to delete one ShouldDoLike.
-     * @example
-     * // Delete one ShouldDoLike
-     * const ShouldDoLike = await prisma.shouldDoLike.delete({
-     *   where: {
-     *     // ... filter to delete one ShouldDoLike
-     *   }
-     * })
-     * 
-     */
-    delete<T extends ShouldDoLikeDeleteArgs>(args: SelectSubset<T, ShouldDoLikeDeleteArgs<ExtArgs>>): Prisma__ShouldDoLikeClient<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one ShouldDoLike.
-     * @param {ShouldDoLikeUpdateArgs} args - Arguments to update one ShouldDoLike.
-     * @example
-     * // Update one ShouldDoLike
-     * const shouldDoLike = await prisma.shouldDoLike.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends ShouldDoLikeUpdateArgs>(args: SelectSubset<T, ShouldDoLikeUpdateArgs<ExtArgs>>): Prisma__ShouldDoLikeClient<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more ShouldDoLikes.
-     * @param {ShouldDoLikeDeleteManyArgs} args - Arguments to filter ShouldDoLikes to delete.
-     * @example
-     * // Delete a few ShouldDoLikes
-     * const { count } = await prisma.shouldDoLike.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends ShouldDoLikeDeleteManyArgs>(args?: SelectSubset<T, ShouldDoLikeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ShouldDoLikes.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoLikeUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many ShouldDoLikes
-     * const shouldDoLike = await prisma.shouldDoLike.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends ShouldDoLikeUpdateManyArgs>(args: SelectSubset<T, ShouldDoLikeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more ShouldDoLikes and returns the data updated in the database.
-     * @param {ShouldDoLikeUpdateManyAndReturnArgs} args - Arguments to update many ShouldDoLikes.
-     * @example
-     * // Update many ShouldDoLikes
-     * const shouldDoLike = await prisma.shouldDoLike.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more ShouldDoLikes and only return the `id`
-     * const shouldDoLikeWithIdOnly = await prisma.shouldDoLike.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends ShouldDoLikeUpdateManyAndReturnArgs>(args: SelectSubset<T, ShouldDoLikeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one ShouldDoLike.
-     * @param {ShouldDoLikeUpsertArgs} args - Arguments to update or create a ShouldDoLike.
-     * @example
-     * // Update or create a ShouldDoLike
-     * const shouldDoLike = await prisma.shouldDoLike.upsert({
-     *   create: {
-     *     // ... data to create a ShouldDoLike
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the ShouldDoLike we want to update
-     *   }
-     * })
-     */
-    upsert<T extends ShouldDoLikeUpsertArgs>(args: SelectSubset<T, ShouldDoLikeUpsertArgs<ExtArgs>>): Prisma__ShouldDoLikeClient<$Result.GetResult<Prisma.$ShouldDoLikePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of ShouldDoLikes.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoLikeCountArgs} args - Arguments to filter ShouldDoLikes to count.
-     * @example
-     * // Count the number of ShouldDoLikes
-     * const count = await prisma.shouldDoLike.count({
-     *   where: {
-     *     // ... the filter for the ShouldDoLikes we want to count
-     *   }
-     * })
-    **/
-    count<T extends ShouldDoLikeCountArgs>(
-      args?: Subset<T, ShouldDoLikeCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], ShouldDoLikeCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a ShouldDoLike.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoLikeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends ShouldDoLikeAggregateArgs>(args: Subset<T, ShouldDoLikeAggregateArgs>): Prisma.PrismaPromise<GetShouldDoLikeAggregateType<T>>
-
-    /**
-     * Group by ShouldDoLike.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {ShouldDoLikeGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends ShouldDoLikeGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ShouldDoLikeGroupByArgs['orderBy'] }
-        : { orderBy?: ShouldDoLikeGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, ShouldDoLikeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetShouldDoLikeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the ShouldDoLike model
-   */
-  readonly fields: ShouldDoLikeFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for ShouldDoLike.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__ShouldDoLikeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    shouldDo<T extends ShouldDoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShouldDoDefaultArgs<ExtArgs>>): Prisma__ShouldDoClient<$Result.GetResult<Prisma.$ShouldDoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the ShouldDoLike model
-   */
-  interface ShouldDoLikeFieldRefs {
-    readonly id: FieldRef<"ShouldDoLike", 'String'>
-    readonly shouldDoId: FieldRef<"ShouldDoLike", 'String'>
-    readonly userId: FieldRef<"ShouldDoLike", 'String'>
-    readonly createdAt: FieldRef<"ShouldDoLike", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * ShouldDoLike findUnique
-   */
-  export type ShouldDoLikeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    /**
-     * Filter, which ShouldDoLike to fetch.
-     */
-    where: ShouldDoLikeWhereUniqueInput
-  }
-
-  /**
-   * ShouldDoLike findUniqueOrThrow
-   */
-  export type ShouldDoLikeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    /**
-     * Filter, which ShouldDoLike to fetch.
-     */
-    where: ShouldDoLikeWhereUniqueInput
-  }
-
-  /**
-   * ShouldDoLike findFirst
-   */
-  export type ShouldDoLikeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    /**
-     * Filter, which ShouldDoLike to fetch.
-     */
-    where?: ShouldDoLikeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ShouldDoLikes to fetch.
-     */
-    orderBy?: ShouldDoLikeOrderByWithRelationInput | ShouldDoLikeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ShouldDoLikes.
-     */
-    cursor?: ShouldDoLikeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ShouldDoLikes from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ShouldDoLikes.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ShouldDoLikes.
-     */
-    distinct?: ShouldDoLikeScalarFieldEnum | ShouldDoLikeScalarFieldEnum[]
-  }
-
-  /**
-   * ShouldDoLike findFirstOrThrow
-   */
-  export type ShouldDoLikeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    /**
-     * Filter, which ShouldDoLike to fetch.
-     */
-    where?: ShouldDoLikeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ShouldDoLikes to fetch.
-     */
-    orderBy?: ShouldDoLikeOrderByWithRelationInput | ShouldDoLikeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for ShouldDoLikes.
-     */
-    cursor?: ShouldDoLikeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ShouldDoLikes from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ShouldDoLikes.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of ShouldDoLikes.
-     */
-    distinct?: ShouldDoLikeScalarFieldEnum | ShouldDoLikeScalarFieldEnum[]
-  }
-
-  /**
-   * ShouldDoLike findMany
-   */
-  export type ShouldDoLikeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    /**
-     * Filter, which ShouldDoLikes to fetch.
-     */
-    where?: ShouldDoLikeWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of ShouldDoLikes to fetch.
-     */
-    orderBy?: ShouldDoLikeOrderByWithRelationInput | ShouldDoLikeOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing ShouldDoLikes.
-     */
-    cursor?: ShouldDoLikeWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` ShouldDoLikes from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` ShouldDoLikes.
-     */
-    skip?: number
-    distinct?: ShouldDoLikeScalarFieldEnum | ShouldDoLikeScalarFieldEnum[]
-  }
-
-  /**
-   * ShouldDoLike create
-   */
-  export type ShouldDoLikeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    /**
-     * The data needed to create a ShouldDoLike.
-     */
-    data: XOR<ShouldDoLikeCreateInput, ShouldDoLikeUncheckedCreateInput>
-  }
-
-  /**
-   * ShouldDoLike createMany
-   */
-  export type ShouldDoLikeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many ShouldDoLikes.
-     */
-    data: ShouldDoLikeCreateManyInput | ShouldDoLikeCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * ShouldDoLike createManyAndReturn
-   */
-  export type ShouldDoLikeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * The data used to create many ShouldDoLikes.
-     */
-    data: ShouldDoLikeCreateManyInput | ShouldDoLikeCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * ShouldDoLike update
-   */
-  export type ShouldDoLikeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    /**
-     * The data needed to update a ShouldDoLike.
-     */
-    data: XOR<ShouldDoLikeUpdateInput, ShouldDoLikeUncheckedUpdateInput>
-    /**
-     * Choose, which ShouldDoLike to update.
-     */
-    where: ShouldDoLikeWhereUniqueInput
-  }
-
-  /**
-   * ShouldDoLike updateMany
-   */
-  export type ShouldDoLikeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update ShouldDoLikes.
-     */
-    data: XOR<ShouldDoLikeUpdateManyMutationInput, ShouldDoLikeUncheckedUpdateManyInput>
-    /**
-     * Filter which ShouldDoLikes to update
-     */
-    where?: ShouldDoLikeWhereInput
-    /**
-     * Limit how many ShouldDoLikes to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * ShouldDoLike updateManyAndReturn
-   */
-  export type ShouldDoLikeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * The data used to update ShouldDoLikes.
-     */
-    data: XOR<ShouldDoLikeUpdateManyMutationInput, ShouldDoLikeUncheckedUpdateManyInput>
-    /**
-     * Filter which ShouldDoLikes to update
-     */
-    where?: ShouldDoLikeWhereInput
-    /**
-     * Limit how many ShouldDoLikes to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * ShouldDoLike upsert
-   */
-  export type ShouldDoLikeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    /**
-     * The filter to search for the ShouldDoLike to update in case it exists.
-     */
-    where: ShouldDoLikeWhereUniqueInput
-    /**
-     * In case the ShouldDoLike found by the `where` argument doesn't exist, create a new ShouldDoLike with this data.
-     */
-    create: XOR<ShouldDoLikeCreateInput, ShouldDoLikeUncheckedCreateInput>
-    /**
-     * In case the ShouldDoLike was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<ShouldDoLikeUpdateInput, ShouldDoLikeUncheckedUpdateInput>
-  }
-
-  /**
-   * ShouldDoLike delete
-   */
-  export type ShouldDoLikeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
-    /**
-     * Filter which ShouldDoLike to delete.
-     */
-    where: ShouldDoLikeWhereUniqueInput
-  }
-
-  /**
-   * ShouldDoLike deleteMany
-   */
-  export type ShouldDoLikeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which ShouldDoLikes to delete
-     */
-    where?: ShouldDoLikeWhereInput
-    /**
-     * Limit how many ShouldDoLikes to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * ShouldDoLike without action
-   */
-  export type ShouldDoLikeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ShouldDoLike
-     */
-    select?: ShouldDoLikeSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ShouldDoLike
-     */
-    omit?: ShouldDoLikeOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ShouldDoLikeInclude<ExtArgs> | null
   }
 
 
@@ -17815,8 +14255,8 @@ export namespace Prisma {
     habitId?: boolean
     position?: boolean
     createdAt?: boolean
-    routine?: boolean | RoutineDefaultArgs<ExtArgs>
     habit?: boolean | HabitDefaultArgs<ExtArgs>
+    routine?: boolean | RoutineDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["routineHabit"]>
 
   export type RoutineHabitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -17825,8 +14265,8 @@ export namespace Prisma {
     habitId?: boolean
     position?: boolean
     createdAt?: boolean
-    routine?: boolean | RoutineDefaultArgs<ExtArgs>
     habit?: boolean | HabitDefaultArgs<ExtArgs>
+    routine?: boolean | RoutineDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["routineHabit"]>
 
   export type RoutineHabitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -17835,8 +14275,8 @@ export namespace Prisma {
     habitId?: boolean
     position?: boolean
     createdAt?: boolean
-    routine?: boolean | RoutineDefaultArgs<ExtArgs>
     habit?: boolean | HabitDefaultArgs<ExtArgs>
+    routine?: boolean | RoutineDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["routineHabit"]>
 
   export type RoutineHabitSelectScalar = {
@@ -17849,23 +14289,23 @@ export namespace Prisma {
 
   export type RoutineHabitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "routineId" | "habitId" | "position" | "createdAt", ExtArgs["result"]["routineHabit"]>
   export type RoutineHabitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    routine?: boolean | RoutineDefaultArgs<ExtArgs>
     habit?: boolean | HabitDefaultArgs<ExtArgs>
+    routine?: boolean | RoutineDefaultArgs<ExtArgs>
   }
   export type RoutineHabitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    routine?: boolean | RoutineDefaultArgs<ExtArgs>
     habit?: boolean | HabitDefaultArgs<ExtArgs>
+    routine?: boolean | RoutineDefaultArgs<ExtArgs>
   }
   export type RoutineHabitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    routine?: boolean | RoutineDefaultArgs<ExtArgs>
     habit?: boolean | HabitDefaultArgs<ExtArgs>
+    routine?: boolean | RoutineDefaultArgs<ExtArgs>
   }
 
   export type $RoutineHabitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "RoutineHabit"
     objects: {
-      routine: Prisma.$RoutinePayload<ExtArgs>
       habit: Prisma.$HabitPayload<ExtArgs>
+      routine: Prisma.$RoutinePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -18267,8 +14707,8 @@ export namespace Prisma {
    */
   export interface Prisma__RoutineHabitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    routine<T extends RoutineDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoutineDefaultArgs<ExtArgs>>): Prisma__RoutineClient<$Result.GetResult<Prisma.$RoutinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     habit<T extends HabitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HabitDefaultArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    routine<T extends RoutineDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RoutineDefaultArgs<ExtArgs>>): Prisma__RoutineClient<$Result.GetResult<Prisma.$RoutinePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18718,1051 +15158,6 @@ export namespace Prisma {
 
 
   /**
-   * Model NotificationRead
-   */
-
-  export type AggregateNotificationRead = {
-    _count: NotificationReadCountAggregateOutputType | null
-    _min: NotificationReadMinAggregateOutputType | null
-    _max: NotificationReadMaxAggregateOutputType | null
-  }
-
-  export type NotificationReadMinAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    notificationId: string | null
-    createdAt: Date | null
-  }
-
-  export type NotificationReadMaxAggregateOutputType = {
-    id: string | null
-    userId: string | null
-    notificationId: string | null
-    createdAt: Date | null
-  }
-
-  export type NotificationReadCountAggregateOutputType = {
-    id: number
-    userId: number
-    notificationId: number
-    createdAt: number
-    _all: number
-  }
-
-
-  export type NotificationReadMinAggregateInputType = {
-    id?: true
-    userId?: true
-    notificationId?: true
-    createdAt?: true
-  }
-
-  export type NotificationReadMaxAggregateInputType = {
-    id?: true
-    userId?: true
-    notificationId?: true
-    createdAt?: true
-  }
-
-  export type NotificationReadCountAggregateInputType = {
-    id?: true
-    userId?: true
-    notificationId?: true
-    createdAt?: true
-    _all?: true
-  }
-
-  export type NotificationReadAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which NotificationRead to aggregate.
-     */
-    where?: NotificationReadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of NotificationReads to fetch.
-     */
-    orderBy?: NotificationReadOrderByWithRelationInput | NotificationReadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: NotificationReadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` NotificationReads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` NotificationReads.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned NotificationReads
-    **/
-    _count?: true | NotificationReadCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: NotificationReadMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: NotificationReadMaxAggregateInputType
-  }
-
-  export type GetNotificationReadAggregateType<T extends NotificationReadAggregateArgs> = {
-        [P in keyof T & keyof AggregateNotificationRead]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateNotificationRead[P]>
-      : GetScalarType<T[P], AggregateNotificationRead[P]>
-  }
-
-
-
-
-  export type NotificationReadGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: NotificationReadWhereInput
-    orderBy?: NotificationReadOrderByWithAggregationInput | NotificationReadOrderByWithAggregationInput[]
-    by: NotificationReadScalarFieldEnum[] | NotificationReadScalarFieldEnum
-    having?: NotificationReadScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: NotificationReadCountAggregateInputType | true
-    _min?: NotificationReadMinAggregateInputType
-    _max?: NotificationReadMaxAggregateInputType
-  }
-
-  export type NotificationReadGroupByOutputType = {
-    id: string
-    userId: string
-    notificationId: string
-    createdAt: Date
-    _count: NotificationReadCountAggregateOutputType | null
-    _min: NotificationReadMinAggregateOutputType | null
-    _max: NotificationReadMaxAggregateOutputType | null
-  }
-
-  type GetNotificationReadGroupByPayload<T extends NotificationReadGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<NotificationReadGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof NotificationReadGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], NotificationReadGroupByOutputType[P]>
-            : GetScalarType<T[P], NotificationReadGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type NotificationReadSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    notificationId?: boolean
-    createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["notificationRead"]>
-
-  export type NotificationReadSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    notificationId?: boolean
-    createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["notificationRead"]>
-
-  export type NotificationReadSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    userId?: boolean
-    notificationId?: boolean
-    createdAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["notificationRead"]>
-
-  export type NotificationReadSelectScalar = {
-    id?: boolean
-    userId?: boolean
-    notificationId?: boolean
-    createdAt?: boolean
-  }
-
-  export type NotificationReadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "notificationId" | "createdAt", ExtArgs["result"]["notificationRead"]>
-  export type NotificationReadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type NotificationReadIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type NotificationReadIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
-  }
-
-  export type $NotificationReadPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "NotificationRead"
-    objects: {
-      user: Prisma.$UserPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: string
-      userId: string
-      notificationId: string
-      createdAt: Date
-    }, ExtArgs["result"]["notificationRead"]>
-    composites: {}
-  }
-
-  type NotificationReadGetPayload<S extends boolean | null | undefined | NotificationReadDefaultArgs> = $Result.GetResult<Prisma.$NotificationReadPayload, S>
-
-  type NotificationReadCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<NotificationReadFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: NotificationReadCountAggregateInputType | true
-    }
-
-  export interface NotificationReadDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NotificationRead'], meta: { name: 'NotificationRead' } }
-    /**
-     * Find zero or one NotificationRead that matches the filter.
-     * @param {NotificationReadFindUniqueArgs} args - Arguments to find a NotificationRead
-     * @example
-     * // Get one NotificationRead
-     * const notificationRead = await prisma.notificationRead.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends NotificationReadFindUniqueArgs>(args: SelectSubset<T, NotificationReadFindUniqueArgs<ExtArgs>>): Prisma__NotificationReadClient<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one NotificationRead that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {NotificationReadFindUniqueOrThrowArgs} args - Arguments to find a NotificationRead
-     * @example
-     * // Get one NotificationRead
-     * const notificationRead = await prisma.notificationRead.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends NotificationReadFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationReadFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationReadClient<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first NotificationRead that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {NotificationReadFindFirstArgs} args - Arguments to find a NotificationRead
-     * @example
-     * // Get one NotificationRead
-     * const notificationRead = await prisma.notificationRead.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends NotificationReadFindFirstArgs>(args?: SelectSubset<T, NotificationReadFindFirstArgs<ExtArgs>>): Prisma__NotificationReadClient<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first NotificationRead that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {NotificationReadFindFirstOrThrowArgs} args - Arguments to find a NotificationRead
-     * @example
-     * // Get one NotificationRead
-     * const notificationRead = await prisma.notificationRead.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends NotificationReadFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationReadFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationReadClient<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more NotificationReads that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {NotificationReadFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all NotificationReads
-     * const notificationReads = await prisma.notificationRead.findMany()
-     * 
-     * // Get first 10 NotificationReads
-     * const notificationReads = await prisma.notificationRead.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const notificationReadWithIdOnly = await prisma.notificationRead.findMany({ select: { id: true } })
-     * 
-     */
-    findMany<T extends NotificationReadFindManyArgs>(args?: SelectSubset<T, NotificationReadFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a NotificationRead.
-     * @param {NotificationReadCreateArgs} args - Arguments to create a NotificationRead.
-     * @example
-     * // Create one NotificationRead
-     * const NotificationRead = await prisma.notificationRead.create({
-     *   data: {
-     *     // ... data to create a NotificationRead
-     *   }
-     * })
-     * 
-     */
-    create<T extends NotificationReadCreateArgs>(args: SelectSubset<T, NotificationReadCreateArgs<ExtArgs>>): Prisma__NotificationReadClient<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many NotificationReads.
-     * @param {NotificationReadCreateManyArgs} args - Arguments to create many NotificationReads.
-     * @example
-     * // Create many NotificationReads
-     * const notificationRead = await prisma.notificationRead.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends NotificationReadCreateManyArgs>(args?: SelectSubset<T, NotificationReadCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many NotificationReads and returns the data saved in the database.
-     * @param {NotificationReadCreateManyAndReturnArgs} args - Arguments to create many NotificationReads.
-     * @example
-     * // Create many NotificationReads
-     * const notificationRead = await prisma.notificationRead.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many NotificationReads and only return the `id`
-     * const notificationReadWithIdOnly = await prisma.notificationRead.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends NotificationReadCreateManyAndReturnArgs>(args?: SelectSubset<T, NotificationReadCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a NotificationRead.
-     * @param {NotificationReadDeleteArgs} args - Arguments to delete one NotificationRead.
-     * @example
-     * // Delete one NotificationRead
-     * const NotificationRead = await prisma.notificationRead.delete({
-     *   where: {
-     *     // ... filter to delete one NotificationRead
-     *   }
-     * })
-     * 
-     */
-    delete<T extends NotificationReadDeleteArgs>(args: SelectSubset<T, NotificationReadDeleteArgs<ExtArgs>>): Prisma__NotificationReadClient<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one NotificationRead.
-     * @param {NotificationReadUpdateArgs} args - Arguments to update one NotificationRead.
-     * @example
-     * // Update one NotificationRead
-     * const notificationRead = await prisma.notificationRead.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends NotificationReadUpdateArgs>(args: SelectSubset<T, NotificationReadUpdateArgs<ExtArgs>>): Prisma__NotificationReadClient<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more NotificationReads.
-     * @param {NotificationReadDeleteManyArgs} args - Arguments to filter NotificationReads to delete.
-     * @example
-     * // Delete a few NotificationReads
-     * const { count } = await prisma.notificationRead.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends NotificationReadDeleteManyArgs>(args?: SelectSubset<T, NotificationReadDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more NotificationReads.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {NotificationReadUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many NotificationReads
-     * const notificationRead = await prisma.notificationRead.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends NotificationReadUpdateManyArgs>(args: SelectSubset<T, NotificationReadUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more NotificationReads and returns the data updated in the database.
-     * @param {NotificationReadUpdateManyAndReturnArgs} args - Arguments to update many NotificationReads.
-     * @example
-     * // Update many NotificationReads
-     * const notificationRead = await prisma.notificationRead.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more NotificationReads and only return the `id`
-     * const notificationReadWithIdOnly = await prisma.notificationRead.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends NotificationReadUpdateManyAndReturnArgs>(args: SelectSubset<T, NotificationReadUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one NotificationRead.
-     * @param {NotificationReadUpsertArgs} args - Arguments to update or create a NotificationRead.
-     * @example
-     * // Update or create a NotificationRead
-     * const notificationRead = await prisma.notificationRead.upsert({
-     *   create: {
-     *     // ... data to create a NotificationRead
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the NotificationRead we want to update
-     *   }
-     * })
-     */
-    upsert<T extends NotificationReadUpsertArgs>(args: SelectSubset<T, NotificationReadUpsertArgs<ExtArgs>>): Prisma__NotificationReadClient<$Result.GetResult<Prisma.$NotificationReadPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of NotificationReads.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {NotificationReadCountArgs} args - Arguments to filter NotificationReads to count.
-     * @example
-     * // Count the number of NotificationReads
-     * const count = await prisma.notificationRead.count({
-     *   where: {
-     *     // ... the filter for the NotificationReads we want to count
-     *   }
-     * })
-    **/
-    count<T extends NotificationReadCountArgs>(
-      args?: Subset<T, NotificationReadCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], NotificationReadCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a NotificationRead.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {NotificationReadAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends NotificationReadAggregateArgs>(args: Subset<T, NotificationReadAggregateArgs>): Prisma.PrismaPromise<GetNotificationReadAggregateType<T>>
-
-    /**
-     * Group by NotificationRead.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {NotificationReadGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends NotificationReadGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: NotificationReadGroupByArgs['orderBy'] }
-        : { orderBy?: NotificationReadGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, NotificationReadGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationReadGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the NotificationRead model
-   */
-  readonly fields: NotificationReadFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for NotificationRead.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__NotificationReadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the NotificationRead model
-   */
-  interface NotificationReadFieldRefs {
-    readonly id: FieldRef<"NotificationRead", 'String'>
-    readonly userId: FieldRef<"NotificationRead", 'String'>
-    readonly notificationId: FieldRef<"NotificationRead", 'String'>
-    readonly createdAt: FieldRef<"NotificationRead", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * NotificationRead findUnique
-   */
-  export type NotificationReadFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-    /**
-     * Filter, which NotificationRead to fetch.
-     */
-    where: NotificationReadWhereUniqueInput
-  }
-
-  /**
-   * NotificationRead findUniqueOrThrow
-   */
-  export type NotificationReadFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-    /**
-     * Filter, which NotificationRead to fetch.
-     */
-    where: NotificationReadWhereUniqueInput
-  }
-
-  /**
-   * NotificationRead findFirst
-   */
-  export type NotificationReadFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-    /**
-     * Filter, which NotificationRead to fetch.
-     */
-    where?: NotificationReadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of NotificationReads to fetch.
-     */
-    orderBy?: NotificationReadOrderByWithRelationInput | NotificationReadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for NotificationReads.
-     */
-    cursor?: NotificationReadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` NotificationReads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` NotificationReads.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of NotificationReads.
-     */
-    distinct?: NotificationReadScalarFieldEnum | NotificationReadScalarFieldEnum[]
-  }
-
-  /**
-   * NotificationRead findFirstOrThrow
-   */
-  export type NotificationReadFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-    /**
-     * Filter, which NotificationRead to fetch.
-     */
-    where?: NotificationReadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of NotificationReads to fetch.
-     */
-    orderBy?: NotificationReadOrderByWithRelationInput | NotificationReadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for NotificationReads.
-     */
-    cursor?: NotificationReadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` NotificationReads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` NotificationReads.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of NotificationReads.
-     */
-    distinct?: NotificationReadScalarFieldEnum | NotificationReadScalarFieldEnum[]
-  }
-
-  /**
-   * NotificationRead findMany
-   */
-  export type NotificationReadFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-    /**
-     * Filter, which NotificationReads to fetch.
-     */
-    where?: NotificationReadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of NotificationReads to fetch.
-     */
-    orderBy?: NotificationReadOrderByWithRelationInput | NotificationReadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing NotificationReads.
-     */
-    cursor?: NotificationReadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` NotificationReads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` NotificationReads.
-     */
-    skip?: number
-    distinct?: NotificationReadScalarFieldEnum | NotificationReadScalarFieldEnum[]
-  }
-
-  /**
-   * NotificationRead create
-   */
-  export type NotificationReadCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-    /**
-     * The data needed to create a NotificationRead.
-     */
-    data: XOR<NotificationReadCreateInput, NotificationReadUncheckedCreateInput>
-  }
-
-  /**
-   * NotificationRead createMany
-   */
-  export type NotificationReadCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many NotificationReads.
-     */
-    data: NotificationReadCreateManyInput | NotificationReadCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * NotificationRead createManyAndReturn
-   */
-  export type NotificationReadCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * The data used to create many NotificationReads.
-     */
-    data: NotificationReadCreateManyInput | NotificationReadCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * NotificationRead update
-   */
-  export type NotificationReadUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-    /**
-     * The data needed to update a NotificationRead.
-     */
-    data: XOR<NotificationReadUpdateInput, NotificationReadUncheckedUpdateInput>
-    /**
-     * Choose, which NotificationRead to update.
-     */
-    where: NotificationReadWhereUniqueInput
-  }
-
-  /**
-   * NotificationRead updateMany
-   */
-  export type NotificationReadUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update NotificationReads.
-     */
-    data: XOR<NotificationReadUpdateManyMutationInput, NotificationReadUncheckedUpdateManyInput>
-    /**
-     * Filter which NotificationReads to update
-     */
-    where?: NotificationReadWhereInput
-    /**
-     * Limit how many NotificationReads to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * NotificationRead updateManyAndReturn
-   */
-  export type NotificationReadUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * The data used to update NotificationReads.
-     */
-    data: XOR<NotificationReadUpdateManyMutationInput, NotificationReadUncheckedUpdateManyInput>
-    /**
-     * Filter which NotificationReads to update
-     */
-    where?: NotificationReadWhereInput
-    /**
-     * Limit how many NotificationReads to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * NotificationRead upsert
-   */
-  export type NotificationReadUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-    /**
-     * The filter to search for the NotificationRead to update in case it exists.
-     */
-    where: NotificationReadWhereUniqueInput
-    /**
-     * In case the NotificationRead found by the `where` argument doesn't exist, create a new NotificationRead with this data.
-     */
-    create: XOR<NotificationReadCreateInput, NotificationReadUncheckedCreateInput>
-    /**
-     * In case the NotificationRead was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<NotificationReadUpdateInput, NotificationReadUncheckedUpdateInput>
-  }
-
-  /**
-   * NotificationRead delete
-   */
-  export type NotificationReadDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-    /**
-     * Filter which NotificationRead to delete.
-     */
-    where: NotificationReadWhereUniqueInput
-  }
-
-  /**
-   * NotificationRead deleteMany
-   */
-  export type NotificationReadDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which NotificationReads to delete
-     */
-    where?: NotificationReadWhereInput
-    /**
-     * Limit how many NotificationReads to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * NotificationRead without action
-   */
-  export type NotificationReadDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NotificationRead
-     */
-    select?: NotificationReadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the NotificationRead
-     */
-    omit?: NotificationReadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: NotificationReadInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model PostHabit
    */
 
@@ -19775,127 +15170,135 @@ export namespace Prisma {
   }
 
   export type PostHabitAvgAggregateOutputType = {
-    goalAmount: number | null
-    votesCount: number | null
+    likesCount: number | null
   }
 
   export type PostHabitSumAggregateOutputType = {
-    goalAmount: number | null
-    votesCount: number | null
+    likesCount: number | null
   }
 
   export type PostHabitMinAggregateOutputType = {
     id: string | null
     title: string | null
-    description: string | null
+    summary: string | null
+    highlight: string | null
+    anchor: string | null
+    duration: string | null
     cadence: string | null
-    category: string | null
-    timeOfDay: string | null
-    reminder: string | null
-    goalAmount: number | null
-    goalUnit: string | null
-    goalUnitCategory: string | null
-    votesCount: number | null
+    category: $Enums.HabitCategory | null
+    timeWindow: $Enums.HabitTimeWindow | null
+    commitment: $Enums.HabitCommitment | null
+    habitId: string | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    likesCount: number | null
   }
 
   export type PostHabitMaxAggregateOutputType = {
     id: string | null
     title: string | null
-    description: string | null
+    summary: string | null
+    highlight: string | null
+    anchor: string | null
+    duration: string | null
     cadence: string | null
-    category: string | null
-    timeOfDay: string | null
-    reminder: string | null
-    goalAmount: number | null
-    goalUnit: string | null
-    goalUnitCategory: string | null
-    votesCount: number | null
+    category: $Enums.HabitCategory | null
+    timeWindow: $Enums.HabitTimeWindow | null
+    commitment: $Enums.HabitCommitment | null
+    habitId: string | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
+    likesCount: number | null
   }
 
   export type PostHabitCountAggregateOutputType = {
     id: number
     title: number
-    description: number
+    summary: number
+    highlight: number
+    anchor: number
+    duration: number
     cadence: number
     category: number
-    timeOfDay: number
-    reminder: number
-    goalAmount: number
-    goalUnit: number
-    goalUnitCategory: number
-    votesCount: number
+    timeWindow: number
+    commitment: number
+    benefits: number
+    steps: number
+    guardrails: number
+    habitId: number
     userId: number
     createdAt: number
     updatedAt: number
+    likesCount: number
     _all: number
   }
 
 
   export type PostHabitAvgAggregateInputType = {
-    goalAmount?: true
-    votesCount?: true
+    likesCount?: true
   }
 
   export type PostHabitSumAggregateInputType = {
-    goalAmount?: true
-    votesCount?: true
+    likesCount?: true
   }
 
   export type PostHabitMinAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    summary?: true
+    highlight?: true
+    anchor?: true
+    duration?: true
     cadence?: true
     category?: true
-    timeOfDay?: true
-    reminder?: true
-    goalAmount?: true
-    goalUnit?: true
-    goalUnitCategory?: true
-    votesCount?: true
+    timeWindow?: true
+    commitment?: true
+    habitId?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
+    likesCount?: true
   }
 
   export type PostHabitMaxAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    summary?: true
+    highlight?: true
+    anchor?: true
+    duration?: true
     cadence?: true
     category?: true
-    timeOfDay?: true
-    reminder?: true
-    goalAmount?: true
-    goalUnit?: true
-    goalUnitCategory?: true
-    votesCount?: true
+    timeWindow?: true
+    commitment?: true
+    habitId?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
+    likesCount?: true
   }
 
   export type PostHabitCountAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    summary?: true
+    highlight?: true
+    anchor?: true
+    duration?: true
     cadence?: true
     category?: true
-    timeOfDay?: true
-    reminder?: true
-    goalAmount?: true
-    goalUnit?: true
-    goalUnitCategory?: true
-    votesCount?: true
+    timeWindow?: true
+    commitment?: true
+    benefits?: true
+    steps?: true
+    guardrails?: true
+    habitId?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
+    likesCount?: true
     _all?: true
   }
 
@@ -19988,18 +15391,22 @@ export namespace Prisma {
   export type PostHabitGroupByOutputType = {
     id: string
     title: string
-    description: string | null
+    summary: string | null
+    highlight: string | null
+    anchor: string | null
+    duration: string | null
     cadence: string
-    category: string | null
-    timeOfDay: string | null
-    reminder: string | null
-    goalAmount: number
-    goalUnit: string
-    goalUnitCategory: string
-    votesCount: number
+    category: $Enums.HabitCategory
+    timeWindow: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits: string[]
+    steps: string[]
+    guardrails: string[]
+    habitId: string
     userId: string
     createdAt: Date
     updatedAt: Date
+    likesCount: number
     _count: PostHabitCountAggregateOutputType | null
     _avg: PostHabitAvgAggregateOutputType | null
     _sum: PostHabitSumAggregateOutputType | null
@@ -20024,18 +15431,23 @@ export namespace Prisma {
   export type PostHabitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    summary?: boolean
+    highlight?: boolean
+    anchor?: boolean
+    duration?: boolean
     cadence?: boolean
     category?: boolean
-    timeOfDay?: boolean
-    reminder?: boolean
-    goalAmount?: boolean
-    goalUnit?: boolean
-    goalUnitCategory?: boolean
-    votesCount?: boolean
+    timeWindow?: boolean
+    commitment?: boolean
+    benefits?: boolean
+    steps?: boolean
+    guardrails?: boolean
+    habitId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    likesCount?: boolean
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     likes?: boolean | PostHabit$likesArgs<ExtArgs>
     _count?: boolean | PostHabitCountOutputTypeDefaultArgs<ExtArgs>
@@ -20044,90 +15456,112 @@ export namespace Prisma {
   export type PostHabitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    summary?: boolean
+    highlight?: boolean
+    anchor?: boolean
+    duration?: boolean
     cadence?: boolean
     category?: boolean
-    timeOfDay?: boolean
-    reminder?: boolean
-    goalAmount?: boolean
-    goalUnit?: boolean
-    goalUnitCategory?: boolean
-    votesCount?: boolean
+    timeWindow?: boolean
+    commitment?: boolean
+    benefits?: boolean
+    steps?: boolean
+    guardrails?: boolean
+    habitId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    likesCount?: boolean
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postHabit"]>
 
   export type PostHabitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    summary?: boolean
+    highlight?: boolean
+    anchor?: boolean
+    duration?: boolean
     cadence?: boolean
     category?: boolean
-    timeOfDay?: boolean
-    reminder?: boolean
-    goalAmount?: boolean
-    goalUnit?: boolean
-    goalUnitCategory?: boolean
-    votesCount?: boolean
+    timeWindow?: boolean
+    commitment?: boolean
+    benefits?: boolean
+    steps?: boolean
+    guardrails?: boolean
+    habitId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    likesCount?: boolean
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postHabit"]>
 
   export type PostHabitSelectScalar = {
     id?: boolean
     title?: boolean
-    description?: boolean
+    summary?: boolean
+    highlight?: boolean
+    anchor?: boolean
+    duration?: boolean
     cadence?: boolean
     category?: boolean
-    timeOfDay?: boolean
-    reminder?: boolean
-    goalAmount?: boolean
-    goalUnit?: boolean
-    goalUnitCategory?: boolean
-    votesCount?: boolean
+    timeWindow?: boolean
+    commitment?: boolean
+    benefits?: boolean
+    steps?: boolean
+    guardrails?: boolean
+    habitId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    likesCount?: boolean
   }
 
-  export type PostHabitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "cadence" | "category" | "timeOfDay" | "reminder" | "goalAmount" | "goalUnit" | "goalUnitCategory" | "votesCount" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["postHabit"]>
+  export type PostHabitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "summary" | "highlight" | "anchor" | "duration" | "cadence" | "category" | "timeWindow" | "commitment" | "benefits" | "steps" | "guardrails" | "habitId" | "userId" | "createdAt" | "updatedAt" | "likesCount", ExtArgs["result"]["postHabit"]>
   export type PostHabitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     likes?: boolean | PostHabit$likesArgs<ExtArgs>
     _count?: boolean | PostHabitCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PostHabitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type PostHabitIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    habit?: boolean | HabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $PostHabitPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "PostHabit"
     objects: {
+      habit: Prisma.$HabitPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
       likes: Prisma.$PostHabitLikePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
-      description: string | null
+      summary: string | null
+      highlight: string | null
+      anchor: string | null
+      duration: string | null
       cadence: string
-      category: string | null
-      timeOfDay: string | null
-      reminder: string | null
-      goalAmount: number
-      goalUnit: string
-      goalUnitCategory: string
-      votesCount: number
+      category: $Enums.HabitCategory
+      timeWindow: $Enums.HabitTimeWindow
+      commitment: $Enums.HabitCommitment
+      benefits: string[]
+      steps: string[]
+      guardrails: string[]
+      habitId: string
       userId: string
       createdAt: Date
       updatedAt: Date
+      likesCount: number
     }, ExtArgs["result"]["postHabit"]>
     composites: {}
   }
@@ -20522,6 +15956,7 @@ export namespace Prisma {
    */
   export interface Prisma__PostHabitClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    habit<T extends HabitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HabitDefaultArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     likes<T extends PostHabit$likesArgs<ExtArgs> = {}>(args?: Subset<T, PostHabit$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -20555,18 +15990,22 @@ export namespace Prisma {
   interface PostHabitFieldRefs {
     readonly id: FieldRef<"PostHabit", 'String'>
     readonly title: FieldRef<"PostHabit", 'String'>
-    readonly description: FieldRef<"PostHabit", 'String'>
+    readonly summary: FieldRef<"PostHabit", 'String'>
+    readonly highlight: FieldRef<"PostHabit", 'String'>
+    readonly anchor: FieldRef<"PostHabit", 'String'>
+    readonly duration: FieldRef<"PostHabit", 'String'>
     readonly cadence: FieldRef<"PostHabit", 'String'>
-    readonly category: FieldRef<"PostHabit", 'String'>
-    readonly timeOfDay: FieldRef<"PostHabit", 'String'>
-    readonly reminder: FieldRef<"PostHabit", 'String'>
-    readonly goalAmount: FieldRef<"PostHabit", 'Float'>
-    readonly goalUnit: FieldRef<"PostHabit", 'String'>
-    readonly goalUnitCategory: FieldRef<"PostHabit", 'String'>
-    readonly votesCount: FieldRef<"PostHabit", 'Int'>
+    readonly category: FieldRef<"PostHabit", 'HabitCategory'>
+    readonly timeWindow: FieldRef<"PostHabit", 'HabitTimeWindow'>
+    readonly commitment: FieldRef<"PostHabit", 'HabitCommitment'>
+    readonly benefits: FieldRef<"PostHabit", 'String[]'>
+    readonly steps: FieldRef<"PostHabit", 'String[]'>
+    readonly guardrails: FieldRef<"PostHabit", 'String[]'>
+    readonly habitId: FieldRef<"PostHabit", 'String'>
     readonly userId: FieldRef<"PostHabit", 'String'>
     readonly createdAt: FieldRef<"PostHabit", 'DateTime'>
     readonly updatedAt: FieldRef<"PostHabit", 'DateTime'>
+    readonly likesCount: FieldRef<"PostHabit", 'Int'>
   }
     
 
@@ -22059,6 +17498,1051 @@ export namespace Prisma {
 
 
   /**
+   * Model notification_read
+   */
+
+  export type AggregateNotification_read = {
+    _count: Notification_readCountAggregateOutputType | null
+    _min: Notification_readMinAggregateOutputType | null
+    _max: Notification_readMaxAggregateOutputType | null
+  }
+
+  export type Notification_readMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    notificationId: string | null
+    createdAt: Date | null
+  }
+
+  export type Notification_readMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    notificationId: string | null
+    createdAt: Date | null
+  }
+
+  export type Notification_readCountAggregateOutputType = {
+    id: number
+    userId: number
+    notificationId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type Notification_readMinAggregateInputType = {
+    id?: true
+    userId?: true
+    notificationId?: true
+    createdAt?: true
+  }
+
+  export type Notification_readMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    notificationId?: true
+    createdAt?: true
+  }
+
+  export type Notification_readCountAggregateInputType = {
+    id?: true
+    userId?: true
+    notificationId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type Notification_readAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which notification_read to aggregate.
+     */
+    where?: notification_readWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notification_reads to fetch.
+     */
+    orderBy?: notification_readOrderByWithRelationInput | notification_readOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: notification_readWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notification_reads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notification_reads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned notification_reads
+    **/
+    _count?: true | Notification_readCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Notification_readMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Notification_readMaxAggregateInputType
+  }
+
+  export type GetNotification_readAggregateType<T extends Notification_readAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotification_read]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotification_read[P]>
+      : GetScalarType<T[P], AggregateNotification_read[P]>
+  }
+
+
+
+
+  export type notification_readGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: notification_readWhereInput
+    orderBy?: notification_readOrderByWithAggregationInput | notification_readOrderByWithAggregationInput[]
+    by: Notification_readScalarFieldEnum[] | Notification_readScalarFieldEnum
+    having?: notification_readScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Notification_readCountAggregateInputType | true
+    _min?: Notification_readMinAggregateInputType
+    _max?: Notification_readMaxAggregateInputType
+  }
+
+  export type Notification_readGroupByOutputType = {
+    id: string
+    userId: string
+    notificationId: string
+    createdAt: Date
+    _count: Notification_readCountAggregateOutputType | null
+    _min: Notification_readMinAggregateOutputType | null
+    _max: Notification_readMaxAggregateOutputType | null
+  }
+
+  type GetNotification_readGroupByPayload<T extends notification_readGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Notification_readGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Notification_readGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Notification_readGroupByOutputType[P]>
+            : GetScalarType<T[P], Notification_readGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type notification_readSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    notificationId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification_read"]>
+
+  export type notification_readSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    notificationId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification_read"]>
+
+  export type notification_readSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    notificationId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification_read"]>
+
+  export type notification_readSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    notificationId?: boolean
+    createdAt?: boolean
+  }
+
+  export type notification_readOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "notificationId" | "createdAt", ExtArgs["result"]["notification_read"]>
+  export type notification_readInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type notification_readIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type notification_readIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $notification_readPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "notification_read"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      notificationId: string
+      createdAt: Date
+    }, ExtArgs["result"]["notification_read"]>
+    composites: {}
+  }
+
+  type notification_readGetPayload<S extends boolean | null | undefined | notification_readDefaultArgs> = $Result.GetResult<Prisma.$notification_readPayload, S>
+
+  type notification_readCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<notification_readFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Notification_readCountAggregateInputType | true
+    }
+
+  export interface notification_readDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['notification_read'], meta: { name: 'notification_read' } }
+    /**
+     * Find zero or one Notification_read that matches the filter.
+     * @param {notification_readFindUniqueArgs} args - Arguments to find a Notification_read
+     * @example
+     * // Get one Notification_read
+     * const notification_read = await prisma.notification_read.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends notification_readFindUniqueArgs>(args: SelectSubset<T, notification_readFindUniqueArgs<ExtArgs>>): Prisma__notification_readClient<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Notification_read that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {notification_readFindUniqueOrThrowArgs} args - Arguments to find a Notification_read
+     * @example
+     * // Get one Notification_read
+     * const notification_read = await prisma.notification_read.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends notification_readFindUniqueOrThrowArgs>(args: SelectSubset<T, notification_readFindUniqueOrThrowArgs<ExtArgs>>): Prisma__notification_readClient<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notification_read that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notification_readFindFirstArgs} args - Arguments to find a Notification_read
+     * @example
+     * // Get one Notification_read
+     * const notification_read = await prisma.notification_read.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends notification_readFindFirstArgs>(args?: SelectSubset<T, notification_readFindFirstArgs<ExtArgs>>): Prisma__notification_readClient<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notification_read that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notification_readFindFirstOrThrowArgs} args - Arguments to find a Notification_read
+     * @example
+     * // Get one Notification_read
+     * const notification_read = await prisma.notification_read.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends notification_readFindFirstOrThrowArgs>(args?: SelectSubset<T, notification_readFindFirstOrThrowArgs<ExtArgs>>): Prisma__notification_readClient<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Notification_reads that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notification_readFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Notification_reads
+     * const notification_reads = await prisma.notification_read.findMany()
+     * 
+     * // Get first 10 Notification_reads
+     * const notification_reads = await prisma.notification_read.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notification_readWithIdOnly = await prisma.notification_read.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends notification_readFindManyArgs>(args?: SelectSubset<T, notification_readFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Notification_read.
+     * @param {notification_readCreateArgs} args - Arguments to create a Notification_read.
+     * @example
+     * // Create one Notification_read
+     * const Notification_read = await prisma.notification_read.create({
+     *   data: {
+     *     // ... data to create a Notification_read
+     *   }
+     * })
+     * 
+     */
+    create<T extends notification_readCreateArgs>(args: SelectSubset<T, notification_readCreateArgs<ExtArgs>>): Prisma__notification_readClient<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Notification_reads.
+     * @param {notification_readCreateManyArgs} args - Arguments to create many Notification_reads.
+     * @example
+     * // Create many Notification_reads
+     * const notification_read = await prisma.notification_read.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends notification_readCreateManyArgs>(args?: SelectSubset<T, notification_readCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Notification_reads and returns the data saved in the database.
+     * @param {notification_readCreateManyAndReturnArgs} args - Arguments to create many Notification_reads.
+     * @example
+     * // Create many Notification_reads
+     * const notification_read = await prisma.notification_read.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Notification_reads and only return the `id`
+     * const notification_readWithIdOnly = await prisma.notification_read.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends notification_readCreateManyAndReturnArgs>(args?: SelectSubset<T, notification_readCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Notification_read.
+     * @param {notification_readDeleteArgs} args - Arguments to delete one Notification_read.
+     * @example
+     * // Delete one Notification_read
+     * const Notification_read = await prisma.notification_read.delete({
+     *   where: {
+     *     // ... filter to delete one Notification_read
+     *   }
+     * })
+     * 
+     */
+    delete<T extends notification_readDeleteArgs>(args: SelectSubset<T, notification_readDeleteArgs<ExtArgs>>): Prisma__notification_readClient<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Notification_read.
+     * @param {notification_readUpdateArgs} args - Arguments to update one Notification_read.
+     * @example
+     * // Update one Notification_read
+     * const notification_read = await prisma.notification_read.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends notification_readUpdateArgs>(args: SelectSubset<T, notification_readUpdateArgs<ExtArgs>>): Prisma__notification_readClient<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Notification_reads.
+     * @param {notification_readDeleteManyArgs} args - Arguments to filter Notification_reads to delete.
+     * @example
+     * // Delete a few Notification_reads
+     * const { count } = await prisma.notification_read.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends notification_readDeleteManyArgs>(args?: SelectSubset<T, notification_readDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notification_reads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notification_readUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Notification_reads
+     * const notification_read = await prisma.notification_read.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends notification_readUpdateManyArgs>(args: SelectSubset<T, notification_readUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notification_reads and returns the data updated in the database.
+     * @param {notification_readUpdateManyAndReturnArgs} args - Arguments to update many Notification_reads.
+     * @example
+     * // Update many Notification_reads
+     * const notification_read = await prisma.notification_read.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Notification_reads and only return the `id`
+     * const notification_readWithIdOnly = await prisma.notification_read.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends notification_readUpdateManyAndReturnArgs>(args: SelectSubset<T, notification_readUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Notification_read.
+     * @param {notification_readUpsertArgs} args - Arguments to update or create a Notification_read.
+     * @example
+     * // Update or create a Notification_read
+     * const notification_read = await prisma.notification_read.upsert({
+     *   create: {
+     *     // ... data to create a Notification_read
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Notification_read we want to update
+     *   }
+     * })
+     */
+    upsert<T extends notification_readUpsertArgs>(args: SelectSubset<T, notification_readUpsertArgs<ExtArgs>>): Prisma__notification_readClient<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Notification_reads.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notification_readCountArgs} args - Arguments to filter Notification_reads to count.
+     * @example
+     * // Count the number of Notification_reads
+     * const count = await prisma.notification_read.count({
+     *   where: {
+     *     // ... the filter for the Notification_reads we want to count
+     *   }
+     * })
+    **/
+    count<T extends notification_readCountArgs>(
+      args?: Subset<T, notification_readCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Notification_readCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Notification_read.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Notification_readAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Notification_readAggregateArgs>(args: Subset<T, Notification_readAggregateArgs>): Prisma.PrismaPromise<GetNotification_readAggregateType<T>>
+
+    /**
+     * Group by Notification_read.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {notification_readGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends notification_readGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: notification_readGroupByArgs['orderBy'] }
+        : { orderBy?: notification_readGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, notification_readGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotification_readGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the notification_read model
+   */
+  readonly fields: notification_readFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for notification_read.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__notification_readClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the notification_read model
+   */
+  interface notification_readFieldRefs {
+    readonly id: FieldRef<"notification_read", 'String'>
+    readonly userId: FieldRef<"notification_read", 'String'>
+    readonly notificationId: FieldRef<"notification_read", 'String'>
+    readonly createdAt: FieldRef<"notification_read", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * notification_read findUnique
+   */
+  export type notification_readFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readInclude<ExtArgs> | null
+    /**
+     * Filter, which notification_read to fetch.
+     */
+    where: notification_readWhereUniqueInput
+  }
+
+  /**
+   * notification_read findUniqueOrThrow
+   */
+  export type notification_readFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readInclude<ExtArgs> | null
+    /**
+     * Filter, which notification_read to fetch.
+     */
+    where: notification_readWhereUniqueInput
+  }
+
+  /**
+   * notification_read findFirst
+   */
+  export type notification_readFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readInclude<ExtArgs> | null
+    /**
+     * Filter, which notification_read to fetch.
+     */
+    where?: notification_readWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notification_reads to fetch.
+     */
+    orderBy?: notification_readOrderByWithRelationInput | notification_readOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for notification_reads.
+     */
+    cursor?: notification_readWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notification_reads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notification_reads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of notification_reads.
+     */
+    distinct?: Notification_readScalarFieldEnum | Notification_readScalarFieldEnum[]
+  }
+
+  /**
+   * notification_read findFirstOrThrow
+   */
+  export type notification_readFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readInclude<ExtArgs> | null
+    /**
+     * Filter, which notification_read to fetch.
+     */
+    where?: notification_readWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notification_reads to fetch.
+     */
+    orderBy?: notification_readOrderByWithRelationInput | notification_readOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for notification_reads.
+     */
+    cursor?: notification_readWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notification_reads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notification_reads.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of notification_reads.
+     */
+    distinct?: Notification_readScalarFieldEnum | Notification_readScalarFieldEnum[]
+  }
+
+  /**
+   * notification_read findMany
+   */
+  export type notification_readFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readInclude<ExtArgs> | null
+    /**
+     * Filter, which notification_reads to fetch.
+     */
+    where?: notification_readWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of notification_reads to fetch.
+     */
+    orderBy?: notification_readOrderByWithRelationInput | notification_readOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing notification_reads.
+     */
+    cursor?: notification_readWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` notification_reads from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` notification_reads.
+     */
+    skip?: number
+    distinct?: Notification_readScalarFieldEnum | Notification_readScalarFieldEnum[]
+  }
+
+  /**
+   * notification_read create
+   */
+  export type notification_readCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readInclude<ExtArgs> | null
+    /**
+     * The data needed to create a notification_read.
+     */
+    data: XOR<notification_readCreateInput, notification_readUncheckedCreateInput>
+  }
+
+  /**
+   * notification_read createMany
+   */
+  export type notification_readCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many notification_reads.
+     */
+    data: notification_readCreateManyInput | notification_readCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * notification_read createManyAndReturn
+   */
+  export type notification_readCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * The data used to create many notification_reads.
+     */
+    data: notification_readCreateManyInput | notification_readCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * notification_read update
+   */
+  export type notification_readUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readInclude<ExtArgs> | null
+    /**
+     * The data needed to update a notification_read.
+     */
+    data: XOR<notification_readUpdateInput, notification_readUncheckedUpdateInput>
+    /**
+     * Choose, which notification_read to update.
+     */
+    where: notification_readWhereUniqueInput
+  }
+
+  /**
+   * notification_read updateMany
+   */
+  export type notification_readUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update notification_reads.
+     */
+    data: XOR<notification_readUpdateManyMutationInput, notification_readUncheckedUpdateManyInput>
+    /**
+     * Filter which notification_reads to update
+     */
+    where?: notification_readWhereInput
+    /**
+     * Limit how many notification_reads to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * notification_read updateManyAndReturn
+   */
+  export type notification_readUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * The data used to update notification_reads.
+     */
+    data: XOR<notification_readUpdateManyMutationInput, notification_readUncheckedUpdateManyInput>
+    /**
+     * Filter which notification_reads to update
+     */
+    where?: notification_readWhereInput
+    /**
+     * Limit how many notification_reads to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * notification_read upsert
+   */
+  export type notification_readUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readInclude<ExtArgs> | null
+    /**
+     * The filter to search for the notification_read to update in case it exists.
+     */
+    where: notification_readWhereUniqueInput
+    /**
+     * In case the notification_read found by the `where` argument doesn't exist, create a new notification_read with this data.
+     */
+    create: XOR<notification_readCreateInput, notification_readUncheckedCreateInput>
+    /**
+     * In case the notification_read was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<notification_readUpdateInput, notification_readUncheckedUpdateInput>
+  }
+
+  /**
+   * notification_read delete
+   */
+  export type notification_readDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readInclude<ExtArgs> | null
+    /**
+     * Filter which notification_read to delete.
+     */
+    where: notification_readWhereUniqueInput
+  }
+
+  /**
+   * notification_read deleteMany
+   */
+  export type notification_readDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which notification_reads to delete
+     */
+    where?: notification_readWhereInput
+    /**
+     * Limit how many notification_reads to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * notification_read without action
+   */
+  export type notification_readDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the notification_read
+     */
+    select?: notification_readSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the notification_read
+     */
+    omit?: notification_readOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: notification_readInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -22077,15 +18561,14 @@ export namespace Prisma {
     name: 'name',
     email: 'email',
     emailVerified: 'emailVerified',
-    image: 'image',
-    username: 'username',
-    focusArea: 'focusArea',
-    location: 'location',
-    bio: 'bio',
-    privateAccount: 'privateAccount',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    streakGoalDays: 'streakGoalDays'
+    streakGoalDays: 'streakGoalDays',
+    privateAccount: 'privateAccount',
+    username: 'username',
+    focusArea: 'focusArea',
+    bio: 'bio',
+    location: 'location'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -22143,15 +18626,18 @@ export namespace Prisma {
     category: 'category',
     priority: 'priority',
     status: 'status',
-    tags: 'tags',
-    iconName: 'iconName',
-    iconColor: 'iconColor',
-    archived: 'archived',
+    dueAt: 'dueAt',
+    durationMinutes: 'durationMinutes',
     location: 'location',
-    scheduledTime: 'scheduledTime',
+    reminder: 'reminder',
+    recurrence: 'recurrence',
+    tags: 'tags',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    userId: 'userId'
+    userId: 'userId',
+    iconColor: 'iconColor',
+    iconName: 'iconName',
+    archived: 'archived'
   };
 
   export type TodoScalarFieldEnum = (typeof TodoScalarFieldEnum)[keyof typeof TodoScalarFieldEnum]
@@ -22190,10 +18676,11 @@ export namespace Prisma {
     goalAmount: 'goalAmount',
     goalUnit: 'goalUnit',
     goalUnitCategory: 'goalUnitCategory',
-    dailyProgress: 'dailyProgress',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    userId: 'userId'
+    userId: 'userId',
+    sourcePopularPostId: 'sourcePopularPostId',
+    dailyProgress: 'dailyProgress'
   };
 
   export type HabitScalarFieldEnum = (typeof HabitScalarFieldEnum)[keyof typeof HabitScalarFieldEnum]
@@ -22209,43 +18696,6 @@ export namespace Prisma {
   };
 
   export type HabitDailyProgressScalarFieldEnum = (typeof HabitDailyProgressScalarFieldEnum)[keyof typeof HabitDailyProgressScalarFieldEnum]
-
-
-  export const HabitReflectionScalarFieldEnum: {
-    id: 'id',
-    userId: 'userId',
-    entryDate: 'entryDate',
-    note: 'note',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type HabitReflectionScalarFieldEnum = (typeof HabitReflectionScalarFieldEnum)[keyof typeof HabitReflectionScalarFieldEnum]
-
-
-  export const ShouldDoScalarFieldEnum: {
-    id: 'id',
-    title: 'title',
-    description: 'description',
-    iconKey: 'iconKey',
-    iconColor: 'iconColor',
-    likesCount: 'likesCount',
-    userId: 'userId',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-  };
-
-  export type ShouldDoScalarFieldEnum = (typeof ShouldDoScalarFieldEnum)[keyof typeof ShouldDoScalarFieldEnum]
-
-
-  export const ShouldDoLikeScalarFieldEnum: {
-    id: 'id',
-    shouldDoId: 'shouldDoId',
-    userId: 'userId',
-    createdAt: 'createdAt'
-  };
-
-  export type ShouldDoLikeScalarFieldEnum = (typeof ShouldDoLikeScalarFieldEnum)[keyof typeof ShouldDoLikeScalarFieldEnum]
 
 
   export const RoutineScalarFieldEnum: {
@@ -22272,31 +18722,25 @@ export namespace Prisma {
   export type RoutineHabitScalarFieldEnum = (typeof RoutineHabitScalarFieldEnum)[keyof typeof RoutineHabitScalarFieldEnum]
 
 
-  export const NotificationReadScalarFieldEnum: {
-    id: 'id',
-    userId: 'userId',
-    notificationId: 'notificationId',
-    createdAt: 'createdAt'
-  };
-
-  export type NotificationReadScalarFieldEnum = (typeof NotificationReadScalarFieldEnum)[keyof typeof NotificationReadScalarFieldEnum]
-
-
   export const PostHabitScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    description: 'description',
+    summary: 'summary',
+    highlight: 'highlight',
+    anchor: 'anchor',
+    duration: 'duration',
     cadence: 'cadence',
     category: 'category',
-    timeOfDay: 'timeOfDay',
-    reminder: 'reminder',
-    goalAmount: 'goalAmount',
-    goalUnit: 'goalUnit',
-    goalUnitCategory: 'goalUnitCategory',
-    votesCount: 'votesCount',
+    timeWindow: 'timeWindow',
+    commitment: 'commitment',
+    benefits: 'benefits',
+    steps: 'steps',
+    guardrails: 'guardrails',
+    habitId: 'habitId',
     userId: 'userId',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    likesCount: 'likesCount'
   };
 
   export type PostHabitScalarFieldEnum = (typeof PostHabitScalarFieldEnum)[keyof typeof PostHabitScalarFieldEnum]
@@ -22310,6 +18754,16 @@ export namespace Prisma {
   };
 
   export type PostHabitLikeScalarFieldEnum = (typeof PostHabitLikeScalarFieldEnum)[keyof typeof PostHabitLikeScalarFieldEnum]
+
+
+  export const Notification_readScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    notificationId: 'notificationId',
+    createdAt: 'createdAt'
+  };
+
+  export type Notification_readScalarFieldEnum = (typeof Notification_readScalarFieldEnum)[keyof typeof Notification_readScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -22430,6 +18884,48 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'HabitCategory'
+   */
+  export type EnumHabitCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'HabitCategory[]'
+   */
+  export type ListEnumHabitCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitCategory[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'HabitTimeWindow'
+   */
+  export type EnumHabitTimeWindowFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitTimeWindow'>
+    
+
+
+  /**
+   * Reference to a field of type 'HabitTimeWindow[]'
+   */
+  export type ListEnumHabitTimeWindowFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitTimeWindow[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'HabitCommitment'
+   */
+  export type EnumHabitCommitmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitCommitment'>
+    
+
+
+  /**
+   * Reference to a field of type 'HabitCommitment[]'
+   */
+  export type ListEnumHabitCommitmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitCommitment[]'>
+    
   /**
    * Deep Input Types
    */
@@ -22443,27 +18939,23 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     emailVerified?: BoolFilter<"User"> | boolean
-    image?: StringNullableFilter<"User"> | string | null
-    username?: StringNullableFilter<"User"> | string | null
-    focusArea?: StringNullableFilter<"User"> | string | null
-    location?: StringNullableFilter<"User"> | string | null
-    bio?: StringNullableFilter<"User"> | string | null
-    privateAccount?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     streakGoalDays?: IntNullableFilter<"User"> | number | null
-    sessions?: SessionListRelationFilter
+    privateAccount?: BoolFilter<"User"> | boolean
+    username?: StringNullableFilter<"User"> | string | null
+    focusArea?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    location?: StringNullableFilter<"User"> | string | null
     accounts?: AccountListRelationFilter
-    todos?: TodoListRelationFilter
-    habits?: HabitListRelationFilter
-    habitReflections?: HabitReflectionListRelationFilter
     collections?: CollectionListRelationFilter
-    routines?: RoutineListRelationFilter
-    shouldDos?: ShouldDoListRelationFilter
-    shouldDoLikes?: ShouldDoLikeListRelationFilter
-    notificationReads?: NotificationReadListRelationFilter
+    habits?: HabitListRelationFilter
+    notification_read?: Notification_readListRelationFilter
     postHabits?: PostHabitListRelationFilter
     postHabitLikes?: PostHabitLikeListRelationFilter
+    routines?: RoutineListRelationFilter
+    sessions?: SessionListRelationFilter
+    todos?: TodoListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -22471,27 +18963,23 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
-    image?: SortOrderInput | SortOrder
-    username?: SortOrderInput | SortOrder
-    focusArea?: SortOrderInput | SortOrder
-    location?: SortOrderInput | SortOrder
-    bio?: SortOrderInput | SortOrder
-    privateAccount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrderInput | SortOrder
-    sessions?: SessionOrderByRelationAggregateInput
+    privateAccount?: SortOrder
+    username?: SortOrderInput | SortOrder
+    focusArea?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
     accounts?: AccountOrderByRelationAggregateInput
-    todos?: TodoOrderByRelationAggregateInput
-    habits?: HabitOrderByRelationAggregateInput
-    habitReflections?: HabitReflectionOrderByRelationAggregateInput
     collections?: CollectionOrderByRelationAggregateInput
-    routines?: RoutineOrderByRelationAggregateInput
-    shouldDos?: ShouldDoOrderByRelationAggregateInput
-    shouldDoLikes?: ShouldDoLikeOrderByRelationAggregateInput
-    notificationReads?: NotificationReadOrderByRelationAggregateInput
+    habits?: HabitOrderByRelationAggregateInput
+    notification_read?: notification_readOrderByRelationAggregateInput
     postHabits?: PostHabitOrderByRelationAggregateInput
     postHabitLikes?: PostHabitLikeOrderByRelationAggregateInput
+    routines?: RoutineOrderByRelationAggregateInput
+    sessions?: SessionOrderByRelationAggregateInput
+    todos?: TodoOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -22503,42 +18991,37 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
     emailVerified?: BoolFilter<"User"> | boolean
-    image?: StringNullableFilter<"User"> | string | null
-    focusArea?: StringNullableFilter<"User"> | string | null
-    location?: StringNullableFilter<"User"> | string | null
-    bio?: StringNullableFilter<"User"> | string | null
-    privateAccount?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     streakGoalDays?: IntNullableFilter<"User"> | number | null
-    sessions?: SessionListRelationFilter
+    privateAccount?: BoolFilter<"User"> | boolean
+    focusArea?: StringNullableFilter<"User"> | string | null
+    bio?: StringNullableFilter<"User"> | string | null
+    location?: StringNullableFilter<"User"> | string | null
     accounts?: AccountListRelationFilter
-    todos?: TodoListRelationFilter
-    habits?: HabitListRelationFilter
-    habitReflections?: HabitReflectionListRelationFilter
     collections?: CollectionListRelationFilter
-    routines?: RoutineListRelationFilter
-    shouldDos?: ShouldDoListRelationFilter
-    shouldDoLikes?: ShouldDoLikeListRelationFilter
-    notificationReads?: NotificationReadListRelationFilter
+    habits?: HabitListRelationFilter
+    notification_read?: Notification_readListRelationFilter
     postHabits?: PostHabitListRelationFilter
     postHabitLikes?: PostHabitLikeListRelationFilter
-  }, "id" | "username" | "email">
+    routines?: RoutineListRelationFilter
+    sessions?: SessionListRelationFilter
+    todos?: TodoListRelationFilter
+  }, "id" | "email" | "username">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
-    image?: SortOrderInput | SortOrder
-    username?: SortOrderInput | SortOrder
-    focusArea?: SortOrderInput | SortOrder
-    location?: SortOrderInput | SortOrder
-    bio?: SortOrderInput | SortOrder
-    privateAccount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrderInput | SortOrder
+    privateAccount?: SortOrder
+    username?: SortOrderInput | SortOrder
+    focusArea?: SortOrderInput | SortOrder
+    bio?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -22554,15 +19037,14 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
-    image?: StringNullableWithAggregatesFilter<"User"> | string | null
-    username?: StringNullableWithAggregatesFilter<"User"> | string | null
-    focusArea?: StringNullableWithAggregatesFilter<"User"> | string | null
-    location?: StringNullableWithAggregatesFilter<"User"> | string | null
-    bio?: StringNullableWithAggregatesFilter<"User"> | string | null
-    privateAccount?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     streakGoalDays?: IntNullableWithAggregatesFilter<"User"> | number | null
+    privateAccount?: BoolWithAggregatesFilter<"User"> | boolean
+    username?: StringNullableWithAggregatesFilter<"User"> | string | null
+    focusArea?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bio?: StringNullableWithAggregatesFilter<"User"> | string | null
+    location?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type SessionWhereInput = {
@@ -22797,17 +19279,20 @@ export namespace Prisma {
     category?: StringNullableFilter<"Todo"> | string | null
     priority?: EnumTodoPriorityFilter<"Todo"> | $Enums.TodoPriority
     status?: EnumTodoStatusFilter<"Todo"> | $Enums.TodoStatus
-    tags?: StringNullableFilter<"Todo"> | string | null
-    iconName?: StringFilter<"Todo"> | string
-    iconColor?: StringFilter<"Todo"> | string
-    archived?: BoolFilter<"Todo"> | boolean
+    dueAt?: DateTimeNullableFilter<"Todo"> | Date | string | null
+    durationMinutes?: IntNullableFilter<"Todo"> | number | null
     location?: StringNullableFilter<"Todo"> | string | null
-    scheduledTime?: StringNullableFilter<"Todo"> | string | null
+    reminder?: StringNullableFilter<"Todo"> | string | null
+    recurrence?: StringNullableFilter<"Todo"> | string | null
+    tags?: StringNullableFilter<"Todo"> | string | null
     createdAt?: DateTimeFilter<"Todo"> | Date | string
     updatedAt?: DateTimeFilter<"Todo"> | Date | string
     userId?: StringFilter<"Todo"> | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    iconColor?: StringFilter<"Todo"> | string
+    iconName?: StringFilter<"Todo"> | string
+    archived?: BoolFilter<"Todo"> | boolean
     collections?: CollectionTodoListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type TodoOrderByWithRelationInput = {
@@ -22817,17 +19302,20 @@ export namespace Prisma {
     category?: SortOrderInput | SortOrder
     priority?: SortOrder
     status?: SortOrder
-    tags?: SortOrderInput | SortOrder
-    iconName?: SortOrder
-    iconColor?: SortOrder
-    archived?: SortOrder
+    dueAt?: SortOrderInput | SortOrder
+    durationMinutes?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
-    scheduledTime?: SortOrderInput | SortOrder
+    reminder?: SortOrderInput | SortOrder
+    recurrence?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
-    user?: UserOrderByWithRelationInput
+    iconColor?: SortOrder
+    iconName?: SortOrder
+    archived?: SortOrder
     collections?: CollectionTodoOrderByRelationAggregateInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type TodoWhereUniqueInput = Prisma.AtLeast<{
@@ -22841,17 +19329,20 @@ export namespace Prisma {
     category?: StringNullableFilter<"Todo"> | string | null
     priority?: EnumTodoPriorityFilter<"Todo"> | $Enums.TodoPriority
     status?: EnumTodoStatusFilter<"Todo"> | $Enums.TodoStatus
-    tags?: StringNullableFilter<"Todo"> | string | null
-    iconName?: StringFilter<"Todo"> | string
-    iconColor?: StringFilter<"Todo"> | string
-    archived?: BoolFilter<"Todo"> | boolean
+    dueAt?: DateTimeNullableFilter<"Todo"> | Date | string | null
+    durationMinutes?: IntNullableFilter<"Todo"> | number | null
     location?: StringNullableFilter<"Todo"> | string | null
-    scheduledTime?: StringNullableFilter<"Todo"> | string | null
+    reminder?: StringNullableFilter<"Todo"> | string | null
+    recurrence?: StringNullableFilter<"Todo"> | string | null
+    tags?: StringNullableFilter<"Todo"> | string | null
     createdAt?: DateTimeFilter<"Todo"> | Date | string
     updatedAt?: DateTimeFilter<"Todo"> | Date | string
     userId?: StringFilter<"Todo"> | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    iconColor?: StringFilter<"Todo"> | string
+    iconName?: StringFilter<"Todo"> | string
+    archived?: BoolFilter<"Todo"> | boolean
     collections?: CollectionTodoListRelationFilter
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "id_userId">
 
   export type TodoOrderByWithAggregationInput = {
@@ -22861,18 +19352,23 @@ export namespace Prisma {
     category?: SortOrderInput | SortOrder
     priority?: SortOrder
     status?: SortOrder
-    tags?: SortOrderInput | SortOrder
-    iconName?: SortOrder
-    iconColor?: SortOrder
-    archived?: SortOrder
+    dueAt?: SortOrderInput | SortOrder
+    durationMinutes?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
-    scheduledTime?: SortOrderInput | SortOrder
+    reminder?: SortOrderInput | SortOrder
+    recurrence?: SortOrderInput | SortOrder
+    tags?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    iconColor?: SortOrder
+    iconName?: SortOrder
+    archived?: SortOrder
     _count?: TodoCountOrderByAggregateInput
+    _avg?: TodoAvgOrderByAggregateInput
     _max?: TodoMaxOrderByAggregateInput
     _min?: TodoMinOrderByAggregateInput
+    _sum?: TodoSumOrderByAggregateInput
   }
 
   export type TodoScalarWhereWithAggregatesInput = {
@@ -22885,15 +19381,18 @@ export namespace Prisma {
     category?: StringNullableWithAggregatesFilter<"Todo"> | string | null
     priority?: EnumTodoPriorityWithAggregatesFilter<"Todo"> | $Enums.TodoPriority
     status?: EnumTodoStatusWithAggregatesFilter<"Todo"> | $Enums.TodoStatus
-    tags?: StringNullableWithAggregatesFilter<"Todo"> | string | null
-    iconName?: StringWithAggregatesFilter<"Todo"> | string
-    iconColor?: StringWithAggregatesFilter<"Todo"> | string
-    archived?: BoolWithAggregatesFilter<"Todo"> | boolean
+    dueAt?: DateTimeNullableWithAggregatesFilter<"Todo"> | Date | string | null
+    durationMinutes?: IntNullableWithAggregatesFilter<"Todo"> | number | null
     location?: StringNullableWithAggregatesFilter<"Todo"> | string | null
-    scheduledTime?: StringNullableWithAggregatesFilter<"Todo"> | string | null
+    reminder?: StringNullableWithAggregatesFilter<"Todo"> | string | null
+    recurrence?: StringNullableWithAggregatesFilter<"Todo"> | string | null
+    tags?: StringNullableWithAggregatesFilter<"Todo"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Todo"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Todo"> | Date | string
     userId?: StringWithAggregatesFilter<"Todo"> | string
+    iconColor?: StringWithAggregatesFilter<"Todo"> | string
+    iconName?: StringWithAggregatesFilter<"Todo"> | string
+    archived?: BoolWithAggregatesFilter<"Todo"> | boolean
   }
 
   export type CollectionWhereInput = {
@@ -23027,13 +19526,15 @@ export namespace Prisma {
     goalAmount?: FloatFilter<"Habit"> | number
     goalUnit?: StringFilter<"Habit"> | string
     goalUnitCategory?: StringFilter<"Habit"> | string
-    dailyProgress?: FloatFilter<"Habit"> | number
     createdAt?: DateTimeFilter<"Habit"> | Date | string
     updatedAt?: DateTimeFilter<"Habit"> | Date | string
     userId?: StringFilter<"Habit"> | string
+    sourcePopularPostId?: StringNullableFilter<"Habit"> | string | null
+    dailyProgress?: FloatFilter<"Habit"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    routineHabits?: RoutineHabitListRelationFilter
     dailyProgressEntries?: HabitDailyProgressListRelationFilter
+    post_habit?: PostHabitListRelationFilter
+    routineHabits?: RoutineHabitListRelationFilter
   }
 
   export type HabitOrderByWithRelationInput = {
@@ -23047,18 +19548,21 @@ export namespace Prisma {
     goalAmount?: SortOrder
     goalUnit?: SortOrder
     goalUnitCategory?: SortOrder
-    dailyProgress?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    sourcePopularPostId?: SortOrderInput | SortOrder
+    dailyProgress?: SortOrder
     user?: UserOrderByWithRelationInput
-    routineHabits?: RoutineHabitOrderByRelationAggregateInput
     dailyProgressEntries?: HabitDailyProgressOrderByRelationAggregateInput
+    post_habit?: PostHabitOrderByRelationAggregateInput
+    routineHabits?: RoutineHabitOrderByRelationAggregateInput
   }
 
   export type HabitWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     id_userId?: HabitIdUserIdCompoundUniqueInput
+    userId_sourcePopularPostId?: HabitUserIdSourcePopularPostIdCompoundUniqueInput
     AND?: HabitWhereInput | HabitWhereInput[]
     OR?: HabitWhereInput[]
     NOT?: HabitWhereInput | HabitWhereInput[]
@@ -23071,14 +19575,16 @@ export namespace Prisma {
     goalAmount?: FloatFilter<"Habit"> | number
     goalUnit?: StringFilter<"Habit"> | string
     goalUnitCategory?: StringFilter<"Habit"> | string
-    dailyProgress?: FloatFilter<"Habit"> | number
     createdAt?: DateTimeFilter<"Habit"> | Date | string
     updatedAt?: DateTimeFilter<"Habit"> | Date | string
     userId?: StringFilter<"Habit"> | string
+    sourcePopularPostId?: StringNullableFilter<"Habit"> | string | null
+    dailyProgress?: FloatFilter<"Habit"> | number
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    routineHabits?: RoutineHabitListRelationFilter
     dailyProgressEntries?: HabitDailyProgressListRelationFilter
-  }, "id" | "id_userId">
+    post_habit?: PostHabitListRelationFilter
+    routineHabits?: RoutineHabitListRelationFilter
+  }, "id" | "id_userId" | "userId_sourcePopularPostId">
 
   export type HabitOrderByWithAggregationInput = {
     id?: SortOrder
@@ -23091,10 +19597,11 @@ export namespace Prisma {
     goalAmount?: SortOrder
     goalUnit?: SortOrder
     goalUnitCategory?: SortOrder
-    dailyProgress?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    sourcePopularPostId?: SortOrderInput | SortOrder
+    dailyProgress?: SortOrder
     _count?: HabitCountOrderByAggregateInput
     _avg?: HabitAvgOrderByAggregateInput
     _max?: HabitMaxOrderByAggregateInput
@@ -23116,10 +19623,11 @@ export namespace Prisma {
     goalAmount?: FloatWithAggregatesFilter<"Habit"> | number
     goalUnit?: StringWithAggregatesFilter<"Habit"> | string
     goalUnitCategory?: StringWithAggregatesFilter<"Habit"> | string
-    dailyProgress?: FloatWithAggregatesFilter<"Habit"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Habit"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Habit"> | Date | string
     userId?: StringWithAggregatesFilter<"Habit"> | string
+    sourcePopularPostId?: StringNullableWithAggregatesFilter<"Habit"> | string | null
+    dailyProgress?: FloatWithAggregatesFilter<"Habit"> | number
   }
 
   export type HabitDailyProgressWhereInput = {
@@ -23183,200 +19691,6 @@ export namespace Prisma {
     progress?: FloatWithAggregatesFilter<"HabitDailyProgress"> | number
     createdAt?: DateTimeWithAggregatesFilter<"HabitDailyProgress"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"HabitDailyProgress"> | Date | string
-  }
-
-  export type HabitReflectionWhereInput = {
-    AND?: HabitReflectionWhereInput | HabitReflectionWhereInput[]
-    OR?: HabitReflectionWhereInput[]
-    NOT?: HabitReflectionWhereInput | HabitReflectionWhereInput[]
-    id?: StringFilter<"HabitReflection"> | string
-    userId?: StringFilter<"HabitReflection"> | string
-    entryDate?: DateTimeFilter<"HabitReflection"> | Date | string
-    note?: StringFilter<"HabitReflection"> | string
-    createdAt?: DateTimeFilter<"HabitReflection"> | Date | string
-    updatedAt?: DateTimeFilter<"HabitReflection"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type HabitReflectionOrderByWithRelationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    entryDate?: SortOrder
-    note?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type HabitReflectionWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: HabitReflectionWhereInput | HabitReflectionWhereInput[]
-    OR?: HabitReflectionWhereInput[]
-    NOT?: HabitReflectionWhereInput | HabitReflectionWhereInput[]
-    userId?: StringFilter<"HabitReflection"> | string
-    entryDate?: DateTimeFilter<"HabitReflection"> | Date | string
-    note?: StringFilter<"HabitReflection"> | string
-    createdAt?: DateTimeFilter<"HabitReflection"> | Date | string
-    updatedAt?: DateTimeFilter<"HabitReflection"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
-
-  export type HabitReflectionOrderByWithAggregationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    entryDate?: SortOrder
-    note?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: HabitReflectionCountOrderByAggregateInput
-    _max?: HabitReflectionMaxOrderByAggregateInput
-    _min?: HabitReflectionMinOrderByAggregateInput
-  }
-
-  export type HabitReflectionScalarWhereWithAggregatesInput = {
-    AND?: HabitReflectionScalarWhereWithAggregatesInput | HabitReflectionScalarWhereWithAggregatesInput[]
-    OR?: HabitReflectionScalarWhereWithAggregatesInput[]
-    NOT?: HabitReflectionScalarWhereWithAggregatesInput | HabitReflectionScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"HabitReflection"> | string
-    userId?: StringWithAggregatesFilter<"HabitReflection"> | string
-    entryDate?: DateTimeWithAggregatesFilter<"HabitReflection"> | Date | string
-    note?: StringWithAggregatesFilter<"HabitReflection"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"HabitReflection"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"HabitReflection"> | Date | string
-  }
-
-  export type ShouldDoWhereInput = {
-    AND?: ShouldDoWhereInput | ShouldDoWhereInput[]
-    OR?: ShouldDoWhereInput[]
-    NOT?: ShouldDoWhereInput | ShouldDoWhereInput[]
-    id?: StringFilter<"ShouldDo"> | string
-    title?: StringFilter<"ShouldDo"> | string
-    description?: StringNullableFilter<"ShouldDo"> | string | null
-    iconKey?: StringNullableFilter<"ShouldDo"> | string | null
-    iconColor?: StringNullableFilter<"ShouldDo"> | string | null
-    likesCount?: IntFilter<"ShouldDo"> | number
-    userId?: StringFilter<"ShouldDo"> | string
-    createdAt?: DateTimeFilter<"ShouldDo"> | Date | string
-    updatedAt?: DateTimeFilter<"ShouldDo"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    likes?: ShouldDoLikeListRelationFilter
-  }
-
-  export type ShouldDoOrderByWithRelationInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrderInput | SortOrder
-    iconKey?: SortOrderInput | SortOrder
-    iconColor?: SortOrderInput | SortOrder
-    likesCount?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
-    likes?: ShouldDoLikeOrderByRelationAggregateInput
-  }
-
-  export type ShouldDoWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    AND?: ShouldDoWhereInput | ShouldDoWhereInput[]
-    OR?: ShouldDoWhereInput[]
-    NOT?: ShouldDoWhereInput | ShouldDoWhereInput[]
-    title?: StringFilter<"ShouldDo"> | string
-    description?: StringNullableFilter<"ShouldDo"> | string | null
-    iconKey?: StringNullableFilter<"ShouldDo"> | string | null
-    iconColor?: StringNullableFilter<"ShouldDo"> | string | null
-    likesCount?: IntFilter<"ShouldDo"> | number
-    userId?: StringFilter<"ShouldDo"> | string
-    createdAt?: DateTimeFilter<"ShouldDo"> | Date | string
-    updatedAt?: DateTimeFilter<"ShouldDo"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    likes?: ShouldDoLikeListRelationFilter
-  }, "id">
-
-  export type ShouldDoOrderByWithAggregationInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrderInput | SortOrder
-    iconKey?: SortOrderInput | SortOrder
-    iconColor?: SortOrderInput | SortOrder
-    likesCount?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: ShouldDoCountOrderByAggregateInput
-    _avg?: ShouldDoAvgOrderByAggregateInput
-    _max?: ShouldDoMaxOrderByAggregateInput
-    _min?: ShouldDoMinOrderByAggregateInput
-    _sum?: ShouldDoSumOrderByAggregateInput
-  }
-
-  export type ShouldDoScalarWhereWithAggregatesInput = {
-    AND?: ShouldDoScalarWhereWithAggregatesInput | ShouldDoScalarWhereWithAggregatesInput[]
-    OR?: ShouldDoScalarWhereWithAggregatesInput[]
-    NOT?: ShouldDoScalarWhereWithAggregatesInput | ShouldDoScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"ShouldDo"> | string
-    title?: StringWithAggregatesFilter<"ShouldDo"> | string
-    description?: StringNullableWithAggregatesFilter<"ShouldDo"> | string | null
-    iconKey?: StringNullableWithAggregatesFilter<"ShouldDo"> | string | null
-    iconColor?: StringNullableWithAggregatesFilter<"ShouldDo"> | string | null
-    likesCount?: IntWithAggregatesFilter<"ShouldDo"> | number
-    userId?: StringWithAggregatesFilter<"ShouldDo"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"ShouldDo"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"ShouldDo"> | Date | string
-  }
-
-  export type ShouldDoLikeWhereInput = {
-    AND?: ShouldDoLikeWhereInput | ShouldDoLikeWhereInput[]
-    OR?: ShouldDoLikeWhereInput[]
-    NOT?: ShouldDoLikeWhereInput | ShouldDoLikeWhereInput[]
-    id?: StringFilter<"ShouldDoLike"> | string
-    shouldDoId?: StringFilter<"ShouldDoLike"> | string
-    userId?: StringFilter<"ShouldDoLike"> | string
-    createdAt?: DateTimeFilter<"ShouldDoLike"> | Date | string
-    shouldDo?: XOR<ShouldDoScalarRelationFilter, ShouldDoWhereInput>
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type ShouldDoLikeOrderByWithRelationInput = {
-    id?: SortOrder
-    shouldDoId?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-    shouldDo?: ShouldDoOrderByWithRelationInput
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type ShouldDoLikeWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    shouldDoId_userId?: ShouldDoLikeShouldDoIdUserIdCompoundUniqueInput
-    AND?: ShouldDoLikeWhereInput | ShouldDoLikeWhereInput[]
-    OR?: ShouldDoLikeWhereInput[]
-    NOT?: ShouldDoLikeWhereInput | ShouldDoLikeWhereInput[]
-    shouldDoId?: StringFilter<"ShouldDoLike"> | string
-    userId?: StringFilter<"ShouldDoLike"> | string
-    createdAt?: DateTimeFilter<"ShouldDoLike"> | Date | string
-    shouldDo?: XOR<ShouldDoScalarRelationFilter, ShouldDoWhereInput>
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "shouldDoId_userId">
-
-  export type ShouldDoLikeOrderByWithAggregationInput = {
-    id?: SortOrder
-    shouldDoId?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-    _count?: ShouldDoLikeCountOrderByAggregateInput
-    _max?: ShouldDoLikeMaxOrderByAggregateInput
-    _min?: ShouldDoLikeMinOrderByAggregateInput
-  }
-
-  export type ShouldDoLikeScalarWhereWithAggregatesInput = {
-    AND?: ShouldDoLikeScalarWhereWithAggregatesInput | ShouldDoLikeScalarWhereWithAggregatesInput[]
-    OR?: ShouldDoLikeScalarWhereWithAggregatesInput[]
-    NOT?: ShouldDoLikeScalarWhereWithAggregatesInput | ShouldDoLikeScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"ShouldDoLike"> | string
-    shouldDoId?: StringWithAggregatesFilter<"ShouldDoLike"> | string
-    userId?: StringWithAggregatesFilter<"ShouldDoLike"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"ShouldDoLike"> | Date | string
   }
 
   export type RoutineWhereInput = {
@@ -23456,8 +19770,8 @@ export namespace Prisma {
     habitId?: StringFilter<"RoutineHabit"> | string
     position?: IntFilter<"RoutineHabit"> | number
     createdAt?: DateTimeFilter<"RoutineHabit"> | Date | string
-    routine?: XOR<RoutineScalarRelationFilter, RoutineWhereInput>
     habit?: XOR<HabitScalarRelationFilter, HabitWhereInput>
+    routine?: XOR<RoutineScalarRelationFilter, RoutineWhereInput>
   }
 
   export type RoutineHabitOrderByWithRelationInput = {
@@ -23466,8 +19780,8 @@ export namespace Prisma {
     habitId?: SortOrder
     position?: SortOrder
     createdAt?: SortOrder
-    routine?: RoutineOrderByWithRelationInput
     habit?: HabitOrderByWithRelationInput
+    routine?: RoutineOrderByWithRelationInput
   }
 
   export type RoutineHabitWhereUniqueInput = Prisma.AtLeast<{
@@ -23480,8 +19794,8 @@ export namespace Prisma {
     habitId?: StringFilter<"RoutineHabit"> | string
     position?: IntFilter<"RoutineHabit"> | number
     createdAt?: DateTimeFilter<"RoutineHabit"> | Date | string
-    routine?: XOR<RoutineScalarRelationFilter, RoutineWhereInput>
     habit?: XOR<HabitScalarRelationFilter, HabitWhereInput>
+    routine?: XOR<RoutineScalarRelationFilter, RoutineWhereInput>
   }, "id" | "routineId_habitId">
 
   export type RoutineHabitOrderByWithAggregationInput = {
@@ -23508,75 +19822,29 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"RoutineHabit"> | Date | string
   }
 
-  export type NotificationReadWhereInput = {
-    AND?: NotificationReadWhereInput | NotificationReadWhereInput[]
-    OR?: NotificationReadWhereInput[]
-    NOT?: NotificationReadWhereInput | NotificationReadWhereInput[]
-    id?: StringFilter<"NotificationRead"> | string
-    userId?: StringFilter<"NotificationRead"> | string
-    notificationId?: StringFilter<"NotificationRead"> | string
-    createdAt?: DateTimeFilter<"NotificationRead"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }
-
-  export type NotificationReadOrderByWithRelationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    notificationId?: SortOrder
-    createdAt?: SortOrder
-    user?: UserOrderByWithRelationInput
-  }
-
-  export type NotificationReadWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    userId_notificationId?: NotificationReadUserIdNotificationIdCompoundUniqueInput
-    AND?: NotificationReadWhereInput | NotificationReadWhereInput[]
-    OR?: NotificationReadWhereInput[]
-    NOT?: NotificationReadWhereInput | NotificationReadWhereInput[]
-    userId?: StringFilter<"NotificationRead"> | string
-    notificationId?: StringFilter<"NotificationRead"> | string
-    createdAt?: DateTimeFilter<"NotificationRead"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id" | "userId_notificationId">
-
-  export type NotificationReadOrderByWithAggregationInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    notificationId?: SortOrder
-    createdAt?: SortOrder
-    _count?: NotificationReadCountOrderByAggregateInput
-    _max?: NotificationReadMaxOrderByAggregateInput
-    _min?: NotificationReadMinOrderByAggregateInput
-  }
-
-  export type NotificationReadScalarWhereWithAggregatesInput = {
-    AND?: NotificationReadScalarWhereWithAggregatesInput | NotificationReadScalarWhereWithAggregatesInput[]
-    OR?: NotificationReadScalarWhereWithAggregatesInput[]
-    NOT?: NotificationReadScalarWhereWithAggregatesInput | NotificationReadScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"NotificationRead"> | string
-    userId?: StringWithAggregatesFilter<"NotificationRead"> | string
-    notificationId?: StringWithAggregatesFilter<"NotificationRead"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"NotificationRead"> | Date | string
-  }
-
   export type PostHabitWhereInput = {
     AND?: PostHabitWhereInput | PostHabitWhereInput[]
     OR?: PostHabitWhereInput[]
     NOT?: PostHabitWhereInput | PostHabitWhereInput[]
     id?: StringFilter<"PostHabit"> | string
     title?: StringFilter<"PostHabit"> | string
-    description?: StringNullableFilter<"PostHabit"> | string | null
+    summary?: StringNullableFilter<"PostHabit"> | string | null
+    highlight?: StringNullableFilter<"PostHabit"> | string | null
+    anchor?: StringNullableFilter<"PostHabit"> | string | null
+    duration?: StringNullableFilter<"PostHabit"> | string | null
     cadence?: StringFilter<"PostHabit"> | string
-    category?: StringNullableFilter<"PostHabit"> | string | null
-    timeOfDay?: StringNullableFilter<"PostHabit"> | string | null
-    reminder?: StringNullableFilter<"PostHabit"> | string | null
-    goalAmount?: FloatFilter<"PostHabit"> | number
-    goalUnit?: StringFilter<"PostHabit"> | string
-    goalUnitCategory?: StringFilter<"PostHabit"> | string
-    votesCount?: IntFilter<"PostHabit"> | number
+    category?: EnumHabitCategoryFilter<"PostHabit"> | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFilter<"PostHabit"> | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFilter<"PostHabit"> | $Enums.HabitCommitment
+    benefits?: StringNullableListFilter<"PostHabit">
+    steps?: StringNullableListFilter<"PostHabit">
+    guardrails?: StringNullableListFilter<"PostHabit">
+    habitId?: StringFilter<"PostHabit"> | string
     userId?: StringFilter<"PostHabit"> | string
     createdAt?: DateTimeFilter<"PostHabit"> | Date | string
     updatedAt?: DateTimeFilter<"PostHabit"> | Date | string
+    likesCount?: IntFilter<"PostHabit"> | number
+    habit?: XOR<HabitScalarRelationFilter, HabitWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     likes?: PostHabitLikeListRelationFilter
   }
@@ -23584,18 +19852,23 @@ export namespace Prisma {
   export type PostHabitOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrderInput | SortOrder
+    summary?: SortOrderInput | SortOrder
+    highlight?: SortOrderInput | SortOrder
+    anchor?: SortOrderInput | SortOrder
+    duration?: SortOrderInput | SortOrder
     cadence?: SortOrder
-    category?: SortOrderInput | SortOrder
-    timeOfDay?: SortOrderInput | SortOrder
-    reminder?: SortOrderInput | SortOrder
-    goalAmount?: SortOrder
-    goalUnit?: SortOrder
-    goalUnitCategory?: SortOrder
-    votesCount?: SortOrder
+    category?: SortOrder
+    timeWindow?: SortOrder
+    commitment?: SortOrder
+    benefits?: SortOrder
+    steps?: SortOrder
+    guardrails?: SortOrder
+    habitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    likesCount?: SortOrder
+    habit?: HabitOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
     likes?: PostHabitLikeOrderByRelationAggregateInput
   }
@@ -23606,18 +19879,23 @@ export namespace Prisma {
     OR?: PostHabitWhereInput[]
     NOT?: PostHabitWhereInput | PostHabitWhereInput[]
     title?: StringFilter<"PostHabit"> | string
-    description?: StringNullableFilter<"PostHabit"> | string | null
+    summary?: StringNullableFilter<"PostHabit"> | string | null
+    highlight?: StringNullableFilter<"PostHabit"> | string | null
+    anchor?: StringNullableFilter<"PostHabit"> | string | null
+    duration?: StringNullableFilter<"PostHabit"> | string | null
     cadence?: StringFilter<"PostHabit"> | string
-    category?: StringNullableFilter<"PostHabit"> | string | null
-    timeOfDay?: StringNullableFilter<"PostHabit"> | string | null
-    reminder?: StringNullableFilter<"PostHabit"> | string | null
-    goalAmount?: FloatFilter<"PostHabit"> | number
-    goalUnit?: StringFilter<"PostHabit"> | string
-    goalUnitCategory?: StringFilter<"PostHabit"> | string
-    votesCount?: IntFilter<"PostHabit"> | number
+    category?: EnumHabitCategoryFilter<"PostHabit"> | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFilter<"PostHabit"> | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFilter<"PostHabit"> | $Enums.HabitCommitment
+    benefits?: StringNullableListFilter<"PostHabit">
+    steps?: StringNullableListFilter<"PostHabit">
+    guardrails?: StringNullableListFilter<"PostHabit">
+    habitId?: StringFilter<"PostHabit"> | string
     userId?: StringFilter<"PostHabit"> | string
     createdAt?: DateTimeFilter<"PostHabit"> | Date | string
     updatedAt?: DateTimeFilter<"PostHabit"> | Date | string
+    likesCount?: IntFilter<"PostHabit"> | number
+    habit?: XOR<HabitScalarRelationFilter, HabitWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     likes?: PostHabitLikeListRelationFilter
   }, "id">
@@ -23625,18 +19903,22 @@ export namespace Prisma {
   export type PostHabitOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrderInput | SortOrder
+    summary?: SortOrderInput | SortOrder
+    highlight?: SortOrderInput | SortOrder
+    anchor?: SortOrderInput | SortOrder
+    duration?: SortOrderInput | SortOrder
     cadence?: SortOrder
-    category?: SortOrderInput | SortOrder
-    timeOfDay?: SortOrderInput | SortOrder
-    reminder?: SortOrderInput | SortOrder
-    goalAmount?: SortOrder
-    goalUnit?: SortOrder
-    goalUnitCategory?: SortOrder
-    votesCount?: SortOrder
+    category?: SortOrder
+    timeWindow?: SortOrder
+    commitment?: SortOrder
+    benefits?: SortOrder
+    steps?: SortOrder
+    guardrails?: SortOrder
+    habitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    likesCount?: SortOrder
     _count?: PostHabitCountOrderByAggregateInput
     _avg?: PostHabitAvgOrderByAggregateInput
     _max?: PostHabitMaxOrderByAggregateInput
@@ -23650,18 +19932,22 @@ export namespace Prisma {
     NOT?: PostHabitScalarWhereWithAggregatesInput | PostHabitScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PostHabit"> | string
     title?: StringWithAggregatesFilter<"PostHabit"> | string
-    description?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
+    summary?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
+    highlight?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
+    anchor?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
+    duration?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
     cadence?: StringWithAggregatesFilter<"PostHabit"> | string
-    category?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
-    timeOfDay?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
-    reminder?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
-    goalAmount?: FloatWithAggregatesFilter<"PostHabit"> | number
-    goalUnit?: StringWithAggregatesFilter<"PostHabit"> | string
-    goalUnitCategory?: StringWithAggregatesFilter<"PostHabit"> | string
-    votesCount?: IntWithAggregatesFilter<"PostHabit"> | number
+    category?: EnumHabitCategoryWithAggregatesFilter<"PostHabit"> | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowWithAggregatesFilter<"PostHabit"> | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentWithAggregatesFilter<"PostHabit"> | $Enums.HabitCommitment
+    benefits?: StringNullableListFilter<"PostHabit">
+    steps?: StringNullableListFilter<"PostHabit">
+    guardrails?: StringNullableListFilter<"PostHabit">
+    habitId?: StringWithAggregatesFilter<"PostHabit"> | string
     userId?: StringWithAggregatesFilter<"PostHabit"> | string
     createdAt?: DateTimeWithAggregatesFilter<"PostHabit"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PostHabit"> | Date | string
+    likesCount?: IntWithAggregatesFilter<"PostHabit"> | number
   }
 
   export type PostHabitLikeWhereInput = {
@@ -23718,32 +20004,79 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"PostHabitLike"> | Date | string
   }
 
+  export type notification_readWhereInput = {
+    AND?: notification_readWhereInput | notification_readWhereInput[]
+    OR?: notification_readWhereInput[]
+    NOT?: notification_readWhereInput | notification_readWhereInput[]
+    id?: StringFilter<"notification_read"> | string
+    userId?: StringFilter<"notification_read"> | string
+    notificationId?: StringFilter<"notification_read"> | string
+    createdAt?: DateTimeFilter<"notification_read"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type notification_readOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    notificationId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type notification_readWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_notificationId?: notification_readUserIdNotificationIdCompoundUniqueInput
+    AND?: notification_readWhereInput | notification_readWhereInput[]
+    OR?: notification_readWhereInput[]
+    NOT?: notification_readWhereInput | notification_readWhereInput[]
+    userId?: StringFilter<"notification_read"> | string
+    notificationId?: StringFilter<"notification_read"> | string
+    createdAt?: DateTimeFilter<"notification_read"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId_notificationId">
+
+  export type notification_readOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    notificationId?: SortOrder
+    createdAt?: SortOrder
+    _count?: notification_readCountOrderByAggregateInput
+    _max?: notification_readMaxOrderByAggregateInput
+    _min?: notification_readMinOrderByAggregateInput
+  }
+
+  export type notification_readScalarWhereWithAggregatesInput = {
+    AND?: notification_readScalarWhereWithAggregatesInput | notification_readScalarWhereWithAggregatesInput[]
+    OR?: notification_readScalarWhereWithAggregatesInput[]
+    NOT?: notification_readScalarWhereWithAggregatesInput | notification_readScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"notification_read"> | string
+    userId?: StringWithAggregatesFilter<"notification_read"> | string
+    notificationId?: StringWithAggregatesFilter<"notification_read"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"notification_read"> | Date | string
+  }
+
   export type UserCreateInput = {
     id: string
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
+    notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    routines?: RoutineCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    todos?: TodoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -23751,27 +20084,23 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
+    notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -23779,27 +20108,23 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    routines?: RoutineUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    todos?: TodoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -23807,27 +20132,23 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -23835,15 +20156,14 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -23851,15 +20171,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -23867,15 +20186,14 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SessionCreateInput = {
@@ -24135,16 +20453,19 @@ export namespace Prisma {
     category?: string | null
     priority?: $Enums.TodoPriority
     status?: $Enums.TodoStatus
-    tags?: string | null
-    iconName?: string
-    iconColor?: string
-    archived?: boolean
+    dueAt?: Date | string | null
+    durationMinutes?: number | null
     location?: string | null
-    scheduledTime?: string | null
+    reminder?: string | null
+    recurrence?: string | null
+    tags?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutTodosInput
+    iconColor?: string
+    iconName?: string
+    archived?: boolean
     collections?: CollectionTodoCreateNestedManyWithoutTodoInput
+    user: UserCreateNestedOneWithoutTodosInput
   }
 
   export type TodoUncheckedCreateInput = {
@@ -24154,15 +20475,18 @@ export namespace Prisma {
     category?: string | null
     priority?: $Enums.TodoPriority
     status?: $Enums.TodoStatus
-    tags?: string | null
-    iconName?: string
-    iconColor?: string
-    archived?: boolean
+    dueAt?: Date | string | null
+    durationMinutes?: number | null
     location?: string | null
-    scheduledTime?: string | null
+    reminder?: string | null
+    recurrence?: string | null
+    tags?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
+    iconColor?: string
+    iconName?: string
+    archived?: boolean
     collections?: CollectionTodoUncheckedCreateNestedManyWithoutTodoInput
   }
 
@@ -24173,16 +20497,19 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
     status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
-    tags?: NullableStringFieldUpdateOperationsInput | string | null
-    iconName?: StringFieldUpdateOperationsInput | string
-    iconColor?: StringFieldUpdateOperationsInput | string
-    archived?: BoolFieldUpdateOperationsInput | boolean
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    scheduledTime?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutTodosNestedInput
+    iconColor?: StringFieldUpdateOperationsInput | string
+    iconName?: StringFieldUpdateOperationsInput | string
+    archived?: BoolFieldUpdateOperationsInput | boolean
     collections?: CollectionTodoUpdateManyWithoutTodoNestedInput
+    user?: UserUpdateOneRequiredWithoutTodosNestedInput
   }
 
   export type TodoUncheckedUpdateInput = {
@@ -24192,15 +20519,18 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
     status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
-    tags?: NullableStringFieldUpdateOperationsInput | string | null
-    iconName?: StringFieldUpdateOperationsInput | string
-    iconColor?: StringFieldUpdateOperationsInput | string
-    archived?: BoolFieldUpdateOperationsInput | boolean
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    scheduledTime?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
+    iconColor?: StringFieldUpdateOperationsInput | string
+    iconName?: StringFieldUpdateOperationsInput | string
+    archived?: BoolFieldUpdateOperationsInput | boolean
     collections?: CollectionTodoUncheckedUpdateManyWithoutTodoNestedInput
   }
 
@@ -24211,15 +20541,18 @@ export namespace Prisma {
     category?: string | null
     priority?: $Enums.TodoPriority
     status?: $Enums.TodoStatus
-    tags?: string | null
-    iconName?: string
-    iconColor?: string
-    archived?: boolean
+    dueAt?: Date | string | null
+    durationMinutes?: number | null
     location?: string | null
-    scheduledTime?: string | null
+    reminder?: string | null
+    recurrence?: string | null
+    tags?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
+    iconColor?: string
+    iconName?: string
+    archived?: boolean
   }
 
   export type TodoUpdateManyMutationInput = {
@@ -24229,14 +20562,17 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
     status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
-    tags?: NullableStringFieldUpdateOperationsInput | string | null
-    iconName?: StringFieldUpdateOperationsInput | string
-    iconColor?: StringFieldUpdateOperationsInput | string
-    archived?: BoolFieldUpdateOperationsInput | boolean
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    scheduledTime?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    iconColor?: StringFieldUpdateOperationsInput | string
+    iconName?: StringFieldUpdateOperationsInput | string
+    archived?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type TodoUncheckedUpdateManyInput = {
@@ -24246,15 +20582,18 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
     status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
-    tags?: NullableStringFieldUpdateOperationsInput | string | null
-    iconName?: StringFieldUpdateOperationsInput | string
-    iconColor?: StringFieldUpdateOperationsInput | string
-    archived?: BoolFieldUpdateOperationsInput | boolean
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    scheduledTime?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
+    iconColor?: StringFieldUpdateOperationsInput | string
+    iconName?: StringFieldUpdateOperationsInput | string
+    archived?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CollectionCreateInput = {
@@ -24381,12 +20720,14 @@ export namespace Prisma {
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
-    dailyProgress?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
     user: UserCreateNestedOneWithoutHabitsInput
-    routineHabits?: RoutineHabitCreateNestedManyWithoutHabitInput
     dailyProgressEntries?: HabitDailyProgressCreateNestedManyWithoutHabitInput
+    post_habit?: PostHabitCreateNestedManyWithoutHabitInput
+    routineHabits?: RoutineHabitCreateNestedManyWithoutHabitInput
   }
 
   export type HabitUncheckedCreateInput = {
@@ -24400,12 +20741,14 @@ export namespace Prisma {
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
-    dailyProgress?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
-    routineHabits?: RoutineHabitUncheckedCreateNestedManyWithoutHabitInput
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
     dailyProgressEntries?: HabitDailyProgressUncheckedCreateNestedManyWithoutHabitInput
+    post_habit?: PostHabitUncheckedCreateNestedManyWithoutHabitInput
+    routineHabits?: RoutineHabitUncheckedCreateNestedManyWithoutHabitInput
   }
 
   export type HabitUpdateInput = {
@@ -24419,12 +20762,14 @@ export namespace Prisma {
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    dailyProgress?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
     user?: UserUpdateOneRequiredWithoutHabitsNestedInput
-    routineHabits?: RoutineHabitUpdateManyWithoutHabitNestedInput
     dailyProgressEntries?: HabitDailyProgressUpdateManyWithoutHabitNestedInput
+    post_habit?: PostHabitUpdateManyWithoutHabitNestedInput
+    routineHabits?: RoutineHabitUpdateManyWithoutHabitNestedInput
   }
 
   export type HabitUncheckedUpdateInput = {
@@ -24438,12 +20783,14 @@ export namespace Prisma {
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    dailyProgress?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
-    routineHabits?: RoutineHabitUncheckedUpdateManyWithoutHabitNestedInput
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
     dailyProgressEntries?: HabitDailyProgressUncheckedUpdateManyWithoutHabitNestedInput
+    post_habit?: PostHabitUncheckedUpdateManyWithoutHabitNestedInput
+    routineHabits?: RoutineHabitUncheckedUpdateManyWithoutHabitNestedInput
   }
 
   export type HabitCreateManyInput = {
@@ -24457,10 +20804,11 @@ export namespace Prisma {
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
-    dailyProgress?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
   }
 
   export type HabitUpdateManyMutationInput = {
@@ -24474,9 +20822,10 @@ export namespace Prisma {
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    dailyProgress?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
   }
 
   export type HabitUncheckedUpdateManyInput = {
@@ -24490,10 +20839,11 @@ export namespace Prisma {
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    dailyProgress?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
   }
 
   export type HabitDailyProgressCreateInput = {
@@ -24556,202 +20906,6 @@ export namespace Prisma {
     progress?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type HabitReflectionCreateInput = {
-    id?: string
-    entryDate: Date | string
-    note: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutHabitReflectionsInput
-  }
-
-  export type HabitReflectionUncheckedCreateInput = {
-    id?: string
-    userId: string
-    entryDate: Date | string
-    note: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type HabitReflectionUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    entryDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    note?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutHabitReflectionsNestedInput
-  }
-
-  export type HabitReflectionUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    entryDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    note?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type HabitReflectionCreateManyInput = {
-    id?: string
-    userId: string
-    entryDate: Date | string
-    note: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type HabitReflectionUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    entryDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    note?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type HabitReflectionUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    entryDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    note?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ShouldDoCreateInput = {
-    id?: string
-    title: string
-    description?: string | null
-    iconKey?: string | null
-    iconColor?: string | null
-    likesCount?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutShouldDosInput
-    likes?: ShouldDoLikeCreateNestedManyWithoutShouldDoInput
-  }
-
-  export type ShouldDoUncheckedCreateInput = {
-    id?: string
-    title: string
-    description?: string | null
-    iconKey?: string | null
-    iconColor?: string | null
-    likesCount?: number
-    userId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    likes?: ShouldDoLikeUncheckedCreateNestedManyWithoutShouldDoInput
-  }
-
-  export type ShouldDoUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconKey?: NullableStringFieldUpdateOperationsInput | string | null
-    iconColor?: NullableStringFieldUpdateOperationsInput | string | null
-    likesCount?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutShouldDosNestedInput
-    likes?: ShouldDoLikeUpdateManyWithoutShouldDoNestedInput
-  }
-
-  export type ShouldDoUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconKey?: NullableStringFieldUpdateOperationsInput | string | null
-    iconColor?: NullableStringFieldUpdateOperationsInput | string | null
-    likesCount?: IntFieldUpdateOperationsInput | number
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likes?: ShouldDoLikeUncheckedUpdateManyWithoutShouldDoNestedInput
-  }
-
-  export type ShouldDoCreateManyInput = {
-    id?: string
-    title: string
-    description?: string | null
-    iconKey?: string | null
-    iconColor?: string | null
-    likesCount?: number
-    userId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ShouldDoUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconKey?: NullableStringFieldUpdateOperationsInput | string | null
-    iconColor?: NullableStringFieldUpdateOperationsInput | string | null
-    likesCount?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ShouldDoUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconKey?: NullableStringFieldUpdateOperationsInput | string | null
-    iconColor?: NullableStringFieldUpdateOperationsInput | string | null
-    likesCount?: IntFieldUpdateOperationsInput | number
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ShouldDoLikeCreateInput = {
-    id?: string
-    createdAt?: Date | string
-    shouldDo: ShouldDoCreateNestedOneWithoutLikesInput
-    user: UserCreateNestedOneWithoutShouldDoLikesInput
-  }
-
-  export type ShouldDoLikeUncheckedCreateInput = {
-    id?: string
-    shouldDoId: string
-    userId: string
-    createdAt?: Date | string
-  }
-
-  export type ShouldDoLikeUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    shouldDo?: ShouldDoUpdateOneRequiredWithoutLikesNestedInput
-    user?: UserUpdateOneRequiredWithoutShouldDoLikesNestedInput
-  }
-
-  export type ShouldDoLikeUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    shouldDoId?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ShouldDoLikeCreateManyInput = {
-    id?: string
-    shouldDoId: string
-    userId: string
-    createdAt?: Date | string
-  }
-
-  export type ShouldDoLikeUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ShouldDoLikeUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    shouldDoId?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RoutineCreateInput = {
@@ -24831,8 +20985,8 @@ export namespace Prisma {
     id?: string
     position?: number
     createdAt?: Date | string
-    routine: RoutineCreateNestedOneWithoutHabitsInput
     habit: HabitCreateNestedOneWithoutRoutineHabitsInput
+    routine: RoutineCreateNestedOneWithoutHabitsInput
   }
 
   export type RoutineHabitUncheckedCreateInput = {
@@ -24847,8 +21001,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     position?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    routine?: RoutineUpdateOneRequiredWithoutHabitsNestedInput
     habit?: HabitUpdateOneRequiredWithoutRoutineHabitsNestedInput
+    routine?: RoutineUpdateOneRequiredWithoutHabitsNestedInput
   }
 
   export type RoutineHabitUncheckedUpdateInput = {
@@ -24881,68 +21035,24 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type NotificationReadCreateInput = {
-    id?: string
-    notificationId: string
-    createdAt?: Date | string
-    user: UserCreateNestedOneWithoutNotificationReadsInput
-  }
-
-  export type NotificationReadUncheckedCreateInput = {
-    id?: string
-    userId: string
-    notificationId: string
-    createdAt?: Date | string
-  }
-
-  export type NotificationReadUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    notificationId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutNotificationReadsNestedInput
-  }
-
-  export type NotificationReadUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    notificationId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationReadCreateManyInput = {
-    id?: string
-    userId: string
-    notificationId: string
-    createdAt?: Date | string
-  }
-
-  export type NotificationReadUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    notificationId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationReadUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    notificationId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type PostHabitCreateInput = {
     id?: string
     title: string
-    description?: string | null
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
     cadence: string
-    category?: string | null
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    votesCount?: number
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    likesCount?: number
+    habit: HabitCreateNestedOneWithoutPost_habitInput
     user: UserCreateNestedOneWithoutPostHabitsInput
     likes?: PostHabitLikeCreateNestedManyWithoutPostHabitInput
   }
@@ -24950,35 +21060,43 @@ export namespace Prisma {
   export type PostHabitUncheckedCreateInput = {
     id?: string
     title: string
-    description?: string | null
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
     cadence: string
-    category?: string | null
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    votesCount?: number
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
+    habitId: string
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    likesCount?: number
     likes?: PostHabitLikeUncheckedCreateNestedManyWithoutPostHabitInput
   }
 
   export type PostHabitUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    votesCount?: IntFieldUpdateOperationsInput | number
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
+    habit?: HabitUpdateOneRequiredWithoutPost_habitNestedInput
     user?: UserUpdateOneRequiredWithoutPostHabitsNestedInput
     likes?: PostHabitLikeUpdateManyWithoutPostHabitNestedInput
   }
@@ -24986,69 +21104,84 @@ export namespace Prisma {
   export type PostHabitUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    votesCount?: IntFieldUpdateOperationsInput | number
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
+    habitId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
     likes?: PostHabitLikeUncheckedUpdateManyWithoutPostHabitNestedInput
   }
 
   export type PostHabitCreateManyInput = {
     id?: string
     title: string
-    description?: string | null
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
     cadence: string
-    category?: string | null
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    votesCount?: number
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
+    habitId: string
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    likesCount?: number
   }
 
   export type PostHabitUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    votesCount?: IntFieldUpdateOperationsInput | number
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostHabitUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    votesCount?: IntFieldUpdateOperationsInput | number
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
+    habitId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostHabitLikeCreateInput = {
@@ -25098,6 +21231,54 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type notification_readCreateInput = {
+    id: string
+    notificationId: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutNotification_readInput
+  }
+
+  export type notification_readUncheckedCreateInput = {
+    id: string
+    userId: string
+    notificationId: string
+    createdAt?: Date | string
+  }
+
+  export type notification_readUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    notificationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotification_readNestedInput
+  }
+
+  export type notification_readUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    notificationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type notification_readCreateManyInput = {
+    id: string
+    userId: string
+    notificationId: string
+    createdAt?: Date | string
+  }
+
+  export type notification_readUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    notificationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type notification_readUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    notificationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -25116,21 +21297,6 @@ export namespace Prisma {
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -25155,10 +21321,19 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type SessionListRelationFilter = {
-    every?: SessionWhereInput
-    some?: SessionWhereInput
-    none?: SessionWhereInput
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type AccountListRelationFilter = {
@@ -25167,10 +21342,10 @@ export namespace Prisma {
     none?: AccountWhereInput
   }
 
-  export type TodoListRelationFilter = {
-    every?: TodoWhereInput
-    some?: TodoWhereInput
-    none?: TodoWhereInput
+  export type CollectionListRelationFilter = {
+    every?: CollectionWhereInput
+    some?: CollectionWhereInput
+    none?: CollectionWhereInput
   }
 
   export type HabitListRelationFilter = {
@@ -25179,40 +21354,10 @@ export namespace Prisma {
     none?: HabitWhereInput
   }
 
-  export type HabitReflectionListRelationFilter = {
-    every?: HabitReflectionWhereInput
-    some?: HabitReflectionWhereInput
-    none?: HabitReflectionWhereInput
-  }
-
-  export type CollectionListRelationFilter = {
-    every?: CollectionWhereInput
-    some?: CollectionWhereInput
-    none?: CollectionWhereInput
-  }
-
-  export type RoutineListRelationFilter = {
-    every?: RoutineWhereInput
-    some?: RoutineWhereInput
-    none?: RoutineWhereInput
-  }
-
-  export type ShouldDoListRelationFilter = {
-    every?: ShouldDoWhereInput
-    some?: ShouldDoWhereInput
-    none?: ShouldDoWhereInput
-  }
-
-  export type ShouldDoLikeListRelationFilter = {
-    every?: ShouldDoLikeWhereInput
-    some?: ShouldDoLikeWhereInput
-    none?: ShouldDoLikeWhereInput
-  }
-
-  export type NotificationReadListRelationFilter = {
-    every?: NotificationReadWhereInput
-    some?: NotificationReadWhereInput
-    none?: NotificationReadWhereInput
+  export type Notification_readListRelationFilter = {
+    every?: notification_readWhereInput
+    some?: notification_readWhereInput
+    none?: notification_readWhereInput
   }
 
   export type PostHabitListRelationFilter = {
@@ -25227,28 +21372,30 @@ export namespace Prisma {
     none?: PostHabitLikeWhereInput
   }
 
+  export type RoutineListRelationFilter = {
+    every?: RoutineWhereInput
+    some?: RoutineWhereInput
+    none?: RoutineWhereInput
+  }
+
+  export type SessionListRelationFilter = {
+    every?: SessionWhereInput
+    some?: SessionWhereInput
+    none?: SessionWhereInput
+  }
+
+  export type TodoListRelationFilter = {
+    every?: TodoWhereInput
+    some?: TodoWhereInput
+    none?: TodoWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
-  export type SessionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type AccountOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type TodoOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type HabitOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type HabitReflectionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25256,19 +21403,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type RoutineOrderByRelationAggregateInput = {
+  export type HabitOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type ShouldDoOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ShouldDoLikeOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type NotificationReadOrderByRelationAggregateInput = {
+  export type notification_readOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -25280,20 +21419,31 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type RoutineOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SessionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TodoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
-    image?: SortOrder
-    username?: SortOrder
-    focusArea?: SortOrder
-    location?: SortOrder
-    bio?: SortOrder
-    privateAccount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrder
+    privateAccount?: SortOrder
+    username?: SortOrder
+    focusArea?: SortOrder
+    bio?: SortOrder
+    location?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -25305,15 +21455,14 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
-    image?: SortOrder
-    username?: SortOrder
-    focusArea?: SortOrder
-    location?: SortOrder
-    bio?: SortOrder
-    privateAccount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrder
+    privateAccount?: SortOrder
+    username?: SortOrder
+    focusArea?: SortOrder
+    bio?: SortOrder
+    location?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -25321,15 +21470,14 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     emailVerified?: SortOrder
-    image?: SortOrder
-    username?: SortOrder
-    focusArea?: SortOrder
-    location?: SortOrder
-    bio?: SortOrder
-    privateAccount?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrder
+    privateAccount?: SortOrder
+    username?: SortOrder
+    focusArea?: SortOrder
+    bio?: SortOrder
+    location?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -25362,24 +21510,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -25408,6 +21538,24 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type UserScalarRelationFilter = {
@@ -25584,15 +21732,22 @@ export namespace Prisma {
     category?: SortOrder
     priority?: SortOrder
     status?: SortOrder
-    tags?: SortOrder
-    iconName?: SortOrder
-    iconColor?: SortOrder
-    archived?: SortOrder
+    dueAt?: SortOrder
+    durationMinutes?: SortOrder
     location?: SortOrder
-    scheduledTime?: SortOrder
+    reminder?: SortOrder
+    recurrence?: SortOrder
+    tags?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    iconColor?: SortOrder
+    iconName?: SortOrder
+    archived?: SortOrder
+  }
+
+  export type TodoAvgOrderByAggregateInput = {
+    durationMinutes?: SortOrder
   }
 
   export type TodoMaxOrderByAggregateInput = {
@@ -25602,15 +21757,18 @@ export namespace Prisma {
     category?: SortOrder
     priority?: SortOrder
     status?: SortOrder
-    tags?: SortOrder
-    iconName?: SortOrder
-    iconColor?: SortOrder
-    archived?: SortOrder
+    dueAt?: SortOrder
+    durationMinutes?: SortOrder
     location?: SortOrder
-    scheduledTime?: SortOrder
+    reminder?: SortOrder
+    recurrence?: SortOrder
+    tags?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    iconColor?: SortOrder
+    iconName?: SortOrder
+    archived?: SortOrder
   }
 
   export type TodoMinOrderByAggregateInput = {
@@ -25620,15 +21778,22 @@ export namespace Prisma {
     category?: SortOrder
     priority?: SortOrder
     status?: SortOrder
-    tags?: SortOrder
-    iconName?: SortOrder
-    iconColor?: SortOrder
-    archived?: SortOrder
+    dueAt?: SortOrder
+    durationMinutes?: SortOrder
     location?: SortOrder
-    scheduledTime?: SortOrder
+    reminder?: SortOrder
+    recurrence?: SortOrder
+    tags?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    iconColor?: SortOrder
+    iconName?: SortOrder
+    archived?: SortOrder
+  }
+
+  export type TodoSumOrderByAggregateInput = {
+    durationMinutes?: SortOrder
   }
 
   export type EnumTodoPriorityWithAggregatesFilter<$PrismaModel = never> = {
@@ -25725,29 +21890,34 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type RoutineHabitListRelationFilter = {
-    every?: RoutineHabitWhereInput
-    some?: RoutineHabitWhereInput
-    none?: RoutineHabitWhereInput
-  }
-
   export type HabitDailyProgressListRelationFilter = {
     every?: HabitDailyProgressWhereInput
     some?: HabitDailyProgressWhereInput
     none?: HabitDailyProgressWhereInput
   }
 
-  export type RoutineHabitOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type RoutineHabitListRelationFilter = {
+    every?: RoutineHabitWhereInput
+    some?: RoutineHabitWhereInput
+    none?: RoutineHabitWhereInput
   }
 
   export type HabitDailyProgressOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
+  export type RoutineHabitOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type HabitIdUserIdCompoundUniqueInput = {
     id: string
     userId: string
+  }
+
+  export type HabitUserIdSourcePopularPostIdCompoundUniqueInput = {
+    userId: string
+    sourcePopularPostId: string
   }
 
   export type HabitCountOrderByAggregateInput = {
@@ -25761,10 +21931,11 @@ export namespace Prisma {
     goalAmount?: SortOrder
     goalUnit?: SortOrder
     goalUnitCategory?: SortOrder
-    dailyProgress?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    sourcePopularPostId?: SortOrder
+    dailyProgress?: SortOrder
   }
 
   export type HabitAvgOrderByAggregateInput = {
@@ -25783,10 +21954,11 @@ export namespace Prisma {
     goalAmount?: SortOrder
     goalUnit?: SortOrder
     goalUnitCategory?: SortOrder
-    dailyProgress?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    sourcePopularPostId?: SortOrder
+    dailyProgress?: SortOrder
   }
 
   export type HabitMinOrderByAggregateInput = {
@@ -25800,10 +21972,11 @@ export namespace Prisma {
     goalAmount?: SortOrder
     goalUnit?: SortOrder
     goalUnitCategory?: SortOrder
-    dailyProgress?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+    sourcePopularPostId?: SortOrder
+    dailyProgress?: SortOrder
   }
 
   export type HabitSumOrderByAggregateInput = {
@@ -25872,135 +22045,6 @@ export namespace Prisma {
     progress?: SortOrder
   }
 
-  export type HabitReflectionCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    entryDate?: SortOrder
-    note?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type HabitReflectionMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    entryDate?: SortOrder
-    note?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type HabitReflectionMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    entryDate?: SortOrder
-    note?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type ShouldDoCountOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    iconKey?: SortOrder
-    iconColor?: SortOrder
-    likesCount?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ShouldDoAvgOrderByAggregateInput = {
-    likesCount?: SortOrder
-  }
-
-  export type ShouldDoMaxOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    iconKey?: SortOrder
-    iconColor?: SortOrder
-    likesCount?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ShouldDoMinOrderByAggregateInput = {
-    id?: SortOrder
-    title?: SortOrder
-    description?: SortOrder
-    iconKey?: SortOrder
-    iconColor?: SortOrder
-    likesCount?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type ShouldDoSumOrderByAggregateInput = {
-    likesCount?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type ShouldDoScalarRelationFilter = {
-    is?: ShouldDoWhereInput
-    isNot?: ShouldDoWhereInput
-  }
-
-  export type ShouldDoLikeShouldDoIdUserIdCompoundUniqueInput = {
-    shouldDoId: string
-    userId: string
-  }
-
-  export type ShouldDoLikeCountOrderByAggregateInput = {
-    id?: SortOrder
-    shouldDoId?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type ShouldDoLikeMaxOrderByAggregateInput = {
-    id?: SortOrder
-    shouldDoId?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-  }
-
-  export type ShouldDoLikeMinOrderByAggregateInput = {
-    id?: SortOrder
-    shouldDoId?: SortOrder
-    userId?: SortOrder
-    createdAt?: SortOrder
-  }
-
   export type RoutineCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -26029,6 +22073,17 @@ export namespace Prisma {
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type RoutineScalarRelationFilter = {
@@ -26073,91 +22128,144 @@ export namespace Prisma {
     position?: SortOrder
   }
 
-  export type NotificationReadUserIdNotificationIdCompoundUniqueInput = {
-    userId: string
-    notificationId: string
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NotificationReadCountOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    notificationId?: SortOrder
-    createdAt?: SortOrder
+  export type EnumHabitCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitCategory | EnumHabitCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitCategory[] | ListEnumHabitCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitCategory[] | ListEnumHabitCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitCategoryFilter<$PrismaModel> | $Enums.HabitCategory
   }
 
-  export type NotificationReadMaxOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    notificationId?: SortOrder
-    createdAt?: SortOrder
+  export type EnumHabitTimeWindowFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitTimeWindow | EnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitTimeWindowFilter<$PrismaModel> | $Enums.HabitTimeWindow
   }
 
-  export type NotificationReadMinOrderByAggregateInput = {
-    id?: SortOrder
-    userId?: SortOrder
-    notificationId?: SortOrder
-    createdAt?: SortOrder
+  export type EnumHabitCommitmentFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitCommitment | EnumHabitCommitmentFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitCommitmentFilter<$PrismaModel> | $Enums.HabitCommitment
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
   }
 
   export type PostHabitCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    summary?: SortOrder
+    highlight?: SortOrder
+    anchor?: SortOrder
+    duration?: SortOrder
     cadence?: SortOrder
     category?: SortOrder
-    timeOfDay?: SortOrder
-    reminder?: SortOrder
-    goalAmount?: SortOrder
-    goalUnit?: SortOrder
-    goalUnitCategory?: SortOrder
-    votesCount?: SortOrder
+    timeWindow?: SortOrder
+    commitment?: SortOrder
+    benefits?: SortOrder
+    steps?: SortOrder
+    guardrails?: SortOrder
+    habitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    likesCount?: SortOrder
   }
 
   export type PostHabitAvgOrderByAggregateInput = {
-    goalAmount?: SortOrder
-    votesCount?: SortOrder
+    likesCount?: SortOrder
   }
 
   export type PostHabitMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    summary?: SortOrder
+    highlight?: SortOrder
+    anchor?: SortOrder
+    duration?: SortOrder
     cadence?: SortOrder
     category?: SortOrder
-    timeOfDay?: SortOrder
-    reminder?: SortOrder
-    goalAmount?: SortOrder
-    goalUnit?: SortOrder
-    goalUnitCategory?: SortOrder
-    votesCount?: SortOrder
+    timeWindow?: SortOrder
+    commitment?: SortOrder
+    habitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    likesCount?: SortOrder
   }
 
   export type PostHabitMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    summary?: SortOrder
+    highlight?: SortOrder
+    anchor?: SortOrder
+    duration?: SortOrder
     cadence?: SortOrder
     category?: SortOrder
-    timeOfDay?: SortOrder
-    reminder?: SortOrder
-    goalAmount?: SortOrder
-    goalUnit?: SortOrder
-    goalUnitCategory?: SortOrder
-    votesCount?: SortOrder
+    timeWindow?: SortOrder
+    commitment?: SortOrder
+    habitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    likesCount?: SortOrder
   }
 
   export type PostHabitSumOrderByAggregateInput = {
-    goalAmount?: SortOrder
-    votesCount?: SortOrder
+    likesCount?: SortOrder
+  }
+
+  export type EnumHabitCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitCategory | EnumHabitCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitCategory[] | ListEnumHabitCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitCategory[] | ListEnumHabitCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitCategoryWithAggregatesFilter<$PrismaModel> | $Enums.HabitCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHabitCategoryFilter<$PrismaModel>
+    _max?: NestedEnumHabitCategoryFilter<$PrismaModel>
+  }
+
+  export type EnumHabitTimeWindowWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitTimeWindow | EnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitTimeWindowWithAggregatesFilter<$PrismaModel> | $Enums.HabitTimeWindow
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHabitTimeWindowFilter<$PrismaModel>
+    _max?: NestedEnumHabitTimeWindowFilter<$PrismaModel>
+  }
+
+  export type EnumHabitCommitmentWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitCommitment | EnumHabitCommitmentFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitCommitmentWithAggregatesFilter<$PrismaModel> | $Enums.HabitCommitment
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHabitCommitmentFilter<$PrismaModel>
+    _max?: NestedEnumHabitCommitmentFilter<$PrismaModel>
   }
 
   export type PostHabitScalarRelationFilter = {
@@ -26191,11 +22299,30 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type SessionCreateNestedManyWithoutUserInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  export type notification_readUserIdNotificationIdCompoundUniqueInput = {
+    userId: string
+    notificationId: string
+  }
+
+  export type notification_readCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    notificationId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type notification_readMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    notificationId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type notification_readMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    notificationId?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -26205,11 +22332,11 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
   }
 
-  export type TodoCreateNestedManyWithoutUserInput = {
-    create?: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput> | TodoCreateWithoutUserInput[] | TodoUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TodoCreateOrConnectWithoutUserInput | TodoCreateOrConnectWithoutUserInput[]
-    createMany?: TodoCreateManyUserInputEnvelope
-    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+  export type CollectionCreateNestedManyWithoutUserInput = {
+    create?: XOR<CollectionCreateWithoutUserInput, CollectionUncheckedCreateWithoutUserInput> | CollectionCreateWithoutUserInput[] | CollectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput | CollectionCreateOrConnectWithoutUserInput[]
+    createMany?: CollectionCreateManyUserInputEnvelope
+    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
   }
 
   export type HabitCreateNestedManyWithoutUserInput = {
@@ -26219,46 +22346,11 @@ export namespace Prisma {
     connect?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
   }
 
-  export type HabitReflectionCreateNestedManyWithoutUserInput = {
-    create?: XOR<HabitReflectionCreateWithoutUserInput, HabitReflectionUncheckedCreateWithoutUserInput> | HabitReflectionCreateWithoutUserInput[] | HabitReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HabitReflectionCreateOrConnectWithoutUserInput | HabitReflectionCreateOrConnectWithoutUserInput[]
-    createMany?: HabitReflectionCreateManyUserInputEnvelope
-    connect?: HabitReflectionWhereUniqueInput | HabitReflectionWhereUniqueInput[]
-  }
-
-  export type CollectionCreateNestedManyWithoutUserInput = {
-    create?: XOR<CollectionCreateWithoutUserInput, CollectionUncheckedCreateWithoutUserInput> | CollectionCreateWithoutUserInput[] | CollectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput | CollectionCreateOrConnectWithoutUserInput[]
-    createMany?: CollectionCreateManyUserInputEnvelope
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
-  }
-
-  export type RoutineCreateNestedManyWithoutUserInput = {
-    create?: XOR<RoutineCreateWithoutUserInput, RoutineUncheckedCreateWithoutUserInput> | RoutineCreateWithoutUserInput[] | RoutineUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RoutineCreateOrConnectWithoutUserInput | RoutineCreateOrConnectWithoutUserInput[]
-    createMany?: RoutineCreateManyUserInputEnvelope
-    connect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
-  }
-
-  export type ShouldDoCreateNestedManyWithoutUserInput = {
-    create?: XOR<ShouldDoCreateWithoutUserInput, ShouldDoUncheckedCreateWithoutUserInput> | ShouldDoCreateWithoutUserInput[] | ShouldDoUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShouldDoCreateOrConnectWithoutUserInput | ShouldDoCreateOrConnectWithoutUserInput[]
-    createMany?: ShouldDoCreateManyUserInputEnvelope
-    connect?: ShouldDoWhereUniqueInput | ShouldDoWhereUniqueInput[]
-  }
-
-  export type ShouldDoLikeCreateNestedManyWithoutUserInput = {
-    create?: XOR<ShouldDoLikeCreateWithoutUserInput, ShouldDoLikeUncheckedCreateWithoutUserInput> | ShouldDoLikeCreateWithoutUserInput[] | ShouldDoLikeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShouldDoLikeCreateOrConnectWithoutUserInput | ShouldDoLikeCreateOrConnectWithoutUserInput[]
-    createMany?: ShouldDoLikeCreateManyUserInputEnvelope
-    connect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-  }
-
-  export type NotificationReadCreateNestedManyWithoutUserInput = {
-    create?: XOR<NotificationReadCreateWithoutUserInput, NotificationReadUncheckedCreateWithoutUserInput> | NotificationReadCreateWithoutUserInput[] | NotificationReadUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationReadCreateOrConnectWithoutUserInput | NotificationReadCreateOrConnectWithoutUserInput[]
-    createMany?: NotificationReadCreateManyUserInputEnvelope
-    connect?: NotificationReadWhereUniqueInput | NotificationReadWhereUniqueInput[]
+  export type notification_readCreateNestedManyWithoutUserInput = {
+    create?: XOR<notification_readCreateWithoutUserInput, notification_readUncheckedCreateWithoutUserInput> | notification_readCreateWithoutUserInput[] | notification_readUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: notification_readCreateOrConnectWithoutUserInput | notification_readCreateOrConnectWithoutUserInput[]
+    createMany?: notification_readCreateManyUserInputEnvelope
+    connect?: notification_readWhereUniqueInput | notification_readWhereUniqueInput[]
   }
 
   export type PostHabitCreateNestedManyWithoutUserInput = {
@@ -26275,11 +22367,25 @@ export namespace Prisma {
     connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
   }
 
-  export type SessionUncheckedCreateNestedManyWithoutUserInput = {
+  export type RoutineCreateNestedManyWithoutUserInput = {
+    create?: XOR<RoutineCreateWithoutUserInput, RoutineUncheckedCreateWithoutUserInput> | RoutineCreateWithoutUserInput[] | RoutineUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RoutineCreateOrConnectWithoutUserInput | RoutineCreateOrConnectWithoutUserInput[]
+    createMany?: RoutineCreateManyUserInputEnvelope
+    connect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
+  }
+
+  export type SessionCreateNestedManyWithoutUserInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     createMany?: SessionCreateManyUserInputEnvelope
     connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type TodoCreateNestedManyWithoutUserInput = {
+    create?: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput> | TodoCreateWithoutUserInput[] | TodoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutUserInput | TodoCreateOrConnectWithoutUserInput[]
+    createMany?: TodoCreateManyUserInputEnvelope
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
   }
 
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
@@ -26289,11 +22395,11 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput | AccountWhereUniqueInput[]
   }
 
-  export type TodoUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput> | TodoCreateWithoutUserInput[] | TodoUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TodoCreateOrConnectWithoutUserInput | TodoCreateOrConnectWithoutUserInput[]
-    createMany?: TodoCreateManyUserInputEnvelope
-    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+  export type CollectionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<CollectionCreateWithoutUserInput, CollectionUncheckedCreateWithoutUserInput> | CollectionCreateWithoutUserInput[] | CollectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput | CollectionCreateOrConnectWithoutUserInput[]
+    createMany?: CollectionCreateManyUserInputEnvelope
+    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
   }
 
   export type HabitUncheckedCreateNestedManyWithoutUserInput = {
@@ -26303,46 +22409,11 @@ export namespace Prisma {
     connect?: HabitWhereUniqueInput | HabitWhereUniqueInput[]
   }
 
-  export type HabitReflectionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<HabitReflectionCreateWithoutUserInput, HabitReflectionUncheckedCreateWithoutUserInput> | HabitReflectionCreateWithoutUserInput[] | HabitReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HabitReflectionCreateOrConnectWithoutUserInput | HabitReflectionCreateOrConnectWithoutUserInput[]
-    createMany?: HabitReflectionCreateManyUserInputEnvelope
-    connect?: HabitReflectionWhereUniqueInput | HabitReflectionWhereUniqueInput[]
-  }
-
-  export type CollectionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<CollectionCreateWithoutUserInput, CollectionUncheckedCreateWithoutUserInput> | CollectionCreateWithoutUserInput[] | CollectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput | CollectionCreateOrConnectWithoutUserInput[]
-    createMany?: CollectionCreateManyUserInputEnvelope
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
-  }
-
-  export type RoutineUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<RoutineCreateWithoutUserInput, RoutineUncheckedCreateWithoutUserInput> | RoutineCreateWithoutUserInput[] | RoutineUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RoutineCreateOrConnectWithoutUserInput | RoutineCreateOrConnectWithoutUserInput[]
-    createMany?: RoutineCreateManyUserInputEnvelope
-    connect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
-  }
-
-  export type ShouldDoUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<ShouldDoCreateWithoutUserInput, ShouldDoUncheckedCreateWithoutUserInput> | ShouldDoCreateWithoutUserInput[] | ShouldDoUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShouldDoCreateOrConnectWithoutUserInput | ShouldDoCreateOrConnectWithoutUserInput[]
-    createMany?: ShouldDoCreateManyUserInputEnvelope
-    connect?: ShouldDoWhereUniqueInput | ShouldDoWhereUniqueInput[]
-  }
-
-  export type ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<ShouldDoLikeCreateWithoutUserInput, ShouldDoLikeUncheckedCreateWithoutUserInput> | ShouldDoLikeCreateWithoutUserInput[] | ShouldDoLikeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShouldDoLikeCreateOrConnectWithoutUserInput | ShouldDoLikeCreateOrConnectWithoutUserInput[]
-    createMany?: ShouldDoLikeCreateManyUserInputEnvelope
-    connect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-  }
-
-  export type NotificationReadUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<NotificationReadCreateWithoutUserInput, NotificationReadUncheckedCreateWithoutUserInput> | NotificationReadCreateWithoutUserInput[] | NotificationReadUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationReadCreateOrConnectWithoutUserInput | NotificationReadCreateOrConnectWithoutUserInput[]
-    createMany?: NotificationReadCreateManyUserInputEnvelope
-    connect?: NotificationReadWhereUniqueInput | NotificationReadWhereUniqueInput[]
+  export type notification_readUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<notification_readCreateWithoutUserInput, notification_readUncheckedCreateWithoutUserInput> | notification_readCreateWithoutUserInput[] | notification_readUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: notification_readCreateOrConnectWithoutUserInput | notification_readCreateOrConnectWithoutUserInput[]
+    createMany?: notification_readCreateManyUserInputEnvelope
+    connect?: notification_readWhereUniqueInput | notification_readWhereUniqueInput[]
   }
 
   export type PostHabitUncheckedCreateNestedManyWithoutUserInput = {
@@ -26359,16 +22430,33 @@ export namespace Prisma {
     connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
   }
 
+  export type RoutineUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RoutineCreateWithoutUserInput, RoutineUncheckedCreateWithoutUserInput> | RoutineCreateWithoutUserInput[] | RoutineUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RoutineCreateOrConnectWithoutUserInput | RoutineCreateOrConnectWithoutUserInput[]
+    createMany?: RoutineCreateManyUserInputEnvelope
+    connect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
+  }
+
+  export type SessionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+  }
+
+  export type TodoUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput> | TodoCreateWithoutUserInput[] | TodoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutUserInput | TodoCreateOrConnectWithoutUserInput[]
+    createMany?: TodoCreateManyUserInputEnvelope
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -26383,18 +22471,8 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type SessionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
-    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SessionCreateManyUserInputEnvelope
-    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
-    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type AccountUpdateManyWithoutUserNestedInput = {
@@ -26411,18 +22489,18 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
-  export type TodoUpdateManyWithoutUserNestedInput = {
-    create?: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput> | TodoCreateWithoutUserInput[] | TodoUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TodoCreateOrConnectWithoutUserInput | TodoCreateOrConnectWithoutUserInput[]
-    upsert?: TodoUpsertWithWhereUniqueWithoutUserInput | TodoUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: TodoCreateManyUserInputEnvelope
-    set?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
-    disconnect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
-    delete?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
-    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
-    update?: TodoUpdateWithWhereUniqueWithoutUserInput | TodoUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: TodoUpdateManyWithWhereWithoutUserInput | TodoUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: TodoScalarWhereInput | TodoScalarWhereInput[]
+  export type CollectionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CollectionCreateWithoutUserInput, CollectionUncheckedCreateWithoutUserInput> | CollectionCreateWithoutUserInput[] | CollectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput | CollectionCreateOrConnectWithoutUserInput[]
+    upsert?: CollectionUpsertWithWhereUniqueWithoutUserInput | CollectionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CollectionCreateManyUserInputEnvelope
+    set?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
+    disconnect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
+    delete?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
+    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
+    update?: CollectionUpdateWithWhereUniqueWithoutUserInput | CollectionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CollectionUpdateManyWithWhereWithoutUserInput | CollectionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CollectionScalarWhereInput | CollectionScalarWhereInput[]
   }
 
   export type HabitUpdateManyWithoutUserNestedInput = {
@@ -26439,88 +22517,18 @@ export namespace Prisma {
     deleteMany?: HabitScalarWhereInput | HabitScalarWhereInput[]
   }
 
-  export type HabitReflectionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<HabitReflectionCreateWithoutUserInput, HabitReflectionUncheckedCreateWithoutUserInput> | HabitReflectionCreateWithoutUserInput[] | HabitReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HabitReflectionCreateOrConnectWithoutUserInput | HabitReflectionCreateOrConnectWithoutUserInput[]
-    upsert?: HabitReflectionUpsertWithWhereUniqueWithoutUserInput | HabitReflectionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: HabitReflectionCreateManyUserInputEnvelope
-    set?: HabitReflectionWhereUniqueInput | HabitReflectionWhereUniqueInput[]
-    disconnect?: HabitReflectionWhereUniqueInput | HabitReflectionWhereUniqueInput[]
-    delete?: HabitReflectionWhereUniqueInput | HabitReflectionWhereUniqueInput[]
-    connect?: HabitReflectionWhereUniqueInput | HabitReflectionWhereUniqueInput[]
-    update?: HabitReflectionUpdateWithWhereUniqueWithoutUserInput | HabitReflectionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: HabitReflectionUpdateManyWithWhereWithoutUserInput | HabitReflectionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: HabitReflectionScalarWhereInput | HabitReflectionScalarWhereInput[]
-  }
-
-  export type CollectionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<CollectionCreateWithoutUserInput, CollectionUncheckedCreateWithoutUserInput> | CollectionCreateWithoutUserInput[] | CollectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput | CollectionCreateOrConnectWithoutUserInput[]
-    upsert?: CollectionUpsertWithWhereUniqueWithoutUserInput | CollectionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: CollectionCreateManyUserInputEnvelope
-    set?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
-    disconnect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
-    delete?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
-    update?: CollectionUpdateWithWhereUniqueWithoutUserInput | CollectionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: CollectionUpdateManyWithWhereWithoutUserInput | CollectionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: CollectionScalarWhereInput | CollectionScalarWhereInput[]
-  }
-
-  export type RoutineUpdateManyWithoutUserNestedInput = {
-    create?: XOR<RoutineCreateWithoutUserInput, RoutineUncheckedCreateWithoutUserInput> | RoutineCreateWithoutUserInput[] | RoutineUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RoutineCreateOrConnectWithoutUserInput | RoutineCreateOrConnectWithoutUserInput[]
-    upsert?: RoutineUpsertWithWhereUniqueWithoutUserInput | RoutineUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: RoutineCreateManyUserInputEnvelope
-    set?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
-    disconnect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
-    delete?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
-    connect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
-    update?: RoutineUpdateWithWhereUniqueWithoutUserInput | RoutineUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: RoutineUpdateManyWithWhereWithoutUserInput | RoutineUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: RoutineScalarWhereInput | RoutineScalarWhereInput[]
-  }
-
-  export type ShouldDoUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ShouldDoCreateWithoutUserInput, ShouldDoUncheckedCreateWithoutUserInput> | ShouldDoCreateWithoutUserInput[] | ShouldDoUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShouldDoCreateOrConnectWithoutUserInput | ShouldDoCreateOrConnectWithoutUserInput[]
-    upsert?: ShouldDoUpsertWithWhereUniqueWithoutUserInput | ShouldDoUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ShouldDoCreateManyUserInputEnvelope
-    set?: ShouldDoWhereUniqueInput | ShouldDoWhereUniqueInput[]
-    disconnect?: ShouldDoWhereUniqueInput | ShouldDoWhereUniqueInput[]
-    delete?: ShouldDoWhereUniqueInput | ShouldDoWhereUniqueInput[]
-    connect?: ShouldDoWhereUniqueInput | ShouldDoWhereUniqueInput[]
-    update?: ShouldDoUpdateWithWhereUniqueWithoutUserInput | ShouldDoUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ShouldDoUpdateManyWithWhereWithoutUserInput | ShouldDoUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ShouldDoScalarWhereInput | ShouldDoScalarWhereInput[]
-  }
-
-  export type ShouldDoLikeUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ShouldDoLikeCreateWithoutUserInput, ShouldDoLikeUncheckedCreateWithoutUserInput> | ShouldDoLikeCreateWithoutUserInput[] | ShouldDoLikeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShouldDoLikeCreateOrConnectWithoutUserInput | ShouldDoLikeCreateOrConnectWithoutUserInput[]
-    upsert?: ShouldDoLikeUpsertWithWhereUniqueWithoutUserInput | ShouldDoLikeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ShouldDoLikeCreateManyUserInputEnvelope
-    set?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    disconnect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    delete?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    connect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    update?: ShouldDoLikeUpdateWithWhereUniqueWithoutUserInput | ShouldDoLikeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ShouldDoLikeUpdateManyWithWhereWithoutUserInput | ShouldDoLikeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ShouldDoLikeScalarWhereInput | ShouldDoLikeScalarWhereInput[]
-  }
-
-  export type NotificationReadUpdateManyWithoutUserNestedInput = {
-    create?: XOR<NotificationReadCreateWithoutUserInput, NotificationReadUncheckedCreateWithoutUserInput> | NotificationReadCreateWithoutUserInput[] | NotificationReadUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationReadCreateOrConnectWithoutUserInput | NotificationReadCreateOrConnectWithoutUserInput[]
-    upsert?: NotificationReadUpsertWithWhereUniqueWithoutUserInput | NotificationReadUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: NotificationReadCreateManyUserInputEnvelope
-    set?: NotificationReadWhereUniqueInput | NotificationReadWhereUniqueInput[]
-    disconnect?: NotificationReadWhereUniqueInput | NotificationReadWhereUniqueInput[]
-    delete?: NotificationReadWhereUniqueInput | NotificationReadWhereUniqueInput[]
-    connect?: NotificationReadWhereUniqueInput | NotificationReadWhereUniqueInput[]
-    update?: NotificationReadUpdateWithWhereUniqueWithoutUserInput | NotificationReadUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: NotificationReadUpdateManyWithWhereWithoutUserInput | NotificationReadUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: NotificationReadScalarWhereInput | NotificationReadScalarWhereInput[]
+  export type notification_readUpdateManyWithoutUserNestedInput = {
+    create?: XOR<notification_readCreateWithoutUserInput, notification_readUncheckedCreateWithoutUserInput> | notification_readCreateWithoutUserInput[] | notification_readUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: notification_readCreateOrConnectWithoutUserInput | notification_readCreateOrConnectWithoutUserInput[]
+    upsert?: notification_readUpsertWithWhereUniqueWithoutUserInput | notification_readUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: notification_readCreateManyUserInputEnvelope
+    set?: notification_readWhereUniqueInput | notification_readWhereUniqueInput[]
+    disconnect?: notification_readWhereUniqueInput | notification_readWhereUniqueInput[]
+    delete?: notification_readWhereUniqueInput | notification_readWhereUniqueInput[]
+    connect?: notification_readWhereUniqueInput | notification_readWhereUniqueInput[]
+    update?: notification_readUpdateWithWhereUniqueWithoutUserInput | notification_readUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: notification_readUpdateManyWithWhereWithoutUserInput | notification_readUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: notification_readScalarWhereInput | notification_readScalarWhereInput[]
   }
 
   export type PostHabitUpdateManyWithoutUserNestedInput = {
@@ -26551,7 +22559,21 @@ export namespace Prisma {
     deleteMany?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
   }
 
-  export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
+  export type RoutineUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RoutineCreateWithoutUserInput, RoutineUncheckedCreateWithoutUserInput> | RoutineCreateWithoutUserInput[] | RoutineUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RoutineCreateOrConnectWithoutUserInput | RoutineCreateOrConnectWithoutUserInput[]
+    upsert?: RoutineUpsertWithWhereUniqueWithoutUserInput | RoutineUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RoutineCreateManyUserInputEnvelope
+    set?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
+    disconnect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
+    delete?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
+    connect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
+    update?: RoutineUpdateWithWhereUniqueWithoutUserInput | RoutineUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RoutineUpdateManyWithWhereWithoutUserInput | RoutineUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RoutineScalarWhereInput | RoutineScalarWhereInput[]
+  }
+
+  export type SessionUpdateManyWithoutUserNestedInput = {
     create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
     upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
@@ -26563,6 +22585,20 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type TodoUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput> | TodoCreateWithoutUserInput[] | TodoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutUserInput | TodoCreateOrConnectWithoutUserInput[]
+    upsert?: TodoUpsertWithWhereUniqueWithoutUserInput | TodoUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TodoCreateManyUserInputEnvelope
+    set?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    disconnect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    delete?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    update?: TodoUpdateWithWhereUniqueWithoutUserInput | TodoUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TodoUpdateManyWithWhereWithoutUserInput | TodoUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TodoScalarWhereInput | TodoScalarWhereInput[]
   }
 
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
@@ -26579,18 +22615,18 @@ export namespace Prisma {
     deleteMany?: AccountScalarWhereInput | AccountScalarWhereInput[]
   }
 
-  export type TodoUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput> | TodoCreateWithoutUserInput[] | TodoUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TodoCreateOrConnectWithoutUserInput | TodoCreateOrConnectWithoutUserInput[]
-    upsert?: TodoUpsertWithWhereUniqueWithoutUserInput | TodoUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: TodoCreateManyUserInputEnvelope
-    set?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
-    disconnect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
-    delete?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
-    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
-    update?: TodoUpdateWithWhereUniqueWithoutUserInput | TodoUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: TodoUpdateManyWithWhereWithoutUserInput | TodoUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: TodoScalarWhereInput | TodoScalarWhereInput[]
+  export type CollectionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<CollectionCreateWithoutUserInput, CollectionUncheckedCreateWithoutUserInput> | CollectionCreateWithoutUserInput[] | CollectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput | CollectionCreateOrConnectWithoutUserInput[]
+    upsert?: CollectionUpsertWithWhereUniqueWithoutUserInput | CollectionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: CollectionCreateManyUserInputEnvelope
+    set?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
+    disconnect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
+    delete?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
+    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
+    update?: CollectionUpdateWithWhereUniqueWithoutUserInput | CollectionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: CollectionUpdateManyWithWhereWithoutUserInput | CollectionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: CollectionScalarWhereInput | CollectionScalarWhereInput[]
   }
 
   export type HabitUncheckedUpdateManyWithoutUserNestedInput = {
@@ -26607,88 +22643,18 @@ export namespace Prisma {
     deleteMany?: HabitScalarWhereInput | HabitScalarWhereInput[]
   }
 
-  export type HabitReflectionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<HabitReflectionCreateWithoutUserInput, HabitReflectionUncheckedCreateWithoutUserInput> | HabitReflectionCreateWithoutUserInput[] | HabitReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: HabitReflectionCreateOrConnectWithoutUserInput | HabitReflectionCreateOrConnectWithoutUserInput[]
-    upsert?: HabitReflectionUpsertWithWhereUniqueWithoutUserInput | HabitReflectionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: HabitReflectionCreateManyUserInputEnvelope
-    set?: HabitReflectionWhereUniqueInput | HabitReflectionWhereUniqueInput[]
-    disconnect?: HabitReflectionWhereUniqueInput | HabitReflectionWhereUniqueInput[]
-    delete?: HabitReflectionWhereUniqueInput | HabitReflectionWhereUniqueInput[]
-    connect?: HabitReflectionWhereUniqueInput | HabitReflectionWhereUniqueInput[]
-    update?: HabitReflectionUpdateWithWhereUniqueWithoutUserInput | HabitReflectionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: HabitReflectionUpdateManyWithWhereWithoutUserInput | HabitReflectionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: HabitReflectionScalarWhereInput | HabitReflectionScalarWhereInput[]
-  }
-
-  export type CollectionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<CollectionCreateWithoutUserInput, CollectionUncheckedCreateWithoutUserInput> | CollectionCreateWithoutUserInput[] | CollectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput | CollectionCreateOrConnectWithoutUserInput[]
-    upsert?: CollectionUpsertWithWhereUniqueWithoutUserInput | CollectionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: CollectionCreateManyUserInputEnvelope
-    set?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
-    disconnect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
-    delete?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[]
-    update?: CollectionUpdateWithWhereUniqueWithoutUserInput | CollectionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: CollectionUpdateManyWithWhereWithoutUserInput | CollectionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: CollectionScalarWhereInput | CollectionScalarWhereInput[]
-  }
-
-  export type RoutineUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<RoutineCreateWithoutUserInput, RoutineUncheckedCreateWithoutUserInput> | RoutineCreateWithoutUserInput[] | RoutineUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: RoutineCreateOrConnectWithoutUserInput | RoutineCreateOrConnectWithoutUserInput[]
-    upsert?: RoutineUpsertWithWhereUniqueWithoutUserInput | RoutineUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: RoutineCreateManyUserInputEnvelope
-    set?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
-    disconnect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
-    delete?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
-    connect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
-    update?: RoutineUpdateWithWhereUniqueWithoutUserInput | RoutineUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: RoutineUpdateManyWithWhereWithoutUserInput | RoutineUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: RoutineScalarWhereInput | RoutineScalarWhereInput[]
-  }
-
-  export type ShouldDoUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ShouldDoCreateWithoutUserInput, ShouldDoUncheckedCreateWithoutUserInput> | ShouldDoCreateWithoutUserInput[] | ShouldDoUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShouldDoCreateOrConnectWithoutUserInput | ShouldDoCreateOrConnectWithoutUserInput[]
-    upsert?: ShouldDoUpsertWithWhereUniqueWithoutUserInput | ShouldDoUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ShouldDoCreateManyUserInputEnvelope
-    set?: ShouldDoWhereUniqueInput | ShouldDoWhereUniqueInput[]
-    disconnect?: ShouldDoWhereUniqueInput | ShouldDoWhereUniqueInput[]
-    delete?: ShouldDoWhereUniqueInput | ShouldDoWhereUniqueInput[]
-    connect?: ShouldDoWhereUniqueInput | ShouldDoWhereUniqueInput[]
-    update?: ShouldDoUpdateWithWhereUniqueWithoutUserInput | ShouldDoUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ShouldDoUpdateManyWithWhereWithoutUserInput | ShouldDoUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ShouldDoScalarWhereInput | ShouldDoScalarWhereInput[]
-  }
-
-  export type ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ShouldDoLikeCreateWithoutUserInput, ShouldDoLikeUncheckedCreateWithoutUserInput> | ShouldDoLikeCreateWithoutUserInput[] | ShouldDoLikeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ShouldDoLikeCreateOrConnectWithoutUserInput | ShouldDoLikeCreateOrConnectWithoutUserInput[]
-    upsert?: ShouldDoLikeUpsertWithWhereUniqueWithoutUserInput | ShouldDoLikeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ShouldDoLikeCreateManyUserInputEnvelope
-    set?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    disconnect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    delete?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    connect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    update?: ShouldDoLikeUpdateWithWhereUniqueWithoutUserInput | ShouldDoLikeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ShouldDoLikeUpdateManyWithWhereWithoutUserInput | ShouldDoLikeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ShouldDoLikeScalarWhereInput | ShouldDoLikeScalarWhereInput[]
-  }
-
-  export type NotificationReadUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<NotificationReadCreateWithoutUserInput, NotificationReadUncheckedCreateWithoutUserInput> | NotificationReadCreateWithoutUserInput[] | NotificationReadUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: NotificationReadCreateOrConnectWithoutUserInput | NotificationReadCreateOrConnectWithoutUserInput[]
-    upsert?: NotificationReadUpsertWithWhereUniqueWithoutUserInput | NotificationReadUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: NotificationReadCreateManyUserInputEnvelope
-    set?: NotificationReadWhereUniqueInput | NotificationReadWhereUniqueInput[]
-    disconnect?: NotificationReadWhereUniqueInput | NotificationReadWhereUniqueInput[]
-    delete?: NotificationReadWhereUniqueInput | NotificationReadWhereUniqueInput[]
-    connect?: NotificationReadWhereUniqueInput | NotificationReadWhereUniqueInput[]
-    update?: NotificationReadUpdateWithWhereUniqueWithoutUserInput | NotificationReadUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: NotificationReadUpdateManyWithWhereWithoutUserInput | NotificationReadUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: NotificationReadScalarWhereInput | NotificationReadScalarWhereInput[]
+  export type notification_readUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<notification_readCreateWithoutUserInput, notification_readUncheckedCreateWithoutUserInput> | notification_readCreateWithoutUserInput[] | notification_readUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: notification_readCreateOrConnectWithoutUserInput | notification_readCreateOrConnectWithoutUserInput[]
+    upsert?: notification_readUpsertWithWhereUniqueWithoutUserInput | notification_readUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: notification_readCreateManyUserInputEnvelope
+    set?: notification_readWhereUniqueInput | notification_readWhereUniqueInput[]
+    disconnect?: notification_readWhereUniqueInput | notification_readWhereUniqueInput[]
+    delete?: notification_readWhereUniqueInput | notification_readWhereUniqueInput[]
+    connect?: notification_readWhereUniqueInput | notification_readWhereUniqueInput[]
+    update?: notification_readUpdateWithWhereUniqueWithoutUserInput | notification_readUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: notification_readUpdateManyWithWhereWithoutUserInput | notification_readUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: notification_readScalarWhereInput | notification_readScalarWhereInput[]
   }
 
   export type PostHabitUncheckedUpdateManyWithoutUserNestedInput = {
@@ -26717,6 +22683,48 @@ export namespace Prisma {
     update?: PostHabitLikeUpdateWithWhereUniqueWithoutUserInput | PostHabitLikeUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PostHabitLikeUpdateManyWithWhereWithoutUserInput | PostHabitLikeUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
+  }
+
+  export type RoutineUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RoutineCreateWithoutUserInput, RoutineUncheckedCreateWithoutUserInput> | RoutineCreateWithoutUserInput[] | RoutineUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RoutineCreateOrConnectWithoutUserInput | RoutineCreateOrConnectWithoutUserInput[]
+    upsert?: RoutineUpsertWithWhereUniqueWithoutUserInput | RoutineUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RoutineCreateManyUserInputEnvelope
+    set?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
+    disconnect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
+    delete?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
+    connect?: RoutineWhereUniqueInput | RoutineWhereUniqueInput[]
+    update?: RoutineUpdateWithWhereUniqueWithoutUserInput | RoutineUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RoutineUpdateManyWithWhereWithoutUserInput | RoutineUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RoutineScalarWhereInput | RoutineScalarWhereInput[]
+  }
+
+  export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput> | SessionCreateWithoutUserInput[] | SessionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SessionCreateOrConnectWithoutUserInput | SessionCreateOrConnectWithoutUserInput[]
+    upsert?: SessionUpsertWithWhereUniqueWithoutUserInput | SessionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SessionCreateManyUserInputEnvelope
+    set?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    disconnect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    delete?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    connect?: SessionWhereUniqueInput | SessionWhereUniqueInput[]
+    update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type TodoUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput> | TodoCreateWithoutUserInput[] | TodoUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TodoCreateOrConnectWithoutUserInput | TodoCreateOrConnectWithoutUserInput[]
+    upsert?: TodoUpsertWithWhereUniqueWithoutUserInput | TodoUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TodoCreateManyUserInputEnvelope
+    set?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    disconnect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    delete?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    connect?: TodoWhereUniqueInput | TodoWhereUniqueInput[]
+    update?: TodoUpdateWithWhereUniqueWithoutUserInput | TodoUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TodoUpdateManyWithWhereWithoutUserInput | TodoUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TodoScalarWhereInput | TodoScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -26751,17 +22759,17 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAccountsInput, UserUpdateWithoutAccountsInput>, UserUncheckedUpdateWithoutAccountsInput>
   }
 
-  export type UserCreateNestedOneWithoutTodosInput = {
-    create?: XOR<UserCreateWithoutTodosInput, UserUncheckedCreateWithoutTodosInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTodosInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type CollectionTodoCreateNestedManyWithoutTodoInput = {
     create?: XOR<CollectionTodoCreateWithoutTodoInput, CollectionTodoUncheckedCreateWithoutTodoInput> | CollectionTodoCreateWithoutTodoInput[] | CollectionTodoUncheckedCreateWithoutTodoInput[]
     connectOrCreate?: CollectionTodoCreateOrConnectWithoutTodoInput | CollectionTodoCreateOrConnectWithoutTodoInput[]
     createMany?: CollectionTodoCreateManyTodoInputEnvelope
     connect?: CollectionTodoWhereUniqueInput | CollectionTodoWhereUniqueInput[]
+  }
+
+  export type UserCreateNestedOneWithoutTodosInput = {
+    create?: XOR<UserCreateWithoutTodosInput, UserUncheckedCreateWithoutTodosInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodosInput
+    connect?: UserWhereUniqueInput
   }
 
   export type CollectionTodoUncheckedCreateNestedManyWithoutTodoInput = {
@@ -26779,14 +22787,6 @@ export namespace Prisma {
     set?: $Enums.TodoStatus
   }
 
-  export type UserUpdateOneRequiredWithoutTodosNestedInput = {
-    create?: XOR<UserCreateWithoutTodosInput, UserUncheckedCreateWithoutTodosInput>
-    connectOrCreate?: UserCreateOrConnectWithoutTodosInput
-    upsert?: UserUpsertWithoutTodosInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTodosInput, UserUpdateWithoutTodosInput>, UserUncheckedUpdateWithoutTodosInput>
-  }
-
   export type CollectionTodoUpdateManyWithoutTodoNestedInput = {
     create?: XOR<CollectionTodoCreateWithoutTodoInput, CollectionTodoUncheckedCreateWithoutTodoInput> | CollectionTodoCreateWithoutTodoInput[] | CollectionTodoUncheckedCreateWithoutTodoInput[]
     connectOrCreate?: CollectionTodoCreateOrConnectWithoutTodoInput | CollectionTodoCreateOrConnectWithoutTodoInput[]
@@ -26799,6 +22799,14 @@ export namespace Prisma {
     update?: CollectionTodoUpdateWithWhereUniqueWithoutTodoInput | CollectionTodoUpdateWithWhereUniqueWithoutTodoInput[]
     updateMany?: CollectionTodoUpdateManyWithWhereWithoutTodoInput | CollectionTodoUpdateManyWithWhereWithoutTodoInput[]
     deleteMany?: CollectionTodoScalarWhereInput | CollectionTodoScalarWhereInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutTodosNestedInput = {
+    create?: XOR<UserCreateWithoutTodosInput, UserUncheckedCreateWithoutTodosInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTodosInput
+    upsert?: UserUpsertWithoutTodosInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTodosInput, UserUpdateWithoutTodosInput>, UserUncheckedUpdateWithoutTodosInput>
   }
 
   export type CollectionTodoUncheckedUpdateManyWithoutTodoNestedInput = {
@@ -26905,13 +22913,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type RoutineHabitCreateNestedManyWithoutHabitInput = {
-    create?: XOR<RoutineHabitCreateWithoutHabitInput, RoutineHabitUncheckedCreateWithoutHabitInput> | RoutineHabitCreateWithoutHabitInput[] | RoutineHabitUncheckedCreateWithoutHabitInput[]
-    connectOrCreate?: RoutineHabitCreateOrConnectWithoutHabitInput | RoutineHabitCreateOrConnectWithoutHabitInput[]
-    createMany?: RoutineHabitCreateManyHabitInputEnvelope
-    connect?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
-  }
-
   export type HabitDailyProgressCreateNestedManyWithoutHabitInput = {
     create?: XOR<HabitDailyProgressCreateWithoutHabitInput, HabitDailyProgressUncheckedCreateWithoutHabitInput> | HabitDailyProgressCreateWithoutHabitInput[] | HabitDailyProgressUncheckedCreateWithoutHabitInput[]
     connectOrCreate?: HabitDailyProgressCreateOrConnectWithoutHabitInput | HabitDailyProgressCreateOrConnectWithoutHabitInput[]
@@ -26919,7 +22920,14 @@ export namespace Prisma {
     connect?: HabitDailyProgressWhereUniqueInput | HabitDailyProgressWhereUniqueInput[]
   }
 
-  export type RoutineHabitUncheckedCreateNestedManyWithoutHabitInput = {
+  export type PostHabitCreateNestedManyWithoutHabitInput = {
+    create?: XOR<PostHabitCreateWithoutHabitInput, PostHabitUncheckedCreateWithoutHabitInput> | PostHabitCreateWithoutHabitInput[] | PostHabitUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: PostHabitCreateOrConnectWithoutHabitInput | PostHabitCreateOrConnectWithoutHabitInput[]
+    createMany?: PostHabitCreateManyHabitInputEnvelope
+    connect?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
+  }
+
+  export type RoutineHabitCreateNestedManyWithoutHabitInput = {
     create?: XOR<RoutineHabitCreateWithoutHabitInput, RoutineHabitUncheckedCreateWithoutHabitInput> | RoutineHabitCreateWithoutHabitInput[] | RoutineHabitUncheckedCreateWithoutHabitInput[]
     connectOrCreate?: RoutineHabitCreateOrConnectWithoutHabitInput | RoutineHabitCreateOrConnectWithoutHabitInput[]
     createMany?: RoutineHabitCreateManyHabitInputEnvelope
@@ -26931,6 +22939,20 @@ export namespace Prisma {
     connectOrCreate?: HabitDailyProgressCreateOrConnectWithoutHabitInput | HabitDailyProgressCreateOrConnectWithoutHabitInput[]
     createMany?: HabitDailyProgressCreateManyHabitInputEnvelope
     connect?: HabitDailyProgressWhereUniqueInput | HabitDailyProgressWhereUniqueInput[]
+  }
+
+  export type PostHabitUncheckedCreateNestedManyWithoutHabitInput = {
+    create?: XOR<PostHabitCreateWithoutHabitInput, PostHabitUncheckedCreateWithoutHabitInput> | PostHabitCreateWithoutHabitInput[] | PostHabitUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: PostHabitCreateOrConnectWithoutHabitInput | PostHabitCreateOrConnectWithoutHabitInput[]
+    createMany?: PostHabitCreateManyHabitInputEnvelope
+    connect?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
+  }
+
+  export type RoutineHabitUncheckedCreateNestedManyWithoutHabitInput = {
+    create?: XOR<RoutineHabitCreateWithoutHabitInput, RoutineHabitUncheckedCreateWithoutHabitInput> | RoutineHabitCreateWithoutHabitInput[] | RoutineHabitUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: RoutineHabitCreateOrConnectWithoutHabitInput | RoutineHabitCreateOrConnectWithoutHabitInput[]
+    createMany?: RoutineHabitCreateManyHabitInputEnvelope
+    connect?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -26949,20 +22971,6 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHabitsInput, UserUpdateWithoutHabitsInput>, UserUncheckedUpdateWithoutHabitsInput>
   }
 
-  export type RoutineHabitUpdateManyWithoutHabitNestedInput = {
-    create?: XOR<RoutineHabitCreateWithoutHabitInput, RoutineHabitUncheckedCreateWithoutHabitInput> | RoutineHabitCreateWithoutHabitInput[] | RoutineHabitUncheckedCreateWithoutHabitInput[]
-    connectOrCreate?: RoutineHabitCreateOrConnectWithoutHabitInput | RoutineHabitCreateOrConnectWithoutHabitInput[]
-    upsert?: RoutineHabitUpsertWithWhereUniqueWithoutHabitInput | RoutineHabitUpsertWithWhereUniqueWithoutHabitInput[]
-    createMany?: RoutineHabitCreateManyHabitInputEnvelope
-    set?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
-    disconnect?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
-    delete?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
-    connect?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
-    update?: RoutineHabitUpdateWithWhereUniqueWithoutHabitInput | RoutineHabitUpdateWithWhereUniqueWithoutHabitInput[]
-    updateMany?: RoutineHabitUpdateManyWithWhereWithoutHabitInput | RoutineHabitUpdateManyWithWhereWithoutHabitInput[]
-    deleteMany?: RoutineHabitScalarWhereInput | RoutineHabitScalarWhereInput[]
-  }
-
   export type HabitDailyProgressUpdateManyWithoutHabitNestedInput = {
     create?: XOR<HabitDailyProgressCreateWithoutHabitInput, HabitDailyProgressUncheckedCreateWithoutHabitInput> | HabitDailyProgressCreateWithoutHabitInput[] | HabitDailyProgressUncheckedCreateWithoutHabitInput[]
     connectOrCreate?: HabitDailyProgressCreateOrConnectWithoutHabitInput | HabitDailyProgressCreateOrConnectWithoutHabitInput[]
@@ -26977,7 +22985,21 @@ export namespace Prisma {
     deleteMany?: HabitDailyProgressScalarWhereInput | HabitDailyProgressScalarWhereInput[]
   }
 
-  export type RoutineHabitUncheckedUpdateManyWithoutHabitNestedInput = {
+  export type PostHabitUpdateManyWithoutHabitNestedInput = {
+    create?: XOR<PostHabitCreateWithoutHabitInput, PostHabitUncheckedCreateWithoutHabitInput> | PostHabitCreateWithoutHabitInput[] | PostHabitUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: PostHabitCreateOrConnectWithoutHabitInput | PostHabitCreateOrConnectWithoutHabitInput[]
+    upsert?: PostHabitUpsertWithWhereUniqueWithoutHabitInput | PostHabitUpsertWithWhereUniqueWithoutHabitInput[]
+    createMany?: PostHabitCreateManyHabitInputEnvelope
+    set?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
+    disconnect?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
+    delete?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
+    connect?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
+    update?: PostHabitUpdateWithWhereUniqueWithoutHabitInput | PostHabitUpdateWithWhereUniqueWithoutHabitInput[]
+    updateMany?: PostHabitUpdateManyWithWhereWithoutHabitInput | PostHabitUpdateManyWithWhereWithoutHabitInput[]
+    deleteMany?: PostHabitScalarWhereInput | PostHabitScalarWhereInput[]
+  }
+
+  export type RoutineHabitUpdateManyWithoutHabitNestedInput = {
     create?: XOR<RoutineHabitCreateWithoutHabitInput, RoutineHabitUncheckedCreateWithoutHabitInput> | RoutineHabitCreateWithoutHabitInput[] | RoutineHabitUncheckedCreateWithoutHabitInput[]
     connectOrCreate?: RoutineHabitCreateOrConnectWithoutHabitInput | RoutineHabitCreateOrConnectWithoutHabitInput[]
     upsert?: RoutineHabitUpsertWithWhereUniqueWithoutHabitInput | RoutineHabitUpsertWithWhereUniqueWithoutHabitInput[]
@@ -27005,6 +23027,34 @@ export namespace Prisma {
     deleteMany?: HabitDailyProgressScalarWhereInput | HabitDailyProgressScalarWhereInput[]
   }
 
+  export type PostHabitUncheckedUpdateManyWithoutHabitNestedInput = {
+    create?: XOR<PostHabitCreateWithoutHabitInput, PostHabitUncheckedCreateWithoutHabitInput> | PostHabitCreateWithoutHabitInput[] | PostHabitUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: PostHabitCreateOrConnectWithoutHabitInput | PostHabitCreateOrConnectWithoutHabitInput[]
+    upsert?: PostHabitUpsertWithWhereUniqueWithoutHabitInput | PostHabitUpsertWithWhereUniqueWithoutHabitInput[]
+    createMany?: PostHabitCreateManyHabitInputEnvelope
+    set?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
+    disconnect?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
+    delete?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
+    connect?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
+    update?: PostHabitUpdateWithWhereUniqueWithoutHabitInput | PostHabitUpdateWithWhereUniqueWithoutHabitInput[]
+    updateMany?: PostHabitUpdateManyWithWhereWithoutHabitInput | PostHabitUpdateManyWithWhereWithoutHabitInput[]
+    deleteMany?: PostHabitScalarWhereInput | PostHabitScalarWhereInput[]
+  }
+
+  export type RoutineHabitUncheckedUpdateManyWithoutHabitNestedInput = {
+    create?: XOR<RoutineHabitCreateWithoutHabitInput, RoutineHabitUncheckedCreateWithoutHabitInput> | RoutineHabitCreateWithoutHabitInput[] | RoutineHabitUncheckedCreateWithoutHabitInput[]
+    connectOrCreate?: RoutineHabitCreateOrConnectWithoutHabitInput | RoutineHabitCreateOrConnectWithoutHabitInput[]
+    upsert?: RoutineHabitUpsertWithWhereUniqueWithoutHabitInput | RoutineHabitUpsertWithWhereUniqueWithoutHabitInput[]
+    createMany?: RoutineHabitCreateManyHabitInputEnvelope
+    set?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
+    disconnect?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
+    delete?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
+    connect?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
+    update?: RoutineHabitUpdateWithWhereUniqueWithoutHabitInput | RoutineHabitUpdateWithWhereUniqueWithoutHabitInput[]
+    updateMany?: RoutineHabitUpdateManyWithWhereWithoutHabitInput | RoutineHabitUpdateManyWithWhereWithoutHabitInput[]
+    deleteMany?: RoutineHabitScalarWhereInput | RoutineHabitScalarWhereInput[]
+  }
+
   export type HabitCreateNestedOneWithoutDailyProgressEntriesInput = {
     create?: XOR<HabitCreateWithoutDailyProgressEntriesInput, HabitUncheckedCreateWithoutDailyProgressEntriesInput>
     connectOrCreate?: HabitCreateOrConnectWithoutDailyProgressEntriesInput
@@ -27017,112 +23067,6 @@ export namespace Prisma {
     upsert?: HabitUpsertWithoutDailyProgressEntriesInput
     connect?: HabitWhereUniqueInput
     update?: XOR<XOR<HabitUpdateToOneWithWhereWithoutDailyProgressEntriesInput, HabitUpdateWithoutDailyProgressEntriesInput>, HabitUncheckedUpdateWithoutDailyProgressEntriesInput>
-  }
-
-  export type UserCreateNestedOneWithoutHabitReflectionsInput = {
-    create?: XOR<UserCreateWithoutHabitReflectionsInput, UserUncheckedCreateWithoutHabitReflectionsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutHabitReflectionsInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type UserUpdateOneRequiredWithoutHabitReflectionsNestedInput = {
-    create?: XOR<UserCreateWithoutHabitReflectionsInput, UserUncheckedCreateWithoutHabitReflectionsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutHabitReflectionsInput
-    upsert?: UserUpsertWithoutHabitReflectionsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHabitReflectionsInput, UserUpdateWithoutHabitReflectionsInput>, UserUncheckedUpdateWithoutHabitReflectionsInput>
-  }
-
-  export type UserCreateNestedOneWithoutShouldDosInput = {
-    create?: XOR<UserCreateWithoutShouldDosInput, UserUncheckedCreateWithoutShouldDosInput>
-    connectOrCreate?: UserCreateOrConnectWithoutShouldDosInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type ShouldDoLikeCreateNestedManyWithoutShouldDoInput = {
-    create?: XOR<ShouldDoLikeCreateWithoutShouldDoInput, ShouldDoLikeUncheckedCreateWithoutShouldDoInput> | ShouldDoLikeCreateWithoutShouldDoInput[] | ShouldDoLikeUncheckedCreateWithoutShouldDoInput[]
-    connectOrCreate?: ShouldDoLikeCreateOrConnectWithoutShouldDoInput | ShouldDoLikeCreateOrConnectWithoutShouldDoInput[]
-    createMany?: ShouldDoLikeCreateManyShouldDoInputEnvelope
-    connect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-  }
-
-  export type ShouldDoLikeUncheckedCreateNestedManyWithoutShouldDoInput = {
-    create?: XOR<ShouldDoLikeCreateWithoutShouldDoInput, ShouldDoLikeUncheckedCreateWithoutShouldDoInput> | ShouldDoLikeCreateWithoutShouldDoInput[] | ShouldDoLikeUncheckedCreateWithoutShouldDoInput[]
-    connectOrCreate?: ShouldDoLikeCreateOrConnectWithoutShouldDoInput | ShouldDoLikeCreateOrConnectWithoutShouldDoInput[]
-    createMany?: ShouldDoLikeCreateManyShouldDoInputEnvelope
-    connect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type UserUpdateOneRequiredWithoutShouldDosNestedInput = {
-    create?: XOR<UserCreateWithoutShouldDosInput, UserUncheckedCreateWithoutShouldDosInput>
-    connectOrCreate?: UserCreateOrConnectWithoutShouldDosInput
-    upsert?: UserUpsertWithoutShouldDosInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutShouldDosInput, UserUpdateWithoutShouldDosInput>, UserUncheckedUpdateWithoutShouldDosInput>
-  }
-
-  export type ShouldDoLikeUpdateManyWithoutShouldDoNestedInput = {
-    create?: XOR<ShouldDoLikeCreateWithoutShouldDoInput, ShouldDoLikeUncheckedCreateWithoutShouldDoInput> | ShouldDoLikeCreateWithoutShouldDoInput[] | ShouldDoLikeUncheckedCreateWithoutShouldDoInput[]
-    connectOrCreate?: ShouldDoLikeCreateOrConnectWithoutShouldDoInput | ShouldDoLikeCreateOrConnectWithoutShouldDoInput[]
-    upsert?: ShouldDoLikeUpsertWithWhereUniqueWithoutShouldDoInput | ShouldDoLikeUpsertWithWhereUniqueWithoutShouldDoInput[]
-    createMany?: ShouldDoLikeCreateManyShouldDoInputEnvelope
-    set?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    disconnect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    delete?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    connect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    update?: ShouldDoLikeUpdateWithWhereUniqueWithoutShouldDoInput | ShouldDoLikeUpdateWithWhereUniqueWithoutShouldDoInput[]
-    updateMany?: ShouldDoLikeUpdateManyWithWhereWithoutShouldDoInput | ShouldDoLikeUpdateManyWithWhereWithoutShouldDoInput[]
-    deleteMany?: ShouldDoLikeScalarWhereInput | ShouldDoLikeScalarWhereInput[]
-  }
-
-  export type ShouldDoLikeUncheckedUpdateManyWithoutShouldDoNestedInput = {
-    create?: XOR<ShouldDoLikeCreateWithoutShouldDoInput, ShouldDoLikeUncheckedCreateWithoutShouldDoInput> | ShouldDoLikeCreateWithoutShouldDoInput[] | ShouldDoLikeUncheckedCreateWithoutShouldDoInput[]
-    connectOrCreate?: ShouldDoLikeCreateOrConnectWithoutShouldDoInput | ShouldDoLikeCreateOrConnectWithoutShouldDoInput[]
-    upsert?: ShouldDoLikeUpsertWithWhereUniqueWithoutShouldDoInput | ShouldDoLikeUpsertWithWhereUniqueWithoutShouldDoInput[]
-    createMany?: ShouldDoLikeCreateManyShouldDoInputEnvelope
-    set?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    disconnect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    delete?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    connect?: ShouldDoLikeWhereUniqueInput | ShouldDoLikeWhereUniqueInput[]
-    update?: ShouldDoLikeUpdateWithWhereUniqueWithoutShouldDoInput | ShouldDoLikeUpdateWithWhereUniqueWithoutShouldDoInput[]
-    updateMany?: ShouldDoLikeUpdateManyWithWhereWithoutShouldDoInput | ShouldDoLikeUpdateManyWithWhereWithoutShouldDoInput[]
-    deleteMany?: ShouldDoLikeScalarWhereInput | ShouldDoLikeScalarWhereInput[]
-  }
-
-  export type ShouldDoCreateNestedOneWithoutLikesInput = {
-    create?: XOR<ShouldDoCreateWithoutLikesInput, ShouldDoUncheckedCreateWithoutLikesInput>
-    connectOrCreate?: ShouldDoCreateOrConnectWithoutLikesInput
-    connect?: ShouldDoWhereUniqueInput
-  }
-
-  export type UserCreateNestedOneWithoutShouldDoLikesInput = {
-    create?: XOR<UserCreateWithoutShouldDoLikesInput, UserUncheckedCreateWithoutShouldDoLikesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutShouldDoLikesInput
-    connect?: UserWhereUniqueInput
-  }
-
-  export type ShouldDoUpdateOneRequiredWithoutLikesNestedInput = {
-    create?: XOR<ShouldDoCreateWithoutLikesInput, ShouldDoUncheckedCreateWithoutLikesInput>
-    connectOrCreate?: ShouldDoCreateOrConnectWithoutLikesInput
-    upsert?: ShouldDoUpsertWithoutLikesInput
-    connect?: ShouldDoWhereUniqueInput
-    update?: XOR<XOR<ShouldDoUpdateToOneWithWhereWithoutLikesInput, ShouldDoUpdateWithoutLikesInput>, ShouldDoUncheckedUpdateWithoutLikesInput>
-  }
-
-  export type UserUpdateOneRequiredWithoutShouldDoLikesNestedInput = {
-    create?: XOR<UserCreateWithoutShouldDoLikesInput, UserUncheckedCreateWithoutShouldDoLikesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutShouldDoLikesInput
-    upsert?: UserUpsertWithoutShouldDoLikesInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutShouldDoLikesInput, UserUpdateWithoutShouldDoLikesInput>, UserUncheckedUpdateWithoutShouldDoLikesInput>
   }
 
   export type UserCreateNestedOneWithoutRoutinesInput = {
@@ -27181,24 +23125,24 @@ export namespace Prisma {
     deleteMany?: RoutineHabitScalarWhereInput | RoutineHabitScalarWhereInput[]
   }
 
-  export type RoutineCreateNestedOneWithoutHabitsInput = {
-    create?: XOR<RoutineCreateWithoutHabitsInput, RoutineUncheckedCreateWithoutHabitsInput>
-    connectOrCreate?: RoutineCreateOrConnectWithoutHabitsInput
-    connect?: RoutineWhereUniqueInput
-  }
-
   export type HabitCreateNestedOneWithoutRoutineHabitsInput = {
     create?: XOR<HabitCreateWithoutRoutineHabitsInput, HabitUncheckedCreateWithoutRoutineHabitsInput>
     connectOrCreate?: HabitCreateOrConnectWithoutRoutineHabitsInput
     connect?: HabitWhereUniqueInput
   }
 
-  export type RoutineUpdateOneRequiredWithoutHabitsNestedInput = {
+  export type RoutineCreateNestedOneWithoutHabitsInput = {
     create?: XOR<RoutineCreateWithoutHabitsInput, RoutineUncheckedCreateWithoutHabitsInput>
     connectOrCreate?: RoutineCreateOrConnectWithoutHabitsInput
-    upsert?: RoutineUpsertWithoutHabitsInput
     connect?: RoutineWhereUniqueInput
-    update?: XOR<XOR<RoutineUpdateToOneWithWhereWithoutHabitsInput, RoutineUpdateWithoutHabitsInput>, RoutineUncheckedUpdateWithoutHabitsInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type HabitUpdateOneRequiredWithoutRoutineHabitsNestedInput = {
@@ -27209,18 +23153,30 @@ export namespace Prisma {
     update?: XOR<XOR<HabitUpdateToOneWithWhereWithoutRoutineHabitsInput, HabitUpdateWithoutRoutineHabitsInput>, HabitUncheckedUpdateWithoutRoutineHabitsInput>
   }
 
-  export type UserCreateNestedOneWithoutNotificationReadsInput = {
-    create?: XOR<UserCreateWithoutNotificationReadsInput, UserUncheckedCreateWithoutNotificationReadsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutNotificationReadsInput
-    connect?: UserWhereUniqueInput
+  export type RoutineUpdateOneRequiredWithoutHabitsNestedInput = {
+    create?: XOR<RoutineCreateWithoutHabitsInput, RoutineUncheckedCreateWithoutHabitsInput>
+    connectOrCreate?: RoutineCreateOrConnectWithoutHabitsInput
+    upsert?: RoutineUpsertWithoutHabitsInput
+    connect?: RoutineWhereUniqueInput
+    update?: XOR<XOR<RoutineUpdateToOneWithWhereWithoutHabitsInput, RoutineUpdateWithoutHabitsInput>, RoutineUncheckedUpdateWithoutHabitsInput>
   }
 
-  export type UserUpdateOneRequiredWithoutNotificationReadsNestedInput = {
-    create?: XOR<UserCreateWithoutNotificationReadsInput, UserUncheckedCreateWithoutNotificationReadsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutNotificationReadsInput
-    upsert?: UserUpsertWithoutNotificationReadsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationReadsInput, UserUpdateWithoutNotificationReadsInput>, UserUncheckedUpdateWithoutNotificationReadsInput>
+  export type PostHabitCreatebenefitsInput = {
+    set: string[]
+  }
+
+  export type PostHabitCreatestepsInput = {
+    set: string[]
+  }
+
+  export type PostHabitCreateguardrailsInput = {
+    set: string[]
+  }
+
+  export type HabitCreateNestedOneWithoutPost_habitInput = {
+    create?: XOR<HabitCreateWithoutPost_habitInput, HabitUncheckedCreateWithoutPost_habitInput>
+    connectOrCreate?: HabitCreateOrConnectWithoutPost_habitInput
+    connect?: HabitWhereUniqueInput
   }
 
   export type UserCreateNestedOneWithoutPostHabitsInput = {
@@ -27241,6 +23197,41 @@ export namespace Prisma {
     connectOrCreate?: PostHabitLikeCreateOrConnectWithoutPostHabitInput | PostHabitLikeCreateOrConnectWithoutPostHabitInput[]
     createMany?: PostHabitLikeCreateManyPostHabitInputEnvelope
     connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
+  }
+
+  export type EnumHabitCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.HabitCategory
+  }
+
+  export type EnumHabitTimeWindowFieldUpdateOperationsInput = {
+    set?: $Enums.HabitTimeWindow
+  }
+
+  export type EnumHabitCommitmentFieldUpdateOperationsInput = {
+    set?: $Enums.HabitCommitment
+  }
+
+  export type PostHabitUpdatebenefitsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type PostHabitUpdatestepsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type PostHabitUpdateguardrailsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type HabitUpdateOneRequiredWithoutPost_habitNestedInput = {
+    create?: XOR<HabitCreateWithoutPost_habitInput, HabitUncheckedCreateWithoutPost_habitInput>
+    connectOrCreate?: HabitCreateOrConnectWithoutPost_habitInput
+    upsert?: HabitUpsertWithoutPost_habitInput
+    connect?: HabitWhereUniqueInput
+    update?: XOR<XOR<HabitUpdateToOneWithWhereWithoutPost_habitInput, HabitUpdateWithoutPost_habitInput>, HabitUncheckedUpdateWithoutPost_habitInput>
   }
 
   export type UserUpdateOneRequiredWithoutPostHabitsNestedInput = {
@@ -27307,6 +23298,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostHabitLikesInput, UserUpdateWithoutPostHabitLikesInput>, UserUncheckedUpdateWithoutPostHabitLikesInput>
   }
 
+  export type UserCreateNestedOneWithoutNotification_readInput = {
+    create?: XOR<UserCreateWithoutNotification_readInput, UserUncheckedCreateWithoutNotification_readInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotification_readInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutNotification_readNestedInput = {
+    create?: XOR<UserCreateWithoutNotification_readInput, UserUncheckedCreateWithoutNotification_readInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotification_readInput
+    upsert?: UserUpsertWithoutNotification_readInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotification_readInput, UserUpdateWithoutNotification_readInput>, UserUncheckedUpdateWithoutNotification_readInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -27324,20 +23329,6 @@ export namespace Prisma {
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -27360,6 +23351,20 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -27396,23 +23401,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -27454,6 +23442,23 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -27558,34 +23563,55 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type SessionCreateWithoutUserInput = {
-    id: string
-    expiresAt: Date | string
-    token: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    ipAddress?: string | null
-    userAgent?: string | null
+  export type NestedEnumHabitCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitCategory | EnumHabitCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitCategory[] | ListEnumHabitCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitCategory[] | ListEnumHabitCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitCategoryFilter<$PrismaModel> | $Enums.HabitCategory
   }
 
-  export type SessionUncheckedCreateWithoutUserInput = {
-    id: string
-    expiresAt: Date | string
-    token: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    ipAddress?: string | null
-    userAgent?: string | null
+  export type NestedEnumHabitTimeWindowFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitTimeWindow | EnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitTimeWindowFilter<$PrismaModel> | $Enums.HabitTimeWindow
   }
 
-  export type SessionCreateOrConnectWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
+  export type NestedEnumHabitCommitmentFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitCommitment | EnumHabitCommitmentFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitCommitmentFilter<$PrismaModel> | $Enums.HabitCommitment
   }
 
-  export type SessionCreateManyUserInputEnvelope = {
-    data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
-    skipDuplicates?: boolean
+  export type NestedEnumHabitCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitCategory | EnumHabitCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitCategory[] | ListEnumHabitCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitCategory[] | ListEnumHabitCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitCategoryWithAggregatesFilter<$PrismaModel> | $Enums.HabitCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHabitCategoryFilter<$PrismaModel>
+    _max?: NestedEnumHabitCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumHabitTimeWindowWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitTimeWindow | EnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitTimeWindowWithAggregatesFilter<$PrismaModel> | $Enums.HabitTimeWindow
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHabitTimeWindowFilter<$PrismaModel>
+    _max?: NestedEnumHabitTimeWindowFilter<$PrismaModel>
+  }
+
+  export type NestedEnumHabitCommitmentWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.HabitCommitment | EnumHabitCommitmentFieldRefInput<$PrismaModel>
+    in?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
+    notIn?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
+    not?: NestedEnumHabitCommitmentWithAggregatesFilter<$PrismaModel> | $Enums.HabitCommitment
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumHabitCommitmentFilter<$PrismaModel>
+    _max?: NestedEnumHabitCommitmentFilter<$PrismaModel>
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -27628,124 +23654,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TodoCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description?: string | null
-    category?: string | null
-    priority?: $Enums.TodoPriority
-    status?: $Enums.TodoStatus
-    tags?: string | null
-    iconName?: string
-    iconColor?: string
-    archived?: boolean
-    location?: string | null
-    scheduledTime?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    collections?: CollectionTodoCreateNestedManyWithoutTodoInput
-  }
-
-  export type TodoUncheckedCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description?: string | null
-    category?: string | null
-    priority?: $Enums.TodoPriority
-    status?: $Enums.TodoStatus
-    tags?: string | null
-    iconName?: string
-    iconColor?: string
-    archived?: boolean
-    location?: string | null
-    scheduledTime?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    collections?: CollectionTodoUncheckedCreateNestedManyWithoutTodoInput
-  }
-
-  export type TodoCreateOrConnectWithoutUserInput = {
-    where: TodoWhereUniqueInput
-    create: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput>
-  }
-
-  export type TodoCreateManyUserInputEnvelope = {
-    data: TodoCreateManyUserInput | TodoCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type HabitCreateWithoutUserInput = {
-    id?: string
-    name: string
-    description?: string | null
-    cadence: string
-    startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    dailyProgress?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    routineHabits?: RoutineHabitCreateNestedManyWithoutHabitInput
-    dailyProgressEntries?: HabitDailyProgressCreateNestedManyWithoutHabitInput
-  }
-
-  export type HabitUncheckedCreateWithoutUserInput = {
-    id?: string
-    name: string
-    description?: string | null
-    cadence: string
-    startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    dailyProgress?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    routineHabits?: RoutineHabitUncheckedCreateNestedManyWithoutHabitInput
-    dailyProgressEntries?: HabitDailyProgressUncheckedCreateNestedManyWithoutHabitInput
-  }
-
-  export type HabitCreateOrConnectWithoutUserInput = {
-    where: HabitWhereUniqueInput
-    create: XOR<HabitCreateWithoutUserInput, HabitUncheckedCreateWithoutUserInput>
-  }
-
-  export type HabitCreateManyUserInputEnvelope = {
-    data: HabitCreateManyUserInput | HabitCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type HabitReflectionCreateWithoutUserInput = {
-    id?: string
-    entryDate: Date | string
-    note: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type HabitReflectionUncheckedCreateWithoutUserInput = {
-    id?: string
-    entryDate: Date | string
-    note: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type HabitReflectionCreateOrConnectWithoutUserInput = {
-    where: HabitReflectionWhereUniqueInput
-    create: XOR<HabitReflectionCreateWithoutUserInput, HabitReflectionUncheckedCreateWithoutUserInput>
-  }
-
-  export type HabitReflectionCreateManyUserInputEnvelope = {
-    data: HabitReflectionCreateManyUserInput | HabitReflectionCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type CollectionCreateWithoutUserInput = {
     id?: string
     name: string
@@ -27774,145 +23682,117 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type RoutineCreateWithoutUserInput = {
+  export type HabitCreateWithoutUserInput = {
     id?: string
     name: string
-    anchor?: string | null
-    notes?: string | null
+    description?: string | null
+    cadence: string
+    startDate: Date | string
+    timeOfDay?: string | null
+    reminder?: string | null
+    goalAmount?: number
+    goalUnit?: string
+    goalUnitCategory?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    habits?: RoutineHabitCreateNestedManyWithoutRoutineInput
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
+    dailyProgressEntries?: HabitDailyProgressCreateNestedManyWithoutHabitInput
+    post_habit?: PostHabitCreateNestedManyWithoutHabitInput
+    routineHabits?: RoutineHabitCreateNestedManyWithoutHabitInput
   }
 
-  export type RoutineUncheckedCreateWithoutUserInput = {
+  export type HabitUncheckedCreateWithoutUserInput = {
     id?: string
     name: string
-    anchor?: string | null
-    notes?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    habits?: RoutineHabitUncheckedCreateNestedManyWithoutRoutineInput
-  }
-
-  export type RoutineCreateOrConnectWithoutUserInput = {
-    where: RoutineWhereUniqueInput
-    create: XOR<RoutineCreateWithoutUserInput, RoutineUncheckedCreateWithoutUserInput>
-  }
-
-  export type RoutineCreateManyUserInputEnvelope = {
-    data: RoutineCreateManyUserInput | RoutineCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ShouldDoCreateWithoutUserInput = {
-    id?: string
-    title: string
     description?: string | null
-    iconKey?: string | null
-    iconColor?: string | null
-    likesCount?: number
+    cadence: string
+    startDate: Date | string
+    timeOfDay?: string | null
+    reminder?: string | null
+    goalAmount?: number
+    goalUnit?: string
+    goalUnitCategory?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    likes?: ShouldDoLikeCreateNestedManyWithoutShouldDoInput
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
+    dailyProgressEntries?: HabitDailyProgressUncheckedCreateNestedManyWithoutHabitInput
+    post_habit?: PostHabitUncheckedCreateNestedManyWithoutHabitInput
+    routineHabits?: RoutineHabitUncheckedCreateNestedManyWithoutHabitInput
   }
 
-  export type ShouldDoUncheckedCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description?: string | null
-    iconKey?: string | null
-    iconColor?: string | null
-    likesCount?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    likes?: ShouldDoLikeUncheckedCreateNestedManyWithoutShouldDoInput
+  export type HabitCreateOrConnectWithoutUserInput = {
+    where: HabitWhereUniqueInput
+    create: XOR<HabitCreateWithoutUserInput, HabitUncheckedCreateWithoutUserInput>
   }
 
-  export type ShouldDoCreateOrConnectWithoutUserInput = {
-    where: ShouldDoWhereUniqueInput
-    create: XOR<ShouldDoCreateWithoutUserInput, ShouldDoUncheckedCreateWithoutUserInput>
-  }
-
-  export type ShouldDoCreateManyUserInputEnvelope = {
-    data: ShouldDoCreateManyUserInput | ShouldDoCreateManyUserInput[]
+  export type HabitCreateManyUserInputEnvelope = {
+    data: HabitCreateManyUserInput | HabitCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
-  export type ShouldDoLikeCreateWithoutUserInput = {
-    id?: string
-    createdAt?: Date | string
-    shouldDo: ShouldDoCreateNestedOneWithoutLikesInput
-  }
-
-  export type ShouldDoLikeUncheckedCreateWithoutUserInput = {
-    id?: string
-    shouldDoId: string
-    createdAt?: Date | string
-  }
-
-  export type ShouldDoLikeCreateOrConnectWithoutUserInput = {
-    where: ShouldDoLikeWhereUniqueInput
-    create: XOR<ShouldDoLikeCreateWithoutUserInput, ShouldDoLikeUncheckedCreateWithoutUserInput>
-  }
-
-  export type ShouldDoLikeCreateManyUserInputEnvelope = {
-    data: ShouldDoLikeCreateManyUserInput | ShouldDoLikeCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type NotificationReadCreateWithoutUserInput = {
-    id?: string
+  export type notification_readCreateWithoutUserInput = {
+    id: string
     notificationId: string
     createdAt?: Date | string
   }
 
-  export type NotificationReadUncheckedCreateWithoutUserInput = {
-    id?: string
+  export type notification_readUncheckedCreateWithoutUserInput = {
+    id: string
     notificationId: string
     createdAt?: Date | string
   }
 
-  export type NotificationReadCreateOrConnectWithoutUserInput = {
-    where: NotificationReadWhereUniqueInput
-    create: XOR<NotificationReadCreateWithoutUserInput, NotificationReadUncheckedCreateWithoutUserInput>
+  export type notification_readCreateOrConnectWithoutUserInput = {
+    where: notification_readWhereUniqueInput
+    create: XOR<notification_readCreateWithoutUserInput, notification_readUncheckedCreateWithoutUserInput>
   }
 
-  export type NotificationReadCreateManyUserInputEnvelope = {
-    data: NotificationReadCreateManyUserInput | NotificationReadCreateManyUserInput[]
+  export type notification_readCreateManyUserInputEnvelope = {
+    data: notification_readCreateManyUserInput | notification_readCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
   export type PostHabitCreateWithoutUserInput = {
     id?: string
     title: string
-    description?: string | null
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
     cadence: string
-    category?: string | null
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    votesCount?: number
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    likesCount?: number
+    habit: HabitCreateNestedOneWithoutPost_habitInput
     likes?: PostHabitLikeCreateNestedManyWithoutPostHabitInput
   }
 
   export type PostHabitUncheckedCreateWithoutUserInput = {
     id?: string
     title: string
-    description?: string | null
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
     cadence: string
-    category?: string | null
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    votesCount?: number
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
+    habitId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    likesCount?: number
     likes?: PostHabitLikeUncheckedCreateNestedManyWithoutPostHabitInput
   }
 
@@ -27948,34 +23828,116 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type SessionUpsertWithWhereUniqueWithoutUserInput = {
+  export type RoutineCreateWithoutUserInput = {
+    id?: string
+    name: string
+    anchor?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    habits?: RoutineHabitCreateNestedManyWithoutRoutineInput
+  }
+
+  export type RoutineUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    anchor?: string | null
+    notes?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    habits?: RoutineHabitUncheckedCreateNestedManyWithoutRoutineInput
+  }
+
+  export type RoutineCreateOrConnectWithoutUserInput = {
+    where: RoutineWhereUniqueInput
+    create: XOR<RoutineCreateWithoutUserInput, RoutineUncheckedCreateWithoutUserInput>
+  }
+
+  export type RoutineCreateManyUserInputEnvelope = {
+    data: RoutineCreateManyUserInput | RoutineCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SessionCreateWithoutUserInput = {
+    id: string
+    expiresAt: Date | string
+    token: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ipAddress?: string | null
+    userAgent?: string | null
+  }
+
+  export type SessionUncheckedCreateWithoutUserInput = {
+    id: string
+    expiresAt: Date | string
+    token: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ipAddress?: string | null
+    userAgent?: string | null
+  }
+
+  export type SessionCreateOrConnectWithoutUserInput = {
     where: SessionWhereUniqueInput
-    update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
     create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
   }
 
-  export type SessionUpdateWithWhereUniqueWithoutUserInput = {
-    where: SessionWhereUniqueInput
-    data: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
+  export type SessionCreateManyUserInputEnvelope = {
+    data: SessionCreateManyUserInput | SessionCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
-  export type SessionUpdateManyWithWhereWithoutUserInput = {
-    where: SessionScalarWhereInput
-    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutUserInput>
+  export type TodoCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    category?: string | null
+    priority?: $Enums.TodoPriority
+    status?: $Enums.TodoStatus
+    dueAt?: Date | string | null
+    durationMinutes?: number | null
+    location?: string | null
+    reminder?: string | null
+    recurrence?: string | null
+    tags?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    iconColor?: string
+    iconName?: string
+    archived?: boolean
+    collections?: CollectionTodoCreateNestedManyWithoutTodoInput
   }
 
-  export type SessionScalarWhereInput = {
-    AND?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    OR?: SessionScalarWhereInput[]
-    NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
-    id?: StringFilter<"Session"> | string
-    expiresAt?: DateTimeFilter<"Session"> | Date | string
-    token?: StringFilter<"Session"> | string
-    createdAt?: DateTimeFilter<"Session"> | Date | string
-    updatedAt?: DateTimeFilter<"Session"> | Date | string
-    ipAddress?: StringNullableFilter<"Session"> | string | null
-    userAgent?: StringNullableFilter<"Session"> | string | null
-    userId?: StringFilter<"Session"> | string
+  export type TodoUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description?: string | null
+    category?: string | null
+    priority?: $Enums.TodoPriority
+    status?: $Enums.TodoStatus
+    dueAt?: Date | string | null
+    durationMinutes?: number | null
+    location?: string | null
+    reminder?: string | null
+    recurrence?: string | null
+    tags?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    iconColor?: string
+    iconName?: string
+    archived?: boolean
+    collections?: CollectionTodoUncheckedCreateNestedManyWithoutTodoInput
+  }
+
+  export type TodoCreateOrConnectWithoutUserInput = {
+    where: TodoWhereUniqueInput
+    create: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput>
+  }
+
+  export type TodoCreateManyUserInputEnvelope = {
+    data: TodoCreateManyUserInput | TodoCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -28013,41 +23975,32 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Account"> | Date | string
   }
 
-  export type TodoUpsertWithWhereUniqueWithoutUserInput = {
-    where: TodoWhereUniqueInput
-    update: XOR<TodoUpdateWithoutUserInput, TodoUncheckedUpdateWithoutUserInput>
-    create: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput>
+  export type CollectionUpsertWithWhereUniqueWithoutUserInput = {
+    where: CollectionWhereUniqueInput
+    update: XOR<CollectionUpdateWithoutUserInput, CollectionUncheckedUpdateWithoutUserInput>
+    create: XOR<CollectionCreateWithoutUserInput, CollectionUncheckedCreateWithoutUserInput>
   }
 
-  export type TodoUpdateWithWhereUniqueWithoutUserInput = {
-    where: TodoWhereUniqueInput
-    data: XOR<TodoUpdateWithoutUserInput, TodoUncheckedUpdateWithoutUserInput>
+  export type CollectionUpdateWithWhereUniqueWithoutUserInput = {
+    where: CollectionWhereUniqueInput
+    data: XOR<CollectionUpdateWithoutUserInput, CollectionUncheckedUpdateWithoutUserInput>
   }
 
-  export type TodoUpdateManyWithWhereWithoutUserInput = {
-    where: TodoScalarWhereInput
-    data: XOR<TodoUpdateManyMutationInput, TodoUncheckedUpdateManyWithoutUserInput>
+  export type CollectionUpdateManyWithWhereWithoutUserInput = {
+    where: CollectionScalarWhereInput
+    data: XOR<CollectionUpdateManyMutationInput, CollectionUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type TodoScalarWhereInput = {
-    AND?: TodoScalarWhereInput | TodoScalarWhereInput[]
-    OR?: TodoScalarWhereInput[]
-    NOT?: TodoScalarWhereInput | TodoScalarWhereInput[]
-    id?: StringFilter<"Todo"> | string
-    title?: StringFilter<"Todo"> | string
-    description?: StringNullableFilter<"Todo"> | string | null
-    category?: StringNullableFilter<"Todo"> | string | null
-    priority?: EnumTodoPriorityFilter<"Todo"> | $Enums.TodoPriority
-    status?: EnumTodoStatusFilter<"Todo"> | $Enums.TodoStatus
-    tags?: StringNullableFilter<"Todo"> | string | null
-    iconName?: StringFilter<"Todo"> | string
-    iconColor?: StringFilter<"Todo"> | string
-    archived?: BoolFilter<"Todo"> | boolean
-    location?: StringNullableFilter<"Todo"> | string | null
-    scheduledTime?: StringNullableFilter<"Todo"> | string | null
-    createdAt?: DateTimeFilter<"Todo"> | Date | string
-    updatedAt?: DateTimeFilter<"Todo"> | Date | string
-    userId?: StringFilter<"Todo"> | string
+  export type CollectionScalarWhereInput = {
+    AND?: CollectionScalarWhereInput | CollectionScalarWhereInput[]
+    OR?: CollectionScalarWhereInput[]
+    NOT?: CollectionScalarWhereInput | CollectionScalarWhereInput[]
+    id?: StringFilter<"Collection"> | string
+    name?: StringFilter<"Collection"> | string
+    description?: StringNullableFilter<"Collection"> | string | null
+    userId?: StringFilter<"Collection"> | string
+    createdAt?: DateTimeFilter<"Collection"> | Date | string
+    updatedAt?: DateTimeFilter<"Collection"> | Date | string
   }
 
   export type HabitUpsertWithWhereUniqueWithoutUserInput = {
@@ -28080,66 +24033,103 @@ export namespace Prisma {
     goalAmount?: FloatFilter<"Habit"> | number
     goalUnit?: StringFilter<"Habit"> | string
     goalUnitCategory?: StringFilter<"Habit"> | string
-    dailyProgress?: FloatFilter<"Habit"> | number
     createdAt?: DateTimeFilter<"Habit"> | Date | string
     updatedAt?: DateTimeFilter<"Habit"> | Date | string
     userId?: StringFilter<"Habit"> | string
+    sourcePopularPostId?: StringNullableFilter<"Habit"> | string | null
+    dailyProgress?: FloatFilter<"Habit"> | number
   }
 
-  export type HabitReflectionUpsertWithWhereUniqueWithoutUserInput = {
-    where: HabitReflectionWhereUniqueInput
-    update: XOR<HabitReflectionUpdateWithoutUserInput, HabitReflectionUncheckedUpdateWithoutUserInput>
-    create: XOR<HabitReflectionCreateWithoutUserInput, HabitReflectionUncheckedCreateWithoutUserInput>
+  export type notification_readUpsertWithWhereUniqueWithoutUserInput = {
+    where: notification_readWhereUniqueInput
+    update: XOR<notification_readUpdateWithoutUserInput, notification_readUncheckedUpdateWithoutUserInput>
+    create: XOR<notification_readCreateWithoutUserInput, notification_readUncheckedCreateWithoutUserInput>
   }
 
-  export type HabitReflectionUpdateWithWhereUniqueWithoutUserInput = {
-    where: HabitReflectionWhereUniqueInput
-    data: XOR<HabitReflectionUpdateWithoutUserInput, HabitReflectionUncheckedUpdateWithoutUserInput>
+  export type notification_readUpdateWithWhereUniqueWithoutUserInput = {
+    where: notification_readWhereUniqueInput
+    data: XOR<notification_readUpdateWithoutUserInput, notification_readUncheckedUpdateWithoutUserInput>
   }
 
-  export type HabitReflectionUpdateManyWithWhereWithoutUserInput = {
-    where: HabitReflectionScalarWhereInput
-    data: XOR<HabitReflectionUpdateManyMutationInput, HabitReflectionUncheckedUpdateManyWithoutUserInput>
+  export type notification_readUpdateManyWithWhereWithoutUserInput = {
+    where: notification_readScalarWhereInput
+    data: XOR<notification_readUpdateManyMutationInput, notification_readUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type HabitReflectionScalarWhereInput = {
-    AND?: HabitReflectionScalarWhereInput | HabitReflectionScalarWhereInput[]
-    OR?: HabitReflectionScalarWhereInput[]
-    NOT?: HabitReflectionScalarWhereInput | HabitReflectionScalarWhereInput[]
-    id?: StringFilter<"HabitReflection"> | string
-    userId?: StringFilter<"HabitReflection"> | string
-    entryDate?: DateTimeFilter<"HabitReflection"> | Date | string
-    note?: StringFilter<"HabitReflection"> | string
-    createdAt?: DateTimeFilter<"HabitReflection"> | Date | string
-    updatedAt?: DateTimeFilter<"HabitReflection"> | Date | string
+  export type notification_readScalarWhereInput = {
+    AND?: notification_readScalarWhereInput | notification_readScalarWhereInput[]
+    OR?: notification_readScalarWhereInput[]
+    NOT?: notification_readScalarWhereInput | notification_readScalarWhereInput[]
+    id?: StringFilter<"notification_read"> | string
+    userId?: StringFilter<"notification_read"> | string
+    notificationId?: StringFilter<"notification_read"> | string
+    createdAt?: DateTimeFilter<"notification_read"> | Date | string
   }
 
-  export type CollectionUpsertWithWhereUniqueWithoutUserInput = {
-    where: CollectionWhereUniqueInput
-    update: XOR<CollectionUpdateWithoutUserInput, CollectionUncheckedUpdateWithoutUserInput>
-    create: XOR<CollectionCreateWithoutUserInput, CollectionUncheckedCreateWithoutUserInput>
+  export type PostHabitUpsertWithWhereUniqueWithoutUserInput = {
+    where: PostHabitWhereUniqueInput
+    update: XOR<PostHabitUpdateWithoutUserInput, PostHabitUncheckedUpdateWithoutUserInput>
+    create: XOR<PostHabitCreateWithoutUserInput, PostHabitUncheckedCreateWithoutUserInput>
   }
 
-  export type CollectionUpdateWithWhereUniqueWithoutUserInput = {
-    where: CollectionWhereUniqueInput
-    data: XOR<CollectionUpdateWithoutUserInput, CollectionUncheckedUpdateWithoutUserInput>
+  export type PostHabitUpdateWithWhereUniqueWithoutUserInput = {
+    where: PostHabitWhereUniqueInput
+    data: XOR<PostHabitUpdateWithoutUserInput, PostHabitUncheckedUpdateWithoutUserInput>
   }
 
-  export type CollectionUpdateManyWithWhereWithoutUserInput = {
-    where: CollectionScalarWhereInput
-    data: XOR<CollectionUpdateManyMutationInput, CollectionUncheckedUpdateManyWithoutUserInput>
+  export type PostHabitUpdateManyWithWhereWithoutUserInput = {
+    where: PostHabitScalarWhereInput
+    data: XOR<PostHabitUpdateManyMutationInput, PostHabitUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type CollectionScalarWhereInput = {
-    AND?: CollectionScalarWhereInput | CollectionScalarWhereInput[]
-    OR?: CollectionScalarWhereInput[]
-    NOT?: CollectionScalarWhereInput | CollectionScalarWhereInput[]
-    id?: StringFilter<"Collection"> | string
-    name?: StringFilter<"Collection"> | string
-    description?: StringNullableFilter<"Collection"> | string | null
-    userId?: StringFilter<"Collection"> | string
-    createdAt?: DateTimeFilter<"Collection"> | Date | string
-    updatedAt?: DateTimeFilter<"Collection"> | Date | string
+  export type PostHabitScalarWhereInput = {
+    AND?: PostHabitScalarWhereInput | PostHabitScalarWhereInput[]
+    OR?: PostHabitScalarWhereInput[]
+    NOT?: PostHabitScalarWhereInput | PostHabitScalarWhereInput[]
+    id?: StringFilter<"PostHabit"> | string
+    title?: StringFilter<"PostHabit"> | string
+    summary?: StringNullableFilter<"PostHabit"> | string | null
+    highlight?: StringNullableFilter<"PostHabit"> | string | null
+    anchor?: StringNullableFilter<"PostHabit"> | string | null
+    duration?: StringNullableFilter<"PostHabit"> | string | null
+    cadence?: StringFilter<"PostHabit"> | string
+    category?: EnumHabitCategoryFilter<"PostHabit"> | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFilter<"PostHabit"> | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFilter<"PostHabit"> | $Enums.HabitCommitment
+    benefits?: StringNullableListFilter<"PostHabit">
+    steps?: StringNullableListFilter<"PostHabit">
+    guardrails?: StringNullableListFilter<"PostHabit">
+    habitId?: StringFilter<"PostHabit"> | string
+    userId?: StringFilter<"PostHabit"> | string
+    createdAt?: DateTimeFilter<"PostHabit"> | Date | string
+    updatedAt?: DateTimeFilter<"PostHabit"> | Date | string
+    likesCount?: IntFilter<"PostHabit"> | number
+  }
+
+  export type PostHabitLikeUpsertWithWhereUniqueWithoutUserInput = {
+    where: PostHabitLikeWhereUniqueInput
+    update: XOR<PostHabitLikeUpdateWithoutUserInput, PostHabitLikeUncheckedUpdateWithoutUserInput>
+    create: XOR<PostHabitLikeCreateWithoutUserInput, PostHabitLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type PostHabitLikeUpdateWithWhereUniqueWithoutUserInput = {
+    where: PostHabitLikeWhereUniqueInput
+    data: XOR<PostHabitLikeUpdateWithoutUserInput, PostHabitLikeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type PostHabitLikeUpdateManyWithWhereWithoutUserInput = {
+    where: PostHabitLikeScalarWhereInput
+    data: XOR<PostHabitLikeUpdateManyMutationInput, PostHabitLikeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type PostHabitLikeScalarWhereInput = {
+    AND?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
+    OR?: PostHabitLikeScalarWhereInput[]
+    NOT?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
+    id?: StringFilter<"PostHabitLike"> | string
+    postHabitId?: StringFilter<"PostHabitLike"> | string
+    userId?: StringFilter<"PostHabitLike"> | string
+    createdAt?: DateTimeFilter<"PostHabitLike"> | Date | string
   }
 
   export type RoutineUpsertWithWhereUniqueWithoutUserInput = {
@@ -28171,149 +24161,74 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Routine"> | Date | string
   }
 
-  export type ShouldDoUpsertWithWhereUniqueWithoutUserInput = {
-    where: ShouldDoWhereUniqueInput
-    update: XOR<ShouldDoUpdateWithoutUserInput, ShouldDoUncheckedUpdateWithoutUserInput>
-    create: XOR<ShouldDoCreateWithoutUserInput, ShouldDoUncheckedCreateWithoutUserInput>
+  export type SessionUpsertWithWhereUniqueWithoutUserInput = {
+    where: SessionWhereUniqueInput
+    update: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
+    create: XOR<SessionCreateWithoutUserInput, SessionUncheckedCreateWithoutUserInput>
   }
 
-  export type ShouldDoUpdateWithWhereUniqueWithoutUserInput = {
-    where: ShouldDoWhereUniqueInput
-    data: XOR<ShouldDoUpdateWithoutUserInput, ShouldDoUncheckedUpdateWithoutUserInput>
+  export type SessionUpdateWithWhereUniqueWithoutUserInput = {
+    where: SessionWhereUniqueInput
+    data: XOR<SessionUpdateWithoutUserInput, SessionUncheckedUpdateWithoutUserInput>
   }
 
-  export type ShouldDoUpdateManyWithWhereWithoutUserInput = {
-    where: ShouldDoScalarWhereInput
-    data: XOR<ShouldDoUpdateManyMutationInput, ShouldDoUncheckedUpdateManyWithoutUserInput>
+  export type SessionUpdateManyWithWhereWithoutUserInput = {
+    where: SessionScalarWhereInput
+    data: XOR<SessionUpdateManyMutationInput, SessionUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type ShouldDoScalarWhereInput = {
-    AND?: ShouldDoScalarWhereInput | ShouldDoScalarWhereInput[]
-    OR?: ShouldDoScalarWhereInput[]
-    NOT?: ShouldDoScalarWhereInput | ShouldDoScalarWhereInput[]
-    id?: StringFilter<"ShouldDo"> | string
-    title?: StringFilter<"ShouldDo"> | string
-    description?: StringNullableFilter<"ShouldDo"> | string | null
-    iconKey?: StringNullableFilter<"ShouldDo"> | string | null
-    iconColor?: StringNullableFilter<"ShouldDo"> | string | null
-    likesCount?: IntFilter<"ShouldDo"> | number
-    userId?: StringFilter<"ShouldDo"> | string
-    createdAt?: DateTimeFilter<"ShouldDo"> | Date | string
-    updatedAt?: DateTimeFilter<"ShouldDo"> | Date | string
+  export type SessionScalarWhereInput = {
+    AND?: SessionScalarWhereInput | SessionScalarWhereInput[]
+    OR?: SessionScalarWhereInput[]
+    NOT?: SessionScalarWhereInput | SessionScalarWhereInput[]
+    id?: StringFilter<"Session"> | string
+    expiresAt?: DateTimeFilter<"Session"> | Date | string
+    token?: StringFilter<"Session"> | string
+    createdAt?: DateTimeFilter<"Session"> | Date | string
+    updatedAt?: DateTimeFilter<"Session"> | Date | string
+    ipAddress?: StringNullableFilter<"Session"> | string | null
+    userAgent?: StringNullableFilter<"Session"> | string | null
+    userId?: StringFilter<"Session"> | string
   }
 
-  export type ShouldDoLikeUpsertWithWhereUniqueWithoutUserInput = {
-    where: ShouldDoLikeWhereUniqueInput
-    update: XOR<ShouldDoLikeUpdateWithoutUserInput, ShouldDoLikeUncheckedUpdateWithoutUserInput>
-    create: XOR<ShouldDoLikeCreateWithoutUserInput, ShouldDoLikeUncheckedCreateWithoutUserInput>
+  export type TodoUpsertWithWhereUniqueWithoutUserInput = {
+    where: TodoWhereUniqueInput
+    update: XOR<TodoUpdateWithoutUserInput, TodoUncheckedUpdateWithoutUserInput>
+    create: XOR<TodoCreateWithoutUserInput, TodoUncheckedCreateWithoutUserInput>
   }
 
-  export type ShouldDoLikeUpdateWithWhereUniqueWithoutUserInput = {
-    where: ShouldDoLikeWhereUniqueInput
-    data: XOR<ShouldDoLikeUpdateWithoutUserInput, ShouldDoLikeUncheckedUpdateWithoutUserInput>
+  export type TodoUpdateWithWhereUniqueWithoutUserInput = {
+    where: TodoWhereUniqueInput
+    data: XOR<TodoUpdateWithoutUserInput, TodoUncheckedUpdateWithoutUserInput>
   }
 
-  export type ShouldDoLikeUpdateManyWithWhereWithoutUserInput = {
-    where: ShouldDoLikeScalarWhereInput
-    data: XOR<ShouldDoLikeUpdateManyMutationInput, ShouldDoLikeUncheckedUpdateManyWithoutUserInput>
+  export type TodoUpdateManyWithWhereWithoutUserInput = {
+    where: TodoScalarWhereInput
+    data: XOR<TodoUpdateManyMutationInput, TodoUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type ShouldDoLikeScalarWhereInput = {
-    AND?: ShouldDoLikeScalarWhereInput | ShouldDoLikeScalarWhereInput[]
-    OR?: ShouldDoLikeScalarWhereInput[]
-    NOT?: ShouldDoLikeScalarWhereInput | ShouldDoLikeScalarWhereInput[]
-    id?: StringFilter<"ShouldDoLike"> | string
-    shouldDoId?: StringFilter<"ShouldDoLike"> | string
-    userId?: StringFilter<"ShouldDoLike"> | string
-    createdAt?: DateTimeFilter<"ShouldDoLike"> | Date | string
-  }
-
-  export type NotificationReadUpsertWithWhereUniqueWithoutUserInput = {
-    where: NotificationReadWhereUniqueInput
-    update: XOR<NotificationReadUpdateWithoutUserInput, NotificationReadUncheckedUpdateWithoutUserInput>
-    create: XOR<NotificationReadCreateWithoutUserInput, NotificationReadUncheckedCreateWithoutUserInput>
-  }
-
-  export type NotificationReadUpdateWithWhereUniqueWithoutUserInput = {
-    where: NotificationReadWhereUniqueInput
-    data: XOR<NotificationReadUpdateWithoutUserInput, NotificationReadUncheckedUpdateWithoutUserInput>
-  }
-
-  export type NotificationReadUpdateManyWithWhereWithoutUserInput = {
-    where: NotificationReadScalarWhereInput
-    data: XOR<NotificationReadUpdateManyMutationInput, NotificationReadUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type NotificationReadScalarWhereInput = {
-    AND?: NotificationReadScalarWhereInput | NotificationReadScalarWhereInput[]
-    OR?: NotificationReadScalarWhereInput[]
-    NOT?: NotificationReadScalarWhereInput | NotificationReadScalarWhereInput[]
-    id?: StringFilter<"NotificationRead"> | string
-    userId?: StringFilter<"NotificationRead"> | string
-    notificationId?: StringFilter<"NotificationRead"> | string
-    createdAt?: DateTimeFilter<"NotificationRead"> | Date | string
-  }
-
-  export type PostHabitUpsertWithWhereUniqueWithoutUserInput = {
-    where: PostHabitWhereUniqueInput
-    update: XOR<PostHabitUpdateWithoutUserInput, PostHabitUncheckedUpdateWithoutUserInput>
-    create: XOR<PostHabitCreateWithoutUserInput, PostHabitUncheckedCreateWithoutUserInput>
-  }
-
-  export type PostHabitUpdateWithWhereUniqueWithoutUserInput = {
-    where: PostHabitWhereUniqueInput
-    data: XOR<PostHabitUpdateWithoutUserInput, PostHabitUncheckedUpdateWithoutUserInput>
-  }
-
-  export type PostHabitUpdateManyWithWhereWithoutUserInput = {
-    where: PostHabitScalarWhereInput
-    data: XOR<PostHabitUpdateManyMutationInput, PostHabitUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type PostHabitScalarWhereInput = {
-    AND?: PostHabitScalarWhereInput | PostHabitScalarWhereInput[]
-    OR?: PostHabitScalarWhereInput[]
-    NOT?: PostHabitScalarWhereInput | PostHabitScalarWhereInput[]
-    id?: StringFilter<"PostHabit"> | string
-    title?: StringFilter<"PostHabit"> | string
-    description?: StringNullableFilter<"PostHabit"> | string | null
-    cadence?: StringFilter<"PostHabit"> | string
-    category?: StringNullableFilter<"PostHabit"> | string | null
-    timeOfDay?: StringNullableFilter<"PostHabit"> | string | null
-    reminder?: StringNullableFilter<"PostHabit"> | string | null
-    goalAmount?: FloatFilter<"PostHabit"> | number
-    goalUnit?: StringFilter<"PostHabit"> | string
-    goalUnitCategory?: StringFilter<"PostHabit"> | string
-    votesCount?: IntFilter<"PostHabit"> | number
-    userId?: StringFilter<"PostHabit"> | string
-    createdAt?: DateTimeFilter<"PostHabit"> | Date | string
-    updatedAt?: DateTimeFilter<"PostHabit"> | Date | string
-  }
-
-  export type PostHabitLikeUpsertWithWhereUniqueWithoutUserInput = {
-    where: PostHabitLikeWhereUniqueInput
-    update: XOR<PostHabitLikeUpdateWithoutUserInput, PostHabitLikeUncheckedUpdateWithoutUserInput>
-    create: XOR<PostHabitLikeCreateWithoutUserInput, PostHabitLikeUncheckedCreateWithoutUserInput>
-  }
-
-  export type PostHabitLikeUpdateWithWhereUniqueWithoutUserInput = {
-    where: PostHabitLikeWhereUniqueInput
-    data: XOR<PostHabitLikeUpdateWithoutUserInput, PostHabitLikeUncheckedUpdateWithoutUserInput>
-  }
-
-  export type PostHabitLikeUpdateManyWithWhereWithoutUserInput = {
-    where: PostHabitLikeScalarWhereInput
-    data: XOR<PostHabitLikeUpdateManyMutationInput, PostHabitLikeUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type PostHabitLikeScalarWhereInput = {
-    AND?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
-    OR?: PostHabitLikeScalarWhereInput[]
-    NOT?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
-    id?: StringFilter<"PostHabitLike"> | string
-    postHabitId?: StringFilter<"PostHabitLike"> | string
-    userId?: StringFilter<"PostHabitLike"> | string
-    createdAt?: DateTimeFilter<"PostHabitLike"> | Date | string
+  export type TodoScalarWhereInput = {
+    AND?: TodoScalarWhereInput | TodoScalarWhereInput[]
+    OR?: TodoScalarWhereInput[]
+    NOT?: TodoScalarWhereInput | TodoScalarWhereInput[]
+    id?: StringFilter<"Todo"> | string
+    title?: StringFilter<"Todo"> | string
+    description?: StringNullableFilter<"Todo"> | string | null
+    category?: StringNullableFilter<"Todo"> | string | null
+    priority?: EnumTodoPriorityFilter<"Todo"> | $Enums.TodoPriority
+    status?: EnumTodoStatusFilter<"Todo"> | $Enums.TodoStatus
+    dueAt?: DateTimeNullableFilter<"Todo"> | Date | string | null
+    durationMinutes?: IntNullableFilter<"Todo"> | number | null
+    location?: StringNullableFilter<"Todo"> | string | null
+    reminder?: StringNullableFilter<"Todo"> | string | null
+    recurrence?: StringNullableFilter<"Todo"> | string | null
+    tags?: StringNullableFilter<"Todo"> | string | null
+    createdAt?: DateTimeFilter<"Todo"> | Date | string
+    updatedAt?: DateTimeFilter<"Todo"> | Date | string
+    userId?: StringFilter<"Todo"> | string
+    iconColor?: StringFilter<"Todo"> | string
+    iconName?: StringFilter<"Todo"> | string
+    archived?: BoolFilter<"Todo"> | boolean
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -28321,26 +24236,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
+    notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    routines?: RoutineCreateNestedManyWithoutUserInput
+    todos?: TodoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -28348,26 +24259,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
+    notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
+    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -28391,26 +24298,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    routines?: RoutineUpdateManyWithoutUserNestedInput
+    todos?: TodoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -28418,26 +24321,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
+    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -28445,26 +24344,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
+    notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    routines?: RoutineCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    todos?: TodoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -28472,26 +24367,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
+    notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -28515,26 +24406,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    routines?: RoutineUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    todos?: TodoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -28542,85 +24429,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserCreateWithoutTodosInput = {
-    id: string
-    name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    accounts?: AccountCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
-    collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
-    postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutTodosInput = {
-    id: string
-    name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
-    collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
-    postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutTodosInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutTodosInput, UserUncheckedCreateWithoutTodosInput>
+    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CollectionTodoCreateWithoutTodoInput = {
@@ -28645,69 +24469,55 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutTodosInput = {
-    update: XOR<UserUpdateWithoutTodosInput, UserUncheckedUpdateWithoutTodosInput>
+  export type UserCreateWithoutTodosInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    streakGoalDays?: number | null
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    collections?: CollectionCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
+    notification_read?: notification_readCreateNestedManyWithoutUserInput
+    postHabits?: PostHabitCreateNestedManyWithoutUserInput
+    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    routines?: RoutineCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTodosInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    streakGoalDays?: number | null
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
+    notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
+    postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
+    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTodosInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutTodosInput, UserUncheckedCreateWithoutTodosInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutTodosInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutTodosInput, UserUncheckedUpdateWithoutTodosInput>
-  }
-
-  export type UserUpdateWithoutTodosInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    accounts?: AccountUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
-    collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
-    postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutTodosInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
-    collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
-    postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CollectionTodoUpsertWithWhereUniqueWithoutTodoInput = {
@@ -28736,31 +24546,84 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"CollectionTodo"> | Date | string
   }
 
+  export type UserUpsertWithoutTodosInput = {
+    update: XOR<UserUpdateWithoutTodosInput, UserUncheckedUpdateWithoutTodosInput>
+    create: XOR<UserCreateWithoutTodosInput, UserUncheckedCreateWithoutTodosInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTodosInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTodosInput, UserUncheckedUpdateWithoutTodosInput>
+  }
+
+  export type UserUpdateWithoutTodosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    collections?: CollectionUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUpdateManyWithoutUserNestedInput
+    postHabits?: PostHabitUpdateManyWithoutUserNestedInput
+    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    routines?: RoutineUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTodosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
+    postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
+    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutCollectionsInput = {
     id: string
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
+    notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    routines?: RoutineCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    todos?: TodoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCollectionsInput = {
@@ -28768,26 +24631,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
+    notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCollectionsInput = {
@@ -28833,26 +24692,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    routines?: RoutineUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    todos?: TodoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCollectionsInput = {
@@ -28860,26 +24715,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type CollectionTodoUpsertWithWhereUniqueWithoutCollectionInput = {
@@ -28928,14 +24779,17 @@ export namespace Prisma {
     category?: string | null
     priority?: $Enums.TodoPriority
     status?: $Enums.TodoStatus
-    tags?: string | null
-    iconName?: string
-    iconColor?: string
-    archived?: boolean
+    dueAt?: Date | string | null
+    durationMinutes?: number | null
     location?: string | null
-    scheduledTime?: string | null
+    reminder?: string | null
+    recurrence?: string | null
+    tags?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    iconColor?: string
+    iconName?: string
+    archived?: boolean
     user: UserCreateNestedOneWithoutTodosInput
   }
 
@@ -28946,15 +24800,18 @@ export namespace Prisma {
     category?: string | null
     priority?: $Enums.TodoPriority
     status?: $Enums.TodoStatus
-    tags?: string | null
-    iconName?: string
-    iconColor?: string
-    archived?: boolean
+    dueAt?: Date | string | null
+    durationMinutes?: number | null
     location?: string | null
-    scheduledTime?: string | null
+    reminder?: string | null
+    recurrence?: string | null
+    tags?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
+    iconColor?: string
+    iconName?: string
+    archived?: boolean
   }
 
   export type TodoCreateOrConnectWithoutCollectionsInput = {
@@ -29009,14 +24866,17 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
     status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
-    tags?: NullableStringFieldUpdateOperationsInput | string | null
-    iconName?: StringFieldUpdateOperationsInput | string
-    iconColor?: StringFieldUpdateOperationsInput | string
-    archived?: BoolFieldUpdateOperationsInput | boolean
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    scheduledTime?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    iconColor?: StringFieldUpdateOperationsInput | string
+    iconName?: StringFieldUpdateOperationsInput | string
+    archived?: BoolFieldUpdateOperationsInput | boolean
     user?: UserUpdateOneRequiredWithoutTodosNestedInput
   }
 
@@ -29027,15 +24887,18 @@ export namespace Prisma {
     category?: NullableStringFieldUpdateOperationsInput | string | null
     priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
     status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
-    tags?: NullableStringFieldUpdateOperationsInput | string | null
-    iconName?: StringFieldUpdateOperationsInput | string
-    iconColor?: StringFieldUpdateOperationsInput | string
-    archived?: BoolFieldUpdateOperationsInput | boolean
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
-    scheduledTime?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
+    iconColor?: StringFieldUpdateOperationsInput | string
+    iconName?: StringFieldUpdateOperationsInput | string
+    archived?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UserCreateWithoutHabitsInput = {
@@ -29043,26 +24906,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
+    notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    routines?: RoutineCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    todos?: TodoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutHabitsInput = {
@@ -29070,55 +24929,27 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
+    notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutHabitsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutHabitsInput, UserUncheckedCreateWithoutHabitsInput>
-  }
-
-  export type RoutineHabitCreateWithoutHabitInput = {
-    id?: string
-    position?: number
-    createdAt?: Date | string
-    routine: RoutineCreateNestedOneWithoutHabitsInput
-  }
-
-  export type RoutineHabitUncheckedCreateWithoutHabitInput = {
-    id?: string
-    routineId: string
-    position?: number
-    createdAt?: Date | string
-  }
-
-  export type RoutineHabitCreateOrConnectWithoutHabitInput = {
-    where: RoutineHabitWhereUniqueInput
-    create: XOR<RoutineHabitCreateWithoutHabitInput, RoutineHabitUncheckedCreateWithoutHabitInput>
-  }
-
-  export type RoutineHabitCreateManyHabitInputEnvelope = {
-    data: RoutineHabitCreateManyHabitInput | RoutineHabitCreateManyHabitInput[]
-    skipDuplicates?: boolean
   }
 
   export type HabitDailyProgressCreateWithoutHabitInput = {
@@ -29147,6 +24978,82 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type PostHabitCreateWithoutHabitInput = {
+    id?: string
+    title: string
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
+    cadence: string
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likesCount?: number
+    user: UserCreateNestedOneWithoutPostHabitsInput
+    likes?: PostHabitLikeCreateNestedManyWithoutPostHabitInput
+  }
+
+  export type PostHabitUncheckedCreateWithoutHabitInput = {
+    id?: string
+    title: string
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
+    cadence: string
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likesCount?: number
+    likes?: PostHabitLikeUncheckedCreateNestedManyWithoutPostHabitInput
+  }
+
+  export type PostHabitCreateOrConnectWithoutHabitInput = {
+    where: PostHabitWhereUniqueInput
+    create: XOR<PostHabitCreateWithoutHabitInput, PostHabitUncheckedCreateWithoutHabitInput>
+  }
+
+  export type PostHabitCreateManyHabitInputEnvelope = {
+    data: PostHabitCreateManyHabitInput | PostHabitCreateManyHabitInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RoutineHabitCreateWithoutHabitInput = {
+    id?: string
+    position?: number
+    createdAt?: Date | string
+    routine: RoutineCreateNestedOneWithoutHabitsInput
+  }
+
+  export type RoutineHabitUncheckedCreateWithoutHabitInput = {
+    id?: string
+    routineId: string
+    position?: number
+    createdAt?: Date | string
+  }
+
+  export type RoutineHabitCreateOrConnectWithoutHabitInput = {
+    where: RoutineHabitWhereUniqueInput
+    create: XOR<RoutineHabitCreateWithoutHabitInput, RoutineHabitUncheckedCreateWithoutHabitInput>
+  }
+
+  export type RoutineHabitCreateManyHabitInputEnvelope = {
+    data: RoutineHabitCreateManyHabitInput | RoutineHabitCreateManyHabitInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutHabitsInput = {
     update: XOR<UserUpdateWithoutHabitsInput, UserUncheckedUpdateWithoutHabitsInput>
     create: XOR<UserCreateWithoutHabitsInput, UserUncheckedCreateWithoutHabitsInput>
@@ -29163,26 +25070,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    routines?: RoutineUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    todos?: TodoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHabitsInput = {
@@ -29190,53 +25093,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type RoutineHabitUpsertWithWhereUniqueWithoutHabitInput = {
-    where: RoutineHabitWhereUniqueInput
-    update: XOR<RoutineHabitUpdateWithoutHabitInput, RoutineHabitUncheckedUpdateWithoutHabitInput>
-    create: XOR<RoutineHabitCreateWithoutHabitInput, RoutineHabitUncheckedCreateWithoutHabitInput>
-  }
-
-  export type RoutineHabitUpdateWithWhereUniqueWithoutHabitInput = {
-    where: RoutineHabitWhereUniqueInput
-    data: XOR<RoutineHabitUpdateWithoutHabitInput, RoutineHabitUncheckedUpdateWithoutHabitInput>
-  }
-
-  export type RoutineHabitUpdateManyWithWhereWithoutHabitInput = {
-    where: RoutineHabitScalarWhereInput
-    data: XOR<RoutineHabitUpdateManyMutationInput, RoutineHabitUncheckedUpdateManyWithoutHabitInput>
-  }
-
-  export type RoutineHabitScalarWhereInput = {
-    AND?: RoutineHabitScalarWhereInput | RoutineHabitScalarWhereInput[]
-    OR?: RoutineHabitScalarWhereInput[]
-    NOT?: RoutineHabitScalarWhereInput | RoutineHabitScalarWhereInput[]
-    id?: StringFilter<"RoutineHabit"> | string
-    routineId?: StringFilter<"RoutineHabit"> | string
-    habitId?: StringFilter<"RoutineHabit"> | string
-    position?: IntFilter<"RoutineHabit"> | number
-    createdAt?: DateTimeFilter<"RoutineHabit"> | Date | string
+    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type HabitDailyProgressUpsertWithWhereUniqueWithoutHabitInput = {
@@ -29267,6 +25139,49 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"HabitDailyProgress"> | Date | string
   }
 
+  export type PostHabitUpsertWithWhereUniqueWithoutHabitInput = {
+    where: PostHabitWhereUniqueInput
+    update: XOR<PostHabitUpdateWithoutHabitInput, PostHabitUncheckedUpdateWithoutHabitInput>
+    create: XOR<PostHabitCreateWithoutHabitInput, PostHabitUncheckedCreateWithoutHabitInput>
+  }
+
+  export type PostHabitUpdateWithWhereUniqueWithoutHabitInput = {
+    where: PostHabitWhereUniqueInput
+    data: XOR<PostHabitUpdateWithoutHabitInput, PostHabitUncheckedUpdateWithoutHabitInput>
+  }
+
+  export type PostHabitUpdateManyWithWhereWithoutHabitInput = {
+    where: PostHabitScalarWhereInput
+    data: XOR<PostHabitUpdateManyMutationInput, PostHabitUncheckedUpdateManyWithoutHabitInput>
+  }
+
+  export type RoutineHabitUpsertWithWhereUniqueWithoutHabitInput = {
+    where: RoutineHabitWhereUniqueInput
+    update: XOR<RoutineHabitUpdateWithoutHabitInput, RoutineHabitUncheckedUpdateWithoutHabitInput>
+    create: XOR<RoutineHabitCreateWithoutHabitInput, RoutineHabitUncheckedCreateWithoutHabitInput>
+  }
+
+  export type RoutineHabitUpdateWithWhereUniqueWithoutHabitInput = {
+    where: RoutineHabitWhereUniqueInput
+    data: XOR<RoutineHabitUpdateWithoutHabitInput, RoutineHabitUncheckedUpdateWithoutHabitInput>
+  }
+
+  export type RoutineHabitUpdateManyWithWhereWithoutHabitInput = {
+    where: RoutineHabitScalarWhereInput
+    data: XOR<RoutineHabitUpdateManyMutationInput, RoutineHabitUncheckedUpdateManyWithoutHabitInput>
+  }
+
+  export type RoutineHabitScalarWhereInput = {
+    AND?: RoutineHabitScalarWhereInput | RoutineHabitScalarWhereInput[]
+    OR?: RoutineHabitScalarWhereInput[]
+    NOT?: RoutineHabitScalarWhereInput | RoutineHabitScalarWhereInput[]
+    id?: StringFilter<"RoutineHabit"> | string
+    routineId?: StringFilter<"RoutineHabit"> | string
+    habitId?: StringFilter<"RoutineHabit"> | string
+    position?: IntFilter<"RoutineHabit"> | number
+    createdAt?: DateTimeFilter<"RoutineHabit"> | Date | string
+  }
+
   export type HabitCreateWithoutDailyProgressEntriesInput = {
     id?: string
     name: string
@@ -29278,10 +25193,12 @@ export namespace Prisma {
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
-    dailyProgress?: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
     user: UserCreateNestedOneWithoutHabitsInput
+    post_habit?: PostHabitCreateNestedManyWithoutHabitInput
     routineHabits?: RoutineHabitCreateNestedManyWithoutHabitInput
   }
 
@@ -29296,10 +25213,12 @@ export namespace Prisma {
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
-    dailyProgress?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
+    post_habit?: PostHabitUncheckedCreateNestedManyWithoutHabitInput
     routineHabits?: RoutineHabitUncheckedCreateNestedManyWithoutHabitInput
   }
 
@@ -29330,10 +25249,12 @@ export namespace Prisma {
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    dailyProgress?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
     user?: UserUpdateOneRequiredWithoutHabitsNestedInput
+    post_habit?: PostHabitUpdateManyWithoutHabitNestedInput
     routineHabits?: RoutineHabitUpdateManyWithoutHabitNestedInput
   }
 
@@ -29348,485 +25269,13 @@ export namespace Prisma {
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
     dailyProgress?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: StringFieldUpdateOperationsInput | string
+    post_habit?: PostHabitUncheckedUpdateManyWithoutHabitNestedInput
     routineHabits?: RoutineHabitUncheckedUpdateManyWithoutHabitNestedInput
-  }
-
-  export type UserCreateWithoutHabitReflectionsInput = {
-    id: string
-    name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
-    postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutHabitReflectionsInput = {
-    id: string
-    name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
-    postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutHabitReflectionsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutHabitReflectionsInput, UserUncheckedCreateWithoutHabitReflectionsInput>
-  }
-
-  export type UserUpsertWithoutHabitReflectionsInput = {
-    update: XOR<UserUpdateWithoutHabitReflectionsInput, UserUncheckedUpdateWithoutHabitReflectionsInput>
-    create: XOR<UserCreateWithoutHabitReflectionsInput, UserUncheckedCreateWithoutHabitReflectionsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutHabitReflectionsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutHabitReflectionsInput, UserUncheckedUpdateWithoutHabitReflectionsInput>
-  }
-
-  export type UserUpdateWithoutHabitReflectionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
-    postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutHabitReflectionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
-    postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserCreateWithoutShouldDosInput = {
-    id: string
-    name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
-    collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
-    postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutShouldDosInput = {
-    id: string
-    name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
-    collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
-    postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutShouldDosInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutShouldDosInput, UserUncheckedCreateWithoutShouldDosInput>
-  }
-
-  export type ShouldDoLikeCreateWithoutShouldDoInput = {
-    id?: string
-    createdAt?: Date | string
-    user: UserCreateNestedOneWithoutShouldDoLikesInput
-  }
-
-  export type ShouldDoLikeUncheckedCreateWithoutShouldDoInput = {
-    id?: string
-    userId: string
-    createdAt?: Date | string
-  }
-
-  export type ShouldDoLikeCreateOrConnectWithoutShouldDoInput = {
-    where: ShouldDoLikeWhereUniqueInput
-    create: XOR<ShouldDoLikeCreateWithoutShouldDoInput, ShouldDoLikeUncheckedCreateWithoutShouldDoInput>
-  }
-
-  export type ShouldDoLikeCreateManyShouldDoInputEnvelope = {
-    data: ShouldDoLikeCreateManyShouldDoInput | ShouldDoLikeCreateManyShouldDoInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type UserUpsertWithoutShouldDosInput = {
-    update: XOR<UserUpdateWithoutShouldDosInput, UserUncheckedUpdateWithoutShouldDosInput>
-    create: XOR<UserCreateWithoutShouldDosInput, UserUncheckedCreateWithoutShouldDosInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutShouldDosInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutShouldDosInput, UserUncheckedUpdateWithoutShouldDosInput>
-  }
-
-  export type UserUpdateWithoutShouldDosInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
-    collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
-    postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutShouldDosInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
-    collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
-    postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type ShouldDoLikeUpsertWithWhereUniqueWithoutShouldDoInput = {
-    where: ShouldDoLikeWhereUniqueInput
-    update: XOR<ShouldDoLikeUpdateWithoutShouldDoInput, ShouldDoLikeUncheckedUpdateWithoutShouldDoInput>
-    create: XOR<ShouldDoLikeCreateWithoutShouldDoInput, ShouldDoLikeUncheckedCreateWithoutShouldDoInput>
-  }
-
-  export type ShouldDoLikeUpdateWithWhereUniqueWithoutShouldDoInput = {
-    where: ShouldDoLikeWhereUniqueInput
-    data: XOR<ShouldDoLikeUpdateWithoutShouldDoInput, ShouldDoLikeUncheckedUpdateWithoutShouldDoInput>
-  }
-
-  export type ShouldDoLikeUpdateManyWithWhereWithoutShouldDoInput = {
-    where: ShouldDoLikeScalarWhereInput
-    data: XOR<ShouldDoLikeUpdateManyMutationInput, ShouldDoLikeUncheckedUpdateManyWithoutShouldDoInput>
-  }
-
-  export type ShouldDoCreateWithoutLikesInput = {
-    id?: string
-    title: string
-    description?: string | null
-    iconKey?: string | null
-    iconColor?: string | null
-    likesCount?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutShouldDosInput
-  }
-
-  export type ShouldDoUncheckedCreateWithoutLikesInput = {
-    id?: string
-    title: string
-    description?: string | null
-    iconKey?: string | null
-    iconColor?: string | null
-    likesCount?: number
-    userId: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ShouldDoCreateOrConnectWithoutLikesInput = {
-    where: ShouldDoWhereUniqueInput
-    create: XOR<ShouldDoCreateWithoutLikesInput, ShouldDoUncheckedCreateWithoutLikesInput>
-  }
-
-  export type UserCreateWithoutShouldDoLikesInput = {
-    id: string
-    name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
-    collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
-    postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutShouldDoLikesInput = {
-    id: string
-    name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
-    collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
-    postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutShouldDoLikesInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutShouldDoLikesInput, UserUncheckedCreateWithoutShouldDoLikesInput>
-  }
-
-  export type ShouldDoUpsertWithoutLikesInput = {
-    update: XOR<ShouldDoUpdateWithoutLikesInput, ShouldDoUncheckedUpdateWithoutLikesInput>
-    create: XOR<ShouldDoCreateWithoutLikesInput, ShouldDoUncheckedCreateWithoutLikesInput>
-    where?: ShouldDoWhereInput
-  }
-
-  export type ShouldDoUpdateToOneWithWhereWithoutLikesInput = {
-    where?: ShouldDoWhereInput
-    data: XOR<ShouldDoUpdateWithoutLikesInput, ShouldDoUncheckedUpdateWithoutLikesInput>
-  }
-
-  export type ShouldDoUpdateWithoutLikesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconKey?: NullableStringFieldUpdateOperationsInput | string | null
-    iconColor?: NullableStringFieldUpdateOperationsInput | string | null
-    likesCount?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutShouldDosNestedInput
-  }
-
-  export type ShouldDoUncheckedUpdateWithoutLikesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconKey?: NullableStringFieldUpdateOperationsInput | string | null
-    iconColor?: NullableStringFieldUpdateOperationsInput | string | null
-    likesCount?: IntFieldUpdateOperationsInput | number
-    userId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UserUpsertWithoutShouldDoLikesInput = {
-    update: XOR<UserUpdateWithoutShouldDoLikesInput, UserUncheckedUpdateWithoutShouldDoLikesInput>
-    create: XOR<UserCreateWithoutShouldDoLikesInput, UserUncheckedCreateWithoutShouldDoLikesInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutShouldDoLikesInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutShouldDoLikesInput, UserUncheckedUpdateWithoutShouldDoLikesInput>
-  }
-
-  export type UserUpdateWithoutShouldDoLikesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
-    collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
-    postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutShouldDoLikesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
-    collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
-    postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutRoutinesInput = {
@@ -29834,26 +25283,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
+    notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    todos?: TodoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRoutinesInput = {
@@ -29861,26 +25306,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
+    notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRoutinesInput = {
@@ -29928,26 +25369,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    todos?: TodoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRoutinesInput = {
@@ -29955,26 +25392,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RoutineHabitUpsertWithWhereUniqueWithoutRoutineInput = {
@@ -29991,6 +25424,51 @@ export namespace Prisma {
   export type RoutineHabitUpdateManyWithWhereWithoutRoutineInput = {
     where: RoutineHabitScalarWhereInput
     data: XOR<RoutineHabitUpdateManyMutationInput, RoutineHabitUncheckedUpdateManyWithoutRoutineInput>
+  }
+
+  export type HabitCreateWithoutRoutineHabitsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    cadence: string
+    startDate: Date | string
+    timeOfDay?: string | null
+    reminder?: string | null
+    goalAmount?: number
+    goalUnit?: string
+    goalUnitCategory?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
+    user: UserCreateNestedOneWithoutHabitsInput
+    dailyProgressEntries?: HabitDailyProgressCreateNestedManyWithoutHabitInput
+    post_habit?: PostHabitCreateNestedManyWithoutHabitInput
+  }
+
+  export type HabitUncheckedCreateWithoutRoutineHabitsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    cadence: string
+    startDate: Date | string
+    timeOfDay?: string | null
+    reminder?: string | null
+    goalAmount?: number
+    goalUnit?: string
+    goalUnitCategory?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
+    dailyProgressEntries?: HabitDailyProgressUncheckedCreateNestedManyWithoutHabitInput
+    post_habit?: PostHabitUncheckedCreateNestedManyWithoutHabitInput
+  }
+
+  export type HabitCreateOrConnectWithoutRoutineHabitsInput = {
+    where: HabitWhereUniqueInput
+    create: XOR<HabitCreateWithoutRoutineHabitsInput, HabitUncheckedCreateWithoutRoutineHabitsInput>
   }
 
   export type RoutineCreateWithoutHabitsInput = {
@@ -30018,45 +25496,55 @@ export namespace Prisma {
     create: XOR<RoutineCreateWithoutHabitsInput, RoutineUncheckedCreateWithoutHabitsInput>
   }
 
-  export type HabitCreateWithoutRoutineHabitsInput = {
-    id?: string
-    name: string
-    description?: string | null
-    cadence: string
-    startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    dailyProgress?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutHabitsInput
-    dailyProgressEntries?: HabitDailyProgressCreateNestedManyWithoutHabitInput
-  }
-
-  export type HabitUncheckedCreateWithoutRoutineHabitsInput = {
-    id?: string
-    name: string
-    description?: string | null
-    cadence: string
-    startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    dailyProgress?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    userId: string
-    dailyProgressEntries?: HabitDailyProgressUncheckedCreateNestedManyWithoutHabitInput
-  }
-
-  export type HabitCreateOrConnectWithoutRoutineHabitsInput = {
-    where: HabitWhereUniqueInput
+  export type HabitUpsertWithoutRoutineHabitsInput = {
+    update: XOR<HabitUpdateWithoutRoutineHabitsInput, HabitUncheckedUpdateWithoutRoutineHabitsInput>
     create: XOR<HabitCreateWithoutRoutineHabitsInput, HabitUncheckedCreateWithoutRoutineHabitsInput>
+    where?: HabitWhereInput
+  }
+
+  export type HabitUpdateToOneWithWhereWithoutRoutineHabitsInput = {
+    where?: HabitWhereInput
+    data: XOR<HabitUpdateWithoutRoutineHabitsInput, HabitUncheckedUpdateWithoutRoutineHabitsInput>
+  }
+
+  export type HabitUpdateWithoutRoutineHabitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    goalUnit?: StringFieldUpdateOperationsInput | string
+    goalUnitCategory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
+    user?: UserUpdateOneRequiredWithoutHabitsNestedInput
+    dailyProgressEntries?: HabitDailyProgressUpdateManyWithoutHabitNestedInput
+    post_habit?: PostHabitUpdateManyWithoutHabitNestedInput
+  }
+
+  export type HabitUncheckedUpdateWithoutRoutineHabitsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    goalUnit?: StringFieldUpdateOperationsInput | string
+    goalUnitCategory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
+    dailyProgressEntries?: HabitDailyProgressUncheckedUpdateManyWithoutHabitNestedInput
+    post_habit?: PostHabitUncheckedUpdateManyWithoutHabitNestedInput
   }
 
   export type RoutineUpsertWithoutHabitsInput = {
@@ -30090,175 +25578,49 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type HabitUpsertWithoutRoutineHabitsInput = {
-    update: XOR<HabitUpdateWithoutRoutineHabitsInput, HabitUncheckedUpdateWithoutRoutineHabitsInput>
-    create: XOR<HabitCreateWithoutRoutineHabitsInput, HabitUncheckedCreateWithoutRoutineHabitsInput>
-    where?: HabitWhereInput
-  }
-
-  export type HabitUpdateToOneWithWhereWithoutRoutineHabitsInput = {
-    where?: HabitWhereInput
-    data: XOR<HabitUpdateWithoutRoutineHabitsInput, HabitUncheckedUpdateWithoutRoutineHabitsInput>
-  }
-
-  export type HabitUpdateWithoutRoutineHabitsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    cadence?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    dailyProgress?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutHabitsNestedInput
-    dailyProgressEntries?: HabitDailyProgressUpdateManyWithoutHabitNestedInput
-  }
-
-  export type HabitUncheckedUpdateWithoutRoutineHabitsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    cadence?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    dailyProgress?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    userId?: StringFieldUpdateOperationsInput | string
-    dailyProgressEntries?: HabitDailyProgressUncheckedUpdateManyWithoutHabitNestedInput
-  }
-
-  export type UserCreateWithoutNotificationReadsInput = {
-    id: string
+  export type HabitCreateWithoutPost_habitInput = {
+    id?: string
     name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
+    description?: string | null
+    cadence: string
+    startDate: Date | string
+    timeOfDay?: string | null
+    reminder?: string | null
+    goalAmount?: number
+    goalUnit?: string
+    goalUnitCategory?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
-    collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
+    user: UserCreateNestedOneWithoutHabitsInput
+    dailyProgressEntries?: HabitDailyProgressCreateNestedManyWithoutHabitInput
+    routineHabits?: RoutineHabitCreateNestedManyWithoutHabitInput
   }
 
-  export type UserUncheckedCreateWithoutNotificationReadsInput = {
-    id: string
+  export type HabitUncheckedCreateWithoutPost_habitInput = {
+    id?: string
     name: string
-    email: string
-    emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
+    description?: string | null
+    cadence: string
+    startDate: Date | string
+    timeOfDay?: string | null
+    reminder?: string | null
+    goalAmount?: number
+    goalUnit?: string
+    goalUnitCategory?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
-    collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    userId: string
+    sourcePopularPostId?: string | null
+    dailyProgress?: number
+    dailyProgressEntries?: HabitDailyProgressUncheckedCreateNestedManyWithoutHabitInput
+    routineHabits?: RoutineHabitUncheckedCreateNestedManyWithoutHabitInput
   }
 
-  export type UserCreateOrConnectWithoutNotificationReadsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutNotificationReadsInput, UserUncheckedCreateWithoutNotificationReadsInput>
-  }
-
-  export type UserUpsertWithoutNotificationReadsInput = {
-    update: XOR<UserUpdateWithoutNotificationReadsInput, UserUncheckedUpdateWithoutNotificationReadsInput>
-    create: XOR<UserCreateWithoutNotificationReadsInput, UserUncheckedCreateWithoutNotificationReadsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutNotificationReadsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutNotificationReadsInput, UserUncheckedUpdateWithoutNotificationReadsInput>
-  }
-
-  export type UserUpdateWithoutNotificationReadsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
-    collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutNotificationReadsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
-    collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+  export type HabitCreateOrConnectWithoutPost_habitInput = {
+    where: HabitWhereUniqueInput
+    create: XOR<HabitCreateWithoutPost_habitInput, HabitUncheckedCreateWithoutPost_habitInput>
   }
 
   export type UserCreateWithoutPostHabitsInput = {
@@ -30266,26 +25628,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
+    notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    routines?: RoutineCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    todos?: TodoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPostHabitsInput = {
@@ -30293,26 +25651,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
+    notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPostHabitsInput = {
@@ -30342,6 +25696,57 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type HabitUpsertWithoutPost_habitInput = {
+    update: XOR<HabitUpdateWithoutPost_habitInput, HabitUncheckedUpdateWithoutPost_habitInput>
+    create: XOR<HabitCreateWithoutPost_habitInput, HabitUncheckedCreateWithoutPost_habitInput>
+    where?: HabitWhereInput
+  }
+
+  export type HabitUpdateToOneWithWhereWithoutPost_habitInput = {
+    where?: HabitWhereInput
+    data: XOR<HabitUpdateWithoutPost_habitInput, HabitUncheckedUpdateWithoutPost_habitInput>
+  }
+
+  export type HabitUpdateWithoutPost_habitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    goalUnit?: StringFieldUpdateOperationsInput | string
+    goalUnitCategory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
+    user?: UserUpdateOneRequiredWithoutHabitsNestedInput
+    dailyProgressEntries?: HabitDailyProgressUpdateManyWithoutHabitNestedInput
+    routineHabits?: RoutineHabitUpdateManyWithoutHabitNestedInput
+  }
+
+  export type HabitUncheckedUpdateWithoutPost_habitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    goalUnit?: StringFieldUpdateOperationsInput | string
+    goalUnitCategory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
+    dailyProgressEntries?: HabitDailyProgressUncheckedUpdateManyWithoutHabitNestedInput
+    routineHabits?: RoutineHabitUncheckedUpdateManyWithoutHabitNestedInput
+  }
+
   export type UserUpsertWithoutPostHabitsInput = {
     update: XOR<UserUpdateWithoutPostHabitsInput, UserUncheckedUpdateWithoutPostHabitsInput>
     create: XOR<UserCreateWithoutPostHabitsInput, UserUncheckedCreateWithoutPostHabitsInput>
@@ -30358,26 +25763,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    routines?: RoutineUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    todos?: TodoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostHabitsInput = {
@@ -30385,26 +25786,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PostHabitLikeUpsertWithWhereUniqueWithoutPostHabitInput = {
@@ -30426,35 +25823,43 @@ export namespace Prisma {
   export type PostHabitCreateWithoutLikesInput = {
     id?: string
     title: string
-    description?: string | null
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
     cadence: string
-    category?: string | null
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    votesCount?: number
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
+    likesCount?: number
+    habit: HabitCreateNestedOneWithoutPost_habitInput
     user: UserCreateNestedOneWithoutPostHabitsInput
   }
 
   export type PostHabitUncheckedCreateWithoutLikesInput = {
     id?: string
     title: string
-    description?: string | null
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
     cadence: string
-    category?: string | null
-    timeOfDay?: string | null
-    reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    votesCount?: number
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
+    habitId: string
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    likesCount?: number
   }
 
   export type PostHabitCreateOrConnectWithoutLikesInput = {
@@ -30467,26 +25872,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
-    todos?: TodoCreateNestedManyWithoutUserInput
-    habits?: HabitCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
-    routines?: RoutineCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
+    notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
+    routines?: RoutineCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    todos?: TodoCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPostHabitLikesInput = {
@@ -30494,26 +25895,22 @@ export namespace Prisma {
     name: string
     email: string
     emailVerified?: boolean
-    image?: string | null
-    username?: string | null
-    focusArea?: string | null
-    location?: string | null
-    bio?: string | null
-    privateAccount?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
-    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
-    habitReflections?: HabitReflectionUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
-    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
-    shouldDos?: ShouldDoUncheckedCreateNestedManyWithoutUserInput
-    shouldDoLikes?: ShouldDoLikeUncheckedCreateNestedManyWithoutUserInput
-    notificationReads?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
+    notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
+    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPostHabitLikesInput = {
@@ -30535,35 +25932,43 @@ export namespace Prisma {
   export type PostHabitUpdateWithoutLikesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    votesCount?: IntFieldUpdateOperationsInput | number
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
+    habit?: HabitUpdateOneRequiredWithoutPost_habitNestedInput
     user?: UserUpdateOneRequiredWithoutPostHabitsNestedInput
   }
 
   export type PostHabitUncheckedUpdateWithoutLikesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    votesCount?: IntFieldUpdateOperationsInput | number
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
+    habitId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type UserUpsertWithoutPostHabitLikesInput = {
@@ -30582,26 +25987,22 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
-    todos?: TodoUpdateManyWithoutUserNestedInput
-    habits?: HabitUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
-    routines?: RoutineUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
+    routines?: RoutineUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    todos?: TodoUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPostHabitLikesInput = {
@@ -30609,36 +26010,130 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    username?: NullableStringFieldUpdateOperationsInput | string | null
-    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    bio?: NullableStringFieldUpdateOperationsInput | string | null
-    privateAccount?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
-    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
-    habitReflections?: HabitReflectionUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
-    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
-    shouldDos?: ShouldDoUncheckedUpdateManyWithoutUserNestedInput
-    shouldDoLikes?: ShouldDoLikeUncheckedUpdateManyWithoutUserNestedInput
-    notificationReads?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
+    notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
+    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type SessionCreateManyUserInput = {
+  export type UserCreateWithoutNotification_readInput = {
     id: string
-    expiresAt: Date | string
-    token: string
+    name: string
+    email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    ipAddress?: string | null
-    userAgent?: string | null
+    streakGoalDays?: number | null
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    collections?: CollectionCreateNestedManyWithoutUserInput
+    habits?: HabitCreateNestedManyWithoutUserInput
+    postHabits?: PostHabitCreateNestedManyWithoutUserInput
+    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    routines?: RoutineCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    todos?: TodoCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotification_readInput = {
+    id: string
+    name: string
+    email: string
+    emailVerified?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    streakGoalDays?: number | null
+    privateAccount?: boolean
+    username?: string | null
+    focusArea?: string | null
+    bio?: string | null
+    location?: string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
+    habits?: HabitUncheckedCreateNestedManyWithoutUserInput
+    postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
+    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    todos?: TodoUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotification_readInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotification_readInput, UserUncheckedCreateWithoutNotification_readInput>
+  }
+
+  export type UserUpsertWithoutNotification_readInput = {
+    update: XOR<UserUpdateWithoutNotification_readInput, UserUncheckedUpdateWithoutNotification_readInput>
+    create: XOR<UserCreateWithoutNotification_readInput, UserUncheckedCreateWithoutNotification_readInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotification_readInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotification_readInput, UserUncheckedUpdateWithoutNotification_readInput>
+  }
+
+  export type UserUpdateWithoutNotification_readInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    collections?: CollectionUpdateManyWithoutUserNestedInput
+    habits?: HabitUpdateManyWithoutUserNestedInput
+    postHabits?: PostHabitUpdateManyWithoutUserNestedInput
+    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    routines?: RoutineUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    todos?: TodoUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotification_readInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
+    privateAccount?: BoolFieldUpdateOperationsInput | boolean
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    focusArea?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
+    habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
+    postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
+    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -30656,19 +26151,10 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type TodoCreateManyUserInput = {
+  export type CollectionCreateManyUserInput = {
     id?: string
-    title: string
+    name: string
     description?: string | null
-    category?: string | null
-    priority?: $Enums.TodoPriority
-    status?: $Enums.TodoStatus
-    tags?: string | null
-    iconName?: string
-    iconColor?: string
-    archived?: boolean
-    location?: string | null
-    scheduledTime?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -30684,25 +26170,42 @@ export namespace Prisma {
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sourcePopularPostId?: string | null
     dailyProgress?: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type HabitReflectionCreateManyUserInput = {
-    id?: string
-    entryDate: Date | string
-    note: string
+  export type notification_readCreateManyUserInput = {
+    id: string
+    notificationId: string
     createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type CollectionCreateManyUserInput = {
+  export type PostHabitCreateManyUserInput = {
     id?: string
-    name: string
-    description?: string | null
+    title: string
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
+    cadence: string
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
+    habitId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    likesCount?: number
+  }
+
+  export type PostHabitLikeCreateManyUserInput = {
+    id?: string
+    postHabitId: string
+    createdAt?: Date | string
   }
 
   export type RoutineCreateManyUserInput = {
@@ -30714,79 +26217,34 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ShouldDoCreateManyUserInput = {
-    id?: string
-    title: string
-    description?: string | null
-    iconKey?: string | null
-    iconColor?: string | null
-    likesCount?: number
+  export type SessionCreateManyUserInput = {
+    id: string
+    expiresAt: Date | string
+    token: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    ipAddress?: string | null
+    userAgent?: string | null
   }
 
-  export type ShouldDoLikeCreateManyUserInput = {
-    id?: string
-    shouldDoId: string
-    createdAt?: Date | string
-  }
-
-  export type NotificationReadCreateManyUserInput = {
-    id?: string
-    notificationId: string
-    createdAt?: Date | string
-  }
-
-  export type PostHabitCreateManyUserInput = {
+  export type TodoCreateManyUserInput = {
     id?: string
     title: string
     description?: string | null
-    cadence: string
     category?: string | null
-    timeOfDay?: string | null
+    priority?: $Enums.TodoPriority
+    status?: $Enums.TodoStatus
+    dueAt?: Date | string | null
+    durationMinutes?: number | null
+    location?: string | null
     reminder?: string | null
-    goalAmount?: number
-    goalUnit?: string
-    goalUnitCategory?: string
-    votesCount?: number
+    recurrence?: string | null
+    tags?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type PostHabitLikeCreateManyUserInput = {
-    id?: string
-    postHabitId: string
-    createdAt?: Date | string
-  }
-
-  export type SessionUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SessionUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SessionUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    token?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    iconColor?: string
+    iconName?: string
+    archived?: boolean
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -30834,135 +26292,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TodoUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
-    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
-    tags?: NullableStringFieldUpdateOperationsInput | string | null
-    iconName?: StringFieldUpdateOperationsInput | string
-    iconColor?: StringFieldUpdateOperationsInput | string
-    archived?: BoolFieldUpdateOperationsInput | boolean
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    scheduledTime?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    collections?: CollectionTodoUpdateManyWithoutTodoNestedInput
-  }
-
-  export type TodoUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
-    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
-    tags?: NullableStringFieldUpdateOperationsInput | string | null
-    iconName?: StringFieldUpdateOperationsInput | string
-    iconColor?: StringFieldUpdateOperationsInput | string
-    archived?: BoolFieldUpdateOperationsInput | boolean
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    scheduledTime?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    collections?: CollectionTodoUncheckedUpdateManyWithoutTodoNestedInput
-  }
-
-  export type TodoUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
-    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
-    tags?: NullableStringFieldUpdateOperationsInput | string | null
-    iconName?: StringFieldUpdateOperationsInput | string
-    iconColor?: StringFieldUpdateOperationsInput | string
-    archived?: BoolFieldUpdateOperationsInput | boolean
-    location?: NullableStringFieldUpdateOperationsInput | string | null
-    scheduledTime?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type HabitUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    cadence?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    dailyProgress?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    routineHabits?: RoutineHabitUpdateManyWithoutHabitNestedInput
-    dailyProgressEntries?: HabitDailyProgressUpdateManyWithoutHabitNestedInput
-  }
-
-  export type HabitUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    cadence?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    dailyProgress?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    routineHabits?: RoutineHabitUncheckedUpdateManyWithoutHabitNestedInput
-    dailyProgressEntries?: HabitDailyProgressUncheckedUpdateManyWithoutHabitNestedInput
-  }
-
-  export type HabitUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    cadence?: StringFieldUpdateOperationsInput | string
-    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    dailyProgress?: FloatFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type HabitReflectionUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    entryDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    note?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type HabitReflectionUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    entryDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    note?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type HabitReflectionUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    entryDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    note?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type CollectionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
@@ -30987,6 +26316,161 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type HabitUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    goalUnit?: StringFieldUpdateOperationsInput | string
+    goalUnitCategory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
+    dailyProgressEntries?: HabitDailyProgressUpdateManyWithoutHabitNestedInput
+    post_habit?: PostHabitUpdateManyWithoutHabitNestedInput
+    routineHabits?: RoutineHabitUpdateManyWithoutHabitNestedInput
+  }
+
+  export type HabitUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    goalUnit?: StringFieldUpdateOperationsInput | string
+    goalUnitCategory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
+    dailyProgressEntries?: HabitDailyProgressUncheckedUpdateManyWithoutHabitNestedInput
+    post_habit?: PostHabitUncheckedUpdateManyWithoutHabitNestedInput
+    routineHabits?: RoutineHabitUncheckedUpdateManyWithoutHabitNestedInput
+  }
+
+  export type HabitUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    goalAmount?: FloatFieldUpdateOperationsInput | number
+    goalUnit?: StringFieldUpdateOperationsInput | string
+    goalUnitCategory?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sourcePopularPostId?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyProgress?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type notification_readUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    notificationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type notification_readUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    notificationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type notification_readUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    notificationId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHabitUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
+    habit?: HabitUpdateOneRequiredWithoutPost_habitNestedInput
+    likes?: PostHabitLikeUpdateManyWithoutPostHabitNestedInput
+  }
+
+  export type PostHabitUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
+    habitId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
+    likes?: PostHabitLikeUncheckedUpdateManyWithoutPostHabitNestedInput
+  }
+
+  export type PostHabitUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
+    habitId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PostHabitLikeUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    postHabit?: PostHabitUpdateOneRequiredWithoutLikesNestedInput
+  }
+
+  export type PostHabitLikeUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postHabitId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PostHabitLikeUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    postHabitId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RoutineUpdateWithoutUserInput = {
@@ -31018,143 +26502,96 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ShouldDoUpdateWithoutUserInput = {
+  export type SessionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconKey?: NullableStringFieldUpdateOperationsInput | string | null
-    iconColor?: NullableStringFieldUpdateOperationsInput | string | null
-    likesCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likes?: ShouldDoLikeUpdateManyWithoutShouldDoNestedInput
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type ShouldDoUncheckedUpdateWithoutUserInput = {
+  export type SessionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconKey?: NullableStringFieldUpdateOperationsInput | string | null
-    iconColor?: NullableStringFieldUpdateOperationsInput | string | null
-    likesCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likes?: ShouldDoLikeUncheckedUpdateManyWithoutShouldDoNestedInput
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type ShouldDoUncheckedUpdateManyWithoutUserInput = {
+  export type SessionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    iconKey?: NullableStringFieldUpdateOperationsInput | string | null
-    iconColor?: NullableStringFieldUpdateOperationsInput | string | null
-    likesCount?: IntFieldUpdateOperationsInput | number
+    expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    token?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type ShouldDoLikeUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    shouldDo?: ShouldDoUpdateOneRequiredWithoutLikesNestedInput
-  }
-
-  export type ShouldDoLikeUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    shouldDoId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ShouldDoLikeUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    shouldDoId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationReadUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    notificationId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationReadUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    notificationId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type NotificationReadUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    notificationId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PostHabitUpdateWithoutUserInput = {
+  export type TodoUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    cadence?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    votesCount?: IntFieldUpdateOperationsInput | number
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likes?: PostHabitLikeUpdateManyWithoutPostHabitNestedInput
+    iconColor?: StringFieldUpdateOperationsInput | string
+    iconName?: StringFieldUpdateOperationsInput | string
+    archived?: BoolFieldUpdateOperationsInput | boolean
+    collections?: CollectionTodoUpdateManyWithoutTodoNestedInput
   }
 
-  export type PostHabitUncheckedUpdateWithoutUserInput = {
+  export type TodoUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    cadence?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    votesCount?: IntFieldUpdateOperationsInput | number
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likes?: PostHabitLikeUncheckedUpdateManyWithoutPostHabitNestedInput
+    iconColor?: StringFieldUpdateOperationsInput | string
+    iconName?: StringFieldUpdateOperationsInput | string
+    archived?: BoolFieldUpdateOperationsInput | boolean
+    collections?: CollectionTodoUncheckedUpdateManyWithoutTodoNestedInput
   }
 
-  export type PostHabitUncheckedUpdateManyWithoutUserInput = {
+  export type TodoUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    cadence?: StringFieldUpdateOperationsInput | string
     category?: NullableStringFieldUpdateOperationsInput | string | null
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
+    priority?: EnumTodoPriorityFieldUpdateOperationsInput | $Enums.TodoPriority
+    status?: EnumTodoStatusFieldUpdateOperationsInput | $Enums.TodoStatus
+    dueAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    durationMinutes?: NullableIntFieldUpdateOperationsInput | number | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     reminder?: NullableStringFieldUpdateOperationsInput | string | null
-    goalAmount?: FloatFieldUpdateOperationsInput | number
-    goalUnit?: StringFieldUpdateOperationsInput | string
-    goalUnitCategory?: StringFieldUpdateOperationsInput | string
-    votesCount?: IntFieldUpdateOperationsInput | number
+    recurrence?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PostHabitLikeUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    postHabit?: PostHabitUpdateOneRequiredWithoutLikesNestedInput
-  }
-
-  export type PostHabitLikeUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    postHabitId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type PostHabitLikeUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    postHabitId?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    iconColor?: StringFieldUpdateOperationsInput | string
+    iconName?: StringFieldUpdateOperationsInput | string
+    archived?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type CollectionTodoCreateManyTodoInput = {
@@ -31205,13 +26642,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type RoutineHabitCreateManyHabitInput = {
-    id?: string
-    routineId: string
-    position?: number
-    createdAt?: Date | string
-  }
-
   export type HabitDailyProgressCreateManyHabitInput = {
     id?: string
     date: Date | string
@@ -31220,25 +26650,31 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type RoutineHabitUpdateWithoutHabitInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    position?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    routine?: RoutineUpdateOneRequiredWithoutHabitsNestedInput
+  export type PostHabitCreateManyHabitInput = {
+    id?: string
+    title: string
+    summary?: string | null
+    highlight?: string | null
+    anchor?: string | null
+    duration?: string | null
+    cadence: string
+    category: $Enums.HabitCategory
+    timeWindow?: $Enums.HabitTimeWindow
+    commitment: $Enums.HabitCommitment
+    benefits?: PostHabitCreatebenefitsInput | string[]
+    steps?: PostHabitCreatestepsInput | string[]
+    guardrails?: PostHabitCreateguardrailsInput | string[]
+    userId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    likesCount?: number
   }
 
-  export type RoutineHabitUncheckedUpdateWithoutHabitInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    routineId?: StringFieldUpdateOperationsInput | string
-    position?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type RoutineHabitUncheckedUpdateManyWithoutHabitInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    routineId?: StringFieldUpdateOperationsInput | string
-    position?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type RoutineHabitCreateManyHabitInput = {
+    id?: string
+    routineId: string
+    position?: number
+    createdAt?: Date | string
   }
 
   export type HabitDailyProgressUpdateWithoutHabitInput = {
@@ -31265,27 +26701,86 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ShouldDoLikeCreateManyShouldDoInput = {
-    id?: string
-    userId: string
-    createdAt?: Date | string
-  }
-
-  export type ShouldDoLikeUpdateWithoutShouldDoInput = {
+  export type PostHabitUpdateWithoutHabitInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutShouldDoLikesNestedInput
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
+    user?: UserUpdateOneRequiredWithoutPostHabitsNestedInput
+    likes?: PostHabitLikeUpdateManyWithoutPostHabitNestedInput
   }
 
-  export type ShouldDoLikeUncheckedUpdateWithoutShouldDoInput = {
+  export type PostHabitUncheckedUpdateWithoutHabitInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
+    likes?: PostHabitLikeUncheckedUpdateManyWithoutPostHabitNestedInput
   }
 
-  export type ShouldDoLikeUncheckedUpdateManyWithoutShouldDoInput = {
+  export type PostHabitUncheckedUpdateManyWithoutHabitInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    summary?: NullableStringFieldUpdateOperationsInput | string | null
+    highlight?: NullableStringFieldUpdateOperationsInput | string | null
+    anchor?: NullableStringFieldUpdateOperationsInput | string | null
+    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    cadence?: StringFieldUpdateOperationsInput | string
+    category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
+    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
+    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
+    benefits?: PostHabitUpdatebenefitsInput | string[]
+    steps?: PostHabitUpdatestepsInput | string[]
+    guardrails?: PostHabitUpdateguardrailsInput | string[]
     userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    likesCount?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type RoutineHabitUpdateWithoutHabitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    position?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    routine?: RoutineUpdateOneRequiredWithoutHabitsNestedInput
+  }
+
+  export type RoutineHabitUncheckedUpdateWithoutHabitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    routineId?: StringFieldUpdateOperationsInput | string
+    position?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RoutineHabitUncheckedUpdateManyWithoutHabitInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    routineId?: StringFieldUpdateOperationsInput | string
+    position?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

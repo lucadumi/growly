@@ -16,14 +16,6 @@ import PageHeading from "@/app/components/page-heading";
 
 type TrendPoint = { label: string; value: number };
 
-type RoutinePerformance = {
-  id: string;
-  name: string;
-  anchor?: string | null;
-  habitCount: number;
-  completion: number;
-};
-
 type WeekdayPerformance = {
   label: string;
   value: number;
@@ -43,26 +35,11 @@ type Summary = {
   bestStreak: number;
 };
 
-type HabitStat = {
-  id: string;
-  name: string;
-  streak: number;
-  successRate: number;
-  averageCompletion: number;
-  cadence: string;
-  goalAmount: number;
-  goal: string;
-  description?: string | null;
-  dailyProgress: number;
-};
-
 type Props = {
   summary: Summary;
   trend: TrendPoint[];
   weekdayPerformance: WeekdayPerformance[];
   todoStatusCounts: Record<TodoStatus, number>;
-  routinePerformance: RoutinePerformance[];
-  habits: HabitStat[];
 };
 
 const buildAreaPath = (points: number[], width = 720, height = 200) => {
@@ -85,21 +62,10 @@ const buildAreaPath = (points: number[], width = 720, height = 200) => {
   return `M0,${height} L${coords.join(" ")} L${width},${height} Z`;
 };
 
-const routineBarClasses = [
-  "bg-primary",
-  "bg-[#41ab5d]",
-  "bg-coral",
-  "bg-blue-500",
-  "bg-amber-400",
-  "bg-purple-400",
-];
-
 const AnalyticsClient: React.FC<Props> = ({
   summary,
   trend,
   weekdayPerformance,
-  routinePerformance,
-  habits,
   todoStatusCounts = {
     PLANNED: 0,
     IN_PROGRESS: 0,
@@ -110,8 +76,6 @@ const AnalyticsClient: React.FC<Props> = ({
   const chartAreaRef = useRef<HTMLDivElement>(null);
   const [chartWidth, setChartWidth] = useState(820);
   const [chartHeight, setChartHeight] = useState(320);
-  const routineChartRef = useRef<HTMLDivElement>(null);
-  const [, setRoutineChartWidth] = useState(820);
   const marginLeft = 60;
   const marginRight = 20;
   const marginTop = 20;
@@ -175,28 +139,6 @@ const AnalyticsClient: React.FC<Props> = ({
     window.addEventListener("resize", updateSize);
     return () => {
       window.removeEventListener("resize", updateSize);
-      resizeObserver.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    const updateRoutineWidth = () => {
-      if (routineChartRef.current) {
-        setRoutineChartWidth(
-          Math.max(360, routineChartRef.current.clientWidth),
-        );
-      }
-    };
-
-    updateRoutineWidth();
-
-    const resizeObserver = new ResizeObserver(() => updateRoutineWidth());
-    const routineElement = routineChartRef.current;
-    if (routineElement) {
-      resizeObserver.observe(routineElement);
-    }
-
-    return () => {
       resizeObserver.disconnect();
     };
   }, []);
@@ -673,124 +615,6 @@ const AnalyticsClient: React.FC<Props> = ({
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-        <section className="grid grid-cols-3 lg:gap-4 xl:gap-6">
-          <div>
-            <div className="flex items-start justify-between lg:mb-3 xl:mb-4">
-              <div>
-                <h3 className="lg:text-base xl:text-lg 2xl:text-xl font-semibold">
-                  Routines
-                </h3>
-                <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
-                  Average completion, {summary.lookbackLabel.toLowerCase()}
-                </p>
-              </div>
-            </div>
-            {routinePerformance.length === 0 ? (
-              <div className="rounded-2xl border-2 border-dashed border-gray-200 bg-white/70 lg:px-3 xl:px-4 lg:py-4 xl:py-5 lg:text-[11px] xl:text-xs text-muted-foreground">
-                No routines with habits yet.
-              </div>
-            ) : (
-              <div ref={routineChartRef} className="lg:space-y-3 xl:space-y-4">
-                {routinePerformance.map((routine, index) => (
-                  <div key={routine.id} className="lg:space-y-1 xl:space-y-1.5">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <p className="lg:text-xs xl:text-sm font-semibold">
-                          {routine.name}
-                        </p>
-                        <p className="lg:text-[9px] xl:text-[11px] text-muted-foreground">
-                          {routine.anchor ? `${routine.anchor} · ` : ""}
-                          {routine.habitCount} habit
-                          {routine.habitCount !== 1 ? "s" : ""}
-                        </p>
-                      </div>
-                      <span className="lg:text-xs xl:text-sm font-bold shrink-0">
-                        {routine.completion}%
-                      </span>
-                    </div>
-                    <div className="w-full bg-gray-100 rounded-full lg:h-1.5 xl:h-2">
-                      <div
-                        className={`h-full ${routineBarClasses[index % routineBarClasses.length]} rounded-full transition-all duration-500`}
-                        style={{ width: `${routine.completion}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="col-span-2">
-            <div className="flex items-start justify-between lg:mb-3 xl:mb-4">
-              <div>
-                <h3 className="lg:text-base xl:text-lg 2xl:text-xl font-semibold">
-                  Habit leaderboard
-                </h3>
-                <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
-                  Ranked by streak · success rate over{" "}
-                  {summary.lookbackLabel.toLowerCase()}
-                </p>
-              </div>
-            </div>
-            {habits.length === 0 ? (
-              <div className="rounded-2xl border-2 border-dashed border-gray-200 bg-white/70 lg:px-3 xl:px-4 lg:py-4 xl:py-5 lg:text-[11px] xl:text-xs text-muted-foreground">
-                No habits yet. Start tracking to see the leaderboard.
-              </div>
-            ) : (
-              <div className="lg:space-y-2 xl:space-y-2.5 bg-gray-100 p-3 rounded-3xl">
-                {[...habits]
-                  .sort(
-                    (a, b) =>
-                      b.streak - a.streak || b.successRate - a.successRate,
-                  )
-                  .slice(0, 3)
-                  .map((habit, index) => (
-                    <div
-                      key={habit.id}
-                      className="flex items-center lg:gap-2 xl:gap-3 rounded-2xl bg-card border border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-2.5"
-                    >
-                      <span
-                        className={`shrink-0 lg:w-5 lg:h-5 xl:w-6 xl:h-6 rounded-full flex items-center justify-center lg:text-[9px] xl:text-[10px] font-bold ${
-                          index === 0
-                            ? "bg-amber-400 text-white"
-                            : index === 1
-                              ? "bg-gray-300 text-gray-700"
-                              : index === 2
-                                ? "bg-amber-700/60 text-white"
-                                : "bg-gray-100 text-muted-foreground"
-                        }`}
-                      >
-                        {index + 1}
-                      </span>
-                      <p className="flex-1 lg:text-xs xl:text-sm font-medium truncate">
-                        {habit.name}
-                      </p>
-                      <span className="shrink-0 rounded-full lg:text-[8px] xl:text-[9px] font-semibold uppercase tracking-wide text-muted-foreground lg:px-1.5 xl:px-2 lg:py-0.5 xl:py-1 bg-gray-100">
-                        {habit.cadence}
-                      </span>
-                      <div className="shrink-0 flex items-center lg:gap-0.5 xl:gap-1">
-                        <Flame className="lg:w-2.5 lg:h-2.5 xl:w-3 xl:h-3 text-amber-500" />
-                        <span className="lg:text-[10px] xl:text-xs font-semibold">
-                          {habit.streak}d
-                        </span>
-                      </div>
-                      <div className="shrink-0 flex items-center lg:gap-1 xl:gap-1.5 lg:w-16 xl:w-20">
-                        <div className="flex-1 bg-gray-100 rounded-full lg:h-1 xl:h-1.5">
-                          <div
-                            className="h-full bg-[#41ab5d] rounded-full transition-all duration-500"
-                            style={{ width: `${habit.successRate}%` }}
-                          />
-                        </div>
-                        <span className="lg:text-[9px] xl:text-[10px] text-muted-foreground font-medium w-6 text-right">
-                          {habit.successRate}%
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            )}
           </div>
         </section>
       </div>

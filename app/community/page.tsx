@@ -108,7 +108,7 @@ export default async function CommunityPage() {
             </p>
           </div>
           <div className="grid lg:grid-cols-4 xl:grid-cols-4 lg:gap-3 xl:gap-4">
-            <div className="rounded-2xl border border-gray-100 bg-white lg:p-4 xl:p-5">
+            <div className="rounded-2xl bg-gray-100 lg:p-4 xl:p-5">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-muted-foreground lg:text-[9px] xl:text-[10px]">
                   Members
@@ -125,7 +125,7 @@ export default async function CommunityPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-100 bg-white lg:p-4 xl:p-5">
+            <div className="rounded-2xl bg-gray-100 lg:p-4 xl:p-5">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-muted-foreground lg:text-[9px] xl:text-[10px]">
                   Habits shared
@@ -142,7 +142,7 @@ export default async function CommunityPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-100 bg-white lg:p-4 xl:p-5">
+            <div className="rounded-2xl bg-gray-100 lg:p-4 xl:p-5">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-muted-foreground lg:text-[9px] xl:text-[10px]">
                   Votes cast
@@ -159,7 +159,7 @@ export default async function CommunityPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-gray-100 bg-white lg:p-4 xl:p-5">
+            <div className="rounded-2xl bg-gray-100 lg:p-4 xl:p-5">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-muted-foreground lg:text-[9px] xl:text-[10px]">
                   Latest share

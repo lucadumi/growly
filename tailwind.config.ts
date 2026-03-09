@@ -23,60 +23,33 @@ const config: Config = {
         foreground: "hsl(var(--foreground))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
         },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
+
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
         },
         card: {
           DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
         },
         coral: {
           DEFAULT: "hsl(var(--coral))",
-          foreground: "hsl(var(--coral-foreground))",
         },
         "yellow-soft": {
           DEFAULT: "hsl(var(--yellow-soft))",
-          foreground: "hsl(var(--yellow-soft-foreground))",
         },
         "green-soft": {
           DEFAULT: "hsl(var(--green-soft))",
-          foreground: "hsl(var(--green-soft-foreground))",
         },
-        "analytics-dark": {
-          DEFAULT: "hsl(var(--analytics-dark))",
-          foreground: "hsl(var(--analytics-dark-foreground))",
-        },
+
         "light-yellow": {
           DEFAULT: "#fefbee",
-        },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
         },
       },
       borderRadius: {

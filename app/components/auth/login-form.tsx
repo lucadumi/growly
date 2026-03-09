@@ -163,7 +163,7 @@ const LoginForm: React.FC<FormProps> = ({ setIsLogin }) => {
 
         {error ? (
           <p
-            className="lg:text-[11px] xl:text-xs 2xl:text-sm text-destructive"
+            className="lg:text-[11px] xl:text-xs 2xl:text-sm text-red-400"
             role="alert"
           >
             {error}
@@ -177,7 +177,6 @@ const LoginForm: React.FC<FormProps> = ({ setIsLogin }) => {
         >
           {isLoading ? "Logging in..." : "Log in"}
         </Button>
-
       </form>
     </div>
   );

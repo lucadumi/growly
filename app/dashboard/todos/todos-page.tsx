@@ -41,7 +41,6 @@ interface TodosPageProps {
   };
 }
 
-
 const buttonBase =
   "w-full rounded-full flex items-center justify-center select-none gap-2 cursor-pointer";
 
@@ -941,7 +940,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
               </div>
 
               {!isCollectionView ? (
-                <div className="rounded-3xl border-8 border-gray-100 lg:p-5 xl:p-6 lg:space-y-5 xl:space-y-6 lg:mt-5 xl:mt-6 relative overflow-hidden">
+                <div className="rounded-3xl border border-gray-100 lg:p-5 xl:p-6 lg:space-y-5 xl:space-y-6 lg:mt-5 xl:mt-6 relative overflow-hidden">
                   <div className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-primary/10 blur-3xl" />
                   <div className="flex flex-row items-center justify-between lg:gap-2 xl:gap-3">
                     <div className="space-y-0.5">

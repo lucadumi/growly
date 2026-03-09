@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "habit" ADD COLUMN     "dailyProgress" DOUBLE PRECISION NOT NULL DEFAULT 0;

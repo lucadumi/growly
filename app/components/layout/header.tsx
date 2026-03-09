@@ -101,7 +101,7 @@ function NotificationsDropdown() {
         className="inline-flex items-center gap-1.5 rounded-full lg:p-1 xl:p-1.5 2xl:p-2 bg-card border border-gray-100 text-xs font-semibold text-muted-foreground transition hover:border-card hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         <Bell
-          className={`lg:h-3.5 lg:w-3.5 xl:h-4 xl:w-4 ${
+          className={`lg:h-4 lg:w-4 xl:h-4.5 xl:w-4.5 ${
             hasBadge ? "lg:ml-0.5 xl:ml-1" : ""
           } ${bellRing ? "animate-[ring_0.6s_ease-in-out]" : ""}`}
         />
@@ -352,7 +352,7 @@ export default function Header() {
                   className={`rounded-full lg:px-2 xl:px-3 2xl:px-4 lg:py-0.5 xl:py-1 lg:text-[8px] xl:text-[10px] 2xl:text-[11px] font-semibold transition ${
                     active
                       ? "bg-primary text-white"
-                      : "border border-gray-100 text-muted-foreground hover:border-primary/60 hover:text-primary"
+                      : "border border-gray-100 text-muted-foreground hover:text-primary"
                   } focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary`}
                 >
                   {link.label}

@@ -6,12 +6,12 @@ const featureTiles = [
   {
     icon: BellRing,
     title: "Intention-only reminders",
-    copy: "Gentle nudges respect your focus windows so the app never interrupts the flow.",
+    copy: "Gentle nudges respect your focus windows.",
   },
   {
     icon: Layers,
     title: "Stacks with context",
-    copy: "Log how you feel, not just if you checked a box, for a realistic streak story.",
+    copy: "Log how you feel, not just if you checked a box.",
   },
   {
     icon: TrendingUp,
@@ -31,7 +31,7 @@ const AppLink = ({
 }) => (
   <a
     href={href}
-    className={`inline-flex items-center justify-center rounded-full bg-primary text-white px-6 py-3.5 text-center text-base font-semibold shadow-[0_5px_20px_rgba(240,144,41,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(240,144,41,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${className}`}
+    className={`inline-flex items-center justify-center rounded-full bg-primary text-white px-6 py-3.5 text-center text-base font-semibold transition hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(240,144,41,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${className}`}
     target="_blank"
     rel="noreferrer"
   >
@@ -41,15 +41,10 @@ const AppLink = ({
 
 export default function MobileAppGate() {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-linear-to-br from-primary/15 via-[#f7f4ff] to-green-soft/20 text-foreground">
-      {/* ambient blobs */}
-      <div className="pointer-events-none absolute -top-24 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-primary/25 blur-[180px]" />
-      <div className="pointer-events-none absolute -right-10 top-20 h-64 w-64 rounded-full bg-yellow-soft/35 blur-[150px]" />
-      <div className="pointer-events-none absolute bottom-0 left-1/4 h-56 w-56 rounded-full bg-green-soft/25 blur-[130px]" />
-
-      <div className="relative mx-auto flex min-h-screen w-full max-w-lg flex-col items-center justify-center gap-10 px-6 py-14">
+    <div className="relative min-h-screen w-full overflow-hidden bg-card text-foreground">
+      <div className="relative mx-auto flex min-h-screen w-full max-w-lg flex-col items-center justify-center gap-8 px-6 py-14">
         {/* logo badge */}
-        <div className="flex items-center gap-3 rounded-full bg-white px-5 py-2">
+        <div className="flex items-center gap-3">
           <Sprout className="h-5 w-5 text-green-soft" />
           <span className="text-xs font-semibold uppercase tracking-[0.55em] text-muted-foreground">
             Growly
@@ -64,12 +59,12 @@ export default function MobileAppGate() {
             the real world.
           </h1>
           <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-            The calmest, most capable habit companion — built for your phone.
+            The calmest, most capable habit companion built for your phone.
           </p>
         </div>
 
         {/* feature tiles */}
-        <div className="w-full rounded-3xl border border-white bg-white p-1 shadow-[0_2px_24px_rgba(0,0,0,0.06)]">
+        <div className="w-full rounded-3xl border border-gray-100 bg-white p-1">
           {featureTiles.map(({ icon: Icon, title, copy }, i) => (
             <div
               key={title}
@@ -77,7 +72,7 @@ export default function MobileAppGate() {
                 i < featureTiles.length - 1 ? "border-b border-gray-50" : ""
               }`}
             >
-              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-primary/10">
+              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
                 <Icon className="h-4 w-4 text-primary" />
               </div>
               <div className="flex flex-col gap-0.5">
