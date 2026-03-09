@@ -18,7 +18,6 @@ export interface TodoInput {
   iconName?: string;
   iconColor?: string;
   location?: string;
-  scheduledTime?: string;
 }
 
 const requireUserId = async () => {
@@ -58,55 +57,6 @@ const normalizeStatus = (status?: string): TodoStatus => {
   }
   return "PLANNED";
 };
-
-export async function createTodo(input: TodoInput) {
-  const userId = await requireUserId();
-
-  const todo = await prisma.todo.create({
-    data: {
-      title: input.title,
-      description: input.description || null,
-      category: input.category || null,
-      priority: normalizePriority(input.priority),
-      status: normalizeStatus(input.status),
-      tags: input.tags || null,
-      iconName: input.iconName || "Notebook",
-      iconColor: input.iconColor || "#E5E7EB",
-      location: input.location || null,
-      scheduledTime: input.scheduledTime || null,
-      userId,
-    },
-  });
-
-  return todo;
-}
-
-export async function updateTodo(id: string, input: TodoInput) {
-  const userId = await requireUserId();
-
-  const todo = await prisma.todo.update({
-    where: {
-      id_userId: {
-        id,
-        userId,
-      },
-    },
-    data: {
-      title: input.title,
-      description: input.description || null,
-      category: input.category || null,
-      priority: normalizePriority(input.priority),
-      status: normalizeStatus(input.status),
-      tags: input.tags || null,
-      iconName: input.iconName || "Notebook",
-      iconColor: input.iconColor || "#E5E7EB",
-      location: input.location || null,
-      scheduledTime: input.scheduledTime || null,
-    },
-  });
-
-  return todo;
-}
 
 export async function deleteTodo(id: string) {
   const userId = await requireUserId();

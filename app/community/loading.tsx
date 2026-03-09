@@ -41,12 +41,9 @@ export default function CommunityLoading() {
 
         {/* Trending habits */}
         <div>
-          <div className="flex items-center justify-between mb-3 animate-pulse">
-            <div className="space-y-1.5">
-              <div className="h-5 w-36 rounded bg-muted/60" />
-              <div className="h-3 w-52 rounded bg-muted/40" />
-            </div>
-            <div className="h-7 w-16 rounded-full bg-muted/40" />
+          <div className="mb-3 animate-pulse">
+            <div className="h-5 w-36 rounded bg-muted/60 mb-1.5" />
+            <div className="h-3 w-52 rounded bg-muted/40" />
           </div>
           <div className="grid lg:grid-cols-5 gap-3">
             {Array.from({ length: 5 }).map((_, i) => (

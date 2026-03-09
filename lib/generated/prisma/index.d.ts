@@ -74,10 +74,10 @@ export type RoutineHabit = $Result.DefaultSelection<Prisma.$RoutineHabitPayload>
  */
 export type PostHabit = $Result.DefaultSelection<Prisma.$PostHabitPayload>
 /**
- * Model PostHabitLike
+ * Model PostHabitVote
  * 
  */
-export type PostHabitLike = $Result.DefaultSelection<Prisma.$PostHabitLikePayload>
+export type PostHabitVote = $Result.DefaultSelection<Prisma.$PostHabitVotePayload>
 /**
  * Model notification_read
  * 
@@ -120,23 +120,14 @@ export const HabitCategory: {
 export type HabitCategory = (typeof HabitCategory)[keyof typeof HabitCategory]
 
 
-export const HabitCommitment: {
-  Quick: 'Quick',
-  Standard: 'Standard',
-  Deep: 'Deep'
-};
-
-export type HabitCommitment = (typeof HabitCommitment)[keyof typeof HabitCommitment]
-
-
-export const HabitTimeWindow: {
+export const RoutineTimeWindow: {
   Anytime: 'Anytime',
   Morning: 'Morning',
   Workday: 'Workday',
   Evening: 'Evening'
 };
 
-export type HabitTimeWindow = (typeof HabitTimeWindow)[keyof typeof HabitTimeWindow]
+export type RoutineTimeWindow = (typeof RoutineTimeWindow)[keyof typeof RoutineTimeWindow]
 
 }
 
@@ -152,13 +143,9 @@ export type HabitCategory = $Enums.HabitCategory
 
 export const HabitCategory: typeof $Enums.HabitCategory
 
-export type HabitCommitment = $Enums.HabitCommitment
+export type RoutineTimeWindow = $Enums.RoutineTimeWindow
 
-export const HabitCommitment: typeof $Enums.HabitCommitment
-
-export type HabitTimeWindow = $Enums.HabitTimeWindow
-
-export const HabitTimeWindow: typeof $Enums.HabitTimeWindow
+export const RoutineTimeWindow: typeof $Enums.RoutineTimeWindow
 
 /**
  * ##  Prisma Client ʲˢ
@@ -399,14 +386,14 @@ export class PrismaClient<
   get postHabit(): Prisma.PostHabitDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.postHabitLike`: Exposes CRUD operations for the **PostHabitLike** model.
+   * `prisma.postHabitVote`: Exposes CRUD operations for the **PostHabitVote** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more PostHabitLikes
-    * const postHabitLikes = await prisma.postHabitLike.findMany()
+    * // Fetch zero or more PostHabitVotes
+    * const postHabitVotes = await prisma.postHabitVote.findMany()
     * ```
     */
-  get postHabitLike(): Prisma.PostHabitLikeDelegate<ExtArgs, ClientOptions>;
+  get postHabitVote(): Prisma.PostHabitVoteDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.notification_read`: Exposes CRUD operations for the **notification_read** model.
@@ -870,7 +857,7 @@ export namespace Prisma {
     Routine: 'Routine',
     RoutineHabit: 'RoutineHabit',
     PostHabit: 'PostHabit',
-    PostHabitLike: 'PostHabitLike',
+    PostHabitVote: 'PostHabitVote',
     notification_read: 'notification_read'
   };
 
@@ -890,7 +877,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "session" | "account" | "verification" | "todo" | "collection" | "collectionTodo" | "habit" | "habitDailyProgress" | "routine" | "routineHabit" | "postHabit" | "postHabitLike" | "notification_read"
+      modelProps: "user" | "session" | "account" | "verification" | "todo" | "collection" | "collectionTodo" | "habit" | "habitDailyProgress" | "routine" | "routineHabit" | "postHabit" | "postHabitVote" | "notification_read"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1782,77 +1769,77 @@ export namespace Prisma {
           }
         }
       }
-      PostHabitLike: {
-        payload: Prisma.$PostHabitLikePayload<ExtArgs>
-        fields: Prisma.PostHabitLikeFieldRefs
+      PostHabitVote: {
+        payload: Prisma.$PostHabitVotePayload<ExtArgs>
+        fields: Prisma.PostHabitVoteFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.PostHabitLikeFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload> | null
+            args: Prisma.PostHabitVoteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.PostHabitLikeFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload>
+            args: Prisma.PostHabitVoteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload>
           }
           findFirst: {
-            args: Prisma.PostHabitLikeFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload> | null
+            args: Prisma.PostHabitVoteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.PostHabitLikeFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload>
+            args: Prisma.PostHabitVoteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload>
           }
           findMany: {
-            args: Prisma.PostHabitLikeFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload>[]
+            args: Prisma.PostHabitVoteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload>[]
           }
           create: {
-            args: Prisma.PostHabitLikeCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload>
+            args: Prisma.PostHabitVoteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload>
           }
           createMany: {
-            args: Prisma.PostHabitLikeCreateManyArgs<ExtArgs>
+            args: Prisma.PostHabitVoteCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.PostHabitLikeCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload>[]
+            args: Prisma.PostHabitVoteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload>[]
           }
           delete: {
-            args: Prisma.PostHabitLikeDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload>
+            args: Prisma.PostHabitVoteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload>
           }
           update: {
-            args: Prisma.PostHabitLikeUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload>
+            args: Prisma.PostHabitVoteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload>
           }
           deleteMany: {
-            args: Prisma.PostHabitLikeDeleteManyArgs<ExtArgs>
+            args: Prisma.PostHabitVoteDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.PostHabitLikeUpdateManyArgs<ExtArgs>
+            args: Prisma.PostHabitVoteUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.PostHabitLikeUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload>[]
+            args: Prisma.PostHabitVoteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload>[]
           }
           upsert: {
-            args: Prisma.PostHabitLikeUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$PostHabitLikePayload>
+            args: Prisma.PostHabitVoteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PostHabitVotePayload>
           }
           aggregate: {
-            args: Prisma.PostHabitLikeAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePostHabitLike>
+            args: Prisma.PostHabitVoteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePostHabitVote>
           }
           groupBy: {
-            args: Prisma.PostHabitLikeGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PostHabitLikeGroupByOutputType>[]
+            args: Prisma.PostHabitVoteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PostHabitVoteGroupByOutputType>[]
           }
           count: {
-            args: Prisma.PostHabitLikeCountArgs<ExtArgs>
-            result: $Utils.Optional<PostHabitLikeCountAggregateOutputType> | number
+            args: Prisma.PostHabitVoteCountArgs<ExtArgs>
+            result: $Utils.Optional<PostHabitVoteCountAggregateOutputType> | number
           }
         }
       }
@@ -2038,7 +2025,7 @@ export namespace Prisma {
     routine?: RoutineOmit
     routineHabit?: RoutineHabitOmit
     postHabit?: PostHabitOmit
-    postHabitLike?: PostHabitLikeOmit
+    postHabitVote?: PostHabitVoteOmit
     notification_read?: notification_readOmit
   }
 
@@ -2125,7 +2112,7 @@ export namespace Prisma {
     habits: number
     notification_read: number
     postHabits: number
-    postHabitLikes: number
+    postHabitVotes: number
     routines: number
     sessions: number
     todos: number
@@ -2137,7 +2124,7 @@ export namespace Prisma {
     habits?: boolean | UserCountOutputTypeCountHabitsArgs
     notification_read?: boolean | UserCountOutputTypeCountNotification_readArgs
     postHabits?: boolean | UserCountOutputTypeCountPostHabitsArgs
-    postHabitLikes?: boolean | UserCountOutputTypeCountPostHabitLikesArgs
+    postHabitVotes?: boolean | UserCountOutputTypeCountPostHabitVotesArgs
     routines?: boolean | UserCountOutputTypeCountRoutinesArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     todos?: boolean | UserCountOutputTypeCountTodosArgs
@@ -2192,8 +2179,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountPostHabitLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PostHabitLikeWhereInput
+  export type UserCountOutputTypeCountPostHabitVotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostHabitVoteWhereInput
   }
 
   /**
@@ -2365,11 +2352,11 @@ export namespace Prisma {
    */
 
   export type PostHabitCountOutputType = {
-    likes: number
+    votes: number
   }
 
   export type PostHabitCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    likes?: boolean | PostHabitCountOutputTypeCountLikesArgs
+    votes?: boolean | PostHabitCountOutputTypeCountVotesArgs
   }
 
   // Custom InputTypes
@@ -2386,8 +2373,8 @@ export namespace Prisma {
   /**
    * PostHabitCountOutputType without action
    */
-  export type PostHabitCountOutputTypeCountLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PostHabitLikeWhereInput
+  export type PostHabitCountOutputTypeCountVotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostHabitVoteWhereInput
   }
 
 
@@ -2419,7 +2406,6 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
-    emailVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     streakGoalDays: number | null
@@ -2434,7 +2420,6 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
-    emailVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     streakGoalDays: number | null
@@ -2449,7 +2434,6 @@ export namespace Prisma {
     id: number
     name: number
     email: number
-    emailVerified: number
     createdAt: number
     updatedAt: number
     streakGoalDays: number
@@ -2474,7 +2458,6 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
-    emailVerified?: true
     createdAt?: true
     updatedAt?: true
     streakGoalDays?: true
@@ -2489,7 +2472,6 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
-    emailVerified?: true
     createdAt?: true
     updatedAt?: true
     streakGoalDays?: true
@@ -2504,7 +2486,6 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
-    emailVerified?: true
     createdAt?: true
     updatedAt?: true
     streakGoalDays?: true
@@ -2606,7 +2587,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified: boolean
     createdAt: Date
     updatedAt: Date
     streakGoalDays: number | null
@@ -2640,7 +2620,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
-    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
@@ -2654,7 +2633,7 @@ export namespace Prisma {
     habits?: boolean | User$habitsArgs<ExtArgs>
     notification_read?: boolean | User$notification_readArgs<ExtArgs>
     postHabits?: boolean | User$postHabitsArgs<ExtArgs>
-    postHabitLikes?: boolean | User$postHabitLikesArgs<ExtArgs>
+    postHabitVotes?: boolean | User$postHabitVotesArgs<ExtArgs>
     routines?: boolean | User$routinesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     todos?: boolean | User$todosArgs<ExtArgs>
@@ -2665,7 +2644,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
-    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
@@ -2680,7 +2658,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
-    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
@@ -2695,7 +2672,6 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
-    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
@@ -2706,14 +2682,14 @@ export namespace Prisma {
     location?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "createdAt" | "updatedAt" | "streakGoalDays" | "privateAccount" | "username" | "focusArea" | "bio" | "location", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "createdAt" | "updatedAt" | "streakGoalDays" | "privateAccount" | "username" | "focusArea" | "bio" | "location", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     collections?: boolean | User$collectionsArgs<ExtArgs>
     habits?: boolean | User$habitsArgs<ExtArgs>
     notification_read?: boolean | User$notification_readArgs<ExtArgs>
     postHabits?: boolean | User$postHabitsArgs<ExtArgs>
-    postHabitLikes?: boolean | User$postHabitLikesArgs<ExtArgs>
+    postHabitVotes?: boolean | User$postHabitVotesArgs<ExtArgs>
     routines?: boolean | User$routinesArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     todos?: boolean | User$todosArgs<ExtArgs>
@@ -2730,7 +2706,7 @@ export namespace Prisma {
       habits: Prisma.$HabitPayload<ExtArgs>[]
       notification_read: Prisma.$notification_readPayload<ExtArgs>[]
       postHabits: Prisma.$PostHabitPayload<ExtArgs>[]
-      postHabitLikes: Prisma.$PostHabitLikePayload<ExtArgs>[]
+      postHabitVotes: Prisma.$PostHabitVotePayload<ExtArgs>[]
       routines: Prisma.$RoutinePayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       todos: Prisma.$TodoPayload<ExtArgs>[]
@@ -2739,7 +2715,6 @@ export namespace Prisma {
       id: string
       name: string
       email: string
-      emailVerified: boolean
       createdAt: Date
       updatedAt: Date
       streakGoalDays: number | null
@@ -3147,7 +3122,7 @@ export namespace Prisma {
     habits<T extends User$habitsArgs<ExtArgs> = {}>(args?: Subset<T, User$habitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notification_read<T extends User$notification_readArgs<ExtArgs> = {}>(args?: Subset<T, User$notification_readArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$notification_readPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     postHabits<T extends User$postHabitsArgs<ExtArgs> = {}>(args?: Subset<T, User$postHabitsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    postHabitLikes<T extends User$postHabitLikesArgs<ExtArgs> = {}>(args?: Subset<T, User$postHabitLikesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    postHabitVotes<T extends User$postHabitVotesArgs<ExtArgs> = {}>(args?: Subset<T, User$postHabitVotesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     routines<T extends User$routinesArgs<ExtArgs> = {}>(args?: Subset<T, User$routinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RoutinePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     todos<T extends User$todosArgs<ExtArgs> = {}>(args?: Subset<T, User$todosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TodoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3183,7 +3158,6 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
-    readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly streakGoalDays: FieldRef<"User", 'Int'>
@@ -3700,27 +3674,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.postHabitLikes
+   * User.postHabitVotes
    */
-  export type User$postHabitLikesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$postHabitVotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
-    where?: PostHabitLikeWhereInput
-    orderBy?: PostHabitLikeOrderByWithRelationInput | PostHabitLikeOrderByWithRelationInput[]
-    cursor?: PostHabitLikeWhereUniqueInput
+    include?: PostHabitVoteInclude<ExtArgs> | null
+    where?: PostHabitVoteWhereInput
+    orderBy?: PostHabitVoteOrderByWithRelationInput | PostHabitVoteOrderByWithRelationInput[]
+    cursor?: PostHabitVoteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PostHabitLikeScalarFieldEnum | PostHabitLikeScalarFieldEnum[]
+    distinct?: PostHabitVoteScalarFieldEnum | PostHabitVoteScalarFieldEnum[]
   }
 
   /**
@@ -10554,8 +10528,7 @@ export namespace Prisma {
     description: string | null
     cadence: string | null
     startDate: Date | null
-    timeOfDay: string | null
-    reminder: string | null
+    timeWindow: string | null
     goalAmount: number | null
     goalUnit: string | null
     goalUnitCategory: string | null
@@ -10572,8 +10545,7 @@ export namespace Prisma {
     description: string | null
     cadence: string | null
     startDate: Date | null
-    timeOfDay: string | null
-    reminder: string | null
+    timeWindow: string | null
     goalAmount: number | null
     goalUnit: string | null
     goalUnitCategory: string | null
@@ -10590,8 +10562,7 @@ export namespace Prisma {
     description: number
     cadence: number
     startDate: number
-    timeOfDay: number
-    reminder: number
+    timeWindow: number
     goalAmount: number
     goalUnit: number
     goalUnitCategory: number
@@ -10620,8 +10591,7 @@ export namespace Prisma {
     description?: true
     cadence?: true
     startDate?: true
-    timeOfDay?: true
-    reminder?: true
+    timeWindow?: true
     goalAmount?: true
     goalUnit?: true
     goalUnitCategory?: true
@@ -10638,8 +10608,7 @@ export namespace Prisma {
     description?: true
     cadence?: true
     startDate?: true
-    timeOfDay?: true
-    reminder?: true
+    timeWindow?: true
     goalAmount?: true
     goalUnit?: true
     goalUnitCategory?: true
@@ -10656,8 +10625,7 @@ export namespace Prisma {
     description?: true
     cadence?: true
     startDate?: true
-    timeOfDay?: true
-    reminder?: true
+    timeWindow?: true
     goalAmount?: true
     goalUnit?: true
     goalUnitCategory?: true
@@ -10761,8 +10729,7 @@ export namespace Prisma {
     description: string | null
     cadence: string
     startDate: Date
-    timeOfDay: string | null
-    reminder: string | null
+    timeWindow: string | null
     goalAmount: number
     goalUnit: string
     goalUnitCategory: string
@@ -10798,8 +10765,7 @@ export namespace Prisma {
     description?: boolean
     cadence?: boolean
     startDate?: boolean
-    timeOfDay?: boolean
-    reminder?: boolean
+    timeWindow?: boolean
     goalAmount?: boolean
     goalUnit?: boolean
     goalUnitCategory?: boolean
@@ -10821,8 +10787,7 @@ export namespace Prisma {
     description?: boolean
     cadence?: boolean
     startDate?: boolean
-    timeOfDay?: boolean
-    reminder?: boolean
+    timeWindow?: boolean
     goalAmount?: boolean
     goalUnit?: boolean
     goalUnitCategory?: boolean
@@ -10840,8 +10805,7 @@ export namespace Prisma {
     description?: boolean
     cadence?: boolean
     startDate?: boolean
-    timeOfDay?: boolean
-    reminder?: boolean
+    timeWindow?: boolean
     goalAmount?: boolean
     goalUnit?: boolean
     goalUnitCategory?: boolean
@@ -10859,8 +10823,7 @@ export namespace Prisma {
     description?: boolean
     cadence?: boolean
     startDate?: boolean
-    timeOfDay?: boolean
-    reminder?: boolean
+    timeWindow?: boolean
     goalAmount?: boolean
     goalUnit?: boolean
     goalUnitCategory?: boolean
@@ -10871,7 +10834,7 @@ export namespace Prisma {
     dailyProgress?: boolean
   }
 
-  export type HabitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "cadence" | "startDate" | "timeOfDay" | "reminder" | "goalAmount" | "goalUnit" | "goalUnitCategory" | "createdAt" | "updatedAt" | "userId" | "sourcePopularPostId" | "dailyProgress", ExtArgs["result"]["habit"]>
+  export type HabitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "cadence" | "startDate" | "timeWindow" | "goalAmount" | "goalUnit" | "goalUnitCategory" | "createdAt" | "updatedAt" | "userId" | "sourcePopularPostId" | "dailyProgress", ExtArgs["result"]["habit"]>
   export type HabitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     dailyProgressEntries?: boolean | Habit$dailyProgressEntriesArgs<ExtArgs>
@@ -10900,8 +10863,7 @@ export namespace Prisma {
       description: string | null
       cadence: string
       startDate: Date
-      timeOfDay: string | null
-      reminder: string | null
+      timeWindow: string | null
       goalAmount: number
       goalUnit: string
       goalUnitCategory: string
@@ -11342,8 +11304,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Habit", 'String'>
     readonly cadence: FieldRef<"Habit", 'String'>
     readonly startDate: FieldRef<"Habit", 'DateTime'>
-    readonly timeOfDay: FieldRef<"Habit", 'String'>
-    readonly reminder: FieldRef<"Habit", 'String'>
+    readonly timeWindow: FieldRef<"Habit", 'String'>
     readonly goalAmount: FieldRef<"Habit", 'Float'>
     readonly goalUnit: FieldRef<"Habit", 'String'>
     readonly goalUnitCategory: FieldRef<"Habit", 'String'>
@@ -12958,6 +12919,7 @@ export namespace Prisma {
     name: string | null
     anchor: string | null
     notes: string | null
+    timeWindow: $Enums.RoutineTimeWindow | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -12968,6 +12930,7 @@ export namespace Prisma {
     name: string | null
     anchor: string | null
     notes: string | null
+    timeWindow: $Enums.RoutineTimeWindow | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -12978,6 +12941,7 @@ export namespace Prisma {
     name: number
     anchor: number
     notes: number
+    timeWindow: number
     userId: number
     createdAt: number
     updatedAt: number
@@ -12990,6 +12954,7 @@ export namespace Prisma {
     name?: true
     anchor?: true
     notes?: true
+    timeWindow?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -13000,6 +12965,7 @@ export namespace Prisma {
     name?: true
     anchor?: true
     notes?: true
+    timeWindow?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -13010,6 +12976,7 @@ export namespace Prisma {
     name?: true
     anchor?: true
     notes?: true
+    timeWindow?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -13093,6 +13060,7 @@ export namespace Prisma {
     name: string
     anchor: string | null
     notes: string | null
+    timeWindow: $Enums.RoutineTimeWindow
     userId: string
     createdAt: Date
     updatedAt: Date
@@ -13120,6 +13088,7 @@ export namespace Prisma {
     name?: boolean
     anchor?: boolean
     notes?: boolean
+    timeWindow?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -13133,6 +13102,7 @@ export namespace Prisma {
     name?: boolean
     anchor?: boolean
     notes?: boolean
+    timeWindow?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -13144,6 +13114,7 @@ export namespace Prisma {
     name?: boolean
     anchor?: boolean
     notes?: boolean
+    timeWindow?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -13155,12 +13126,13 @@ export namespace Prisma {
     name?: boolean
     anchor?: boolean
     notes?: boolean
+    timeWindow?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type RoutineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "anchor" | "notes" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["routine"]>
+  export type RoutineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "anchor" | "notes" | "timeWindow" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["routine"]>
   export type RoutineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     habits?: boolean | Routine$habitsArgs<ExtArgs>
@@ -13184,6 +13156,7 @@ export namespace Prisma {
       name: string
       anchor: string | null
       notes: string | null
+      timeWindow: $Enums.RoutineTimeWindow
       userId: string
       createdAt: Date
       updatedAt: Date
@@ -13616,6 +13589,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Routine", 'String'>
     readonly anchor: FieldRef<"Routine", 'String'>
     readonly notes: FieldRef<"Routine", 'String'>
+    readonly timeWindow: FieldRef<"Routine", 'RoutineTimeWindow'>
     readonly userId: FieldRef<"Routine", 'String'>
     readonly createdAt: FieldRef<"Routine", 'DateTime'>
     readonly updatedAt: FieldRef<"Routine", 'DateTime'>
@@ -15170,135 +15144,99 @@ export namespace Prisma {
   }
 
   export type PostHabitAvgAggregateOutputType = {
-    likesCount: number | null
+    votesCount: number | null
   }
 
   export type PostHabitSumAggregateOutputType = {
-    likesCount: number | null
+    votesCount: number | null
   }
 
   export type PostHabitMinAggregateOutputType = {
     id: string | null
     title: string | null
-    summary: string | null
-    highlight: string | null
-    anchor: string | null
-    duration: string | null
+    description: string | null
     cadence: string | null
     category: $Enums.HabitCategory | null
-    timeWindow: $Enums.HabitTimeWindow | null
-    commitment: $Enums.HabitCommitment | null
     habitId: string | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    likesCount: number | null
+    votesCount: number | null
   }
 
   export type PostHabitMaxAggregateOutputType = {
     id: string | null
     title: string | null
-    summary: string | null
-    highlight: string | null
-    anchor: string | null
-    duration: string | null
+    description: string | null
     cadence: string | null
     category: $Enums.HabitCategory | null
-    timeWindow: $Enums.HabitTimeWindow | null
-    commitment: $Enums.HabitCommitment | null
     habitId: string | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    likesCount: number | null
+    votesCount: number | null
   }
 
   export type PostHabitCountAggregateOutputType = {
     id: number
     title: number
-    summary: number
-    highlight: number
-    anchor: number
-    duration: number
+    description: number
     cadence: number
     category: number
-    timeWindow: number
-    commitment: number
-    benefits: number
-    steps: number
-    guardrails: number
     habitId: number
     userId: number
     createdAt: number
     updatedAt: number
-    likesCount: number
+    votesCount: number
     _all: number
   }
 
 
   export type PostHabitAvgAggregateInputType = {
-    likesCount?: true
+    votesCount?: true
   }
 
   export type PostHabitSumAggregateInputType = {
-    likesCount?: true
+    votesCount?: true
   }
 
   export type PostHabitMinAggregateInputType = {
     id?: true
     title?: true
-    summary?: true
-    highlight?: true
-    anchor?: true
-    duration?: true
+    description?: true
     cadence?: true
     category?: true
-    timeWindow?: true
-    commitment?: true
     habitId?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
-    likesCount?: true
+    votesCount?: true
   }
 
   export type PostHabitMaxAggregateInputType = {
     id?: true
     title?: true
-    summary?: true
-    highlight?: true
-    anchor?: true
-    duration?: true
+    description?: true
     cadence?: true
     category?: true
-    timeWindow?: true
-    commitment?: true
     habitId?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
-    likesCount?: true
+    votesCount?: true
   }
 
   export type PostHabitCountAggregateInputType = {
     id?: true
     title?: true
-    summary?: true
-    highlight?: true
-    anchor?: true
-    duration?: true
+    description?: true
     cadence?: true
     category?: true
-    timeWindow?: true
-    commitment?: true
-    benefits?: true
-    steps?: true
-    guardrails?: true
     habitId?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
-    likesCount?: true
+    votesCount?: true
     _all?: true
   }
 
@@ -15391,22 +15329,14 @@ export namespace Prisma {
   export type PostHabitGroupByOutputType = {
     id: string
     title: string
-    summary: string | null
-    highlight: string | null
-    anchor: string | null
-    duration: string | null
+    description: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits: string[]
-    steps: string[]
-    guardrails: string[]
     habitId: string
     userId: string
     createdAt: Date
     updatedAt: Date
-    likesCount: number
+    votesCount: number
     _count: PostHabitCountAggregateOutputType | null
     _avg: PostHabitAvgAggregateOutputType | null
     _sum: PostHabitSumAggregateOutputType | null
@@ -15431,47 +15361,31 @@ export namespace Prisma {
   export type PostHabitSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    summary?: boolean
-    highlight?: boolean
-    anchor?: boolean
-    duration?: boolean
+    description?: boolean
     cadence?: boolean
     category?: boolean
-    timeWindow?: boolean
-    commitment?: boolean
-    benefits?: boolean
-    steps?: boolean
-    guardrails?: boolean
     habitId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    likesCount?: boolean
+    votesCount?: boolean
     habit?: boolean | HabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    likes?: boolean | PostHabit$likesArgs<ExtArgs>
+    votes?: boolean | PostHabit$votesArgs<ExtArgs>
     _count?: boolean | PostHabitCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postHabit"]>
 
   export type PostHabitSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    summary?: boolean
-    highlight?: boolean
-    anchor?: boolean
-    duration?: boolean
+    description?: boolean
     cadence?: boolean
     category?: boolean
-    timeWindow?: boolean
-    commitment?: boolean
-    benefits?: boolean
-    steps?: boolean
-    guardrails?: boolean
     habitId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    likesCount?: boolean
+    votesCount?: boolean
     habit?: boolean | HabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postHabit"]>
@@ -15479,22 +15393,14 @@ export namespace Prisma {
   export type PostHabitSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    summary?: boolean
-    highlight?: boolean
-    anchor?: boolean
-    duration?: boolean
+    description?: boolean
     cadence?: boolean
     category?: boolean
-    timeWindow?: boolean
-    commitment?: boolean
-    benefits?: boolean
-    steps?: boolean
-    guardrails?: boolean
     habitId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    likesCount?: boolean
+    votesCount?: boolean
     habit?: boolean | HabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["postHabit"]>
@@ -15502,29 +15408,21 @@ export namespace Prisma {
   export type PostHabitSelectScalar = {
     id?: boolean
     title?: boolean
-    summary?: boolean
-    highlight?: boolean
-    anchor?: boolean
-    duration?: boolean
+    description?: boolean
     cadence?: boolean
     category?: boolean
-    timeWindow?: boolean
-    commitment?: boolean
-    benefits?: boolean
-    steps?: boolean
-    guardrails?: boolean
     habitId?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    likesCount?: boolean
+    votesCount?: boolean
   }
 
-  export type PostHabitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "summary" | "highlight" | "anchor" | "duration" | "cadence" | "category" | "timeWindow" | "commitment" | "benefits" | "steps" | "guardrails" | "habitId" | "userId" | "createdAt" | "updatedAt" | "likesCount", ExtArgs["result"]["postHabit"]>
+  export type PostHabitOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "cadence" | "category" | "habitId" | "userId" | "createdAt" | "updatedAt" | "votesCount", ExtArgs["result"]["postHabit"]>
   export type PostHabitInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     habit?: boolean | HabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-    likes?: boolean | PostHabit$likesArgs<ExtArgs>
+    votes?: boolean | PostHabit$votesArgs<ExtArgs>
     _count?: boolean | PostHabitCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PostHabitIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15541,27 +15439,19 @@ export namespace Prisma {
     objects: {
       habit: Prisma.$HabitPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
-      likes: Prisma.$PostHabitLikePayload<ExtArgs>[]
+      votes: Prisma.$PostHabitVotePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
-      summary: string | null
-      highlight: string | null
-      anchor: string | null
-      duration: string | null
+      description: string | null
       cadence: string
       category: $Enums.HabitCategory
-      timeWindow: $Enums.HabitTimeWindow
-      commitment: $Enums.HabitCommitment
-      benefits: string[]
-      steps: string[]
-      guardrails: string[]
       habitId: string
       userId: string
       createdAt: Date
       updatedAt: Date
-      likesCount: number
+      votesCount: number
     }, ExtArgs["result"]["postHabit"]>
     composites: {}
   }
@@ -15958,7 +15848,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     habit<T extends HabitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, HabitDefaultArgs<ExtArgs>>): Prisma__HabitClient<$Result.GetResult<Prisma.$HabitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    likes<T extends PostHabit$likesArgs<ExtArgs> = {}>(args?: Subset<T, PostHabit$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    votes<T extends PostHabit$votesArgs<ExtArgs> = {}>(args?: Subset<T, PostHabit$votesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15990,22 +15880,14 @@ export namespace Prisma {
   interface PostHabitFieldRefs {
     readonly id: FieldRef<"PostHabit", 'String'>
     readonly title: FieldRef<"PostHabit", 'String'>
-    readonly summary: FieldRef<"PostHabit", 'String'>
-    readonly highlight: FieldRef<"PostHabit", 'String'>
-    readonly anchor: FieldRef<"PostHabit", 'String'>
-    readonly duration: FieldRef<"PostHabit", 'String'>
+    readonly description: FieldRef<"PostHabit", 'String'>
     readonly cadence: FieldRef<"PostHabit", 'String'>
     readonly category: FieldRef<"PostHabit", 'HabitCategory'>
-    readonly timeWindow: FieldRef<"PostHabit", 'HabitTimeWindow'>
-    readonly commitment: FieldRef<"PostHabit", 'HabitCommitment'>
-    readonly benefits: FieldRef<"PostHabit", 'String[]'>
-    readonly steps: FieldRef<"PostHabit", 'String[]'>
-    readonly guardrails: FieldRef<"PostHabit", 'String[]'>
     readonly habitId: FieldRef<"PostHabit", 'String'>
     readonly userId: FieldRef<"PostHabit", 'String'>
     readonly createdAt: FieldRef<"PostHabit", 'DateTime'>
     readonly updatedAt: FieldRef<"PostHabit", 'DateTime'>
-    readonly likesCount: FieldRef<"PostHabit", 'Int'>
+    readonly votesCount: FieldRef<"PostHabit", 'Int'>
   }
     
 
@@ -16402,27 +16284,27 @@ export namespace Prisma {
   }
 
   /**
-   * PostHabit.likes
+   * PostHabit.votes
    */
-  export type PostHabit$likesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabit$votesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
-    where?: PostHabitLikeWhereInput
-    orderBy?: PostHabitLikeOrderByWithRelationInput | PostHabitLikeOrderByWithRelationInput[]
-    cursor?: PostHabitLikeWhereUniqueInput
+    include?: PostHabitVoteInclude<ExtArgs> | null
+    where?: PostHabitVoteWhereInput
+    orderBy?: PostHabitVoteOrderByWithRelationInput | PostHabitVoteOrderByWithRelationInput[]
+    cursor?: PostHabitVoteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: PostHabitLikeScalarFieldEnum | PostHabitLikeScalarFieldEnum[]
+    distinct?: PostHabitVoteScalarFieldEnum | PostHabitVoteScalarFieldEnum[]
   }
 
   /**
@@ -16445,30 +16327,30 @@ export namespace Prisma {
 
 
   /**
-   * Model PostHabitLike
+   * Model PostHabitVote
    */
 
-  export type AggregatePostHabitLike = {
-    _count: PostHabitLikeCountAggregateOutputType | null
-    _min: PostHabitLikeMinAggregateOutputType | null
-    _max: PostHabitLikeMaxAggregateOutputType | null
+  export type AggregatePostHabitVote = {
+    _count: PostHabitVoteCountAggregateOutputType | null
+    _min: PostHabitVoteMinAggregateOutputType | null
+    _max: PostHabitVoteMaxAggregateOutputType | null
   }
 
-  export type PostHabitLikeMinAggregateOutputType = {
+  export type PostHabitVoteMinAggregateOutputType = {
     id: string | null
     postHabitId: string | null
     userId: string | null
     createdAt: Date | null
   }
 
-  export type PostHabitLikeMaxAggregateOutputType = {
+  export type PostHabitVoteMaxAggregateOutputType = {
     id: string | null
     postHabitId: string | null
     userId: string | null
     createdAt: Date | null
   }
 
-  export type PostHabitLikeCountAggregateOutputType = {
+  export type PostHabitVoteCountAggregateOutputType = {
     id: number
     postHabitId: number
     userId: number
@@ -16477,21 +16359,21 @@ export namespace Prisma {
   }
 
 
-  export type PostHabitLikeMinAggregateInputType = {
+  export type PostHabitVoteMinAggregateInputType = {
     id?: true
     postHabitId?: true
     userId?: true
     createdAt?: true
   }
 
-  export type PostHabitLikeMaxAggregateInputType = {
+  export type PostHabitVoteMaxAggregateInputType = {
     id?: true
     postHabitId?: true
     userId?: true
     createdAt?: true
   }
 
-  export type PostHabitLikeCountAggregateInputType = {
+  export type PostHabitVoteCountAggregateInputType = {
     id?: true
     postHabitId?: true
     userId?: true
@@ -16499,152 +16381,152 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type PostHabitLikeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which PostHabitLike to aggregate.
+     * Filter which PostHabitVote to aggregate.
      */
-    where?: PostHabitLikeWhereInput
+    where?: PostHabitVoteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PostHabitLikes to fetch.
+     * Determine the order of PostHabitVotes to fetch.
      */
-    orderBy?: PostHabitLikeOrderByWithRelationInput | PostHabitLikeOrderByWithRelationInput[]
+    orderBy?: PostHabitVoteOrderByWithRelationInput | PostHabitVoteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: PostHabitLikeWhereUniqueInput
+    cursor?: PostHabitVoteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PostHabitLikes from the position of the cursor.
+     * Take `±n` PostHabitVotes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PostHabitLikes.
+     * Skip the first `n` PostHabitVotes.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned PostHabitLikes
+     * Count returned PostHabitVotes
     **/
-    _count?: true | PostHabitLikeCountAggregateInputType
+    _count?: true | PostHabitVoteCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: PostHabitLikeMinAggregateInputType
+    _min?: PostHabitVoteMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: PostHabitLikeMaxAggregateInputType
+    _max?: PostHabitVoteMaxAggregateInputType
   }
 
-  export type GetPostHabitLikeAggregateType<T extends PostHabitLikeAggregateArgs> = {
-        [P in keyof T & keyof AggregatePostHabitLike]: P extends '_count' | 'count'
+  export type GetPostHabitVoteAggregateType<T extends PostHabitVoteAggregateArgs> = {
+        [P in keyof T & keyof AggregatePostHabitVote]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregatePostHabitLike[P]>
-      : GetScalarType<T[P], AggregatePostHabitLike[P]>
+        : GetScalarType<T[P], AggregatePostHabitVote[P]>
+      : GetScalarType<T[P], AggregatePostHabitVote[P]>
   }
 
 
 
 
-  export type PostHabitLikeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: PostHabitLikeWhereInput
-    orderBy?: PostHabitLikeOrderByWithAggregationInput | PostHabitLikeOrderByWithAggregationInput[]
-    by: PostHabitLikeScalarFieldEnum[] | PostHabitLikeScalarFieldEnum
-    having?: PostHabitLikeScalarWhereWithAggregatesInput
+  export type PostHabitVoteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PostHabitVoteWhereInput
+    orderBy?: PostHabitVoteOrderByWithAggregationInput | PostHabitVoteOrderByWithAggregationInput[]
+    by: PostHabitVoteScalarFieldEnum[] | PostHabitVoteScalarFieldEnum
+    having?: PostHabitVoteScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: PostHabitLikeCountAggregateInputType | true
-    _min?: PostHabitLikeMinAggregateInputType
-    _max?: PostHabitLikeMaxAggregateInputType
+    _count?: PostHabitVoteCountAggregateInputType | true
+    _min?: PostHabitVoteMinAggregateInputType
+    _max?: PostHabitVoteMaxAggregateInputType
   }
 
-  export type PostHabitLikeGroupByOutputType = {
+  export type PostHabitVoteGroupByOutputType = {
     id: string
     postHabitId: string
     userId: string
     createdAt: Date
-    _count: PostHabitLikeCountAggregateOutputType | null
-    _min: PostHabitLikeMinAggregateOutputType | null
-    _max: PostHabitLikeMaxAggregateOutputType | null
+    _count: PostHabitVoteCountAggregateOutputType | null
+    _min: PostHabitVoteMinAggregateOutputType | null
+    _max: PostHabitVoteMaxAggregateOutputType | null
   }
 
-  type GetPostHabitLikeGroupByPayload<T extends PostHabitLikeGroupByArgs> = Prisma.PrismaPromise<
+  type GetPostHabitVoteGroupByPayload<T extends PostHabitVoteGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<PostHabitLikeGroupByOutputType, T['by']> &
+      PickEnumerable<PostHabitVoteGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof PostHabitLikeGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof PostHabitVoteGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], PostHabitLikeGroupByOutputType[P]>
-            : GetScalarType<T[P], PostHabitLikeGroupByOutputType[P]>
+              : GetScalarType<T[P], PostHabitVoteGroupByOutputType[P]>
+            : GetScalarType<T[P], PostHabitVoteGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type PostHabitLikeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PostHabitVoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     postHabitId?: boolean
     userId?: boolean
     createdAt?: boolean
     postHabit?: boolean | PostHabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["postHabitLike"]>
+  }, ExtArgs["result"]["postHabitVote"]>
 
-  export type PostHabitLikeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PostHabitVoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     postHabitId?: boolean
     userId?: boolean
     createdAt?: boolean
     postHabit?: boolean | PostHabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["postHabitLike"]>
+  }, ExtArgs["result"]["postHabitVote"]>
 
-  export type PostHabitLikeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type PostHabitVoteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     postHabitId?: boolean
     userId?: boolean
     createdAt?: boolean
     postHabit?: boolean | PostHabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["postHabitLike"]>
+  }, ExtArgs["result"]["postHabitVote"]>
 
-  export type PostHabitLikeSelectScalar = {
+  export type PostHabitVoteSelectScalar = {
     id?: boolean
     postHabitId?: boolean
     userId?: boolean
     createdAt?: boolean
   }
 
-  export type PostHabitLikeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postHabitId" | "userId" | "createdAt", ExtArgs["result"]["postHabitLike"]>
-  export type PostHabitLikeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postHabitId" | "userId" | "createdAt", ExtArgs["result"]["postHabitVote"]>
+  export type PostHabitVoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     postHabit?: boolean | PostHabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type PostHabitLikeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     postHabit?: boolean | PostHabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type PostHabitLikeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     postHabit?: boolean | PostHabitDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $PostHabitLikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "PostHabitLike"
+  export type $PostHabitVotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PostHabitVote"
     objects: {
       postHabit: Prisma.$PostHabitPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
@@ -16654,136 +16536,136 @@ export namespace Prisma {
       postHabitId: string
       userId: string
       createdAt: Date
-    }, ExtArgs["result"]["postHabitLike"]>
+    }, ExtArgs["result"]["postHabitVote"]>
     composites: {}
   }
 
-  type PostHabitLikeGetPayload<S extends boolean | null | undefined | PostHabitLikeDefaultArgs> = $Result.GetResult<Prisma.$PostHabitLikePayload, S>
+  type PostHabitVoteGetPayload<S extends boolean | null | undefined | PostHabitVoteDefaultArgs> = $Result.GetResult<Prisma.$PostHabitVotePayload, S>
 
-  type PostHabitLikeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<PostHabitLikeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PostHabitLikeCountAggregateInputType | true
+  type PostHabitVoteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<PostHabitVoteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: PostHabitVoteCountAggregateInputType | true
     }
 
-  export interface PostHabitLikeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostHabitLike'], meta: { name: 'PostHabitLike' } }
+  export interface PostHabitVoteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PostHabitVote'], meta: { name: 'PostHabitVote' } }
     /**
-     * Find zero or one PostHabitLike that matches the filter.
-     * @param {PostHabitLikeFindUniqueArgs} args - Arguments to find a PostHabitLike
+     * Find zero or one PostHabitVote that matches the filter.
+     * @param {PostHabitVoteFindUniqueArgs} args - Arguments to find a PostHabitVote
      * @example
-     * // Get one PostHabitLike
-     * const postHabitLike = await prisma.postHabitLike.findUnique({
+     * // Get one PostHabitVote
+     * const postHabitVote = await prisma.postHabitVote.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends PostHabitLikeFindUniqueArgs>(args: SelectSubset<T, PostHabitLikeFindUniqueArgs<ExtArgs>>): Prisma__PostHabitLikeClient<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends PostHabitVoteFindUniqueArgs>(args: SelectSubset<T, PostHabitVoteFindUniqueArgs<ExtArgs>>): Prisma__PostHabitVoteClient<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one PostHabitLike that matches the filter or throw an error with `error.code='P2025'`
+     * Find one PostHabitVote that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {PostHabitLikeFindUniqueOrThrowArgs} args - Arguments to find a PostHabitLike
+     * @param {PostHabitVoteFindUniqueOrThrowArgs} args - Arguments to find a PostHabitVote
      * @example
-     * // Get one PostHabitLike
-     * const postHabitLike = await prisma.postHabitLike.findUniqueOrThrow({
+     * // Get one PostHabitVote
+     * const postHabitVote = await prisma.postHabitVote.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends PostHabitLikeFindUniqueOrThrowArgs>(args: SelectSubset<T, PostHabitLikeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostHabitLikeClient<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends PostHabitVoteFindUniqueOrThrowArgs>(args: SelectSubset<T, PostHabitVoteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PostHabitVoteClient<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first PostHabitLike that matches the filter.
+     * Find the first PostHabitVote that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostHabitLikeFindFirstArgs} args - Arguments to find a PostHabitLike
+     * @param {PostHabitVoteFindFirstArgs} args - Arguments to find a PostHabitVote
      * @example
-     * // Get one PostHabitLike
-     * const postHabitLike = await prisma.postHabitLike.findFirst({
+     * // Get one PostHabitVote
+     * const postHabitVote = await prisma.postHabitVote.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends PostHabitLikeFindFirstArgs>(args?: SelectSubset<T, PostHabitLikeFindFirstArgs<ExtArgs>>): Prisma__PostHabitLikeClient<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends PostHabitVoteFindFirstArgs>(args?: SelectSubset<T, PostHabitVoteFindFirstArgs<ExtArgs>>): Prisma__PostHabitVoteClient<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first PostHabitLike that matches the filter or
+     * Find the first PostHabitVote that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostHabitLikeFindFirstOrThrowArgs} args - Arguments to find a PostHabitLike
+     * @param {PostHabitVoteFindFirstOrThrowArgs} args - Arguments to find a PostHabitVote
      * @example
-     * // Get one PostHabitLike
-     * const postHabitLike = await prisma.postHabitLike.findFirstOrThrow({
+     * // Get one PostHabitVote
+     * const postHabitVote = await prisma.postHabitVote.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends PostHabitLikeFindFirstOrThrowArgs>(args?: SelectSubset<T, PostHabitLikeFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostHabitLikeClient<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends PostHabitVoteFindFirstOrThrowArgs>(args?: SelectSubset<T, PostHabitVoteFindFirstOrThrowArgs<ExtArgs>>): Prisma__PostHabitVoteClient<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more PostHabitLikes that matches the filter.
+     * Find zero or more PostHabitVotes that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostHabitLikeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {PostHabitVoteFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all PostHabitLikes
-     * const postHabitLikes = await prisma.postHabitLike.findMany()
+     * // Get all PostHabitVotes
+     * const postHabitVotes = await prisma.postHabitVote.findMany()
      * 
-     * // Get first 10 PostHabitLikes
-     * const postHabitLikes = await prisma.postHabitLike.findMany({ take: 10 })
+     * // Get first 10 PostHabitVotes
+     * const postHabitVotes = await prisma.postHabitVote.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const postHabitLikeWithIdOnly = await prisma.postHabitLike.findMany({ select: { id: true } })
+     * const postHabitVoteWithIdOnly = await prisma.postHabitVote.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends PostHabitLikeFindManyArgs>(args?: SelectSubset<T, PostHabitLikeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends PostHabitVoteFindManyArgs>(args?: SelectSubset<T, PostHabitVoteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a PostHabitLike.
-     * @param {PostHabitLikeCreateArgs} args - Arguments to create a PostHabitLike.
+     * Create a PostHabitVote.
+     * @param {PostHabitVoteCreateArgs} args - Arguments to create a PostHabitVote.
      * @example
-     * // Create one PostHabitLike
-     * const PostHabitLike = await prisma.postHabitLike.create({
+     * // Create one PostHabitVote
+     * const PostHabitVote = await prisma.postHabitVote.create({
      *   data: {
-     *     // ... data to create a PostHabitLike
+     *     // ... data to create a PostHabitVote
      *   }
      * })
      * 
      */
-    create<T extends PostHabitLikeCreateArgs>(args: SelectSubset<T, PostHabitLikeCreateArgs<ExtArgs>>): Prisma__PostHabitLikeClient<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends PostHabitVoteCreateArgs>(args: SelectSubset<T, PostHabitVoteCreateArgs<ExtArgs>>): Prisma__PostHabitVoteClient<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many PostHabitLikes.
-     * @param {PostHabitLikeCreateManyArgs} args - Arguments to create many PostHabitLikes.
+     * Create many PostHabitVotes.
+     * @param {PostHabitVoteCreateManyArgs} args - Arguments to create many PostHabitVotes.
      * @example
-     * // Create many PostHabitLikes
-     * const postHabitLike = await prisma.postHabitLike.createMany({
+     * // Create many PostHabitVotes
+     * const postHabitVote = await prisma.postHabitVote.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends PostHabitLikeCreateManyArgs>(args?: SelectSubset<T, PostHabitLikeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends PostHabitVoteCreateManyArgs>(args?: SelectSubset<T, PostHabitVoteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many PostHabitLikes and returns the data saved in the database.
-     * @param {PostHabitLikeCreateManyAndReturnArgs} args - Arguments to create many PostHabitLikes.
+     * Create many PostHabitVotes and returns the data saved in the database.
+     * @param {PostHabitVoteCreateManyAndReturnArgs} args - Arguments to create many PostHabitVotes.
      * @example
-     * // Create many PostHabitLikes
-     * const postHabitLike = await prisma.postHabitLike.createManyAndReturn({
+     * // Create many PostHabitVotes
+     * const postHabitVote = await prisma.postHabitVote.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many PostHabitLikes and only return the `id`
-     * const postHabitLikeWithIdOnly = await prisma.postHabitLike.createManyAndReturn({
+     * // Create many PostHabitVotes and only return the `id`
+     * const postHabitVoteWithIdOnly = await prisma.postHabitVote.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -16793,28 +16675,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends PostHabitLikeCreateManyAndReturnArgs>(args?: SelectSubset<T, PostHabitLikeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends PostHabitVoteCreateManyAndReturnArgs>(args?: SelectSubset<T, PostHabitVoteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a PostHabitLike.
-     * @param {PostHabitLikeDeleteArgs} args - Arguments to delete one PostHabitLike.
+     * Delete a PostHabitVote.
+     * @param {PostHabitVoteDeleteArgs} args - Arguments to delete one PostHabitVote.
      * @example
-     * // Delete one PostHabitLike
-     * const PostHabitLike = await prisma.postHabitLike.delete({
+     * // Delete one PostHabitVote
+     * const PostHabitVote = await prisma.postHabitVote.delete({
      *   where: {
-     *     // ... filter to delete one PostHabitLike
+     *     // ... filter to delete one PostHabitVote
      *   }
      * })
      * 
      */
-    delete<T extends PostHabitLikeDeleteArgs>(args: SelectSubset<T, PostHabitLikeDeleteArgs<ExtArgs>>): Prisma__PostHabitLikeClient<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends PostHabitVoteDeleteArgs>(args: SelectSubset<T, PostHabitVoteDeleteArgs<ExtArgs>>): Prisma__PostHabitVoteClient<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one PostHabitLike.
-     * @param {PostHabitLikeUpdateArgs} args - Arguments to update one PostHabitLike.
+     * Update one PostHabitVote.
+     * @param {PostHabitVoteUpdateArgs} args - Arguments to update one PostHabitVote.
      * @example
-     * // Update one PostHabitLike
-     * const postHabitLike = await prisma.postHabitLike.update({
+     * // Update one PostHabitVote
+     * const postHabitVote = await prisma.postHabitVote.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -16824,30 +16706,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends PostHabitLikeUpdateArgs>(args: SelectSubset<T, PostHabitLikeUpdateArgs<ExtArgs>>): Prisma__PostHabitLikeClient<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends PostHabitVoteUpdateArgs>(args: SelectSubset<T, PostHabitVoteUpdateArgs<ExtArgs>>): Prisma__PostHabitVoteClient<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more PostHabitLikes.
-     * @param {PostHabitLikeDeleteManyArgs} args - Arguments to filter PostHabitLikes to delete.
+     * Delete zero or more PostHabitVotes.
+     * @param {PostHabitVoteDeleteManyArgs} args - Arguments to filter PostHabitVotes to delete.
      * @example
-     * // Delete a few PostHabitLikes
-     * const { count } = await prisma.postHabitLike.deleteMany({
+     * // Delete a few PostHabitVotes
+     * const { count } = await prisma.postHabitVote.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends PostHabitLikeDeleteManyArgs>(args?: SelectSubset<T, PostHabitLikeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends PostHabitVoteDeleteManyArgs>(args?: SelectSubset<T, PostHabitVoteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more PostHabitLikes.
+     * Update zero or more PostHabitVotes.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostHabitLikeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {PostHabitVoteUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many PostHabitLikes
-     * const postHabitLike = await prisma.postHabitLike.updateMany({
+     * // Update many PostHabitVotes
+     * const postHabitVote = await prisma.postHabitVote.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -16857,14 +16739,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends PostHabitLikeUpdateManyArgs>(args: SelectSubset<T, PostHabitLikeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends PostHabitVoteUpdateManyArgs>(args: SelectSubset<T, PostHabitVoteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more PostHabitLikes and returns the data updated in the database.
-     * @param {PostHabitLikeUpdateManyAndReturnArgs} args - Arguments to update many PostHabitLikes.
+     * Update zero or more PostHabitVotes and returns the data updated in the database.
+     * @param {PostHabitVoteUpdateManyAndReturnArgs} args - Arguments to update many PostHabitVotes.
      * @example
-     * // Update many PostHabitLikes
-     * const postHabitLike = await prisma.postHabitLike.updateManyAndReturn({
+     * // Update many PostHabitVotes
+     * const postHabitVote = await prisma.postHabitVote.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -16873,8 +16755,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more PostHabitLikes and only return the `id`
-     * const postHabitLikeWithIdOnly = await prisma.postHabitLike.updateManyAndReturn({
+     * // Update zero or more PostHabitVotes and only return the `id`
+     * const postHabitVoteWithIdOnly = await prisma.postHabitVote.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -16887,56 +16769,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends PostHabitLikeUpdateManyAndReturnArgs>(args: SelectSubset<T, PostHabitLikeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends PostHabitVoteUpdateManyAndReturnArgs>(args: SelectSubset<T, PostHabitVoteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one PostHabitLike.
-     * @param {PostHabitLikeUpsertArgs} args - Arguments to update or create a PostHabitLike.
+     * Create or update one PostHabitVote.
+     * @param {PostHabitVoteUpsertArgs} args - Arguments to update or create a PostHabitVote.
      * @example
-     * // Update or create a PostHabitLike
-     * const postHabitLike = await prisma.postHabitLike.upsert({
+     * // Update or create a PostHabitVote
+     * const postHabitVote = await prisma.postHabitVote.upsert({
      *   create: {
-     *     // ... data to create a PostHabitLike
+     *     // ... data to create a PostHabitVote
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the PostHabitLike we want to update
+     *     // ... the filter for the PostHabitVote we want to update
      *   }
      * })
      */
-    upsert<T extends PostHabitLikeUpsertArgs>(args: SelectSubset<T, PostHabitLikeUpsertArgs<ExtArgs>>): Prisma__PostHabitLikeClient<$Result.GetResult<Prisma.$PostHabitLikePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends PostHabitVoteUpsertArgs>(args: SelectSubset<T, PostHabitVoteUpsertArgs<ExtArgs>>): Prisma__PostHabitVoteClient<$Result.GetResult<Prisma.$PostHabitVotePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of PostHabitLikes.
+     * Count the number of PostHabitVotes.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostHabitLikeCountArgs} args - Arguments to filter PostHabitLikes to count.
+     * @param {PostHabitVoteCountArgs} args - Arguments to filter PostHabitVotes to count.
      * @example
-     * // Count the number of PostHabitLikes
-     * const count = await prisma.postHabitLike.count({
+     * // Count the number of PostHabitVotes
+     * const count = await prisma.postHabitVote.count({
      *   where: {
-     *     // ... the filter for the PostHabitLikes we want to count
+     *     // ... the filter for the PostHabitVotes we want to count
      *   }
      * })
     **/
-    count<T extends PostHabitLikeCountArgs>(
-      args?: Subset<T, PostHabitLikeCountArgs>,
+    count<T extends PostHabitVoteCountArgs>(
+      args?: Subset<T, PostHabitVoteCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], PostHabitLikeCountAggregateOutputType>
+          : GetScalarType<T['select'], PostHabitVoteCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a PostHabitLike.
+     * Allows you to perform aggregations operations on a PostHabitVote.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostHabitLikeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {PostHabitVoteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -16956,13 +16838,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends PostHabitLikeAggregateArgs>(args: Subset<T, PostHabitLikeAggregateArgs>): Prisma.PrismaPromise<GetPostHabitLikeAggregateType<T>>
+    aggregate<T extends PostHabitVoteAggregateArgs>(args: Subset<T, PostHabitVoteAggregateArgs>): Prisma.PrismaPromise<GetPostHabitVoteAggregateType<T>>
 
     /**
-     * Group by PostHabitLike.
+     * Group by PostHabitVote.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {PostHabitLikeGroupByArgs} args - Group by arguments.
+     * @param {PostHabitVoteGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -16977,14 +16859,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends PostHabitLikeGroupByArgs,
+      T extends PostHabitVoteGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: PostHabitLikeGroupByArgs['orderBy'] }
-        : { orderBy?: PostHabitLikeGroupByArgs['orderBy'] },
+        ? { orderBy: PostHabitVoteGroupByArgs['orderBy'] }
+        : { orderBy?: PostHabitVoteGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -17033,20 +16915,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, PostHabitLikeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostHabitLikeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, PostHabitVoteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPostHabitVoteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the PostHabitLike model
+   * Fields of the PostHabitVote model
    */
-  readonly fields: PostHabitLikeFieldRefs;
+  readonly fields: PostHabitVoteFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for PostHabitLike.
+   * The delegate class that acts as a "Promise-like" for PostHabitVote.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__PostHabitLikeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__PostHabitVoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     postHabit<T extends PostHabitDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PostHabitDefaultArgs<ExtArgs>>): Prisma__PostHabitClient<$Result.GetResult<Prisma.$PostHabitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -17076,424 +16958,424 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the PostHabitLike model
+   * Fields of the PostHabitVote model
    */
-  interface PostHabitLikeFieldRefs {
-    readonly id: FieldRef<"PostHabitLike", 'String'>
-    readonly postHabitId: FieldRef<"PostHabitLike", 'String'>
-    readonly userId: FieldRef<"PostHabitLike", 'String'>
-    readonly createdAt: FieldRef<"PostHabitLike", 'DateTime'>
+  interface PostHabitVoteFieldRefs {
+    readonly id: FieldRef<"PostHabitVote", 'String'>
+    readonly postHabitId: FieldRef<"PostHabitVote", 'String'>
+    readonly userId: FieldRef<"PostHabitVote", 'String'>
+    readonly createdAt: FieldRef<"PostHabitVote", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * PostHabitLike findUnique
+   * PostHabitVote findUnique
    */
-  export type PostHabitLikeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
+    include?: PostHabitVoteInclude<ExtArgs> | null
     /**
-     * Filter, which PostHabitLike to fetch.
+     * Filter, which PostHabitVote to fetch.
      */
-    where: PostHabitLikeWhereUniqueInput
+    where: PostHabitVoteWhereUniqueInput
   }
 
   /**
-   * PostHabitLike findUniqueOrThrow
+   * PostHabitVote findUniqueOrThrow
    */
-  export type PostHabitLikeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
+    include?: PostHabitVoteInclude<ExtArgs> | null
     /**
-     * Filter, which PostHabitLike to fetch.
+     * Filter, which PostHabitVote to fetch.
      */
-    where: PostHabitLikeWhereUniqueInput
+    where: PostHabitVoteWhereUniqueInput
   }
 
   /**
-   * PostHabitLike findFirst
+   * PostHabitVote findFirst
    */
-  export type PostHabitLikeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
+    include?: PostHabitVoteInclude<ExtArgs> | null
     /**
-     * Filter, which PostHabitLike to fetch.
+     * Filter, which PostHabitVote to fetch.
      */
-    where?: PostHabitLikeWhereInput
+    where?: PostHabitVoteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PostHabitLikes to fetch.
+     * Determine the order of PostHabitVotes to fetch.
      */
-    orderBy?: PostHabitLikeOrderByWithRelationInput | PostHabitLikeOrderByWithRelationInput[]
+    orderBy?: PostHabitVoteOrderByWithRelationInput | PostHabitVoteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for PostHabitLikes.
+     * Sets the position for searching for PostHabitVotes.
      */
-    cursor?: PostHabitLikeWhereUniqueInput
+    cursor?: PostHabitVoteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PostHabitLikes from the position of the cursor.
+     * Take `±n` PostHabitVotes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PostHabitLikes.
+     * Skip the first `n` PostHabitVotes.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of PostHabitLikes.
+     * Filter by unique combinations of PostHabitVotes.
      */
-    distinct?: PostHabitLikeScalarFieldEnum | PostHabitLikeScalarFieldEnum[]
+    distinct?: PostHabitVoteScalarFieldEnum | PostHabitVoteScalarFieldEnum[]
   }
 
   /**
-   * PostHabitLike findFirstOrThrow
+   * PostHabitVote findFirstOrThrow
    */
-  export type PostHabitLikeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
+    include?: PostHabitVoteInclude<ExtArgs> | null
     /**
-     * Filter, which PostHabitLike to fetch.
+     * Filter, which PostHabitVote to fetch.
      */
-    where?: PostHabitLikeWhereInput
+    where?: PostHabitVoteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PostHabitLikes to fetch.
+     * Determine the order of PostHabitVotes to fetch.
      */
-    orderBy?: PostHabitLikeOrderByWithRelationInput | PostHabitLikeOrderByWithRelationInput[]
+    orderBy?: PostHabitVoteOrderByWithRelationInput | PostHabitVoteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for PostHabitLikes.
+     * Sets the position for searching for PostHabitVotes.
      */
-    cursor?: PostHabitLikeWhereUniqueInput
+    cursor?: PostHabitVoteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PostHabitLikes from the position of the cursor.
+     * Take `±n` PostHabitVotes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PostHabitLikes.
+     * Skip the first `n` PostHabitVotes.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of PostHabitLikes.
+     * Filter by unique combinations of PostHabitVotes.
      */
-    distinct?: PostHabitLikeScalarFieldEnum | PostHabitLikeScalarFieldEnum[]
+    distinct?: PostHabitVoteScalarFieldEnum | PostHabitVoteScalarFieldEnum[]
   }
 
   /**
-   * PostHabitLike findMany
+   * PostHabitVote findMany
    */
-  export type PostHabitLikeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
+    include?: PostHabitVoteInclude<ExtArgs> | null
     /**
-     * Filter, which PostHabitLikes to fetch.
+     * Filter, which PostHabitVotes to fetch.
      */
-    where?: PostHabitLikeWhereInput
+    where?: PostHabitVoteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of PostHabitLikes to fetch.
+     * Determine the order of PostHabitVotes to fetch.
      */
-    orderBy?: PostHabitLikeOrderByWithRelationInput | PostHabitLikeOrderByWithRelationInput[]
+    orderBy?: PostHabitVoteOrderByWithRelationInput | PostHabitVoteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing PostHabitLikes.
+     * Sets the position for listing PostHabitVotes.
      */
-    cursor?: PostHabitLikeWhereUniqueInput
+    cursor?: PostHabitVoteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` PostHabitLikes from the position of the cursor.
+     * Take `±n` PostHabitVotes from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` PostHabitLikes.
+     * Skip the first `n` PostHabitVotes.
      */
     skip?: number
-    distinct?: PostHabitLikeScalarFieldEnum | PostHabitLikeScalarFieldEnum[]
+    distinct?: PostHabitVoteScalarFieldEnum | PostHabitVoteScalarFieldEnum[]
   }
 
   /**
-   * PostHabitLike create
+   * PostHabitVote create
    */
-  export type PostHabitLikeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
+    include?: PostHabitVoteInclude<ExtArgs> | null
     /**
-     * The data needed to create a PostHabitLike.
+     * The data needed to create a PostHabitVote.
      */
-    data: XOR<PostHabitLikeCreateInput, PostHabitLikeUncheckedCreateInput>
+    data: XOR<PostHabitVoteCreateInput, PostHabitVoteUncheckedCreateInput>
   }
 
   /**
-   * PostHabitLike createMany
+   * PostHabitVote createMany
    */
-  export type PostHabitLikeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many PostHabitLikes.
+     * The data used to create many PostHabitVotes.
      */
-    data: PostHabitLikeCreateManyInput | PostHabitLikeCreateManyInput[]
+    data: PostHabitVoteCreateManyInput | PostHabitVoteCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * PostHabitLike createManyAndReturn
+   * PostHabitVote createManyAndReturn
    */
-  export type PostHabitLikeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelectCreateManyAndReturn<ExtArgs> | null
+    select?: PostHabitVoteSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
-     * The data used to create many PostHabitLikes.
+     * The data used to create many PostHabitVotes.
      */
-    data: PostHabitLikeCreateManyInput | PostHabitLikeCreateManyInput[]
+    data: PostHabitVoteCreateManyInput | PostHabitVoteCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: PostHabitVoteIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * PostHabitLike update
+   * PostHabitVote update
    */
-  export type PostHabitLikeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
+    include?: PostHabitVoteInclude<ExtArgs> | null
     /**
-     * The data needed to update a PostHabitLike.
+     * The data needed to update a PostHabitVote.
      */
-    data: XOR<PostHabitLikeUpdateInput, PostHabitLikeUncheckedUpdateInput>
+    data: XOR<PostHabitVoteUpdateInput, PostHabitVoteUncheckedUpdateInput>
     /**
-     * Choose, which PostHabitLike to update.
+     * Choose, which PostHabitVote to update.
      */
-    where: PostHabitLikeWhereUniqueInput
+    where: PostHabitVoteWhereUniqueInput
   }
 
   /**
-   * PostHabitLike updateMany
+   * PostHabitVote updateMany
    */
-  export type PostHabitLikeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update PostHabitLikes.
+     * The data used to update PostHabitVotes.
      */
-    data: XOR<PostHabitLikeUpdateManyMutationInput, PostHabitLikeUncheckedUpdateManyInput>
+    data: XOR<PostHabitVoteUpdateManyMutationInput, PostHabitVoteUncheckedUpdateManyInput>
     /**
-     * Filter which PostHabitLikes to update
+     * Filter which PostHabitVotes to update
      */
-    where?: PostHabitLikeWhereInput
+    where?: PostHabitVoteWhereInput
     /**
-     * Limit how many PostHabitLikes to update.
+     * Limit how many PostHabitVotes to update.
      */
     limit?: number
   }
 
   /**
-   * PostHabitLike updateManyAndReturn
+   * PostHabitVote updateManyAndReturn
    */
-  export type PostHabitLikeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: PostHabitVoteSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
-     * The data used to update PostHabitLikes.
+     * The data used to update PostHabitVotes.
      */
-    data: XOR<PostHabitLikeUpdateManyMutationInput, PostHabitLikeUncheckedUpdateManyInput>
+    data: XOR<PostHabitVoteUpdateManyMutationInput, PostHabitVoteUncheckedUpdateManyInput>
     /**
-     * Filter which PostHabitLikes to update
+     * Filter which PostHabitVotes to update
      */
-    where?: PostHabitLikeWhereInput
+    where?: PostHabitVoteWhereInput
     /**
-     * Limit how many PostHabitLikes to update.
+     * Limit how many PostHabitVotes to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: PostHabitVoteIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * PostHabitLike upsert
+   * PostHabitVote upsert
    */
-  export type PostHabitLikeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
+    include?: PostHabitVoteInclude<ExtArgs> | null
     /**
-     * The filter to search for the PostHabitLike to update in case it exists.
+     * The filter to search for the PostHabitVote to update in case it exists.
      */
-    where: PostHabitLikeWhereUniqueInput
+    where: PostHabitVoteWhereUniqueInput
     /**
-     * In case the PostHabitLike found by the `where` argument doesn't exist, create a new PostHabitLike with this data.
+     * In case the PostHabitVote found by the `where` argument doesn't exist, create a new PostHabitVote with this data.
      */
-    create: XOR<PostHabitLikeCreateInput, PostHabitLikeUncheckedCreateInput>
+    create: XOR<PostHabitVoteCreateInput, PostHabitVoteUncheckedCreateInput>
     /**
-     * In case the PostHabitLike was found with the provided `where` argument, update it with this data.
+     * In case the PostHabitVote was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<PostHabitLikeUpdateInput, PostHabitLikeUncheckedUpdateInput>
+    update: XOR<PostHabitVoteUpdateInput, PostHabitVoteUncheckedUpdateInput>
   }
 
   /**
-   * PostHabitLike delete
+   * PostHabitVote delete
    */
-  export type PostHabitLikeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
+    include?: PostHabitVoteInclude<ExtArgs> | null
     /**
-     * Filter which PostHabitLike to delete.
+     * Filter which PostHabitVote to delete.
      */
-    where: PostHabitLikeWhereUniqueInput
+    where: PostHabitVoteWhereUniqueInput
   }
 
   /**
-   * PostHabitLike deleteMany
+   * PostHabitVote deleteMany
    */
-  export type PostHabitLikeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which PostHabitLikes to delete
+     * Filter which PostHabitVotes to delete
      */
-    where?: PostHabitLikeWhereInput
+    where?: PostHabitVoteWhereInput
     /**
-     * Limit how many PostHabitLikes to delete.
+     * Limit how many PostHabitVotes to delete.
      */
     limit?: number
   }
 
   /**
-   * PostHabitLike without action
+   * PostHabitVote without action
    */
-  export type PostHabitLikeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostHabitVoteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the PostHabitLike
+     * Select specific fields to fetch from the PostHabitVote
      */
-    select?: PostHabitLikeSelect<ExtArgs> | null
+    select?: PostHabitVoteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the PostHabitLike
+     * Omit specific fields from the PostHabitVote
      */
-    omit?: PostHabitLikeOmit<ExtArgs> | null
+    omit?: PostHabitVoteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: PostHabitLikeInclude<ExtArgs> | null
+    include?: PostHabitVoteInclude<ExtArgs> | null
   }
 
 
@@ -18560,7 +18442,6 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
-    emailVerified: 'emailVerified',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     streakGoalDays: 'streakGoalDays',
@@ -18671,8 +18552,7 @@ export namespace Prisma {
     description: 'description',
     cadence: 'cadence',
     startDate: 'startDate',
-    timeOfDay: 'timeOfDay',
-    reminder: 'reminder',
+    timeWindow: 'timeWindow',
     goalAmount: 'goalAmount',
     goalUnit: 'goalUnit',
     goalUnitCategory: 'goalUnitCategory',
@@ -18703,6 +18583,7 @@ export namespace Prisma {
     name: 'name',
     anchor: 'anchor',
     notes: 'notes',
+    timeWindow: 'timeWindow',
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -18725,35 +18606,27 @@ export namespace Prisma {
   export const PostHabitScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    summary: 'summary',
-    highlight: 'highlight',
-    anchor: 'anchor',
-    duration: 'duration',
+    description: 'description',
     cadence: 'cadence',
     category: 'category',
-    timeWindow: 'timeWindow',
-    commitment: 'commitment',
-    benefits: 'benefits',
-    steps: 'steps',
-    guardrails: 'guardrails',
     habitId: 'habitId',
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    likesCount: 'likesCount'
+    votesCount: 'votesCount'
   };
 
   export type PostHabitScalarFieldEnum = (typeof PostHabitScalarFieldEnum)[keyof typeof PostHabitScalarFieldEnum]
 
 
-  export const PostHabitLikeScalarFieldEnum: {
+  export const PostHabitVoteScalarFieldEnum: {
     id: 'id',
     postHabitId: 'postHabitId',
     userId: 'userId',
     createdAt: 'createdAt'
   };
 
-  export type PostHabitLikeScalarFieldEnum = (typeof PostHabitLikeScalarFieldEnum)[keyof typeof PostHabitLikeScalarFieldEnum]
+  export type PostHabitVoteScalarFieldEnum = (typeof PostHabitVoteScalarFieldEnum)[keyof typeof PostHabitVoteScalarFieldEnum]
 
 
   export const Notification_readScalarFieldEnum: {
@@ -18810,13 +18683,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -18841,6 +18707,13 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -18887,6 +18760,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'RoutineTimeWindow'
+   */
+  export type EnumRoutineTimeWindowFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoutineTimeWindow'>
+    
+
+
+  /**
+   * Reference to a field of type 'RoutineTimeWindow[]'
+   */
+  export type ListEnumRoutineTimeWindowFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'RoutineTimeWindow[]'>
+    
+
+
+  /**
    * Reference to a field of type 'HabitCategory'
    */
   export type EnumHabitCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitCategory'>
@@ -18897,34 +18784,6 @@ export namespace Prisma {
    * Reference to a field of type 'HabitCategory[]'
    */
   export type ListEnumHabitCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitCategory[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'HabitTimeWindow'
-   */
-  export type EnumHabitTimeWindowFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitTimeWindow'>
-    
-
-
-  /**
-   * Reference to a field of type 'HabitTimeWindow[]'
-   */
-  export type ListEnumHabitTimeWindowFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitTimeWindow[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'HabitCommitment'
-   */
-  export type EnumHabitCommitmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitCommitment'>
-    
-
-
-  /**
-   * Reference to a field of type 'HabitCommitment[]'
-   */
-  export type ListEnumHabitCommitmentFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'HabitCommitment[]'>
     
   /**
    * Deep Input Types
@@ -18938,7 +18797,6 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
-    emailVerified?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     streakGoalDays?: IntNullableFilter<"User"> | number | null
@@ -18952,7 +18810,7 @@ export namespace Prisma {
     habits?: HabitListRelationFilter
     notification_read?: Notification_readListRelationFilter
     postHabits?: PostHabitListRelationFilter
-    postHabitLikes?: PostHabitLikeListRelationFilter
+    postHabitVotes?: PostHabitVoteListRelationFilter
     routines?: RoutineListRelationFilter
     sessions?: SessionListRelationFilter
     todos?: TodoListRelationFilter
@@ -18962,7 +18820,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrderInput | SortOrder
@@ -18976,7 +18833,7 @@ export namespace Prisma {
     habits?: HabitOrderByRelationAggregateInput
     notification_read?: notification_readOrderByRelationAggregateInput
     postHabits?: PostHabitOrderByRelationAggregateInput
-    postHabitLikes?: PostHabitLikeOrderByRelationAggregateInput
+    postHabitVotes?: PostHabitVoteOrderByRelationAggregateInput
     routines?: RoutineOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     todos?: TodoOrderByRelationAggregateInput
@@ -18990,7 +18847,6 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
-    emailVerified?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     streakGoalDays?: IntNullableFilter<"User"> | number | null
@@ -19003,7 +18859,7 @@ export namespace Prisma {
     habits?: HabitListRelationFilter
     notification_read?: Notification_readListRelationFilter
     postHabits?: PostHabitListRelationFilter
-    postHabitLikes?: PostHabitLikeListRelationFilter
+    postHabitVotes?: PostHabitVoteListRelationFilter
     routines?: RoutineListRelationFilter
     sessions?: SessionListRelationFilter
     todos?: TodoListRelationFilter
@@ -19013,7 +18869,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrderInput | SortOrder
@@ -19036,7 +18891,6 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
-    emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     streakGoalDays?: IntNullableWithAggregatesFilter<"User"> | number | null
@@ -19521,8 +19375,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Habit"> | string | null
     cadence?: StringFilter<"Habit"> | string
     startDate?: DateTimeFilter<"Habit"> | Date | string
-    timeOfDay?: StringNullableFilter<"Habit"> | string | null
-    reminder?: StringNullableFilter<"Habit"> | string | null
+    timeWindow?: StringNullableFilter<"Habit"> | string | null
     goalAmount?: FloatFilter<"Habit"> | number
     goalUnit?: StringFilter<"Habit"> | string
     goalUnitCategory?: StringFilter<"Habit"> | string
@@ -19543,8 +19396,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     cadence?: SortOrder
     startDate?: SortOrder
-    timeOfDay?: SortOrderInput | SortOrder
-    reminder?: SortOrderInput | SortOrder
+    timeWindow?: SortOrderInput | SortOrder
     goalAmount?: SortOrder
     goalUnit?: SortOrder
     goalUnitCategory?: SortOrder
@@ -19570,8 +19422,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Habit"> | string | null
     cadence?: StringFilter<"Habit"> | string
     startDate?: DateTimeFilter<"Habit"> | Date | string
-    timeOfDay?: StringNullableFilter<"Habit"> | string | null
-    reminder?: StringNullableFilter<"Habit"> | string | null
+    timeWindow?: StringNullableFilter<"Habit"> | string | null
     goalAmount?: FloatFilter<"Habit"> | number
     goalUnit?: StringFilter<"Habit"> | string
     goalUnitCategory?: StringFilter<"Habit"> | string
@@ -19592,8 +19443,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     cadence?: SortOrder
     startDate?: SortOrder
-    timeOfDay?: SortOrderInput | SortOrder
-    reminder?: SortOrderInput | SortOrder
+    timeWindow?: SortOrderInput | SortOrder
     goalAmount?: SortOrder
     goalUnit?: SortOrder
     goalUnitCategory?: SortOrder
@@ -19618,8 +19468,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Habit"> | string | null
     cadence?: StringWithAggregatesFilter<"Habit"> | string
     startDate?: DateTimeWithAggregatesFilter<"Habit"> | Date | string
-    timeOfDay?: StringNullableWithAggregatesFilter<"Habit"> | string | null
-    reminder?: StringNullableWithAggregatesFilter<"Habit"> | string | null
+    timeWindow?: StringNullableWithAggregatesFilter<"Habit"> | string | null
     goalAmount?: FloatWithAggregatesFilter<"Habit"> | number
     goalUnit?: StringWithAggregatesFilter<"Habit"> | string
     goalUnitCategory?: StringWithAggregatesFilter<"Habit"> | string
@@ -19701,6 +19550,7 @@ export namespace Prisma {
     name?: StringFilter<"Routine"> | string
     anchor?: StringNullableFilter<"Routine"> | string | null
     notes?: StringNullableFilter<"Routine"> | string | null
+    timeWindow?: EnumRoutineTimeWindowFilter<"Routine"> | $Enums.RoutineTimeWindow
     userId?: StringFilter<"Routine"> | string
     createdAt?: DateTimeFilter<"Routine"> | Date | string
     updatedAt?: DateTimeFilter<"Routine"> | Date | string
@@ -19713,6 +19563,7 @@ export namespace Prisma {
     name?: SortOrder
     anchor?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    timeWindow?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -19728,6 +19579,7 @@ export namespace Prisma {
     name?: StringFilter<"Routine"> | string
     anchor?: StringNullableFilter<"Routine"> | string | null
     notes?: StringNullableFilter<"Routine"> | string | null
+    timeWindow?: EnumRoutineTimeWindowFilter<"Routine"> | $Enums.RoutineTimeWindow
     userId?: StringFilter<"Routine"> | string
     createdAt?: DateTimeFilter<"Routine"> | Date | string
     updatedAt?: DateTimeFilter<"Routine"> | Date | string
@@ -19740,6 +19592,7 @@ export namespace Prisma {
     name?: SortOrder
     anchor?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    timeWindow?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -19756,6 +19609,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Routine"> | string
     anchor?: StringNullableWithAggregatesFilter<"Routine"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Routine"> | string | null
+    timeWindow?: EnumRoutineTimeWindowWithAggregatesFilter<"Routine"> | $Enums.RoutineTimeWindow
     userId?: StringWithAggregatesFilter<"Routine"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Routine"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Routine"> | Date | string
@@ -19828,49 +19682,33 @@ export namespace Prisma {
     NOT?: PostHabitWhereInput | PostHabitWhereInput[]
     id?: StringFilter<"PostHabit"> | string
     title?: StringFilter<"PostHabit"> | string
-    summary?: StringNullableFilter<"PostHabit"> | string | null
-    highlight?: StringNullableFilter<"PostHabit"> | string | null
-    anchor?: StringNullableFilter<"PostHabit"> | string | null
-    duration?: StringNullableFilter<"PostHabit"> | string | null
+    description?: StringNullableFilter<"PostHabit"> | string | null
     cadence?: StringFilter<"PostHabit"> | string
     category?: EnumHabitCategoryFilter<"PostHabit"> | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFilter<"PostHabit"> | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFilter<"PostHabit"> | $Enums.HabitCommitment
-    benefits?: StringNullableListFilter<"PostHabit">
-    steps?: StringNullableListFilter<"PostHabit">
-    guardrails?: StringNullableListFilter<"PostHabit">
     habitId?: StringFilter<"PostHabit"> | string
     userId?: StringFilter<"PostHabit"> | string
     createdAt?: DateTimeFilter<"PostHabit"> | Date | string
     updatedAt?: DateTimeFilter<"PostHabit"> | Date | string
-    likesCount?: IntFilter<"PostHabit"> | number
+    votesCount?: IntFilter<"PostHabit"> | number
     habit?: XOR<HabitScalarRelationFilter, HabitWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    likes?: PostHabitLikeListRelationFilter
+    votes?: PostHabitVoteListRelationFilter
   }
 
   export type PostHabitOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    summary?: SortOrderInput | SortOrder
-    highlight?: SortOrderInput | SortOrder
-    anchor?: SortOrderInput | SortOrder
-    duration?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     cadence?: SortOrder
     category?: SortOrder
-    timeWindow?: SortOrder
-    commitment?: SortOrder
-    benefits?: SortOrder
-    steps?: SortOrder
-    guardrails?: SortOrder
     habitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    likesCount?: SortOrder
+    votesCount?: SortOrder
     habit?: HabitOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
-    likes?: PostHabitLikeOrderByRelationAggregateInput
+    votes?: PostHabitVoteOrderByRelationAggregateInput
   }
 
   export type PostHabitWhereUniqueInput = Prisma.AtLeast<{
@@ -19879,46 +19717,30 @@ export namespace Prisma {
     OR?: PostHabitWhereInput[]
     NOT?: PostHabitWhereInput | PostHabitWhereInput[]
     title?: StringFilter<"PostHabit"> | string
-    summary?: StringNullableFilter<"PostHabit"> | string | null
-    highlight?: StringNullableFilter<"PostHabit"> | string | null
-    anchor?: StringNullableFilter<"PostHabit"> | string | null
-    duration?: StringNullableFilter<"PostHabit"> | string | null
+    description?: StringNullableFilter<"PostHabit"> | string | null
     cadence?: StringFilter<"PostHabit"> | string
     category?: EnumHabitCategoryFilter<"PostHabit"> | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFilter<"PostHabit"> | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFilter<"PostHabit"> | $Enums.HabitCommitment
-    benefits?: StringNullableListFilter<"PostHabit">
-    steps?: StringNullableListFilter<"PostHabit">
-    guardrails?: StringNullableListFilter<"PostHabit">
     habitId?: StringFilter<"PostHabit"> | string
     userId?: StringFilter<"PostHabit"> | string
     createdAt?: DateTimeFilter<"PostHabit"> | Date | string
     updatedAt?: DateTimeFilter<"PostHabit"> | Date | string
-    likesCount?: IntFilter<"PostHabit"> | number
+    votesCount?: IntFilter<"PostHabit"> | number
     habit?: XOR<HabitScalarRelationFilter, HabitWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    likes?: PostHabitLikeListRelationFilter
+    votes?: PostHabitVoteListRelationFilter
   }, "id">
 
   export type PostHabitOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    summary?: SortOrderInput | SortOrder
-    highlight?: SortOrderInput | SortOrder
-    anchor?: SortOrderInput | SortOrder
-    duration?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
     cadence?: SortOrder
     category?: SortOrder
-    timeWindow?: SortOrder
-    commitment?: SortOrder
-    benefits?: SortOrder
-    steps?: SortOrder
-    guardrails?: SortOrder
     habitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    likesCount?: SortOrder
+    votesCount?: SortOrder
     _count?: PostHabitCountOrderByAggregateInput
     _avg?: PostHabitAvgOrderByAggregateInput
     _max?: PostHabitMaxOrderByAggregateInput
@@ -19932,37 +19754,29 @@ export namespace Prisma {
     NOT?: PostHabitScalarWhereWithAggregatesInput | PostHabitScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"PostHabit"> | string
     title?: StringWithAggregatesFilter<"PostHabit"> | string
-    summary?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
-    highlight?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
-    anchor?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
-    duration?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
+    description?: StringNullableWithAggregatesFilter<"PostHabit"> | string | null
     cadence?: StringWithAggregatesFilter<"PostHabit"> | string
     category?: EnumHabitCategoryWithAggregatesFilter<"PostHabit"> | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowWithAggregatesFilter<"PostHabit"> | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentWithAggregatesFilter<"PostHabit"> | $Enums.HabitCommitment
-    benefits?: StringNullableListFilter<"PostHabit">
-    steps?: StringNullableListFilter<"PostHabit">
-    guardrails?: StringNullableListFilter<"PostHabit">
     habitId?: StringWithAggregatesFilter<"PostHabit"> | string
     userId?: StringWithAggregatesFilter<"PostHabit"> | string
     createdAt?: DateTimeWithAggregatesFilter<"PostHabit"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PostHabit"> | Date | string
-    likesCount?: IntWithAggregatesFilter<"PostHabit"> | number
+    votesCount?: IntWithAggregatesFilter<"PostHabit"> | number
   }
 
-  export type PostHabitLikeWhereInput = {
-    AND?: PostHabitLikeWhereInput | PostHabitLikeWhereInput[]
-    OR?: PostHabitLikeWhereInput[]
-    NOT?: PostHabitLikeWhereInput | PostHabitLikeWhereInput[]
-    id?: StringFilter<"PostHabitLike"> | string
-    postHabitId?: StringFilter<"PostHabitLike"> | string
-    userId?: StringFilter<"PostHabitLike"> | string
-    createdAt?: DateTimeFilter<"PostHabitLike"> | Date | string
+  export type PostHabitVoteWhereInput = {
+    AND?: PostHabitVoteWhereInput | PostHabitVoteWhereInput[]
+    OR?: PostHabitVoteWhereInput[]
+    NOT?: PostHabitVoteWhereInput | PostHabitVoteWhereInput[]
+    id?: StringFilter<"PostHabitVote"> | string
+    postHabitId?: StringFilter<"PostHabitVote"> | string
+    userId?: StringFilter<"PostHabitVote"> | string
+    createdAt?: DateTimeFilter<"PostHabitVote"> | Date | string
     postHabit?: XOR<PostHabitScalarRelationFilter, PostHabitWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type PostHabitLikeOrderByWithRelationInput = {
+  export type PostHabitVoteOrderByWithRelationInput = {
     id?: SortOrder
     postHabitId?: SortOrder
     userId?: SortOrder
@@ -19971,37 +19785,37 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
   }
 
-  export type PostHabitLikeWhereUniqueInput = Prisma.AtLeast<{
+  export type PostHabitVoteWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    postHabitId_userId?: PostHabitLikePostHabitId_userIdCompoundUniqueInput
-    AND?: PostHabitLikeWhereInput | PostHabitLikeWhereInput[]
-    OR?: PostHabitLikeWhereInput[]
-    NOT?: PostHabitLikeWhereInput | PostHabitLikeWhereInput[]
-    postHabitId?: StringFilter<"PostHabitLike"> | string
-    userId?: StringFilter<"PostHabitLike"> | string
-    createdAt?: DateTimeFilter<"PostHabitLike"> | Date | string
+    postHabitId_userId?: PostHabitVotePostHabitId_userIdCompoundUniqueInput
+    AND?: PostHabitVoteWhereInput | PostHabitVoteWhereInput[]
+    OR?: PostHabitVoteWhereInput[]
+    NOT?: PostHabitVoteWhereInput | PostHabitVoteWhereInput[]
+    postHabitId?: StringFilter<"PostHabitVote"> | string
+    userId?: StringFilter<"PostHabitVote"> | string
+    createdAt?: DateTimeFilter<"PostHabitVote"> | Date | string
     postHabit?: XOR<PostHabitScalarRelationFilter, PostHabitWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "postHabitId_userId">
 
-  export type PostHabitLikeOrderByWithAggregationInput = {
+  export type PostHabitVoteOrderByWithAggregationInput = {
     id?: SortOrder
     postHabitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
-    _count?: PostHabitLikeCountOrderByAggregateInput
-    _max?: PostHabitLikeMaxOrderByAggregateInput
-    _min?: PostHabitLikeMinOrderByAggregateInput
+    _count?: PostHabitVoteCountOrderByAggregateInput
+    _max?: PostHabitVoteMaxOrderByAggregateInput
+    _min?: PostHabitVoteMinOrderByAggregateInput
   }
 
-  export type PostHabitLikeScalarWhereWithAggregatesInput = {
-    AND?: PostHabitLikeScalarWhereWithAggregatesInput | PostHabitLikeScalarWhereWithAggregatesInput[]
-    OR?: PostHabitLikeScalarWhereWithAggregatesInput[]
-    NOT?: PostHabitLikeScalarWhereWithAggregatesInput | PostHabitLikeScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"PostHabitLike"> | string
-    postHabitId?: StringWithAggregatesFilter<"PostHabitLike"> | string
-    userId?: StringWithAggregatesFilter<"PostHabitLike"> | string
-    createdAt?: DateTimeWithAggregatesFilter<"PostHabitLike"> | Date | string
+  export type PostHabitVoteScalarWhereWithAggregatesInput = {
+    AND?: PostHabitVoteScalarWhereWithAggregatesInput | PostHabitVoteScalarWhereWithAggregatesInput[]
+    OR?: PostHabitVoteScalarWhereWithAggregatesInput[]
+    NOT?: PostHabitVoteScalarWhereWithAggregatesInput | PostHabitVoteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PostHabitVote"> | string
+    postHabitId?: StringWithAggregatesFilter<"PostHabitVote"> | string
+    userId?: StringWithAggregatesFilter<"PostHabitVote"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"PostHabitVote"> | Date | string
   }
 
   export type notification_readWhereInput = {
@@ -20059,7 +19873,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -20073,7 +19886,7 @@ export namespace Prisma {
     habits?: HabitCreateNestedManyWithoutUserInput
     notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteCreateNestedManyWithoutUserInput
     routines?: RoutineCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     todos?: TodoCreateNestedManyWithoutUserInput
@@ -20083,7 +19896,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -20097,7 +19909,7 @@ export namespace Prisma {
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
     notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteUncheckedCreateNestedManyWithoutUserInput
     routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     todos?: TodoUncheckedCreateNestedManyWithoutUserInput
@@ -20107,7 +19919,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -20121,7 +19932,7 @@ export namespace Prisma {
     habits?: HabitUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUpdateManyWithoutUserNestedInput
     routines?: RoutineUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     todos?: TodoUpdateManyWithoutUserNestedInput
@@ -20131,7 +19942,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -20145,7 +19955,7 @@ export namespace Prisma {
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUncheckedUpdateManyWithoutUserNestedInput
     routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
@@ -20155,7 +19965,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -20170,7 +19979,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -20185,7 +19993,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -20715,8 +20522,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -20736,8 +20542,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -20757,8 +20562,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -20778,8 +20582,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -20799,8 +20602,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -20817,8 +20619,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -20834,8 +20635,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -20913,6 +20713,7 @@ export namespace Prisma {
     name: string
     anchor?: string | null
     notes?: string | null
+    timeWindow?: $Enums.RoutineTimeWindow
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutRoutinesInput
@@ -20924,6 +20725,7 @@ export namespace Prisma {
     name: string
     anchor?: string | null
     notes?: string | null
+    timeWindow?: $Enums.RoutineTimeWindow
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20935,6 +20737,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutRoutinesNestedInput
@@ -20946,6 +20749,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20957,6 +20761,7 @@ export namespace Prisma {
     name: string
     anchor?: string | null
     notes?: string | null
+    timeWindow?: $Enums.RoutineTimeWindow
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20967,6 +20772,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20976,6 +20782,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21038,193 +20845,137 @@ export namespace Prisma {
   export type PostHabitCreateInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
+    votesCount?: number
     habit: HabitCreateNestedOneWithoutPost_habitInput
     user: UserCreateNestedOneWithoutPostHabitsInput
-    likes?: PostHabitLikeCreateNestedManyWithoutPostHabitInput
+    votes?: PostHabitVoteCreateNestedManyWithoutPostHabitInput
   }
 
   export type PostHabitUncheckedCreateInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     habitId: string
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
-    likes?: PostHabitLikeUncheckedCreateNestedManyWithoutPostHabitInput
+    votesCount?: number
+    votes?: PostHabitVoteUncheckedCreateNestedManyWithoutPostHabitInput
   }
 
   export type PostHabitUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
+    votesCount?: IntFieldUpdateOperationsInput | number
     habit?: HabitUpdateOneRequiredWithoutPost_habitNestedInput
     user?: UserUpdateOneRequiredWithoutPostHabitsNestedInput
-    likes?: PostHabitLikeUpdateManyWithoutPostHabitNestedInput
+    votes?: PostHabitVoteUpdateManyWithoutPostHabitNestedInput
   }
 
   export type PostHabitUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     habitId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
-    likes?: PostHabitLikeUncheckedUpdateManyWithoutPostHabitNestedInput
+    votesCount?: IntFieldUpdateOperationsInput | number
+    votes?: PostHabitVoteUncheckedUpdateManyWithoutPostHabitNestedInput
   }
 
   export type PostHabitCreateManyInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     habitId: string
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
+    votesCount?: number
   }
 
   export type PostHabitUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
+    votesCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type PostHabitUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     habitId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
+    votesCount?: IntFieldUpdateOperationsInput | number
   }
 
-  export type PostHabitLikeCreateInput = {
+  export type PostHabitVoteCreateInput = {
     id?: string
     createdAt?: Date | string
-    postHabit: PostHabitCreateNestedOneWithoutLikesInput
-    user: UserCreateNestedOneWithoutPostHabitLikesInput
+    postHabit: PostHabitCreateNestedOneWithoutVotesInput
+    user: UserCreateNestedOneWithoutPostHabitVotesInput
   }
 
-  export type PostHabitLikeUncheckedCreateInput = {
+  export type PostHabitVoteUncheckedCreateInput = {
     id?: string
     postHabitId: string
     userId: string
     createdAt?: Date | string
   }
 
-  export type PostHabitLikeUpdateInput = {
+  export type PostHabitVoteUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    postHabit?: PostHabitUpdateOneRequiredWithoutLikesNestedInput
-    user?: UserUpdateOneRequiredWithoutPostHabitLikesNestedInput
+    postHabit?: PostHabitUpdateOneRequiredWithoutVotesNestedInput
+    user?: UserUpdateOneRequiredWithoutPostHabitVotesNestedInput
   }
 
-  export type PostHabitLikeUncheckedUpdateInput = {
+  export type PostHabitVoteUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     postHabitId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PostHabitLikeCreateManyInput = {
+  export type PostHabitVoteCreateManyInput = {
     id?: string
     postHabitId: string
     userId: string
     createdAt?: Date | string
   }
 
-  export type PostHabitLikeUpdateManyMutationInput = {
+  export type PostHabitVoteUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PostHabitLikeUncheckedUpdateManyInput = {
+  export type PostHabitVoteUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     postHabitId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -21294,11 +21045,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -21319,6 +21065,11 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -21366,10 +21117,10 @@ export namespace Prisma {
     none?: PostHabitWhereInput
   }
 
-  export type PostHabitLikeListRelationFilter = {
-    every?: PostHabitLikeWhereInput
-    some?: PostHabitLikeWhereInput
-    none?: PostHabitLikeWhereInput
+  export type PostHabitVoteListRelationFilter = {
+    every?: PostHabitVoteWhereInput
+    some?: PostHabitVoteWhereInput
+    none?: PostHabitVoteWhereInput
   }
 
   export type RoutineListRelationFilter = {
@@ -21415,7 +21166,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type PostHabitLikeOrderByRelationAggregateInput = {
+  export type PostHabitVoteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21435,7 +21186,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrder
@@ -21454,7 +21204,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrder
@@ -21469,7 +21218,6 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrder
@@ -21502,14 +21250,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -21538,6 +21278,14 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -21926,8 +21674,7 @@ export namespace Prisma {
     description?: SortOrder
     cadence?: SortOrder
     startDate?: SortOrder
-    timeOfDay?: SortOrder
-    reminder?: SortOrder
+    timeWindow?: SortOrder
     goalAmount?: SortOrder
     goalUnit?: SortOrder
     goalUnitCategory?: SortOrder
@@ -21949,8 +21696,7 @@ export namespace Prisma {
     description?: SortOrder
     cadence?: SortOrder
     startDate?: SortOrder
-    timeOfDay?: SortOrder
-    reminder?: SortOrder
+    timeWindow?: SortOrder
     goalAmount?: SortOrder
     goalUnit?: SortOrder
     goalUnitCategory?: SortOrder
@@ -21967,8 +21713,7 @@ export namespace Prisma {
     description?: SortOrder
     cadence?: SortOrder
     startDate?: SortOrder
-    timeOfDay?: SortOrder
-    reminder?: SortOrder
+    timeWindow?: SortOrder
     goalAmount?: SortOrder
     goalUnit?: SortOrder
     goalUnitCategory?: SortOrder
@@ -22045,11 +21790,19 @@ export namespace Prisma {
     progress?: SortOrder
   }
 
+  export type EnumRoutineTimeWindowFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoutineTimeWindow | EnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    in?: $Enums.RoutineTimeWindow[] | ListEnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoutineTimeWindow[] | ListEnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoutineTimeWindowFilter<$PrismaModel> | $Enums.RoutineTimeWindow
+  }
+
   export type RoutineCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     anchor?: SortOrder
     notes?: SortOrder
+    timeWindow?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -22060,6 +21813,7 @@ export namespace Prisma {
     name?: SortOrder
     anchor?: SortOrder
     notes?: SortOrder
+    timeWindow?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -22070,9 +21824,20 @@ export namespace Prisma {
     name?: SortOrder
     anchor?: SortOrder
     notes?: SortOrder
+    timeWindow?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type EnumRoutineTimeWindowWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoutineTimeWindow | EnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    in?: $Enums.RoutineTimeWindow[] | ListEnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoutineTimeWindow[] | ListEnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoutineTimeWindowWithAggregatesFilter<$PrismaModel> | $Enums.RoutineTimeWindow
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoutineTimeWindowFilter<$PrismaModel>
+    _max?: NestedEnumRoutineTimeWindowFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -22151,91 +21916,51 @@ export namespace Prisma {
     not?: NestedEnumHabitCategoryFilter<$PrismaModel> | $Enums.HabitCategory
   }
 
-  export type EnumHabitTimeWindowFilter<$PrismaModel = never> = {
-    equals?: $Enums.HabitTimeWindow | EnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    in?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    notIn?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    not?: NestedEnumHabitTimeWindowFilter<$PrismaModel> | $Enums.HabitTimeWindow
-  }
-
-  export type EnumHabitCommitmentFilter<$PrismaModel = never> = {
-    equals?: $Enums.HabitCommitment | EnumHabitCommitmentFieldRefInput<$PrismaModel>
-    in?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
-    notIn?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
-    not?: NestedEnumHabitCommitmentFilter<$PrismaModel> | $Enums.HabitCommitment
-  }
-
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
   export type PostHabitCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    summary?: SortOrder
-    highlight?: SortOrder
-    anchor?: SortOrder
-    duration?: SortOrder
+    description?: SortOrder
     cadence?: SortOrder
     category?: SortOrder
-    timeWindow?: SortOrder
-    commitment?: SortOrder
-    benefits?: SortOrder
-    steps?: SortOrder
-    guardrails?: SortOrder
     habitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    likesCount?: SortOrder
+    votesCount?: SortOrder
   }
 
   export type PostHabitAvgOrderByAggregateInput = {
-    likesCount?: SortOrder
+    votesCount?: SortOrder
   }
 
   export type PostHabitMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    summary?: SortOrder
-    highlight?: SortOrder
-    anchor?: SortOrder
-    duration?: SortOrder
+    description?: SortOrder
     cadence?: SortOrder
     category?: SortOrder
-    timeWindow?: SortOrder
-    commitment?: SortOrder
     habitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    likesCount?: SortOrder
+    votesCount?: SortOrder
   }
 
   export type PostHabitMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    summary?: SortOrder
-    highlight?: SortOrder
-    anchor?: SortOrder
-    duration?: SortOrder
+    description?: SortOrder
     cadence?: SortOrder
     category?: SortOrder
-    timeWindow?: SortOrder
-    commitment?: SortOrder
     habitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    likesCount?: SortOrder
+    votesCount?: SortOrder
   }
 
   export type PostHabitSumOrderByAggregateInput = {
-    likesCount?: SortOrder
+    votesCount?: SortOrder
   }
 
   export type EnumHabitCategoryWithAggregatesFilter<$PrismaModel = never> = {
@@ -22248,51 +21973,31 @@ export namespace Prisma {
     _max?: NestedEnumHabitCategoryFilter<$PrismaModel>
   }
 
-  export type EnumHabitTimeWindowWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.HabitTimeWindow | EnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    in?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    notIn?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    not?: NestedEnumHabitTimeWindowWithAggregatesFilter<$PrismaModel> | $Enums.HabitTimeWindow
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumHabitTimeWindowFilter<$PrismaModel>
-    _max?: NestedEnumHabitTimeWindowFilter<$PrismaModel>
-  }
-
-  export type EnumHabitCommitmentWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.HabitCommitment | EnumHabitCommitmentFieldRefInput<$PrismaModel>
-    in?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
-    notIn?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
-    not?: NestedEnumHabitCommitmentWithAggregatesFilter<$PrismaModel> | $Enums.HabitCommitment
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumHabitCommitmentFilter<$PrismaModel>
-    _max?: NestedEnumHabitCommitmentFilter<$PrismaModel>
-  }
-
   export type PostHabitScalarRelationFilter = {
     is?: PostHabitWhereInput
     isNot?: PostHabitWhereInput
   }
 
-  export type PostHabitLikePostHabitId_userIdCompoundUniqueInput = {
+  export type PostHabitVotePostHabitId_userIdCompoundUniqueInput = {
     postHabitId: string
     userId: string
   }
 
-  export type PostHabitLikeCountOrderByAggregateInput = {
+  export type PostHabitVoteCountOrderByAggregateInput = {
     id?: SortOrder
     postHabitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type PostHabitLikeMaxOrderByAggregateInput = {
+  export type PostHabitVoteMaxOrderByAggregateInput = {
     id?: SortOrder
     postHabitId?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type PostHabitLikeMinOrderByAggregateInput = {
+  export type PostHabitVoteMinOrderByAggregateInput = {
     id?: SortOrder
     postHabitId?: SortOrder
     userId?: SortOrder
@@ -22360,11 +22065,11 @@ export namespace Prisma {
     connect?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
   }
 
-  export type PostHabitLikeCreateNestedManyWithoutUserInput = {
-    create?: XOR<PostHabitLikeCreateWithoutUserInput, PostHabitLikeUncheckedCreateWithoutUserInput> | PostHabitLikeCreateWithoutUserInput[] | PostHabitLikeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PostHabitLikeCreateOrConnectWithoutUserInput | PostHabitLikeCreateOrConnectWithoutUserInput[]
-    createMany?: PostHabitLikeCreateManyUserInputEnvelope
-    connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
+  export type PostHabitVoteCreateNestedManyWithoutUserInput = {
+    create?: XOR<PostHabitVoteCreateWithoutUserInput, PostHabitVoteUncheckedCreateWithoutUserInput> | PostHabitVoteCreateWithoutUserInput[] | PostHabitVoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostHabitVoteCreateOrConnectWithoutUserInput | PostHabitVoteCreateOrConnectWithoutUserInput[]
+    createMany?: PostHabitVoteCreateManyUserInputEnvelope
+    connect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
   }
 
   export type RoutineCreateNestedManyWithoutUserInput = {
@@ -22423,11 +22128,11 @@ export namespace Prisma {
     connect?: PostHabitWhereUniqueInput | PostHabitWhereUniqueInput[]
   }
 
-  export type PostHabitLikeUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<PostHabitLikeCreateWithoutUserInput, PostHabitLikeUncheckedCreateWithoutUserInput> | PostHabitLikeCreateWithoutUserInput[] | PostHabitLikeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PostHabitLikeCreateOrConnectWithoutUserInput | PostHabitLikeCreateOrConnectWithoutUserInput[]
-    createMany?: PostHabitLikeCreateManyUserInputEnvelope
-    connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
+  export type PostHabitVoteUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<PostHabitVoteCreateWithoutUserInput, PostHabitVoteUncheckedCreateWithoutUserInput> | PostHabitVoteCreateWithoutUserInput[] | PostHabitVoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostHabitVoteCreateOrConnectWithoutUserInput | PostHabitVoteCreateOrConnectWithoutUserInput[]
+    createMany?: PostHabitVoteCreateManyUserInputEnvelope
+    connect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
   }
 
   export type RoutineUncheckedCreateNestedManyWithoutUserInput = {
@@ -22455,10 +22160,6 @@ export namespace Prisma {
     set?: string
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -22469,6 +22170,10 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -22545,18 +22250,18 @@ export namespace Prisma {
     deleteMany?: PostHabitScalarWhereInput | PostHabitScalarWhereInput[]
   }
 
-  export type PostHabitLikeUpdateManyWithoutUserNestedInput = {
-    create?: XOR<PostHabitLikeCreateWithoutUserInput, PostHabitLikeUncheckedCreateWithoutUserInput> | PostHabitLikeCreateWithoutUserInput[] | PostHabitLikeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PostHabitLikeCreateOrConnectWithoutUserInput | PostHabitLikeCreateOrConnectWithoutUserInput[]
-    upsert?: PostHabitLikeUpsertWithWhereUniqueWithoutUserInput | PostHabitLikeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: PostHabitLikeCreateManyUserInputEnvelope
-    set?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    disconnect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    delete?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    update?: PostHabitLikeUpdateWithWhereUniqueWithoutUserInput | PostHabitLikeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: PostHabitLikeUpdateManyWithWhereWithoutUserInput | PostHabitLikeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
+  export type PostHabitVoteUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PostHabitVoteCreateWithoutUserInput, PostHabitVoteUncheckedCreateWithoutUserInput> | PostHabitVoteCreateWithoutUserInput[] | PostHabitVoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostHabitVoteCreateOrConnectWithoutUserInput | PostHabitVoteCreateOrConnectWithoutUserInput[]
+    upsert?: PostHabitVoteUpsertWithWhereUniqueWithoutUserInput | PostHabitVoteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PostHabitVoteCreateManyUserInputEnvelope
+    set?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    disconnect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    delete?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    connect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    update?: PostHabitVoteUpdateWithWhereUniqueWithoutUserInput | PostHabitVoteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PostHabitVoteUpdateManyWithWhereWithoutUserInput | PostHabitVoteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PostHabitVoteScalarWhereInput | PostHabitVoteScalarWhereInput[]
   }
 
   export type RoutineUpdateManyWithoutUserNestedInput = {
@@ -22671,18 +22376,18 @@ export namespace Prisma {
     deleteMany?: PostHabitScalarWhereInput | PostHabitScalarWhereInput[]
   }
 
-  export type PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<PostHabitLikeCreateWithoutUserInput, PostHabitLikeUncheckedCreateWithoutUserInput> | PostHabitLikeCreateWithoutUserInput[] | PostHabitLikeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: PostHabitLikeCreateOrConnectWithoutUserInput | PostHabitLikeCreateOrConnectWithoutUserInput[]
-    upsert?: PostHabitLikeUpsertWithWhereUniqueWithoutUserInput | PostHabitLikeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: PostHabitLikeCreateManyUserInputEnvelope
-    set?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    disconnect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    delete?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    update?: PostHabitLikeUpdateWithWhereUniqueWithoutUserInput | PostHabitLikeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: PostHabitLikeUpdateManyWithWhereWithoutUserInput | PostHabitLikeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
+  export type PostHabitVoteUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<PostHabitVoteCreateWithoutUserInput, PostHabitVoteUncheckedCreateWithoutUserInput> | PostHabitVoteCreateWithoutUserInput[] | PostHabitVoteUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: PostHabitVoteCreateOrConnectWithoutUserInput | PostHabitVoteCreateOrConnectWithoutUserInput[]
+    upsert?: PostHabitVoteUpsertWithWhereUniqueWithoutUserInput | PostHabitVoteUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: PostHabitVoteCreateManyUserInputEnvelope
+    set?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    disconnect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    delete?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    connect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    update?: PostHabitVoteUpdateWithWhereUniqueWithoutUserInput | PostHabitVoteUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: PostHabitVoteUpdateManyWithWhereWithoutUserInput | PostHabitVoteUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: PostHabitVoteScalarWhereInput | PostHabitVoteScalarWhereInput[]
   }
 
   export type RoutineUncheckedUpdateManyWithoutUserNestedInput = {
@@ -23089,6 +22794,10 @@ export namespace Prisma {
     connect?: RoutineHabitWhereUniqueInput | RoutineHabitWhereUniqueInput[]
   }
 
+  export type EnumRoutineTimeWindowFieldUpdateOperationsInput = {
+    set?: $Enums.RoutineTimeWindow
+  }
+
   export type UserUpdateOneRequiredWithoutRoutinesNestedInput = {
     create?: XOR<UserCreateWithoutRoutinesInput, UserUncheckedCreateWithoutRoutinesInput>
     connectOrCreate?: UserCreateOrConnectWithoutRoutinesInput
@@ -23161,18 +22870,6 @@ export namespace Prisma {
     update?: XOR<XOR<RoutineUpdateToOneWithWhereWithoutHabitsInput, RoutineUpdateWithoutHabitsInput>, RoutineUncheckedUpdateWithoutHabitsInput>
   }
 
-  export type PostHabitCreatebenefitsInput = {
-    set: string[]
-  }
-
-  export type PostHabitCreatestepsInput = {
-    set: string[]
-  }
-
-  export type PostHabitCreateguardrailsInput = {
-    set: string[]
-  }
-
   export type HabitCreateNestedOneWithoutPost_habitInput = {
     create?: XOR<HabitCreateWithoutPost_habitInput, HabitUncheckedCreateWithoutPost_habitInput>
     connectOrCreate?: HabitCreateOrConnectWithoutPost_habitInput
@@ -23185,45 +22882,22 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type PostHabitLikeCreateNestedManyWithoutPostHabitInput = {
-    create?: XOR<PostHabitLikeCreateWithoutPostHabitInput, PostHabitLikeUncheckedCreateWithoutPostHabitInput> | PostHabitLikeCreateWithoutPostHabitInput[] | PostHabitLikeUncheckedCreateWithoutPostHabitInput[]
-    connectOrCreate?: PostHabitLikeCreateOrConnectWithoutPostHabitInput | PostHabitLikeCreateOrConnectWithoutPostHabitInput[]
-    createMany?: PostHabitLikeCreateManyPostHabitInputEnvelope
-    connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
+  export type PostHabitVoteCreateNestedManyWithoutPostHabitInput = {
+    create?: XOR<PostHabitVoteCreateWithoutPostHabitInput, PostHabitVoteUncheckedCreateWithoutPostHabitInput> | PostHabitVoteCreateWithoutPostHabitInput[] | PostHabitVoteUncheckedCreateWithoutPostHabitInput[]
+    connectOrCreate?: PostHabitVoteCreateOrConnectWithoutPostHabitInput | PostHabitVoteCreateOrConnectWithoutPostHabitInput[]
+    createMany?: PostHabitVoteCreateManyPostHabitInputEnvelope
+    connect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
   }
 
-  export type PostHabitLikeUncheckedCreateNestedManyWithoutPostHabitInput = {
-    create?: XOR<PostHabitLikeCreateWithoutPostHabitInput, PostHabitLikeUncheckedCreateWithoutPostHabitInput> | PostHabitLikeCreateWithoutPostHabitInput[] | PostHabitLikeUncheckedCreateWithoutPostHabitInput[]
-    connectOrCreate?: PostHabitLikeCreateOrConnectWithoutPostHabitInput | PostHabitLikeCreateOrConnectWithoutPostHabitInput[]
-    createMany?: PostHabitLikeCreateManyPostHabitInputEnvelope
-    connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
+  export type PostHabitVoteUncheckedCreateNestedManyWithoutPostHabitInput = {
+    create?: XOR<PostHabitVoteCreateWithoutPostHabitInput, PostHabitVoteUncheckedCreateWithoutPostHabitInput> | PostHabitVoteCreateWithoutPostHabitInput[] | PostHabitVoteUncheckedCreateWithoutPostHabitInput[]
+    connectOrCreate?: PostHabitVoteCreateOrConnectWithoutPostHabitInput | PostHabitVoteCreateOrConnectWithoutPostHabitInput[]
+    createMany?: PostHabitVoteCreateManyPostHabitInputEnvelope
+    connect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
   }
 
   export type EnumHabitCategoryFieldUpdateOperationsInput = {
     set?: $Enums.HabitCategory
-  }
-
-  export type EnumHabitTimeWindowFieldUpdateOperationsInput = {
-    set?: $Enums.HabitTimeWindow
-  }
-
-  export type EnumHabitCommitmentFieldUpdateOperationsInput = {
-    set?: $Enums.HabitCommitment
-  }
-
-  export type PostHabitUpdatebenefitsInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type PostHabitUpdatestepsInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type PostHabitUpdateguardrailsInput = {
-    set?: string[]
-    push?: string | string[]
   }
 
   export type HabitUpdateOneRequiredWithoutPost_habitNestedInput = {
@@ -23242,60 +22916,60 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostHabitsInput, UserUpdateWithoutPostHabitsInput>, UserUncheckedUpdateWithoutPostHabitsInput>
   }
 
-  export type PostHabitLikeUpdateManyWithoutPostHabitNestedInput = {
-    create?: XOR<PostHabitLikeCreateWithoutPostHabitInput, PostHabitLikeUncheckedCreateWithoutPostHabitInput> | PostHabitLikeCreateWithoutPostHabitInput[] | PostHabitLikeUncheckedCreateWithoutPostHabitInput[]
-    connectOrCreate?: PostHabitLikeCreateOrConnectWithoutPostHabitInput | PostHabitLikeCreateOrConnectWithoutPostHabitInput[]
-    upsert?: PostHabitLikeUpsertWithWhereUniqueWithoutPostHabitInput | PostHabitLikeUpsertWithWhereUniqueWithoutPostHabitInput[]
-    createMany?: PostHabitLikeCreateManyPostHabitInputEnvelope
-    set?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    disconnect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    delete?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    update?: PostHabitLikeUpdateWithWhereUniqueWithoutPostHabitInput | PostHabitLikeUpdateWithWhereUniqueWithoutPostHabitInput[]
-    updateMany?: PostHabitLikeUpdateManyWithWhereWithoutPostHabitInput | PostHabitLikeUpdateManyWithWhereWithoutPostHabitInput[]
-    deleteMany?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
+  export type PostHabitVoteUpdateManyWithoutPostHabitNestedInput = {
+    create?: XOR<PostHabitVoteCreateWithoutPostHabitInput, PostHabitVoteUncheckedCreateWithoutPostHabitInput> | PostHabitVoteCreateWithoutPostHabitInput[] | PostHabitVoteUncheckedCreateWithoutPostHabitInput[]
+    connectOrCreate?: PostHabitVoteCreateOrConnectWithoutPostHabitInput | PostHabitVoteCreateOrConnectWithoutPostHabitInput[]
+    upsert?: PostHabitVoteUpsertWithWhereUniqueWithoutPostHabitInput | PostHabitVoteUpsertWithWhereUniqueWithoutPostHabitInput[]
+    createMany?: PostHabitVoteCreateManyPostHabitInputEnvelope
+    set?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    disconnect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    delete?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    connect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    update?: PostHabitVoteUpdateWithWhereUniqueWithoutPostHabitInput | PostHabitVoteUpdateWithWhereUniqueWithoutPostHabitInput[]
+    updateMany?: PostHabitVoteUpdateManyWithWhereWithoutPostHabitInput | PostHabitVoteUpdateManyWithWhereWithoutPostHabitInput[]
+    deleteMany?: PostHabitVoteScalarWhereInput | PostHabitVoteScalarWhereInput[]
   }
 
-  export type PostHabitLikeUncheckedUpdateManyWithoutPostHabitNestedInput = {
-    create?: XOR<PostHabitLikeCreateWithoutPostHabitInput, PostHabitLikeUncheckedCreateWithoutPostHabitInput> | PostHabitLikeCreateWithoutPostHabitInput[] | PostHabitLikeUncheckedCreateWithoutPostHabitInput[]
-    connectOrCreate?: PostHabitLikeCreateOrConnectWithoutPostHabitInput | PostHabitLikeCreateOrConnectWithoutPostHabitInput[]
-    upsert?: PostHabitLikeUpsertWithWhereUniqueWithoutPostHabitInput | PostHabitLikeUpsertWithWhereUniqueWithoutPostHabitInput[]
-    createMany?: PostHabitLikeCreateManyPostHabitInputEnvelope
-    set?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    disconnect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    delete?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    connect?: PostHabitLikeWhereUniqueInput | PostHabitLikeWhereUniqueInput[]
-    update?: PostHabitLikeUpdateWithWhereUniqueWithoutPostHabitInput | PostHabitLikeUpdateWithWhereUniqueWithoutPostHabitInput[]
-    updateMany?: PostHabitLikeUpdateManyWithWhereWithoutPostHabitInput | PostHabitLikeUpdateManyWithWhereWithoutPostHabitInput[]
-    deleteMany?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
+  export type PostHabitVoteUncheckedUpdateManyWithoutPostHabitNestedInput = {
+    create?: XOR<PostHabitVoteCreateWithoutPostHabitInput, PostHabitVoteUncheckedCreateWithoutPostHabitInput> | PostHabitVoteCreateWithoutPostHabitInput[] | PostHabitVoteUncheckedCreateWithoutPostHabitInput[]
+    connectOrCreate?: PostHabitVoteCreateOrConnectWithoutPostHabitInput | PostHabitVoteCreateOrConnectWithoutPostHabitInput[]
+    upsert?: PostHabitVoteUpsertWithWhereUniqueWithoutPostHabitInput | PostHabitVoteUpsertWithWhereUniqueWithoutPostHabitInput[]
+    createMany?: PostHabitVoteCreateManyPostHabitInputEnvelope
+    set?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    disconnect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    delete?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    connect?: PostHabitVoteWhereUniqueInput | PostHabitVoteWhereUniqueInput[]
+    update?: PostHabitVoteUpdateWithWhereUniqueWithoutPostHabitInput | PostHabitVoteUpdateWithWhereUniqueWithoutPostHabitInput[]
+    updateMany?: PostHabitVoteUpdateManyWithWhereWithoutPostHabitInput | PostHabitVoteUpdateManyWithWhereWithoutPostHabitInput[]
+    deleteMany?: PostHabitVoteScalarWhereInput | PostHabitVoteScalarWhereInput[]
   }
 
-  export type PostHabitCreateNestedOneWithoutLikesInput = {
-    create?: XOR<PostHabitCreateWithoutLikesInput, PostHabitUncheckedCreateWithoutLikesInput>
-    connectOrCreate?: PostHabitCreateOrConnectWithoutLikesInput
+  export type PostHabitCreateNestedOneWithoutVotesInput = {
+    create?: XOR<PostHabitCreateWithoutVotesInput, PostHabitUncheckedCreateWithoutVotesInput>
+    connectOrCreate?: PostHabitCreateOrConnectWithoutVotesInput
     connect?: PostHabitWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutPostHabitLikesInput = {
-    create?: XOR<UserCreateWithoutPostHabitLikesInput, UserUncheckedCreateWithoutPostHabitLikesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPostHabitLikesInput
+  export type UserCreateNestedOneWithoutPostHabitVotesInput = {
+    create?: XOR<UserCreateWithoutPostHabitVotesInput, UserUncheckedCreateWithoutPostHabitVotesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostHabitVotesInput
     connect?: UserWhereUniqueInput
   }
 
-  export type PostHabitUpdateOneRequiredWithoutLikesNestedInput = {
-    create?: XOR<PostHabitCreateWithoutLikesInput, PostHabitUncheckedCreateWithoutLikesInput>
-    connectOrCreate?: PostHabitCreateOrConnectWithoutLikesInput
-    upsert?: PostHabitUpsertWithoutLikesInput
+  export type PostHabitUpdateOneRequiredWithoutVotesNestedInput = {
+    create?: XOR<PostHabitCreateWithoutVotesInput, PostHabitUncheckedCreateWithoutVotesInput>
+    connectOrCreate?: PostHabitCreateOrConnectWithoutVotesInput
+    upsert?: PostHabitUpsertWithoutVotesInput
     connect?: PostHabitWhereUniqueInput
-    update?: XOR<XOR<PostHabitUpdateToOneWithWhereWithoutLikesInput, PostHabitUpdateWithoutLikesInput>, PostHabitUncheckedUpdateWithoutLikesInput>
+    update?: XOR<XOR<PostHabitUpdateToOneWithWhereWithoutVotesInput, PostHabitUpdateWithoutVotesInput>, PostHabitUncheckedUpdateWithoutVotesInput>
   }
 
-  export type UserUpdateOneRequiredWithoutPostHabitLikesNestedInput = {
-    create?: XOR<UserCreateWithoutPostHabitLikesInput, UserUncheckedCreateWithoutPostHabitLikesInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPostHabitLikesInput
-    upsert?: UserUpsertWithoutPostHabitLikesInput
+  export type UserUpdateOneRequiredWithoutPostHabitVotesNestedInput = {
+    create?: XOR<UserCreateWithoutPostHabitVotesInput, UserUncheckedCreateWithoutPostHabitVotesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutPostHabitVotesInput
+    upsert?: UserUpsertWithoutPostHabitVotesInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostHabitLikesInput, UserUpdateWithoutPostHabitLikesInput>, UserUncheckedUpdateWithoutPostHabitLikesInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPostHabitVotesInput, UserUpdateWithoutPostHabitVotesInput>, UserUncheckedUpdateWithoutPostHabitVotesInput>
   }
 
   export type UserCreateNestedOneWithoutNotification_readInput = {
@@ -23326,11 +23000,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -23351,6 +23020,11 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -23395,14 +23069,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -23442,6 +23108,14 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -23547,6 +23221,23 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type NestedEnumRoutineTimeWindowFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoutineTimeWindow | EnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    in?: $Enums.RoutineTimeWindow[] | ListEnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoutineTimeWindow[] | ListEnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoutineTimeWindowFilter<$PrismaModel> | $Enums.RoutineTimeWindow
+  }
+
+  export type NestedEnumRoutineTimeWindowWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.RoutineTimeWindow | EnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    in?: $Enums.RoutineTimeWindow[] | ListEnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    notIn?: $Enums.RoutineTimeWindow[] | ListEnumRoutineTimeWindowFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoutineTimeWindowWithAggregatesFilter<$PrismaModel> | $Enums.RoutineTimeWindow
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoutineTimeWindowFilter<$PrismaModel>
+    _max?: NestedEnumRoutineTimeWindowFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -23570,20 +23261,6 @@ export namespace Prisma {
     not?: NestedEnumHabitCategoryFilter<$PrismaModel> | $Enums.HabitCategory
   }
 
-  export type NestedEnumHabitTimeWindowFilter<$PrismaModel = never> = {
-    equals?: $Enums.HabitTimeWindow | EnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    in?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    notIn?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    not?: NestedEnumHabitTimeWindowFilter<$PrismaModel> | $Enums.HabitTimeWindow
-  }
-
-  export type NestedEnumHabitCommitmentFilter<$PrismaModel = never> = {
-    equals?: $Enums.HabitCommitment | EnumHabitCommitmentFieldRefInput<$PrismaModel>
-    in?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
-    notIn?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
-    not?: NestedEnumHabitCommitmentFilter<$PrismaModel> | $Enums.HabitCommitment
-  }
-
   export type NestedEnumHabitCategoryWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.HabitCategory | EnumHabitCategoryFieldRefInput<$PrismaModel>
     in?: $Enums.HabitCategory[] | ListEnumHabitCategoryFieldRefInput<$PrismaModel>
@@ -23592,26 +23269,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumHabitCategoryFilter<$PrismaModel>
     _max?: NestedEnumHabitCategoryFilter<$PrismaModel>
-  }
-
-  export type NestedEnumHabitTimeWindowWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.HabitTimeWindow | EnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    in?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    notIn?: $Enums.HabitTimeWindow[] | ListEnumHabitTimeWindowFieldRefInput<$PrismaModel>
-    not?: NestedEnumHabitTimeWindowWithAggregatesFilter<$PrismaModel> | $Enums.HabitTimeWindow
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumHabitTimeWindowFilter<$PrismaModel>
-    _max?: NestedEnumHabitTimeWindowFilter<$PrismaModel>
-  }
-
-  export type NestedEnumHabitCommitmentWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.HabitCommitment | EnumHabitCommitmentFieldRefInput<$PrismaModel>
-    in?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
-    notIn?: $Enums.HabitCommitment[] | ListEnumHabitCommitmentFieldRefInput<$PrismaModel>
-    not?: NestedEnumHabitCommitmentWithAggregatesFilter<$PrismaModel> | $Enums.HabitCommitment
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumHabitCommitmentFilter<$PrismaModel>
-    _max?: NestedEnumHabitCommitmentFilter<$PrismaModel>
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -23688,8 +23345,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -23708,8 +23364,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -23757,43 +23412,27 @@ export namespace Prisma {
   export type PostHabitCreateWithoutUserInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
+    votesCount?: number
     habit: HabitCreateNestedOneWithoutPost_habitInput
-    likes?: PostHabitLikeCreateNestedManyWithoutPostHabitInput
+    votes?: PostHabitVoteCreateNestedManyWithoutPostHabitInput
   }
 
   export type PostHabitUncheckedCreateWithoutUserInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     habitId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
-    likes?: PostHabitLikeUncheckedCreateNestedManyWithoutPostHabitInput
+    votesCount?: number
+    votes?: PostHabitVoteUncheckedCreateNestedManyWithoutPostHabitInput
   }
 
   export type PostHabitCreateOrConnectWithoutUserInput = {
@@ -23806,25 +23445,25 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type PostHabitLikeCreateWithoutUserInput = {
+  export type PostHabitVoteCreateWithoutUserInput = {
     id?: string
     createdAt?: Date | string
-    postHabit: PostHabitCreateNestedOneWithoutLikesInput
+    postHabit: PostHabitCreateNestedOneWithoutVotesInput
   }
 
-  export type PostHabitLikeUncheckedCreateWithoutUserInput = {
+  export type PostHabitVoteUncheckedCreateWithoutUserInput = {
     id?: string
     postHabitId: string
     createdAt?: Date | string
   }
 
-  export type PostHabitLikeCreateOrConnectWithoutUserInput = {
-    where: PostHabitLikeWhereUniqueInput
-    create: XOR<PostHabitLikeCreateWithoutUserInput, PostHabitLikeUncheckedCreateWithoutUserInput>
+  export type PostHabitVoteCreateOrConnectWithoutUserInput = {
+    where: PostHabitVoteWhereUniqueInput
+    create: XOR<PostHabitVoteCreateWithoutUserInput, PostHabitVoteUncheckedCreateWithoutUserInput>
   }
 
-  export type PostHabitLikeCreateManyUserInputEnvelope = {
-    data: PostHabitLikeCreateManyUserInput | PostHabitLikeCreateManyUserInput[]
+  export type PostHabitVoteCreateManyUserInputEnvelope = {
+    data: PostHabitVoteCreateManyUserInput | PostHabitVoteCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -23833,6 +23472,7 @@ export namespace Prisma {
     name: string
     anchor?: string | null
     notes?: string | null
+    timeWindow?: $Enums.RoutineTimeWindow
     createdAt?: Date | string
     updatedAt?: Date | string
     habits?: RoutineHabitCreateNestedManyWithoutRoutineInput
@@ -23843,6 +23483,7 @@ export namespace Prisma {
     name: string
     anchor?: string | null
     notes?: string | null
+    timeWindow?: $Enums.RoutineTimeWindow
     createdAt?: Date | string
     updatedAt?: Date | string
     habits?: RoutineHabitUncheckedCreateNestedManyWithoutRoutineInput
@@ -24028,8 +23669,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Habit"> | string | null
     cadence?: StringFilter<"Habit"> | string
     startDate?: DateTimeFilter<"Habit"> | Date | string
-    timeOfDay?: StringNullableFilter<"Habit"> | string | null
-    reminder?: StringNullableFilter<"Habit"> | string | null
+    timeWindow?: StringNullableFilter<"Habit"> | string | null
     goalAmount?: FloatFilter<"Habit"> | number
     goalUnit?: StringFilter<"Habit"> | string
     goalUnitCategory?: StringFilter<"Habit"> | string
@@ -24088,48 +23728,40 @@ export namespace Prisma {
     NOT?: PostHabitScalarWhereInput | PostHabitScalarWhereInput[]
     id?: StringFilter<"PostHabit"> | string
     title?: StringFilter<"PostHabit"> | string
-    summary?: StringNullableFilter<"PostHabit"> | string | null
-    highlight?: StringNullableFilter<"PostHabit"> | string | null
-    anchor?: StringNullableFilter<"PostHabit"> | string | null
-    duration?: StringNullableFilter<"PostHabit"> | string | null
+    description?: StringNullableFilter<"PostHabit"> | string | null
     cadence?: StringFilter<"PostHabit"> | string
     category?: EnumHabitCategoryFilter<"PostHabit"> | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFilter<"PostHabit"> | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFilter<"PostHabit"> | $Enums.HabitCommitment
-    benefits?: StringNullableListFilter<"PostHabit">
-    steps?: StringNullableListFilter<"PostHabit">
-    guardrails?: StringNullableListFilter<"PostHabit">
     habitId?: StringFilter<"PostHabit"> | string
     userId?: StringFilter<"PostHabit"> | string
     createdAt?: DateTimeFilter<"PostHabit"> | Date | string
     updatedAt?: DateTimeFilter<"PostHabit"> | Date | string
-    likesCount?: IntFilter<"PostHabit"> | number
+    votesCount?: IntFilter<"PostHabit"> | number
   }
 
-  export type PostHabitLikeUpsertWithWhereUniqueWithoutUserInput = {
-    where: PostHabitLikeWhereUniqueInput
-    update: XOR<PostHabitLikeUpdateWithoutUserInput, PostHabitLikeUncheckedUpdateWithoutUserInput>
-    create: XOR<PostHabitLikeCreateWithoutUserInput, PostHabitLikeUncheckedCreateWithoutUserInput>
+  export type PostHabitVoteUpsertWithWhereUniqueWithoutUserInput = {
+    where: PostHabitVoteWhereUniqueInput
+    update: XOR<PostHabitVoteUpdateWithoutUserInput, PostHabitVoteUncheckedUpdateWithoutUserInput>
+    create: XOR<PostHabitVoteCreateWithoutUserInput, PostHabitVoteUncheckedCreateWithoutUserInput>
   }
 
-  export type PostHabitLikeUpdateWithWhereUniqueWithoutUserInput = {
-    where: PostHabitLikeWhereUniqueInput
-    data: XOR<PostHabitLikeUpdateWithoutUserInput, PostHabitLikeUncheckedUpdateWithoutUserInput>
+  export type PostHabitVoteUpdateWithWhereUniqueWithoutUserInput = {
+    where: PostHabitVoteWhereUniqueInput
+    data: XOR<PostHabitVoteUpdateWithoutUserInput, PostHabitVoteUncheckedUpdateWithoutUserInput>
   }
 
-  export type PostHabitLikeUpdateManyWithWhereWithoutUserInput = {
-    where: PostHabitLikeScalarWhereInput
-    data: XOR<PostHabitLikeUpdateManyMutationInput, PostHabitLikeUncheckedUpdateManyWithoutUserInput>
+  export type PostHabitVoteUpdateManyWithWhereWithoutUserInput = {
+    where: PostHabitVoteScalarWhereInput
+    data: XOR<PostHabitVoteUpdateManyMutationInput, PostHabitVoteUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type PostHabitLikeScalarWhereInput = {
-    AND?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
-    OR?: PostHabitLikeScalarWhereInput[]
-    NOT?: PostHabitLikeScalarWhereInput | PostHabitLikeScalarWhereInput[]
-    id?: StringFilter<"PostHabitLike"> | string
-    postHabitId?: StringFilter<"PostHabitLike"> | string
-    userId?: StringFilter<"PostHabitLike"> | string
-    createdAt?: DateTimeFilter<"PostHabitLike"> | Date | string
+  export type PostHabitVoteScalarWhereInput = {
+    AND?: PostHabitVoteScalarWhereInput | PostHabitVoteScalarWhereInput[]
+    OR?: PostHabitVoteScalarWhereInput[]
+    NOT?: PostHabitVoteScalarWhereInput | PostHabitVoteScalarWhereInput[]
+    id?: StringFilter<"PostHabitVote"> | string
+    postHabitId?: StringFilter<"PostHabitVote"> | string
+    userId?: StringFilter<"PostHabitVote"> | string
+    createdAt?: DateTimeFilter<"PostHabitVote"> | Date | string
   }
 
   export type RoutineUpsertWithWhereUniqueWithoutUserInput = {
@@ -24156,6 +23788,7 @@ export namespace Prisma {
     name?: StringFilter<"Routine"> | string
     anchor?: StringNullableFilter<"Routine"> | string | null
     notes?: StringNullableFilter<"Routine"> | string | null
+    timeWindow?: EnumRoutineTimeWindowFilter<"Routine"> | $Enums.RoutineTimeWindow
     userId?: StringFilter<"Routine"> | string
     createdAt?: DateTimeFilter<"Routine"> | Date | string
     updatedAt?: DateTimeFilter<"Routine"> | Date | string
@@ -24235,7 +23868,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24249,7 +23881,7 @@ export namespace Prisma {
     habits?: HabitCreateNestedManyWithoutUserInput
     notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteCreateNestedManyWithoutUserInput
     routines?: RoutineCreateNestedManyWithoutUserInput
     todos?: TodoCreateNestedManyWithoutUserInput
   }
@@ -24258,7 +23890,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24272,7 +23903,7 @@ export namespace Prisma {
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
     notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteUncheckedCreateNestedManyWithoutUserInput
     routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
     todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
@@ -24297,7 +23928,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24311,7 +23941,7 @@ export namespace Prisma {
     habits?: HabitUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUpdateManyWithoutUserNestedInput
     routines?: RoutineUpdateManyWithoutUserNestedInput
     todos?: TodoUpdateManyWithoutUserNestedInput
   }
@@ -24320,7 +23950,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24334,7 +23963,7 @@ export namespace Prisma {
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUncheckedUpdateManyWithoutUserNestedInput
     routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
     todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -24343,7 +23972,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24356,7 +23984,7 @@ export namespace Prisma {
     habits?: HabitCreateNestedManyWithoutUserInput
     notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteCreateNestedManyWithoutUserInput
     routines?: RoutineCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     todos?: TodoCreateNestedManyWithoutUserInput
@@ -24366,7 +23994,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24379,7 +24006,7 @@ export namespace Prisma {
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
     notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteUncheckedCreateNestedManyWithoutUserInput
     routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     todos?: TodoUncheckedCreateNestedManyWithoutUserInput
@@ -24405,7 +24032,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24418,7 +24044,7 @@ export namespace Prisma {
     habits?: HabitUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUpdateManyWithoutUserNestedInput
     routines?: RoutineUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     todos?: TodoUpdateManyWithoutUserNestedInput
@@ -24428,7 +24054,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24441,7 +24066,7 @@ export namespace Prisma {
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUncheckedUpdateManyWithoutUserNestedInput
     routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
@@ -24473,7 +24098,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24487,7 +24111,7 @@ export namespace Prisma {
     habits?: HabitCreateNestedManyWithoutUserInput
     notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteCreateNestedManyWithoutUserInput
     routines?: RoutineCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
   }
@@ -24496,7 +24120,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24510,7 +24133,7 @@ export namespace Prisma {
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
     notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteUncheckedCreateNestedManyWithoutUserInput
     routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -24561,7 +24184,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24575,7 +24197,7 @@ export namespace Prisma {
     habits?: HabitUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUpdateManyWithoutUserNestedInput
     routines?: RoutineUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
   }
@@ -24584,7 +24206,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24598,7 +24219,7 @@ export namespace Prisma {
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUncheckedUpdateManyWithoutUserNestedInput
     routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -24607,7 +24228,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24620,7 +24240,7 @@ export namespace Prisma {
     habits?: HabitCreateNestedManyWithoutUserInput
     notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteCreateNestedManyWithoutUserInput
     routines?: RoutineCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     todos?: TodoCreateNestedManyWithoutUserInput
@@ -24630,7 +24250,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24643,7 +24262,7 @@ export namespace Prisma {
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
     notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteUncheckedCreateNestedManyWithoutUserInput
     routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     todos?: TodoUncheckedCreateNestedManyWithoutUserInput
@@ -24691,7 +24310,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24704,7 +24322,7 @@ export namespace Prisma {
     habits?: HabitUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUpdateManyWithoutUserNestedInput
     routines?: RoutineUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     todos?: TodoUpdateManyWithoutUserNestedInput
@@ -24714,7 +24332,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24727,7 +24344,7 @@ export namespace Prisma {
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUncheckedUpdateManyWithoutUserNestedInput
     routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
@@ -24905,7 +24522,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24918,7 +24534,7 @@ export namespace Prisma {
     collections?: CollectionCreateNestedManyWithoutUserInput
     notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteCreateNestedManyWithoutUserInput
     routines?: RoutineCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     todos?: TodoCreateNestedManyWithoutUserInput
@@ -24928,7 +24544,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24941,7 +24556,7 @@ export namespace Prisma {
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteUncheckedCreateNestedManyWithoutUserInput
     routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     todos?: TodoUncheckedCreateNestedManyWithoutUserInput
@@ -24981,43 +24596,27 @@ export namespace Prisma {
   export type PostHabitCreateWithoutHabitInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
+    votesCount?: number
     user: UserCreateNestedOneWithoutPostHabitsInput
-    likes?: PostHabitLikeCreateNestedManyWithoutPostHabitInput
+    votes?: PostHabitVoteCreateNestedManyWithoutPostHabitInput
   }
 
   export type PostHabitUncheckedCreateWithoutHabitInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
-    likes?: PostHabitLikeUncheckedCreateNestedManyWithoutPostHabitInput
+    votesCount?: number
+    votes?: PostHabitVoteUncheckedCreateNestedManyWithoutPostHabitInput
   }
 
   export type PostHabitCreateOrConnectWithoutHabitInput = {
@@ -25069,7 +24668,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25082,7 +24680,7 @@ export namespace Prisma {
     collections?: CollectionUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUpdateManyWithoutUserNestedInput
     routines?: RoutineUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     todos?: TodoUpdateManyWithoutUserNestedInput
@@ -25092,7 +24690,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25105,7 +24702,7 @@ export namespace Prisma {
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUncheckedUpdateManyWithoutUserNestedInput
     routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
@@ -25188,8 +24785,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -25208,8 +24804,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -25244,8 +24839,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -25264,8 +24858,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -25282,7 +24875,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25296,7 +24888,7 @@ export namespace Prisma {
     habits?: HabitCreateNestedManyWithoutUserInput
     notification_read?: notification_readCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     todos?: TodoCreateNestedManyWithoutUserInput
   }
@@ -25305,7 +24897,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25319,7 +24910,7 @@ export namespace Prisma {
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
     notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
@@ -25368,7 +24959,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25382,7 +24972,7 @@ export namespace Prisma {
     habits?: HabitUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     todos?: TodoUpdateManyWithoutUserNestedInput
   }
@@ -25391,7 +24981,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25405,7 +24994,7 @@ export namespace Prisma {
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -25432,8 +25021,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -25452,8 +25040,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -25476,6 +25063,7 @@ export namespace Prisma {
     name: string
     anchor?: string | null
     notes?: string | null
+    timeWindow?: $Enums.RoutineTimeWindow
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutRoutinesInput
@@ -25486,6 +25074,7 @@ export namespace Prisma {
     name: string
     anchor?: string | null
     notes?: string | null
+    timeWindow?: $Enums.RoutineTimeWindow
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25513,8 +25102,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -25533,8 +25121,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -25563,6 +25150,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutRoutinesNestedInput
@@ -25573,6 +25161,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25584,8 +25173,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -25604,8 +25192,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -25627,7 +25214,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25640,7 +25226,7 @@ export namespace Prisma {
     collections?: CollectionCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
     notification_read?: notification_readCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteCreateNestedManyWithoutUserInput
     routines?: RoutineCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     todos?: TodoCreateNestedManyWithoutUserInput
@@ -25650,7 +25236,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25663,7 +25248,7 @@ export namespace Prisma {
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
     notification_read?: notification_readUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteUncheckedCreateNestedManyWithoutUserInput
     routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     todos?: TodoUncheckedCreateNestedManyWithoutUserInput
@@ -25674,25 +25259,25 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutPostHabitsInput, UserUncheckedCreateWithoutPostHabitsInput>
   }
 
-  export type PostHabitLikeCreateWithoutPostHabitInput = {
+  export type PostHabitVoteCreateWithoutPostHabitInput = {
     id?: string
     createdAt?: Date | string
-    user: UserCreateNestedOneWithoutPostHabitLikesInput
+    user: UserCreateNestedOneWithoutPostHabitVotesInput
   }
 
-  export type PostHabitLikeUncheckedCreateWithoutPostHabitInput = {
+  export type PostHabitVoteUncheckedCreateWithoutPostHabitInput = {
     id?: string
     userId: string
     createdAt?: Date | string
   }
 
-  export type PostHabitLikeCreateOrConnectWithoutPostHabitInput = {
-    where: PostHabitLikeWhereUniqueInput
-    create: XOR<PostHabitLikeCreateWithoutPostHabitInput, PostHabitLikeUncheckedCreateWithoutPostHabitInput>
+  export type PostHabitVoteCreateOrConnectWithoutPostHabitInput = {
+    where: PostHabitVoteWhereUniqueInput
+    create: XOR<PostHabitVoteCreateWithoutPostHabitInput, PostHabitVoteUncheckedCreateWithoutPostHabitInput>
   }
 
-  export type PostHabitLikeCreateManyPostHabitInputEnvelope = {
-    data: PostHabitLikeCreateManyPostHabitInput | PostHabitLikeCreateManyPostHabitInput[]
+  export type PostHabitVoteCreateManyPostHabitInputEnvelope = {
+    data: PostHabitVoteCreateManyPostHabitInput | PostHabitVoteCreateManyPostHabitInput[]
     skipDuplicates?: boolean
   }
 
@@ -25713,8 +25298,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -25733,8 +25317,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -25762,7 +25345,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25775,7 +25357,7 @@ export namespace Prisma {
     collections?: CollectionUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUpdateManyWithoutUserNestedInput
     routines?: RoutineUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     todos?: TodoUpdateManyWithoutUserNestedInput
@@ -25785,7 +25367,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25798,80 +25379,63 @@ export namespace Prisma {
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: notification_readUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUncheckedUpdateManyWithoutUserNestedInput
     routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type PostHabitLikeUpsertWithWhereUniqueWithoutPostHabitInput = {
-    where: PostHabitLikeWhereUniqueInput
-    update: XOR<PostHabitLikeUpdateWithoutPostHabitInput, PostHabitLikeUncheckedUpdateWithoutPostHabitInput>
-    create: XOR<PostHabitLikeCreateWithoutPostHabitInput, PostHabitLikeUncheckedCreateWithoutPostHabitInput>
+  export type PostHabitVoteUpsertWithWhereUniqueWithoutPostHabitInput = {
+    where: PostHabitVoteWhereUniqueInput
+    update: XOR<PostHabitVoteUpdateWithoutPostHabitInput, PostHabitVoteUncheckedUpdateWithoutPostHabitInput>
+    create: XOR<PostHabitVoteCreateWithoutPostHabitInput, PostHabitVoteUncheckedCreateWithoutPostHabitInput>
   }
 
-  export type PostHabitLikeUpdateWithWhereUniqueWithoutPostHabitInput = {
-    where: PostHabitLikeWhereUniqueInput
-    data: XOR<PostHabitLikeUpdateWithoutPostHabitInput, PostHabitLikeUncheckedUpdateWithoutPostHabitInput>
+  export type PostHabitVoteUpdateWithWhereUniqueWithoutPostHabitInput = {
+    where: PostHabitVoteWhereUniqueInput
+    data: XOR<PostHabitVoteUpdateWithoutPostHabitInput, PostHabitVoteUncheckedUpdateWithoutPostHabitInput>
   }
 
-  export type PostHabitLikeUpdateManyWithWhereWithoutPostHabitInput = {
-    where: PostHabitLikeScalarWhereInput
-    data: XOR<PostHabitLikeUpdateManyMutationInput, PostHabitLikeUncheckedUpdateManyWithoutPostHabitInput>
+  export type PostHabitVoteUpdateManyWithWhereWithoutPostHabitInput = {
+    where: PostHabitVoteScalarWhereInput
+    data: XOR<PostHabitVoteUpdateManyMutationInput, PostHabitVoteUncheckedUpdateManyWithoutPostHabitInput>
   }
 
-  export type PostHabitCreateWithoutLikesInput = {
+  export type PostHabitCreateWithoutVotesInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
+    votesCount?: number
     habit: HabitCreateNestedOneWithoutPost_habitInput
     user: UserCreateNestedOneWithoutPostHabitsInput
   }
 
-  export type PostHabitUncheckedCreateWithoutLikesInput = {
+  export type PostHabitUncheckedCreateWithoutVotesInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     habitId: string
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
+    votesCount?: number
   }
 
-  export type PostHabitCreateOrConnectWithoutLikesInput = {
+  export type PostHabitCreateOrConnectWithoutVotesInput = {
     where: PostHabitWhereUniqueInput
-    create: XOR<PostHabitCreateWithoutLikesInput, PostHabitUncheckedCreateWithoutLikesInput>
+    create: XOR<PostHabitCreateWithoutVotesInput, PostHabitUncheckedCreateWithoutVotesInput>
   }
 
-  export type UserCreateWithoutPostHabitLikesInput = {
+  export type UserCreateWithoutPostHabitVotesInput = {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25890,11 +25454,10 @@ export namespace Prisma {
     todos?: TodoCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutPostHabitLikesInput = {
+  export type UserUncheckedCreateWithoutPostHabitVotesInput = {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25913,80 +25476,63 @@ export namespace Prisma {
     todos?: TodoUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutPostHabitLikesInput = {
+  export type UserCreateOrConnectWithoutPostHabitVotesInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutPostHabitLikesInput, UserUncheckedCreateWithoutPostHabitLikesInput>
+    create: XOR<UserCreateWithoutPostHabitVotesInput, UserUncheckedCreateWithoutPostHabitVotesInput>
   }
 
-  export type PostHabitUpsertWithoutLikesInput = {
-    update: XOR<PostHabitUpdateWithoutLikesInput, PostHabitUncheckedUpdateWithoutLikesInput>
-    create: XOR<PostHabitCreateWithoutLikesInput, PostHabitUncheckedCreateWithoutLikesInput>
+  export type PostHabitUpsertWithoutVotesInput = {
+    update: XOR<PostHabitUpdateWithoutVotesInput, PostHabitUncheckedUpdateWithoutVotesInput>
+    create: XOR<PostHabitCreateWithoutVotesInput, PostHabitUncheckedCreateWithoutVotesInput>
     where?: PostHabitWhereInput
   }
 
-  export type PostHabitUpdateToOneWithWhereWithoutLikesInput = {
+  export type PostHabitUpdateToOneWithWhereWithoutVotesInput = {
     where?: PostHabitWhereInput
-    data: XOR<PostHabitUpdateWithoutLikesInput, PostHabitUncheckedUpdateWithoutLikesInput>
+    data: XOR<PostHabitUpdateWithoutVotesInput, PostHabitUncheckedUpdateWithoutVotesInput>
   }
 
-  export type PostHabitUpdateWithoutLikesInput = {
+  export type PostHabitUpdateWithoutVotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
+    votesCount?: IntFieldUpdateOperationsInput | number
     habit?: HabitUpdateOneRequiredWithoutPost_habitNestedInput
     user?: UserUpdateOneRequiredWithoutPostHabitsNestedInput
   }
 
-  export type PostHabitUncheckedUpdateWithoutLikesInput = {
+  export type PostHabitUncheckedUpdateWithoutVotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     habitId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
+    votesCount?: IntFieldUpdateOperationsInput | number
   }
 
-  export type UserUpsertWithoutPostHabitLikesInput = {
-    update: XOR<UserUpdateWithoutPostHabitLikesInput, UserUncheckedUpdateWithoutPostHabitLikesInput>
-    create: XOR<UserCreateWithoutPostHabitLikesInput, UserUncheckedCreateWithoutPostHabitLikesInput>
+  export type UserUpsertWithoutPostHabitVotesInput = {
+    update: XOR<UserUpdateWithoutPostHabitVotesInput, UserUncheckedUpdateWithoutPostHabitVotesInput>
+    create: XOR<UserCreateWithoutPostHabitVotesInput, UserUncheckedCreateWithoutPostHabitVotesInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutPostHabitLikesInput = {
+  export type UserUpdateToOneWithWhereWithoutPostHabitVotesInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutPostHabitLikesInput, UserUncheckedUpdateWithoutPostHabitLikesInput>
+    data: XOR<UserUpdateWithoutPostHabitVotesInput, UserUncheckedUpdateWithoutPostHabitVotesInput>
   }
 
-  export type UserUpdateWithoutPostHabitLikesInput = {
+  export type UserUpdateWithoutPostHabitVotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26005,11 +25551,10 @@ export namespace Prisma {
     todos?: TodoUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutPostHabitLikesInput = {
+  export type UserUncheckedUpdateWithoutPostHabitVotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26032,7 +25577,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -26045,7 +25589,7 @@ export namespace Prisma {
     collections?: CollectionCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
     postHabits?: PostHabitCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteCreateNestedManyWithoutUserInput
     routines?: RoutineCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     todos?: TodoCreateNestedManyWithoutUserInput
@@ -26055,7 +25599,6 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -26068,7 +25611,7 @@ export namespace Prisma {
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
     postHabits?: PostHabitUncheckedCreateNestedManyWithoutUserInput
-    postHabitLikes?: PostHabitLikeUncheckedCreateNestedManyWithoutUserInput
+    postHabitVotes?: PostHabitVoteUncheckedCreateNestedManyWithoutUserInput
     routines?: RoutineUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     todos?: TodoUncheckedCreateNestedManyWithoutUserInput
@@ -26094,7 +25637,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26107,7 +25649,7 @@ export namespace Prisma {
     collections?: CollectionUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUpdateManyWithoutUserNestedInput
     routines?: RoutineUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     todos?: TodoUpdateManyWithoutUserNestedInput
@@ -26117,7 +25659,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -26130,7 +25671,7 @@ export namespace Prisma {
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
     postHabits?: PostHabitUncheckedUpdateManyWithoutUserNestedInput
-    postHabitLikes?: PostHabitLikeUncheckedUpdateManyWithoutUserNestedInput
+    postHabitVotes?: PostHabitVoteUncheckedUpdateManyWithoutUserNestedInput
     routines?: RoutineUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     todos?: TodoUncheckedUpdateManyWithoutUserNestedInput
@@ -26165,8 +25706,7 @@ export namespace Prisma {
     description?: string | null
     cadence: string
     startDate: Date | string
-    timeOfDay?: string | null
-    reminder?: string | null
+    timeWindow?: string | null
     goalAmount?: number
     goalUnit?: string
     goalUnitCategory?: string
@@ -26185,24 +25725,16 @@ export namespace Prisma {
   export type PostHabitCreateManyUserInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     habitId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
+    votesCount?: number
   }
 
-  export type PostHabitLikeCreateManyUserInput = {
+  export type PostHabitVoteCreateManyUserInput = {
     id?: string
     postHabitId: string
     createdAt?: Date | string
@@ -26213,6 +25745,7 @@ export namespace Prisma {
     name: string
     anchor?: string | null
     notes?: string | null
+    timeWindow?: $Enums.RoutineTimeWindow
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -26324,8 +25857,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -26344,8 +25876,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -26364,8 +25895,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    timeOfDay?: NullableStringFieldUpdateOperationsInput | string | null
-    reminder?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: NullableStringFieldUpdateOperationsInput | string | null
     goalAmount?: FloatFieldUpdateOperationsInput | number
     goalUnit?: StringFieldUpdateOperationsInput | string
     goalUnitCategory?: StringFieldUpdateOperationsInput | string
@@ -26396,78 +25926,54 @@ export namespace Prisma {
   export type PostHabitUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
+    votesCount?: IntFieldUpdateOperationsInput | number
     habit?: HabitUpdateOneRequiredWithoutPost_habitNestedInput
-    likes?: PostHabitLikeUpdateManyWithoutPostHabitNestedInput
+    votes?: PostHabitVoteUpdateManyWithoutPostHabitNestedInput
   }
 
   export type PostHabitUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     habitId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
-    likes?: PostHabitLikeUncheckedUpdateManyWithoutPostHabitNestedInput
+    votesCount?: IntFieldUpdateOperationsInput | number
+    votes?: PostHabitVoteUncheckedUpdateManyWithoutPostHabitNestedInput
   }
 
   export type PostHabitUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     habitId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
+    votesCount?: IntFieldUpdateOperationsInput | number
   }
 
-  export type PostHabitLikeUpdateWithoutUserInput = {
+  export type PostHabitVoteUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    postHabit?: PostHabitUpdateOneRequiredWithoutLikesNestedInput
+    postHabit?: PostHabitUpdateOneRequiredWithoutVotesNestedInput
   }
 
-  export type PostHabitLikeUncheckedUpdateWithoutUserInput = {
+  export type PostHabitVoteUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     postHabitId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PostHabitLikeUncheckedUpdateManyWithoutUserInput = {
+  export type PostHabitVoteUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     postHabitId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26478,6 +25984,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     habits?: RoutineHabitUpdateManyWithoutRoutineNestedInput
@@ -26488,6 +25995,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     habits?: RoutineHabitUncheckedUpdateManyWithoutRoutineNestedInput
@@ -26498,6 +26006,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -26653,21 +26162,13 @@ export namespace Prisma {
   export type PostHabitCreateManyHabitInput = {
     id?: string
     title: string
-    summary?: string | null
-    highlight?: string | null
-    anchor?: string | null
-    duration?: string | null
+    description?: string | null
     cadence: string
     category: $Enums.HabitCategory
-    timeWindow?: $Enums.HabitTimeWindow
-    commitment: $Enums.HabitCommitment
-    benefits?: PostHabitCreatebenefitsInput | string[]
-    steps?: PostHabitCreatestepsInput | string[]
-    guardrails?: PostHabitCreateguardrailsInput | string[]
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    likesCount?: number
+    votesCount?: number
   }
 
   export type RoutineHabitCreateManyHabitInput = {
@@ -26704,63 +26205,39 @@ export namespace Prisma {
   export type PostHabitUpdateWithoutHabitInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
+    votesCount?: IntFieldUpdateOperationsInput | number
     user?: UserUpdateOneRequiredWithoutPostHabitsNestedInput
-    likes?: PostHabitLikeUpdateManyWithoutPostHabitNestedInput
+    votes?: PostHabitVoteUpdateManyWithoutPostHabitNestedInput
   }
 
   export type PostHabitUncheckedUpdateWithoutHabitInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
-    likes?: PostHabitLikeUncheckedUpdateManyWithoutPostHabitNestedInput
+    votesCount?: IntFieldUpdateOperationsInput | number
+    votes?: PostHabitVoteUncheckedUpdateManyWithoutPostHabitNestedInput
   }
 
   export type PostHabitUncheckedUpdateManyWithoutHabitInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    highlight?: NullableStringFieldUpdateOperationsInput | string | null
-    anchor?: NullableStringFieldUpdateOperationsInput | string | null
-    duration?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     cadence?: StringFieldUpdateOperationsInput | string
     category?: EnumHabitCategoryFieldUpdateOperationsInput | $Enums.HabitCategory
-    timeWindow?: EnumHabitTimeWindowFieldUpdateOperationsInput | $Enums.HabitTimeWindow
-    commitment?: EnumHabitCommitmentFieldUpdateOperationsInput | $Enums.HabitCommitment
-    benefits?: PostHabitUpdatebenefitsInput | string[]
-    steps?: PostHabitUpdatestepsInput | string[]
-    guardrails?: PostHabitUpdateguardrailsInput | string[]
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    likesCount?: IntFieldUpdateOperationsInput | number
+    votesCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type RoutineHabitUpdateWithoutHabitInput = {
@@ -26812,25 +26289,25 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PostHabitLikeCreateManyPostHabitInput = {
+  export type PostHabitVoteCreateManyPostHabitInput = {
     id?: string
     userId: string
     createdAt?: Date | string
   }
 
-  export type PostHabitLikeUpdateWithoutPostHabitInput = {
+  export type PostHabitVoteUpdateWithoutPostHabitInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutPostHabitLikesNestedInput
+    user?: UserUpdateOneRequiredWithoutPostHabitVotesNestedInput
   }
 
-  export type PostHabitLikeUncheckedUpdateWithoutPostHabitInput = {
+  export type PostHabitVoteUncheckedUpdateWithoutPostHabitInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type PostHabitLikeUncheckedUpdateManyWithoutPostHabitInput = {
+  export type PostHabitVoteUncheckedUpdateManyWithoutPostHabitInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

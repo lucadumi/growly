@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import type { Habit as PrismaHabit } from "@prisma/client";
+import type { Habit as PrismaHabit } from "@/lib/generated/prisma";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -38,12 +38,6 @@ const formatGoalAmount = (value: number) => {
 };
 
 const buildCalendarFocus = (habit: PrismaHabit) => {
-  if (habit.timeOfDay) {
-    return formatTimeOfDay(habit.timeOfDay);
-  }
-  if (habit.reminder) {
-    return habit.reminder;
-  }
   if (habit.goalUnit) {
     return `${formatGoalAmount(habit.goalAmount)} ${habit.goalUnit}`;
   }

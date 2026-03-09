@@ -50,8 +50,7 @@ export async function GET() {
         id: true,
         name: true,
         description: true,
-        cadence: true,
-        timeOfDay: true,
+        timeWindow: true,
       },
     });
 

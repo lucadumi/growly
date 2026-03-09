@@ -13,7 +13,6 @@ import type React from "react";
 import { ChevronDown } from "lucide-react";
 
 import Button from "@/app/components/ui/button";
-import TimeInput from "@/app/components/ui/time-input";
 import type { TodoInput } from "@/lib/actions/todo-actions";
 import { useUnsavedChangesGuard } from "@/app/hooks/use-unsaved-changes-guard";
 
@@ -27,7 +26,6 @@ interface FormState {
   priority: PriorityLabel;
   status: StatusLabel;
   location: string;
-  scheduledTime: string;
 }
 
 interface TodoFormProps {
@@ -42,7 +40,6 @@ interface TodoFormProps {
     priority?: string | null;
     status?: string | null;
     location?: string | null;
-    scheduledTime?: string | null;
   };
 }
 
@@ -145,7 +142,6 @@ const buildDefaultForm = (
     priority: toPriorityLabel(initialTodo?.priority),
     status: toStatusLabel(initialTodo?.status),
     location: initialTodo?.location || "",
-    scheduledTime: initialTodo?.scheduledTime || "",
   };
 };
 
@@ -259,7 +255,6 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
         statusOverride || form.status,
       ) as TodoInput["status"],
       location: form.location || undefined,
-      scheduledTime: form.scheduledTime || undefined,
       ...(collectionId && mode !== "edit" ? { collectionId } : {}),
     });
 
@@ -494,19 +489,6 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="lg:space-y-1 xl:space-y-2">
-                    <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
-                      <span>Time</span>
-                    </div>
-                    <TimeInput
-                      time={form.scheduledTime}
-                      onChange={(value) => {
-                        setForm((prev) => ({ ...prev, scheduledTime: value }));
-                        markDirty();
-                      }}
-                    />
-                  </div>
-
                   <label className="lg:space-y-1 xl:space-y-2">
                     <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                       <span>Location</span>

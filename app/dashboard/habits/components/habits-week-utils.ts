@@ -5,7 +5,7 @@ export type HabitLike = {
   name: string;
   cadence?: string | null;
   startDate?: string | Date | null;
-  timeOfDay?: string | null;
+  timeWindow?: string | null;
   description?: string | null;
   goalUnit?: string | null;
   goalAmount?: number | null;
@@ -216,12 +216,12 @@ export const buildCalendarDay = (
   );
 
   const floating = matchingHabits.filter(
-    (habit) => parseMinutes(habit.timeOfDay) === null
+    (habit) => parseMinutes(habit.timeWindow) === null
   );
 
   const timed = matchingHabits
     .map((habit) => {
-      const minutes = parseMinutes(habit.timeOfDay);
+      const minutes = parseMinutes(habit.timeWindow);
       if (minutes === null) return null;
       const offset = minutes - DAY_START_MINUTES;
       const clampedOffset = Math.max(0, Math.min(MINUTES_RANGE, offset));

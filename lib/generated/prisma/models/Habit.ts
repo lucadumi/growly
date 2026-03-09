@@ -8,7 +8,7 @@
  *
  * 🟢 You can import this file directly.
  */
-import type * as runtime from "@prisma/client/runtime/library"
+import type * as runtime from "@/lib/generated/prisma/runtime/library"
 import type * as $Enums from "../enums"
 import type * as Prisma from "../internal/prismaNamespace"
 
@@ -40,7 +40,7 @@ export type HabitMinAggregateOutputType = {
   description: string | null
   cadence: string | null
   startDate: Date | null
-  timeOfDay: string | null
+  timeWindow: string | null
   reminder: string | null
   goalAmount: number | null
   goalUnit: string | null
@@ -57,7 +57,7 @@ export type HabitMaxAggregateOutputType = {
   description: string | null
   cadence: string | null
   startDate: Date | null
-  timeOfDay: string | null
+  timeWindow: string | null
   reminder: string | null
   goalAmount: number | null
   goalUnit: string | null
@@ -74,7 +74,7 @@ export type HabitCountAggregateOutputType = {
   description: number
   cadence: number
   startDate: number
-  timeOfDay: number
+  timeWindow: number
   reminder: number
   goalAmount: number
   goalUnit: number
@@ -101,7 +101,7 @@ export type HabitMinAggregateInputType = {
   description?: true
   cadence?: true
   startDate?: true
-  timeOfDay?: true
+  timeWindow?: true
   reminder?: true
   goalAmount?: true
   goalUnit?: true
@@ -118,7 +118,7 @@ export type HabitMaxAggregateInputType = {
   description?: true
   cadence?: true
   startDate?: true
-  timeOfDay?: true
+  timeWindow?: true
   reminder?: true
   goalAmount?: true
   goalUnit?: true
@@ -135,7 +135,7 @@ export type HabitCountAggregateInputType = {
   description?: true
   cadence?: true
   startDate?: true
-  timeOfDay?: true
+  timeWindow?: true
   reminder?: true
   goalAmount?: true
   goalUnit?: true
@@ -239,7 +239,7 @@ export type HabitGroupByOutputType = {
   description: string | null
   cadence: string
   startDate: Date
-  timeOfDay: string | null
+  timeWindow: string | null
   reminder: string | null
   goalAmount: number
   goalUnit: string
@@ -279,7 +279,7 @@ export type HabitWhereInput = {
   description?: Prisma.StringNullableFilter<"Habit"> | string | null
   cadence?: Prisma.StringFilter<"Habit"> | string
   startDate?: Prisma.DateTimeFilter<"Habit"> | Date | string
-  timeOfDay?: Prisma.StringNullableFilter<"Habit"> | string | null
+  timeWindow?: Prisma.StringNullableFilter<"Habit"> | string | null
   reminder?: Prisma.StringNullableFilter<"Habit"> | string | null
   goalAmount?: Prisma.FloatFilter<"Habit"> | number
   goalUnit?: Prisma.StringFilter<"Habit"> | string
@@ -299,7 +299,7 @@ export type HabitOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   cadence?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
-  timeOfDay?: Prisma.SortOrderInput | Prisma.SortOrder
+  timeWindow?: Prisma.SortOrderInput | Prisma.SortOrder
   reminder?: Prisma.SortOrderInput | Prisma.SortOrder
   goalAmount?: Prisma.SortOrder
   goalUnit?: Prisma.SortOrder
@@ -324,7 +324,7 @@ export type HabitWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Habit"> | string | null
   cadence?: Prisma.StringFilter<"Habit"> | string
   startDate?: Prisma.DateTimeFilter<"Habit"> | Date | string
-  timeOfDay?: Prisma.StringNullableFilter<"Habit"> | string | null
+  timeWindow?: Prisma.StringNullableFilter<"Habit"> | string | null
   reminder?: Prisma.StringNullableFilter<"Habit"> | string | null
   goalAmount?: Prisma.FloatFilter<"Habit"> | number
   goalUnit?: Prisma.StringFilter<"Habit"> | string
@@ -344,7 +344,7 @@ export type HabitOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   cadence?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
-  timeOfDay?: Prisma.SortOrderInput | Prisma.SortOrder
+  timeWindow?: Prisma.SortOrderInput | Prisma.SortOrder
   reminder?: Prisma.SortOrderInput | Prisma.SortOrder
   goalAmount?: Prisma.SortOrder
   goalUnit?: Prisma.SortOrder
@@ -369,7 +369,7 @@ export type HabitScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"Habit"> | string | null
   cadence?: Prisma.StringWithAggregatesFilter<"Habit"> | string
   startDate?: Prisma.DateTimeWithAggregatesFilter<"Habit"> | Date | string
-  timeOfDay?: Prisma.StringNullableWithAggregatesFilter<"Habit"> | string | null
+  timeWindow?: Prisma.StringNullableWithAggregatesFilter<"Habit"> | string | null
   reminder?: Prisma.StringNullableWithAggregatesFilter<"Habit"> | string | null
   goalAmount?: Prisma.FloatWithAggregatesFilter<"Habit"> | number
   goalUnit?: Prisma.StringWithAggregatesFilter<"Habit"> | string
@@ -386,7 +386,7 @@ export type HabitCreateInput = {
   description?: string | null
   cadence: string
   startDate: Date | string
-  timeOfDay?: string | null
+  timeWindow?: string | null
   reminder?: string | null
   goalAmount?: number
   goalUnit?: string
@@ -405,7 +405,7 @@ export type HabitUncheckedCreateInput = {
   description?: string | null
   cadence: string
   startDate: Date | string
-  timeOfDay?: string | null
+  timeWindow?: string | null
   reminder?: string | null
   goalAmount?: number
   goalUnit?: string
@@ -424,7 +424,7 @@ export type HabitUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -443,7 +443,7 @@ export type HabitUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -462,7 +462,7 @@ export type HabitCreateManyInput = {
   description?: string | null
   cadence: string
   startDate: Date | string
-  timeOfDay?: string | null
+  timeWindow?: string | null
   reminder?: string | null
   goalAmount?: number
   goalUnit?: string
@@ -479,7 +479,7 @@ export type HabitUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -495,7 +495,7 @@ export type HabitUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -532,7 +532,7 @@ export type HabitCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   cadence?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
-  timeOfDay?: Prisma.SortOrder
+  timeWindow?: Prisma.SortOrder
   reminder?: Prisma.SortOrder
   goalAmount?: Prisma.SortOrder
   goalUnit?: Prisma.SortOrder
@@ -553,7 +553,7 @@ export type HabitMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   cadence?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
-  timeOfDay?: Prisma.SortOrder
+  timeWindow?: Prisma.SortOrder
   reminder?: Prisma.SortOrder
   goalAmount?: Prisma.SortOrder
   goalUnit?: Prisma.SortOrder
@@ -570,7 +570,7 @@ export type HabitMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   cadence?: Prisma.SortOrder
   startDate?: Prisma.SortOrder
-  timeOfDay?: Prisma.SortOrder
+  timeWindow?: Prisma.SortOrder
   reminder?: Prisma.SortOrder
   goalAmount?: Prisma.SortOrder
   goalUnit?: Prisma.SortOrder
@@ -674,7 +674,7 @@ export type HabitCreateWithoutUserInput = {
   description?: string | null
   cadence: string
   startDate: Date | string
-  timeOfDay?: string | null
+  timeWindow?: string | null
   reminder?: string | null
   goalAmount?: number
   goalUnit?: string
@@ -692,7 +692,7 @@ export type HabitUncheckedCreateWithoutUserInput = {
   description?: string | null
   cadence: string
   startDate: Date | string
-  timeOfDay?: string | null
+  timeWindow?: string | null
   reminder?: string | null
   goalAmount?: number
   goalUnit?: string
@@ -739,7 +739,7 @@ export type HabitScalarWhereInput = {
   description?: Prisma.StringNullableFilter<"Habit"> | string | null
   cadence?: Prisma.StringFilter<"Habit"> | string
   startDate?: Prisma.DateTimeFilter<"Habit"> | Date | string
-  timeOfDay?: Prisma.StringNullableFilter<"Habit"> | string | null
+  timeWindow?: Prisma.StringNullableFilter<"Habit"> | string | null
   reminder?: Prisma.StringNullableFilter<"Habit"> | string | null
   goalAmount?: Prisma.FloatFilter<"Habit"> | number
   goalUnit?: Prisma.StringFilter<"Habit"> | string
@@ -756,7 +756,7 @@ export type HabitCreateWithoutPostHabitsInput = {
   description?: string | null
   cadence: string
   startDate: Date | string
-  timeOfDay?: string | null
+  timeWindow?: string | null
   reminder?: string | null
   goalAmount?: number
   goalUnit?: string
@@ -774,7 +774,7 @@ export type HabitUncheckedCreateWithoutPostHabitsInput = {
   description?: string | null
   cadence: string
   startDate: Date | string
-  timeOfDay?: string | null
+  timeWindow?: string | null
   reminder?: string | null
   goalAmount?: number
   goalUnit?: string
@@ -808,7 +808,7 @@ export type HabitUpdateWithoutPostHabitsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -826,7 +826,7 @@ export type HabitUncheckedUpdateWithoutPostHabitsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -844,7 +844,7 @@ export type HabitCreateWithoutRoutineHabitsInput = {
   description?: string | null
   cadence: string
   startDate: Date | string
-  timeOfDay?: string | null
+  timeWindow?: string | null
   reminder?: string | null
   goalAmount?: number
   goalUnit?: string
@@ -862,7 +862,7 @@ export type HabitUncheckedCreateWithoutRoutineHabitsInput = {
   description?: string | null
   cadence: string
   startDate: Date | string
-  timeOfDay?: string | null
+  timeWindow?: string | null
   reminder?: string | null
   goalAmount?: number
   goalUnit?: string
@@ -896,7 +896,7 @@ export type HabitUpdateWithoutRoutineHabitsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -914,7 +914,7 @@ export type HabitUncheckedUpdateWithoutRoutineHabitsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -932,7 +932,7 @@ export type HabitCreateManyUserInput = {
   description?: string | null
   cadence: string
   startDate: Date | string
-  timeOfDay?: string | null
+  timeWindow?: string | null
   reminder?: string | null
   goalAmount?: number
   goalUnit?: string
@@ -948,7 +948,7 @@ export type HabitUpdateWithoutUserInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -966,7 +966,7 @@ export type HabitUncheckedUpdateWithoutUserInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -984,7 +984,7 @@ export type HabitUncheckedUpdateManyWithoutUserInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   cadence?: Prisma.StringFieldUpdateOperationsInput | string
   startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  timeOfDay?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  timeWindow?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reminder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   goalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   goalUnit?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1040,7 +1040,7 @@ export type HabitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   description?: boolean
   cadence?: boolean
   startDate?: boolean
-  timeOfDay?: boolean
+  timeWindow?: boolean
   reminder?: boolean
   goalAmount?: boolean
   goalUnit?: boolean
@@ -1061,7 +1061,7 @@ export type HabitSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   description?: boolean
   cadence?: boolean
   startDate?: boolean
-  timeOfDay?: boolean
+  timeWindow?: boolean
   reminder?: boolean
   goalAmount?: boolean
   goalUnit?: boolean
@@ -1079,7 +1079,7 @@ export type HabitSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   description?: boolean
   cadence?: boolean
   startDate?: boolean
-  timeOfDay?: boolean
+  timeWindow?: boolean
   reminder?: boolean
   goalAmount?: boolean
   goalUnit?: boolean
@@ -1097,7 +1097,7 @@ export type HabitSelectScalar = {
   description?: boolean
   cadence?: boolean
   startDate?: boolean
-  timeOfDay?: boolean
+  timeWindow?: boolean
   reminder?: boolean
   goalAmount?: boolean
   goalUnit?: boolean
@@ -1108,7 +1108,7 @@ export type HabitSelectScalar = {
   sourcePopularPostId?: boolean
 }
 
-export type HabitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "cadence" | "startDate" | "timeOfDay" | "reminder" | "goalAmount" | "goalUnit" | "goalUnitCategory" | "createdAt" | "updatedAt" | "userId" | "sourcePopularPostId", ExtArgs["result"]["habit"]>
+export type HabitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "cadence" | "startDate" | "timeWindow" | "reminder" | "goalAmount" | "goalUnit" | "goalUnitCategory" | "createdAt" | "updatedAt" | "userId" | "sourcePopularPostId", ExtArgs["result"]["habit"]>
 export type HabitInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   routineHabits?: boolean | Prisma.Habit$routineHabitsArgs<ExtArgs>
@@ -1135,7 +1135,7 @@ export type $HabitPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     description: string | null
     cadence: string
     startDate: Date
-    timeOfDay: string | null
+    timeWindow: string | null
     reminder: string | null
     goalAmount: number
     goalUnit: string
@@ -1575,7 +1575,7 @@ export interface HabitFieldRefs {
   readonly description: Prisma.FieldRef<"Habit", 'String'>
   readonly cadence: Prisma.FieldRef<"Habit", 'String'>
   readonly startDate: Prisma.FieldRef<"Habit", 'DateTime'>
-  readonly timeOfDay: Prisma.FieldRef<"Habit", 'String'>
+  readonly timeWindow: Prisma.FieldRef<"Habit", 'String'>
   readonly reminder: Prisma.FieldRef<"Habit", 'String'>
   readonly goalAmount: Prisma.FieldRef<"Habit", 'Float'>
   readonly goalUnit: Prisma.FieldRef<"Habit", 'String'>

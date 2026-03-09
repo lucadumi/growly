@@ -53,7 +53,7 @@ const HabitsWeekCalendar: React.FC<Props> = ({ habits, progressByDay }) => {
       habits.forEach((habit) => {
         if (
           shouldShowHabitOnDate(habit, day) &&
-          parseMinutes(habit.timeOfDay) !== null
+          parseMinutes(habit.timeWindow) !== null
         ) {
           ids.add(habit.id);
         }

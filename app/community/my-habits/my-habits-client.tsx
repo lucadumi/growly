@@ -12,8 +12,7 @@ type UserHabit = {
   name: string;
   description: string | null;
   cadence: string;
-  timeOfDay: string | null;
-  reminder: string | null;
+  timeWindow: string | null;
   alreadyShared: boolean;
   routineIds: string[];
 };
@@ -204,8 +203,7 @@ function ShareModal({
           description: selected.description ?? null,
           cadence: selected.cadence,
           category: category || null,
-          timeOfDay: selected.timeOfDay ?? null,
-          reminder: selected.reminder ?? null,
+          habitId: selected.id,
         }),
       });
       const data = (await res.json()) as {

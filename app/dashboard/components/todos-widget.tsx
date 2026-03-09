@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 
-import type { TodoStatus } from "@prisma/client";
+import type { TodoStatus } from "@/lib/generated/prisma";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -89,7 +89,7 @@ const TodosWidget = async () => {
   const todosFromDb = [...activeTodosFromDb, ...completedTodosFromDb];
 
   const todos: TodoItem[] = todosFromDb.map(
-    ({ title, status, id, location, scheduledTime }) => {
+    ({ title, status, id, location }) => {
       const normalizedStatus = normalizeStatus(status);
       const { label, color } =
         STATUS_META[normalizedStatus] || STATUS_META.PLANNED;
@@ -102,7 +102,6 @@ const TodosWidget = async () => {
         statusColor: color,
         status: normalizedStatus,
         location: location ?? null,
-        scheduledTime: scheduledTime ?? null,
       };
     },
   );

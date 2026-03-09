@@ -2,7 +2,7 @@ export const dynamic = "force-dynamic";
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import type { TodoStatus } from "@prisma/client";
+import type { TodoStatus } from "@/lib/generated/prisma";
 import Link from "next/link";
 import { EyeOff } from "lucide-react";
 
@@ -240,9 +240,7 @@ export default async function AnalyticsPage() {
       }}
       trend={trend}
       weekdayPerformance={weekdayPerformance}
-      habits={habitsPayload}
       todoStatusCounts={todoStatusCounts}
-      routinePerformance={routinePerformance}
     />
   );
 }

@@ -15,7 +15,7 @@
  * model files in the `model` directory!
  */
 
-import * as runtime from "@prisma/client/runtime/library"
+import * as runtime from "@/lib/generated/prisma/runtime/library"
 import type * as Prisma from "../models"
 import { type PrismaClient } from "./class"
 
@@ -1457,7 +1457,7 @@ export const HabitScalarFieldEnum = {
   description: 'description',
   cadence: 'cadence',
   startDate: 'startDate',
-  timeOfDay: 'timeOfDay',
+  timeWindow: 'timeWindow',
   reminder: 'reminder',
   goalAmount: 'goalAmount',
   goalUnit: 'goalUnit',

@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import type { Habit as PrismaHabit } from "@prisma/client";
+import type { Habit as PrismaHabit } from "@/lib/generated/prisma";
 
 
 export type HabitRiskLevel = "low" | "medium" | "high";
@@ -14,8 +14,7 @@ export interface HabitFormState {
   description: string;
   cadence: Cadence;
   startDate: string;
-  timeOfDay: string;
-  reminder: string;
+  timeWindow: string;
   goalAmount: string;
   goalUnit: string;
   goalUnitCategory: UnitCategory;

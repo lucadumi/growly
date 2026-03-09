@@ -77,11 +77,11 @@ const headingCopy: Record<
 const getStatusClasses = (tone: StatusTone) => {
   switch (tone) {
     case "success":
-      return "border-green-soft bg-green-soft/20 text-foreground";
+      return "bg-green-soft/20 text-foreground";
     case "error":
-      return "border-rose-200 bg-rose-200/30 text-rose-700";
+      return "bg-rose-200/30 text-rose-700";
     default:
-      return "border-gray-200 bg-white/90 text-muted-foreground";
+      return "bg-white text-muted-foreground";
   }
 };
 
@@ -373,7 +373,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
 
       {status ? (
         <div
-          className={`rounded-2xl border lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm ${getStatusClasses(
+          className={`rounded-2xl lg:px-3 xl:px-4 lg:py-2 xl:py-3 lg:text-[11px] xl:text-xs 2xl:text-sm ${getStatusClasses(
             status.tone,
           )}`}
         >
@@ -417,7 +417,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
         <div className="space-y-3">
           <div className="grid grid-cols-3 gap-3">
             {filteredHabits.length === 0 ? (
-              <div className="col-span-2 rounded-2xl border-dashed border border-gray-200 bg-muted/40 lg:px-3 xl:px-4 lg:py-4 xl:py-5 lg:text-xs xl:text-sm text-muted-foreground">
+              <div className="col-span-3 rounded-2xl border-dashed border-2 border-gray-200 bg-muted/40 lg:px-3 xl:px-4 lg:py-4 xl:py-5 lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">
                 No habits match that search yet. Try a different word.
               </div>
             ) : (

@@ -13,8 +13,7 @@ export interface HabitPayload {
   description: string | null;
   cadence: "Daily" | "Weekly" | "Monthly";
   startDate: Date;
-  timeOfDay: string | null;
-  reminder: string | null;
+  timeWindow: string | null;
   goalAmount: number;
   goalUnit: string;
   goalUnitCategory: UnitCategory;
@@ -83,7 +82,7 @@ const parseStartDate = (value: unknown) => {
 };
 
 export const parseHabitPayload = async (
-  payload: Record<string, unknown>
+  payload: Record<string, unknown>,
 ): Promise<HabitPayload> => {
   const name = typeof payload.name === "string" ? payload.name.trim() : "";
   if (!name) {
@@ -98,8 +97,7 @@ export const parseHabitPayload = async (
     description: toOptionalString(payload.description),
     cadence: normalizeCadence(payload.cadence),
     startDate: parseStartDate(payload.startDate),
-    timeOfDay: toOptionalString(payload.timeOfDay),
-    reminder: toOptionalString(payload.reminder),
+    timeWindow: toOptionalString(payload.timeWindow),
     goalAmount: parseGoalAmount(payload.goalAmount),
     goalUnit: parseGoalUnit(payload.goalUnit),
     goalUnitCategory: parseUnitCategory(payload.goalUnitCategory),

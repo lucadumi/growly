@@ -26,15 +26,15 @@ export default function PopularLoading() {
         </div>
 
         {/* Habits grid */}
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-3 xl:gap-4">
+        <div className="grid lg:grid-cols-2 xl:grid-cols-3 lg:gap-3 xl:gap-4 animate-pulse">
           {Array.from({ length: 9 }).map((_, i) => (
             <div
               key={i}
-              className="flex gap-3 rounded-2xl border border-gray-100 bg-white lg:p-3 xl:p-4 animate-pulse"
+              className="flex gap-3 rounded-2xl border border-gray-100 bg-white lg:p-3 xl:p-4"
             >
               {/* Vote column */}
               <div className="flex flex-col items-center shrink-0 lg:pt-0.5">
-                <div className="rounded-xl border-2 border-gray-100 bg-gray-50 lg:px-2 xl:px-2.5 lg:py-1.5 xl:py-2 w-10 h-12" />
+                <div className="rounded-xl border-2 border-gray-100 bg-muted/40 lg:px-2 xl:px-2.5 lg:py-1.5 xl:py-2 w-10 h-12" />
               </div>
               {/* Content */}
               <div className="flex-1 min-w-0 flex flex-col gap-1.5">

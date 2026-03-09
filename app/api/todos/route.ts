@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
-import type { Prisma } from "@prisma/client";
+import type { Prisma } from "@/lib/generated/prisma";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -85,7 +85,6 @@ export async function POST(request: Request) {
         iconName: body.iconName || "Notebook",
         iconColor: body.iconColor || "#E5E7EB",
         location: body.location || null,
-        scheduledTime: body.scheduledTime || null,
         userId,
         ...(collectionId
           ? { collections: { create: { collectionId } } }

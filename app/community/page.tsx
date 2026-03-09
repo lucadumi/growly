@@ -23,7 +23,7 @@ export default async function CommunityPage() {
     prisma.$transaction([
       prisma.user.count(),
       prisma.postHabit.count(),
-      prisma.postHabitLike.count(),
+      prisma.postHabitVote.count(),
     ]),
     prisma.postHabit.findFirst({
       orderBy: { createdAt: "desc" },
@@ -38,8 +38,6 @@ export default async function CommunityPage() {
     description: h.description ?? null,
     cadence: h.cadence,
     category: h.category ?? null,
-    timeOfDay: h.timeOfDay ?? null,
-    reminder: h.reminder ?? null,
     votesCount: h.votesCount,
     createdAt: h.createdAt.toISOString(),
     user: h.user ? { name: h.user.name, username: h.user.username } : null,

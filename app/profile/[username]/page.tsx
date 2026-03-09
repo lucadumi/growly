@@ -21,7 +21,6 @@ export default async function ProfilePage({
       id: true,
       name: true,
       username: true,
-      image: true,
       bio: true,
       location: true,
       focusArea: true,
@@ -35,8 +34,6 @@ export default async function ProfilePage({
           description: true,
           cadence: true,
           category: true,
-          timeOfDay: true,
-          reminder: true,
           votesCount: true,
           createdAt: true,
         },
@@ -51,7 +48,7 @@ export default async function ProfilePage({
   // Fetch which habits the current user has voted on
   let votedIds = new Set<string>();
   if (session && user.postHabits.length > 0) {
-    const votes = await prisma.postHabitLike.findMany({
+    const votes = await prisma.postHabitVote.findMany({
       where: {
         userId: session.user.id,
         postHabitId: { in: user.postHabits.map((h) => h.id) },
@@ -67,8 +64,6 @@ export default async function ProfilePage({
     description: h.description ?? null,
     cadence: h.cadence,
     category: h.category ?? null,
-    timeOfDay: h.timeOfDay ?? null,
-    reminder: h.reminder ?? null,
     votesCount: h.votesCount,
     votedByCurrentUser: votedIds.has(h.id),
     ownedByCurrentUser: isOwnProfile,
@@ -80,7 +75,6 @@ export default async function ProfilePage({
     id: user.id,
     name: user.name,
     username: user.username,
-    image: user.image ?? null,
     bio: user.bio ?? null,
     location: user.location ?? null,
     focusArea: user.focusArea ?? null,

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 
-import type { Prisma } from "@prisma/client";
+import type { Prisma } from "@/lib/generated/prisma";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -72,10 +72,6 @@ const buildUpdateData = (body: any): Prisma.TodoUpdateInput => {
   if (has("location")) {
     data.location = body.location || null;
   }
-  if (has("scheduledTime")) {
-    data.scheduledTime = body.scheduledTime || null;
-  }
-
   return data;
 };
 

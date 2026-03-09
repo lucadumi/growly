@@ -11,27 +11,26 @@ datasource db {
 }
 
 model User {
-  id                                             String              @id
-  name                                           String
-  email                                          String              @unique
-  emailVerified                                  Boolean             @default(false)
-  createdAt                                      DateTime            @default(now())
-  updatedAt                                      DateTime            @default(now()) @updatedAt
-  streakGoalDays                                 Int?                @default(21)
-  privateAccount                                 Boolean             @default(false)
-  username                                       String?             @unique
-  focusArea                                      String?
-  bio                                            String?
-  location                                       String?
-  accounts                                       Account[]
-  collections                                    Collection[]
-  habits                                         Habit[]
-  notification_read                              notification_read[]
-  postHabits                                     PostHabit[]
-  postHabitLikes                                 PostHabitLike[]
-  routines                                       Routine[]
-  sessions                                       Session[]
-  todos                                          Todo[]
+  id                String              @id
+  name              String
+  email             String              @unique
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @default(now()) @updatedAt
+  streakGoalDays    Int?                @default(21)
+  privateAccount    Boolean             @default(false)
+  username          String?             @unique
+  focusArea         String?
+  bio               String?
+  location          String?
+  accounts          Account[]
+  collections       Collection[]
+  habits            Habit[]
+  notification_read notification_read[]
+  postHabits        PostHabit[]
+  postHabitVotes    PostHabitVote[]
+  routines          Routine[]
+  sessions          Session[]
+  todos             Todo[]
 
   @@map("user")
 }
@@ -139,8 +138,7 @@ model Habit {
   description          String?
   cadence              String
   startDate            DateTime
-  timeOfDay            String?
-  reminder             String?
+  timeWindow           String?
   goalAmount           Float                @default(1)
   goalUnit             String               @default("count")
   goalUnitCategory     String               @default("Quantity")
@@ -176,15 +174,16 @@ model HabitDailyProgress {
 }
 
 model Routine {
-  id        String         @id @default(uuid())
-  name      String
-  anchor    String?
-  notes     String?
-  userId    String
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @default(now()) @updatedAt
-  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
-  habits    RoutineHabit[]
+  id         String            @id @default(uuid())
+  name       String
+  anchor     String?
+  notes      String?
+  timeWindow RoutineTimeWindow @default(Anytime)
+  userId     String
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @default(now()) @updatedAt
+  user       User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  habits     RoutineHabit[]
 
   @@index([userId])
   @@map("routine")
@@ -206,34 +205,26 @@ model RoutineHabit {
 }
 
 model PostHabit {
-  id         String          @id @default(uuid())
-  title      String
-  summary    String?
-  highlight  String?
-  anchor     String?
-  duration   String?
-  cadence    String
-  category   HabitCategory
-  timeWindow HabitTimeWindow @default(Anytime)
-  commitment HabitCommitment
-  benefits   String[]        @default([])
-  steps      String[]        @default([])
-  guardrails String[]        @default([])
-  habitId    String
-  userId     String
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @default(now()) @updatedAt
-  likesCount Int             @default(0)
-  habit      Habit           @relation(fields: [habitId], references: [id], onDelete: Cascade)
-  user       User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  likes      PostHabitLike[]
+  id          String          @id @default(uuid())
+  title       String
+  description String?
+  cadence     String
+  category    HabitCategory
+  habitId     String
+  userId      String
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @default(now()) @updatedAt
+  votesCount  Int             @default(0)
+  habit       Habit           @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  votes       PostHabitVote[]
 
   @@index([userId])
   @@index([habitId])
   @@map("post_habit")
 }
 
-model PostHabitLike {
+model PostHabitVote {
   id          String    @id @default(uuid())
   postHabitId String
   userId      String
@@ -244,7 +235,7 @@ model PostHabitLike {
   @@unique([postHabitId, userId], name: "postHabitId_userId")
   @@index([postHabitId])
   @@index([userId])
-  @@map("post_habit_like")
+  @@map("post_habit_vote")
 }
 
 model notification_read {
@@ -257,7 +248,6 @@ model notification_read {
   @@unique([userId, notificationId])
   @@index([userId])
 }
-
 
 enum TodoPriority {
   LOW
@@ -282,13 +272,7 @@ enum HabitCategory {
   Health
 }
 
-enum HabitCommitment {
-  Quick
-  Standard
-  Deep
-}
-
-enum HabitTimeWindow {
+enum RoutineTimeWindow {
   Anytime
   Morning
   Workday

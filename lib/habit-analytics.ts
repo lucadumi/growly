@@ -1,4 +1,4 @@
-import type { Habit } from "@prisma/client";
+import type { Habit } from "@/lib/generated/prisma";
 
 import { HABIT_STREAK_THRESHOLD } from "./streak";
 import {

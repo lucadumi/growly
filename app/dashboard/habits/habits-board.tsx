@@ -1264,8 +1264,7 @@ export default function HabitsBoard({
                           .toISOString()
                           .slice(0, 10)
                       : new Date().toISOString().slice(0, 10),
-                    timeOfDay: selectedHabit.timeOfDay ?? "07:00",
-                    reminder: selectedHabit.reminder ?? "15 minutes before",
+                    timeWindow: selectedHabit.timeWindow ?? "07:00",
                     goalAmount:
                       selectedHabit.goalAmount != null
                         ? String(selectedHabit.goalAmount)

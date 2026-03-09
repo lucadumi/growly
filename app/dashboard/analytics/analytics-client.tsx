@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import type React from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { TodoStatus } from "@prisma/client";
+import type { TodoStatus } from "@/lib/generated/prisma";
 
 import PageHeading from "@/app/components/page-heading";
 

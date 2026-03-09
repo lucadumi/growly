@@ -77,7 +77,10 @@ export default function Loading() {
                 <div className="flex flex-col lg:gap-3 xl:gap-4">
                   <div className="grid grid-cols-7 lg:gap-1.5 xl:gap-2">
                     {Array.from({ length: 7 }).map((_, i) => (
-                      <div key={i} className="flex flex-col items-center lg:gap-1 xl:gap-1.5">
+                      <div
+                        key={i}
+                        className="flex flex-col items-center lg:gap-1 xl:gap-1.5"
+                      >
                         <div className="lg:w-6 lg:h-6 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full bg-muted/40" />
                         <div className="h-2 w-4 rounded bg-muted/30" />
                       </div>
@@ -98,7 +101,10 @@ export default function Loading() {
                   <div className="shrink-0 lg:w-24 lg:h-24 xl:w-28 xl:h-28 2xl:w-32 2xl:h-32 rounded-full bg-muted/40" />
                   <div className="flex flex-col lg:gap-1.5 xl:gap-2 flex-1">
                     {Array.from({ length: 4 }).map((_, i) => (
-                      <div key={i} className="flex items-center justify-between">
+                      <div
+                        key={i}
+                        className="flex items-center justify-between"
+                      >
                         <div className="h-2.5 w-20 rounded bg-muted/40" />
                         <div className="h-2.5 w-8 rounded bg-muted/50" />
                       </div>
@@ -116,7 +122,10 @@ export default function Loading() {
                 <div className="h-2.5 w-36 rounded bg-muted/40 lg:mb-2 xl:mb-3" />
                 <div className="flex lg:gap-1.5 xl:gap-2">
                   {Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} className="h-8 w-24 rounded-full bg-muted/30" />
+                    <div
+                      key={i}
+                      className="h-8 w-24 rounded-full bg-muted/30"
+                    />
                   ))}
                 </div>
               </div>
@@ -128,7 +137,10 @@ export default function Loading() {
                 <div className="h-3 w-3/4 rounded bg-muted/30" />
                 <div className="lg:mt-4 xl:mt-5 grid lg:gap-2 xl:gap-3">
                   {Array.from({ length: 3 }).map((_, i) => (
-                    <div key={i} className="h-9 w-full rounded-2xl bg-muted/20" />
+                    <div
+                      key={i}
+                      className="h-9 w-full rounded-2xl bg-muted/20"
+                    />
                   ))}
                 </div>
               </div>

@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 
-import type { Habit as PrismaHabit } from "@prisma/client";
+import type { Habit as PrismaHabit } from "@/lib/generated/prisma";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 
@@ -30,12 +30,6 @@ const formatTimeOfDay = (value: string) => {
 };
 
 const buildCalendarFocus = (habit: PrismaHabit) => {
-  if (habit.timeOfDay) {
-    return formatTimeOfDay(habit.timeOfDay);
-  }
-  if (habit.reminder) {
-    return habit.reminder;
-  }
   if (habit.goalUnit) {
     return `${habit.goalAmount.toFixed(1).replace(/\.0$/, "")} ${
       habit.goalUnit

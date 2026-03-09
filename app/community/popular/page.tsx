@@ -17,7 +17,7 @@ export default async function PopularPage() {
       take: 100,
       include: { user: { select: { name: true, username: true } } },
     }),
-    prisma.postHabitLike.findMany({
+    prisma.postHabitVote.findMany({
       where: { userId: session.user.id },
       select: { postHabitId: true },
     }),
@@ -31,8 +31,6 @@ export default async function PopularPage() {
     description: h.description ?? null,
     cadence: h.cadence,
     category: h.category ?? null,
-    timeOfDay: h.timeOfDay ?? null,
-    reminder: h.reminder ?? null,
     votesCount: h.votesCount,
     votedByCurrentUser: likedSet.has(h.id),
     ownedByCurrentUser: h.userId === session.user.id,

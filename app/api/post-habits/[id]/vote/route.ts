@@ -14,20 +14,20 @@ export async function POST(
     const habit = await prisma.postHabit.findUnique({ where: { id: postHabitId }, select: { id: true } });
     if (!habit) return NextResponse.json({ error: "Not found." }, { status: 404 });
 
-    const existing = await prisma.postHabitLike.findUnique({
+    const existing = await prisma.postHabitVote.findUnique({
       where: { postHabitId_userId: { postHabitId, userId } },
     });
 
     if (existing) {
       await prisma.$transaction([
-        prisma.postHabitLike.delete({ where: { postHabitId_userId: { postHabitId, userId } } }),
+        prisma.postHabitVote.delete({ where: { postHabitId_userId: { postHabitId, userId } } }),
         prisma.postHabit.update({ where: { id: postHabitId }, data: { votesCount: { decrement: 1 } } }),
       ]);
       return NextResponse.json({ voted: false });
     }
 
     await prisma.$transaction([
-      prisma.postHabitLike.create({ data: { postHabitId, userId } }),
+      prisma.postHabitVote.create({ data: { postHabitId, userId } }),
       prisma.postHabit.update({ where: { id: postHabitId }, data: { votesCount: { increment: 1 } } }),
     ]);
 

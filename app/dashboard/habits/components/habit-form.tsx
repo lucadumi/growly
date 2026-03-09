@@ -40,17 +40,9 @@ const dropdownSelectWrapperClassName =
   "relative overflow-visible rounded-2xl bg-card/30 border border-gray-100 hover:border-primary/40 transition-colors hover:border-primary/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-0";
 
 const cadenceOptions: Cadence[] = ["Daily", "Weekly", "Monthly"];
-const reminderOptions = [
-  "No reminder",
-  "5 minutes before",
-  "15 minutes before",
-  "30 minutes before",
-  "1 hour before",
-];
 const sanitizeDropdownValue = (value: string) =>
   value.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase();
 const cadenceDropdownOptionsId = "habit-cadence-dropdown-options";
-const reminderDropdownOptionsId = "habit-reminder-dropdown-options";
 
 const unitCategories: UnitCategory[] = ["Quantity", "Time"];
 const goalUnitsByCategory: Record<UnitCategory, string[]> = {
@@ -74,8 +66,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
       description: "",
       cadence: "Daily" as Cadence,
       startDate: today,
-      timeOfDay: "07:00",
-      reminder: "15 minutes before",
+      timeWindow: "07:00",
       goalAmount: "1",
       goalUnit: "count",
       goalUnitCategory: "Quantity" as UnitCategory,
@@ -91,26 +82,17 @@ const HabitForm: React.FC<HabitFormProps> = ({
   const [isDirty, setIsDirty] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cadenceMenuOpen, setCadenceMenuOpen] = useState(false);
-  const [reminderMenuOpen, setReminderMenuOpen] = useState(false);
+
   const [cadenceDropDirection, setCadenceDropDirection] = useState<
-    "down" | "up"
-  >("down");
-  const [reminderDropDirection, setReminderDropDirection] = useState<
     "down" | "up"
   >("down");
   const cadenceToggleRef = useRef<HTMLButtonElement | null>(null);
   const cadencePanelRef = useRef<HTMLDivElement | null>(null);
-  const reminderToggleRef = useRef<HTMLButtonElement | null>(null);
-  const reminderPanelRef = useRef<HTMLDivElement | null>(null);
   const [showStartDateDropdown, setShowStartDateDropdown] = useState(false);
   const startDateToggleRef = useRef<HTMLButtonElement | null>(null);
   const closeCadenceMenu = useCallback(() => {
     setCadenceMenuOpen(false);
     cadenceToggleRef.current?.blur();
-  }, []);
-  const closeReminderMenu = useCallback(() => {
-    setReminderMenuOpen(false);
-    reminderToggleRef.current?.blur();
   }, []);
 
   const markDirty = useCallback(() => {
@@ -169,26 +151,6 @@ const HabitForm: React.FC<HabitFormProps> = ({
     };
   }, [cadenceMenuOpen]);
 
-  useEffect(() => {
-    if (!reminderMenuOpen) return undefined;
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      const target = event.target as Node | null;
-      if (
-        reminderPanelRef.current?.contains(target) ||
-        reminderToggleRef.current?.contains(target)
-      ) {
-        return;
-      }
-      setReminderMenuOpen(false);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [reminderMenuOpen]);
-
   useLayoutEffect(() => {
     if (!cadenceMenuOpen) {
       return undefined;
@@ -208,25 +170,6 @@ const HabitForm: React.FC<HabitFormProps> = ({
     };
   }, [cadenceMenuOpen]);
 
-  useLayoutEffect(() => {
-    if (!reminderMenuOpen) {
-      return undefined;
-    }
-    const update = () =>
-      updateDropdownDirection(
-        reminderToggleRef,
-        reminderPanelRef,
-        setReminderDropDirection,
-      );
-    update();
-    window.addEventListener("resize", update);
-    window.addEventListener("scroll", update, true);
-    return () => {
-      window.removeEventListener("resize", update);
-      window.removeEventListener("scroll", update, true);
-    };
-  }, [reminderMenuOpen]);
-
   const handleChange =
     (field: keyof HabitFormState) =>
     (
@@ -245,7 +188,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
   };
 
   const handleTimeInputChange = (value: string) => {
-    setForm((prev) => ({ ...prev, timeOfDay: value }));
+    setForm((prev) => ({ ...prev, timeWindow: value }));
     markDirty();
   };
 
@@ -260,8 +203,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
         description: form.description,
         cadence: form.cadence,
         startDate: form.startDate,
-        timeOfDay: form.timeOfDay,
-        reminder: form.reminder,
+        timeWindow: form.timeWindow,
         goalAmount: form.goalAmount,
         goalUnit: form.goalUnit,
         goalUnitCategory: form.goalUnitCategory,
@@ -474,7 +416,6 @@ const HabitForm: React.FC<HabitFormProps> = ({
                     ref={cadenceToggleRef}
                     onClick={() => {
                       setCadenceMenuOpen((open) => !open);
-                      closeReminderMenu();
                     }}
                     aria-haspopup="listbox"
                     aria-expanded={cadenceMenuOpen}
@@ -587,86 +528,11 @@ const HabitForm: React.FC<HabitFormProps> = ({
                   <span>Preferred time</span>
                 </div>
                 <TimeInput
-                  time={form.timeOfDay}
+                  time={form.timeWindow}
                   onChange={handleTimeInputChange}
                 />
               </label>
 
-              <label className="lg:space-y-1 xl:space-y-2 block">
-                <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
-                  <span>Reminder</span>
-                </div>
-                <div className={dropdownSelectWrapperClassName}>
-                  <button
-                    type="button"
-                    ref={reminderToggleRef}
-                    onClick={() => {
-                      setReminderMenuOpen((open) => !open);
-                      closeCadenceMenu();
-                    }}
-                    aria-haspopup="listbox"
-                    aria-expanded={reminderMenuOpen}
-                    aria-controls={reminderDropdownOptionsId}
-                    className={fieldButtonClassName}
-                  >
-                    <span className="truncate">{form.reminder}</span>
-                    <ChevronDown
-                      className={`lg:w-2 lg:h-2 xl:h-3 xl:w-3 2xl:h-4 2xl:w-4 transition-transform ${
-                        reminderMenuOpen
-                          ? "rotate-180 text-primary"
-                          : "text-muted-foreground"
-                      }`}
-                    />
-                  </button>
-                  {reminderMenuOpen && (
-                    <div
-                      ref={reminderPanelRef}
-                      id={reminderDropdownOptionsId}
-                      role="listbox"
-                      aria-activedescendant={
-                        form.reminder
-                          ? `reminder-option-${sanitizeDropdownValue(
-                              form.reminder,
-                            )}`
-                          : undefined
-                      }
-                      className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md ${
-                        reminderDropDirection === "down"
-                          ? "top-full mt-2"
-                          : "bottom-full mb-2"
-                      }`}
-                    >
-                      {reminderOptions.map((reminder) => {
-                        const optionId = `reminder-option-${sanitizeDropdownValue(
-                          reminder,
-                        )}`;
-                        return (
-                          <button
-                            key={reminder}
-                            id={optionId}
-                            type="button"
-                            role="option"
-                            aria-selected={form.reminder === reminder}
-                            onClick={() => {
-                              setForm((prev) => ({
-                                ...prev,
-                                reminder,
-                              }));
-                              markDirty();
-                              closeReminderMenu();
-                            }}
-                            className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs 2xl:text-sm transition last:border-b-0 ${
-                              form.reminder === reminder && "font-semibold"
-                            }`}
-                          >
-                            {reminder}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              </label>
             </div>
           </div>
 

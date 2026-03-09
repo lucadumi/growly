@@ -16,13 +16,13 @@ export default async function MyHabitsPage() {
       where: { userId: session.user.id },
       orderBy: [{ votesCount: "desc" }, { createdAt: "desc" }],
     }),
-    prisma.postHabitLike.count({
+    prisma.postHabitVote.count({
       where: { postHabit: { userId: session.user.id } },
     }),
     prisma.habit.findMany({
       where: { userId: session.user.id },
       orderBy: { createdAt: "desc" },
-      select: { id: true, name: true, description: true, cadence: true, timeOfDay: true, reminder: true, goalAmount: true, goalUnit: true, goalUnitCategory: true },
+      select: { id: true, name: true, description: true, cadence: true, timeWindow: true, goalAmount: true, goalUnit: true, goalUnitCategory: true },
     }),
     prisma.routine.findMany({
       where: { userId: session.user.id },
@@ -55,11 +55,6 @@ export default async function MyHabitsPage() {
     description: h.description ?? null,
     cadence: h.cadence,
     category: h.category ?? null,
-    timeOfDay: h.timeOfDay ?? null,
-    reminder: h.reminder ?? null,
-    goalAmount: h.goalAmount,
-    goalUnit: h.goalUnit,
-    goalUnitCategory: h.goalUnitCategory,
     votesCount: h.votesCount,
     createdAt: h.createdAt.toISOString(),
     user: { name: session.user.name, username: dbUser?.username ?? null },
@@ -70,8 +65,7 @@ export default async function MyHabitsPage() {
     name: h.name,
     description: h.description ?? null,
     cadence: h.cadence,
-    timeOfDay: h.timeOfDay ?? null,
-    reminder: h.reminder ?? null,
+    timeWindow: h.timeWindow ?? null,
     goalAmount: h.goalAmount,
     goalUnit: h.goalUnit,
     goalUnitCategory: h.goalUnitCategory,

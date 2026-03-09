@@ -1,15 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  ArrowUp,
-  Clock,
-  Bell,
-  Repeat,
-  Trash2,
-  Plus,
-  Check,
-} from "lucide-react";
+import { ArrowUp, Clock, Repeat, Trash2 } from "lucide-react";
 
 export type PostHabitData = {
   id: string;
@@ -17,8 +9,6 @@ export type PostHabitData = {
   description: string | null;
   cadence: string;
   category: string | null;
-  timeOfDay: string | null;
-  reminder: string | null;
   votesCount: number;
   votedByCurrentUser?: boolean;
   ownedByCurrentUser?: boolean;
@@ -107,8 +97,7 @@ function AddHabitButton({ habit }: { habit: PostHabitData }) {
           description: habit.description,
           cadence: habit.cadence,
           startDate: new Date().toISOString(),
-          timeOfDay: habit.timeOfDay,
-          reminder: habit.reminder,
+          timeWindow: "07:00",
           goalAmount: 1,
           goalUnit: "count",
           goalUnitCategory: "Quantity",
@@ -288,21 +277,7 @@ export default function PostCard({
             </span>
           )}
 
-          {/* Time of day */}
-          {habit.timeOfDay && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 text-accent lg:px-2 xl:px-2.5 lg:py-0.5 lg:text-[9px] xl:text-[10px] font-medium">
-              <Clock className="w-2.5 h-2.5" />
-              {formatTime(habit.timeOfDay)}
-            </span>
-          )}
 
-          {/* Reminder */}
-          {habit.reminder && habit.reminder !== "No reminder" && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-secondary/60 lg:px-2 xl:px-2.5 lg:py-0.5 lg:text-[9px] xl:text-[10px] text-foreground/70 font-medium">
-              <Bell className="w-2.5 h-2.5" />
-              {habit.reminder}
-            </span>
-          )}
         </div>
 
         {/* Footer: user + date */}

@@ -31,7 +31,6 @@ type ProfileUser = {
   id: string;
   name: string;
   username: string | null;
-  image: string | null;
   bio: string | null;
   location: string | null;
   focusArea: string | null;
@@ -101,7 +100,7 @@ export default function ProfileClient({
             <div className="-mt-8 xl:-mt-10 mb-3 flex items-end justify-between">
               <div className="z-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-2xl border-4 border-white overflow-hidden shadow-md shrink-0 bg-muted">
                 <Image
-                  src={user.image ?? "/placeholder.png"}
+                  src={"/placeholder.png"}
                   alt={user.name}
                   width={80}
                   height={80}
