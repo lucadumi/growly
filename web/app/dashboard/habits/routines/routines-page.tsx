@@ -2,6 +2,7 @@
 import type React from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Clock3, Edit, GripVertical, Target, Trash2, X } from "lucide-react";
+import { cadenceLabel } from "@/lib/cadence";
 
 
 import PageHeading from "@/app/components/page-heading";
@@ -22,6 +23,7 @@ type Routine = {
   name: string;
   anchor: string | null;
   notes: string | null;
+  isDefault: boolean;
   habits: Habit[];
 };
 
@@ -323,7 +325,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                           {habit.name}
                         </p>
                         <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs text-muted-foreground">
-                          {habit.cadence} - {habit.focus}
+                          {cadenceLabel(habit.cadence)} - {habit.focus}
                         </p>
                       </div>
                       <GripVertical className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-muted-foreground" />
@@ -352,37 +354,45 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                       <h3 className="lg:text-sm xl:text-base 2xl:text-lg font-semibold leading-tight">
                         {routine.name}
                       </h3>
-                      <div className="flex items-center lg:gap-1 xl:gap-2 lg:text-[11px] xl:text-xs text-muted-foreground">
-                        <Clock3 className="lg:w-2 lg:h-2 xl:w-3 xl:h-3 text-primary" />
-                        <span>{routine.anchor ?? "Not set"}</span>
-                      </div>
+                      {!routine.isDefault && (
+                        <div className="flex items-center lg:gap-1 xl:gap-2 lg:text-[11px] xl:text-xs text-muted-foreground">
+                          <Clock3 className="lg:w-2 lg:h-2 xl:w-3 xl:h-3 text-primary" />
+                          <span>{routine.anchor ?? "Not set"}</span>
+                        </div>
+                      )}
                     </div>
                     <div className="flex flex-col items-end lg:gap-1.5 xl:gap-2">
-                      <div className="flex items-center lg:gap-2 xl:gap-3 2xl:gap-4">
-                        <button
-                          type="button"
-                          onClick={() => openEditRoutine(routine)}
-                          className="text-muted-foreground hover:text-primary transition-colors"
-                        >
-                          <Edit className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleDeleteRoutine(routine.id, routine.habits)
-                          }
-                          disabled={deletingRoutineId === routine.id}
-                          className="inline-flex lg:text-[9px] xl:text-[11px] 2xl:text-xs items-center lg:gap-1.5 xl:gap-2 rounded-full cursor-pointer text-red-400 disabled:cursor-not-allowed disabled:opacity-70"
-                        >
-                          <span>
-                            {deletingRoutineId === routine.id ? (
-                              "Deleting..."
-                            ) : (
-                              <Trash2 className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
-                            )}
-                          </span>
-                        </button>
-                      </div>
+                      {routine.isDefault ? (
+                        <span className="lg:text-[8px] xl:text-[10px] font-semibold uppercase tracking-wide text-primary/70 border border-primary/20 rounded-full lg:px-1.5 xl:px-2 lg:py-0.5">
+                          Default
+                        </span>
+                      ) : (
+                        <div className="flex items-center lg:gap-2 xl:gap-3 2xl:gap-4">
+                          <button
+                            type="button"
+                            onClick={() => openEditRoutine(routine)}
+                            className="text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            <Edit className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              handleDeleteRoutine(routine.id, routine.habits)
+                            }
+                            disabled={deletingRoutineId === routine.id}
+                            className="inline-flex lg:text-[9px] xl:text-[11px] 2xl:text-xs items-center lg:gap-1.5 xl:gap-2 rounded-full cursor-pointer text-red-400 disabled:cursor-not-allowed disabled:opacity-70"
+                          >
+                            <span>
+                              {deletingRoutineId === routine.id ? (
+                                "Deleting..."
+                              ) : (
+                                <Trash2 className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
+                              )}
+                            </span>
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -405,7 +415,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                               {habit.name}
                             </p>
                             <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs text-muted-foreground">
-                              {habit.cadence} - {habit.focus}
+                              {cadenceLabel(habit.cadence)} - {habit.focus}
                             </p>
                           </div>
                           <GripVertical className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-muted-foreground" />

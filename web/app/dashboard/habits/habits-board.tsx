@@ -6,6 +6,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Check,
+  Flame,
   LayoutGrid,
   List,
   Pencil,
@@ -24,7 +25,8 @@ import {
   shouldShowHabitOnDate,
   startOfWeek,
 } from "@/app/dashboard/habits/components/habits-week-utils";
-import type { Cadence, Habit, UnitCategory } from "./types";
+import type { Habit, UnitCategory } from "./types";
+import { maskToDays } from "@/lib/cadence";
 import {
   patchHabitProgress,
   resetHabitProgress,
@@ -701,6 +703,12 @@ export default function HabitsBoard({
                           <span className="truncate text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
                             {row.habit.name}
                           </span>
+                          {(row.habit.streak ?? 0) > 0 && (
+                            <span className="shrink-0 inline-flex items-center gap-0.5 text-[10px] font-bold text-primary">
+                              <Flame className="h-3 w-3" />
+                              {row.habit.streak}
+                            </span>
+                          )}
                         </button>
                         {row.monthCells.map((cell) => {
                           const isComplete = cell.ratio >= 1;
@@ -788,6 +796,12 @@ export default function HabitsBoard({
                             <span className="truncate text-xs font-semibold text-foreground">
                               {row.habit.name}
                             </span>
+                            {(row.habit.streak ?? 0) > 0 && (
+                              <span className="shrink-0 inline-flex items-center gap-0.5 text-[10px] font-bold text-primary">
+                                <Flame className="h-3 w-3" />
+                                {row.habit.streak}
+                              </span>
+                            )}
                           </div>
                           {row.cells.map((cell, idx) => {
                             const isToday = cell.key === todayKey;
@@ -862,6 +876,12 @@ export default function HabitsBoard({
                           <span className="truncate text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
                             {row.habit.name}
                           </span>
+                          {(row.habit.streak ?? 0) > 0 && (
+                            <span className="shrink-0 inline-flex items-center gap-0.5 text-[10px] font-bold text-primary">
+                              <Flame className="h-3 w-3" />
+                              {row.habit.streak}
+                            </span>
+                          )}
                         </button>
                         {row.cells.map((cell, idx) => {
                           const isToday = cell.key === todayKey;
@@ -922,6 +942,12 @@ export default function HabitsBoard({
                           <span className="max-w-full truncate px-1 text-center text-[10px] leading-tight">
                             {row.habit.name}
                           </span>
+                          {(row.habit.streak ?? 0) > 0 && (
+                            <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-primary">
+                              <Flame className="h-2.5 w-2.5" />
+                              {row.habit.streak}d
+                            </span>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -1080,14 +1106,22 @@ export default function HabitsBoard({
                               </span>
                               <Pencil className="h-3 w-3 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                             </button>
-                            {item.isComplete && (
-                              <span
-                                className={`flex shrink-0 items-center gap-1 text-xs font-semibold ${item.palette.text}`}
-                              >
-                                <Check className="h-3.5 w-3.5" />
-                                Done
-                              </span>
-                            )}
+                            <div className="flex shrink-0 items-center gap-1.5">
+                              {item.isComplete && (
+                                <span
+                                  className={`flex items-center gap-1 text-xs font-semibold ${item.palette.text}`}
+                                >
+                                  <Check className="h-3.5 w-3.5" />
+                                  Done
+                                </span>
+                              )}
+                              {(item.habit.streak ?? 0) > 0 && (
+                                <span className="inline-flex bg-secondary rounded-full px-2 py-0.5 text-[11px] items-center gap-0.5 text-xs font-bold text-primary">
+                                  <Flame className="h-3 w-3" />
+                                  {item.habit.streak}
+                                </span>
+                              )}
+                            </div>
                           </div>
                           <div className="space-y-1.5 mb-4">
                             <div className="flex items-center justify-between text-xs font-semibold">
@@ -1228,14 +1262,14 @@ export default function HabitsBoard({
                   type="button"
                   onClick={handleDeleteHabit}
                   disabled={isDeletingHabit}
-                  className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-4 py-1.5 text-xs font-semibold text-red-400 transition hover:border-red-400 hover:bg-red-100 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-2 rounded-full bg-red-400 px-4 py-1.5 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {isDeletingHabit ? "Deleting..." : "Delete"}
                 </button>
                 <button
                   type="submit"
                   form="edit-habit-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white shadow-[0_4px_14px_rgba(240,144,41,0.35)] transition hover:brightness-105 active:scale-95"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white transition hover:brightness-105 active:scale-95"
                 >
                   Update habit
                 </button>
@@ -1258,7 +1292,7 @@ export default function HabitsBoard({
                   initialHabit={{
                     name: selectedHabit.name,
                     description: selectedHabit.description ?? "",
-                    cadence: (selectedHabit.cadence as Cadence) ?? "Daily",
+                    scheduledDays: maskToDays(selectedHabit.cadence ?? "Daily"),
                     startDate: selectedHabit.startDate
                       ? new Date(selectedHabit.startDate)
                           .toISOString()

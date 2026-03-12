@@ -7,6 +7,7 @@ import { notFound, redirect } from "next/navigation";
 import RoutineFormPage from "../../routine-form";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { cadenceLabel } from "@/lib/cadence";
 
 const formatTimeOfDay = (value: string) => {
   const [hourPart, minutePart] = value.split(":").map(Number);
@@ -35,7 +36,7 @@ const buildCalendarFocus = (habit: PrismaHabit) => {
       habit.goalUnit
     }`;
   }
-  return habit.cadence;
+  return cadenceLabel(habit.cadence);
 };
 
 type RoutineFormHabit = {

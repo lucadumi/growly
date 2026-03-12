@@ -4,6 +4,7 @@ import { auth } from "../auth";
 import { headers } from "next/headers";
 
 import { ensureUsernameForUser } from "../usernames";
+import { prisma } from "../prisma";
 
 export const signUp = async (email: string, password: string, name: string) => {
   const result = await auth.api.signUpEmail({
@@ -22,6 +23,13 @@ export const signUp = async (email: string, password: string, name: string) => {
       await ensureUsernameForUser(userId, name);
     } catch (error) {
       console.error("[auth-actions] ensure username after signup", error);
+    }
+    try {
+      await prisma.routine.create({
+        data: { name: "Daily", isDefault: true, userId },
+      });
+    } catch (error) {
+      console.error("[auth-actions] create default routine after signup", error);
     }
   }
 

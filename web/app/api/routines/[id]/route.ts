@@ -58,15 +58,17 @@ export async function DELETE(
   const { id } = await params;
   try {
     const userId = await requireUserId();
-    const deleted = await prisma.routine.deleteMany({
-      where: {
-        id,
-        userId,
-      },
+    const routine = await prisma.routine.findUnique({
+      where: { id },
+      select: { userId: true, isDefault: true },
     });
-    if (deleted.count === 0) {
+    if (!routine || routine.userId !== userId) {
       return NextResponse.json({ error: "Routine not found" }, { status: 404 });
     }
+    if (routine.isDefault) {
+      return NextResponse.json({ error: "The default routine cannot be deleted." }, { status: 403 });
+    }
+    await prisma.routine.delete({ where: { id } });
     revalidatePath("/dashboard/habits/routines");
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -100,10 +102,13 @@ export async function PATCH(
 
     const routine = await prisma.routine.findUnique({
       where: { id },
-      select: { userId: true },
+      select: { userId: true, isDefault: true },
     });
     if (!routine || routine.userId !== userId) {
       return NextResponse.json({ error: "Routine not found" }, { status: 404 });
+    }
+    if (routine.isDefault) {
+      return NextResponse.json({ error: "The default routine cannot be edited." }, { status: 403 });
     }
 
     const uniqueHabitIds = Array.from(new Set(payload.habitIds));

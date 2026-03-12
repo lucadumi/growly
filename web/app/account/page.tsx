@@ -529,7 +529,7 @@ export default async function AccountPage() {
                         <div className="flex items-center lg:gap-1 xl:gap-1.5 shrink-0">
                           <Flame className="lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 text-coral" />
                           <span className="lg:text-[11px] xl:text-xs font-semibold text-foreground">
-                            {habit.streak}d
+                            {habit.streak}
                           </span>
                         </div>
                       </div>

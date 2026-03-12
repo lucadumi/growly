@@ -180,6 +180,7 @@ model Routine {
   anchor     String?
   notes      String?
   timeWindow RoutineTimeWindow @default(Anytime)
+  isDefault  Boolean           @default(false)
   userId     String
   createdAt  DateTime          @default(now())
   updatedAt  DateTime          @default(now()) @updatedAt

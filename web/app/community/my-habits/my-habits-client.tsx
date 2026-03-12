@@ -260,7 +260,7 @@ function ShareModal({
             </Link>
           </div>
         ) : available.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-gray-200 bg-muted/20 lg:p-6 xl:p-8 text-center">
+          <div className="rounded-2xl border-2 border-dashed border-gray-200 bg-muted/20 lg:p-6 xl:p-8 text-center">
             <CheckCircle2 className="w-8 h-8 text-green-soft mx-auto mb-2" />
             <p className="font-semibold lg:text-xs xl:text-sm">
               All habits shared!
@@ -590,10 +590,7 @@ export default function MyHabitsClient({
 
         {/* Top habit callout */}
         {currentStats.topHabit && currentStats.topHabit.votes > 0 && (
-          <div className="rounded-2xl bg-secondary/40 border border-secondary lg:p-4 xl:p-5 flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-secondary shrink-0">
-              <ArrowUp className="w-5 h-5 text-secondary-foreground" />
-            </div>
+          <div className="rounded-2xl bg-gray-100 lg:p-4 xl:p-5 flex items-center justify-between">
             <div className="min-w-0">
               <p className="lg:text-[10px] xl:text-xs text-muted-foreground">
                 Your most voted habit
@@ -601,11 +598,9 @@ export default function MyHabitsClient({
               <p className="font-semibold lg:text-sm xl:text-base truncate">
                 {currentStats.topHabit.title}
               </p>
-              <p className="lg:text-[10px] xl:text-xs text-primary font-semibold">
-                {currentStats.topHabit.votes} vote
-                {currentStats.topHabit.votes !== 1 ? "s" : ""} from the
-                community
-              </p>
+            </div>
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gray-300 shrink-0">
+              <ArrowUp className="w-5 h-5 text-white" />
             </div>
           </div>
         )}

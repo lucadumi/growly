@@ -12933,6 +12933,7 @@ export namespace Prisma {
     anchor: string | null
     notes: string | null
     timeWindow: $Enums.RoutineTimeWindow | null
+    isDefault: boolean | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -12944,6 +12945,7 @@ export namespace Prisma {
     anchor: string | null
     notes: string | null
     timeWindow: $Enums.RoutineTimeWindow | null
+    isDefault: boolean | null
     userId: string | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -12955,6 +12957,7 @@ export namespace Prisma {
     anchor: number
     notes: number
     timeWindow: number
+    isDefault: number
     userId: number
     createdAt: number
     updatedAt: number
@@ -12968,6 +12971,7 @@ export namespace Prisma {
     anchor?: true
     notes?: true
     timeWindow?: true
+    isDefault?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -12979,6 +12983,7 @@ export namespace Prisma {
     anchor?: true
     notes?: true
     timeWindow?: true
+    isDefault?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -12990,6 +12995,7 @@ export namespace Prisma {
     anchor?: true
     notes?: true
     timeWindow?: true
+    isDefault?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -13074,6 +13080,7 @@ export namespace Prisma {
     anchor: string | null
     notes: string | null
     timeWindow: $Enums.RoutineTimeWindow
+    isDefault: boolean
     userId: string
     createdAt: Date
     updatedAt: Date
@@ -13102,6 +13109,7 @@ export namespace Prisma {
     anchor?: boolean
     notes?: boolean
     timeWindow?: boolean
+    isDefault?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -13116,6 +13124,7 @@ export namespace Prisma {
     anchor?: boolean
     notes?: boolean
     timeWindow?: boolean
+    isDefault?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -13128,6 +13137,7 @@ export namespace Prisma {
     anchor?: boolean
     notes?: boolean
     timeWindow?: boolean
+    isDefault?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -13140,12 +13150,13 @@ export namespace Prisma {
     anchor?: boolean
     notes?: boolean
     timeWindow?: boolean
+    isDefault?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type RoutineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "anchor" | "notes" | "timeWindow" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["routine"]>
+  export type RoutineOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "anchor" | "notes" | "timeWindow" | "isDefault" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["routine"]>
   export type RoutineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     habits?: boolean | Routine$habitsArgs<ExtArgs>
@@ -13170,6 +13181,7 @@ export namespace Prisma {
       anchor: string | null
       notes: string | null
       timeWindow: $Enums.RoutineTimeWindow
+      isDefault: boolean
       userId: string
       createdAt: Date
       updatedAt: Date
@@ -13603,6 +13615,7 @@ export namespace Prisma {
     readonly anchor: FieldRef<"Routine", 'String'>
     readonly notes: FieldRef<"Routine", 'String'>
     readonly timeWindow: FieldRef<"Routine", 'RoutineTimeWindow'>
+    readonly isDefault: FieldRef<"Routine", 'Boolean'>
     readonly userId: FieldRef<"Routine", 'String'>
     readonly createdAt: FieldRef<"Routine", 'DateTime'>
     readonly updatedAt: FieldRef<"Routine", 'DateTime'>
@@ -18598,6 +18611,7 @@ export namespace Prisma {
     anchor: 'anchor',
     notes: 'notes',
     timeWindow: 'timeWindow',
+    isDefault: 'isDefault',
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -19570,6 +19584,7 @@ export namespace Prisma {
     anchor?: StringNullableFilter<"Routine"> | string | null
     notes?: StringNullableFilter<"Routine"> | string | null
     timeWindow?: EnumRoutineTimeWindowFilter<"Routine"> | $Enums.RoutineTimeWindow
+    isDefault?: BoolFilter<"Routine"> | boolean
     userId?: StringFilter<"Routine"> | string
     createdAt?: DateTimeFilter<"Routine"> | Date | string
     updatedAt?: DateTimeFilter<"Routine"> | Date | string
@@ -19583,6 +19598,7 @@ export namespace Prisma {
     anchor?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     timeWindow?: SortOrder
+    isDefault?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -19599,6 +19615,7 @@ export namespace Prisma {
     anchor?: StringNullableFilter<"Routine"> | string | null
     notes?: StringNullableFilter<"Routine"> | string | null
     timeWindow?: EnumRoutineTimeWindowFilter<"Routine"> | $Enums.RoutineTimeWindow
+    isDefault?: BoolFilter<"Routine"> | boolean
     userId?: StringFilter<"Routine"> | string
     createdAt?: DateTimeFilter<"Routine"> | Date | string
     updatedAt?: DateTimeFilter<"Routine"> | Date | string
@@ -19612,6 +19629,7 @@ export namespace Prisma {
     anchor?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
     timeWindow?: SortOrder
+    isDefault?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -19629,6 +19647,7 @@ export namespace Prisma {
     anchor?: StringNullableWithAggregatesFilter<"Routine"> | string | null
     notes?: StringNullableWithAggregatesFilter<"Routine"> | string | null
     timeWindow?: EnumRoutineTimeWindowWithAggregatesFilter<"Routine"> | $Enums.RoutineTimeWindow
+    isDefault?: BoolWithAggregatesFilter<"Routine"> | boolean
     userId?: StringWithAggregatesFilter<"Routine"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Routine"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Routine"> | Date | string
@@ -20740,6 +20759,7 @@ export namespace Prisma {
     anchor?: string | null
     notes?: string | null
     timeWindow?: $Enums.RoutineTimeWindow
+    isDefault?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutRoutinesInput
@@ -20752,6 +20772,7 @@ export namespace Prisma {
     anchor?: string | null
     notes?: string | null
     timeWindow?: $Enums.RoutineTimeWindow
+    isDefault?: boolean
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20764,6 +20785,7 @@ export namespace Prisma {
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutRoutinesNestedInput
@@ -20776,6 +20798,7 @@ export namespace Prisma {
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20788,6 +20811,7 @@ export namespace Prisma {
     anchor?: string | null
     notes?: string | null
     timeWindow?: $Enums.RoutineTimeWindow
+    isDefault?: boolean
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -20799,6 +20823,7 @@ export namespace Prisma {
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20809,6 +20834,7 @@ export namespace Prisma {
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21832,6 +21858,7 @@ export namespace Prisma {
     anchor?: SortOrder
     notes?: SortOrder
     timeWindow?: SortOrder
+    isDefault?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21843,6 +21870,7 @@ export namespace Prisma {
     anchor?: SortOrder
     notes?: SortOrder
     timeWindow?: SortOrder
+    isDefault?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21854,6 +21882,7 @@ export namespace Prisma {
     anchor?: SortOrder
     notes?: SortOrder
     timeWindow?: SortOrder
+    isDefault?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -23502,6 +23531,7 @@ export namespace Prisma {
     anchor?: string | null
     notes?: string | null
     timeWindow?: $Enums.RoutineTimeWindow
+    isDefault?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     habits?: RoutineHabitCreateNestedManyWithoutRoutineInput
@@ -23513,6 +23543,7 @@ export namespace Prisma {
     anchor?: string | null
     notes?: string | null
     timeWindow?: $Enums.RoutineTimeWindow
+    isDefault?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     habits?: RoutineHabitUncheckedCreateNestedManyWithoutRoutineInput
@@ -23820,6 +23851,7 @@ export namespace Prisma {
     anchor?: StringNullableFilter<"Routine"> | string | null
     notes?: StringNullableFilter<"Routine"> | string | null
     timeWindow?: EnumRoutineTimeWindowFilter<"Routine"> | $Enums.RoutineTimeWindow
+    isDefault?: BoolFilter<"Routine"> | boolean
     userId?: StringFilter<"Routine"> | string
     createdAt?: DateTimeFilter<"Routine"> | Date | string
     updatedAt?: DateTimeFilter<"Routine"> | Date | string
@@ -25100,6 +25132,7 @@ export namespace Prisma {
     anchor?: string | null
     notes?: string | null
     timeWindow?: $Enums.RoutineTimeWindow
+    isDefault?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutRoutinesInput
@@ -25111,6 +25144,7 @@ export namespace Prisma {
     anchor?: string | null
     notes?: string | null
     timeWindow?: $Enums.RoutineTimeWindow
+    isDefault?: boolean
     userId: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25187,6 +25221,7 @@ export namespace Prisma {
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutRoutinesNestedInput
@@ -25198,6 +25233,7 @@ export namespace Prisma {
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     userId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25782,6 +25818,7 @@ export namespace Prisma {
     anchor?: string | null
     notes?: string | null
     timeWindow?: $Enums.RoutineTimeWindow
+    isDefault?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -26022,6 +26059,7 @@ export namespace Prisma {
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     habits?: RoutineHabitUpdateManyWithoutRoutineNestedInput
@@ -26033,6 +26071,7 @@ export namespace Prisma {
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     habits?: RoutineHabitUncheckedUpdateManyWithoutRoutineNestedInput
@@ -26044,6 +26083,7 @@ export namespace Prisma {
     anchor?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     timeWindow?: EnumRoutineTimeWindowFieldUpdateOperationsInput | $Enums.RoutineTimeWindow
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

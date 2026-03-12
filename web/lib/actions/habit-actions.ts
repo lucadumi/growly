@@ -11,7 +11,8 @@ const MAX_TITLE_LENGTH = 80;
 export interface HabitPayload {
   name: string;
   description: string | null;
-  cadence: "Daily" | "Weekly" | "Monthly";
+  /** 7-char bitmask "1111100" (Mon–Sun) or legacy "Daily"/"Weekly"/"Monthly". */
+  cadence: string;
   startDate: Date;
   timeWindow: string | null;
   goalAmount: number;
@@ -39,9 +40,13 @@ const toOptionalString = (value: unknown) => {
   return trimmed.length > 0 ? trimmed : null;
 };
 
-const normalizeCadence = (value: unknown): HabitPayload["cadence"] => {
-  if (value === "Weekly") return "Weekly";
-  if (value === "Monthly") return "Monthly";
+const normalizeCadence = (value: unknown): string => {
+  if (typeof value === "string") {
+    // Accept 7-char bitmask passthrough
+    if (value.length === 7 && /^[01]+$/.test(value)) return value;
+    if (value === "Weekly") return "Weekly";
+    if (value === "Monthly") return "Monthly";
+  }
   return "Daily";
 };
 

@@ -10,6 +10,7 @@ import {
   useTransition,
 } from "react";
 import { Check, Search } from "lucide-react";
+import { cadenceLabel } from "@/lib/cadence";
 
 import PageHeading from "@/app/components/page-heading";
 
@@ -151,7 +152,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
       (habit) =>
         habit.name.toLowerCase().includes(term) ||
         habit.focus.toLowerCase().includes(term) ||
-        habit.cadence.toLowerCase().includes(term),
+        cadenceLabel(habit.cadence).toLowerCase().includes(term),
     );
   }, [filter, habits]);
 
@@ -426,7 +427,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
                           {habit.name}
                         </p>
                         <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs text-muted-foreground">
-                          {habit.cadence} - {habit.focus}
+                          {cadenceLabel(habit.cadence)} - {habit.focus}
                         </p>
                       </div>
                       <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 lg:px-2 lg:py-0.5 xl:py-1 lg:text-[8px] xl:text-[10px] 2xl:text-[11px] font-semibold text-muted-foreground">

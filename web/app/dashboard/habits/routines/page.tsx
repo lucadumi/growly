@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import RoutinesPage from "./routines-page";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { cadenceLabel } from "@/lib/cadence";
 
 
 const formatTimeOfDay = (value: string) => {
@@ -41,13 +42,13 @@ const buildCalendarFocus = (habit: PrismaHabit) => {
   if (habit.goalUnit) {
     return `${formatGoalAmount(habit.goalAmount)} ${habit.goalUnit}`;
   }
-  return habit.cadence;
+  return cadenceLabel(habit.cadence);
 };
 
 const mapHabit = (habit: PrismaHabit) => ({
   id: habit.id,
   name: habit.name,
-  cadence: habit.cadence,
+  cadence: cadenceLabel(habit.cadence),
   focus: buildCalendarFocus(habit),
 });
 
@@ -58,6 +59,16 @@ export default async function Routines() {
 
   if (!session) {
     redirect("/");
+  }
+
+  // Ensure the default "Daily" routine exists for this user
+  const hasDefaultRoutine = await prisma.routine.findFirst({
+    where: { userId: session.user.id, isDefault: true },
+  });
+  if (!hasDefaultRoutine) {
+    await prisma.routine.create({
+      data: { name: "Daily", isDefault: true, userId: session.user.id },
+    });
   }
 
   const [habits, routines] = await Promise.all([
@@ -82,6 +93,7 @@ export default async function Routines() {
     name: routine.name,
     anchor: routine.anchor,
     notes: routine.notes,
+    isDefault: routine.isDefault,
     habits: routine.habits
       .filter((item) => Boolean(item.habit))
       .map((item) => ({ habitId: item.habitId, habit: item.habit! })),
@@ -102,6 +114,7 @@ export default async function Routines() {
     name: routine.name,
     anchor: routine.anchor,
     notes: routine.notes,
+    isDefault: routine.isDefault,
     habits: routine.habits.map((entry) => mapHabit(entry.habit)),
   }));
 

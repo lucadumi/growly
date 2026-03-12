@@ -31,7 +31,7 @@ const AppLink = ({
 }) => (
   <a
     href={href}
-    className={`inline-flex items-center justify-center rounded-full bg-primary text-white px-6 py-3.5 text-center text-base font-semibold transition hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(240,144,41,0.45)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${className}`}
+    className={`inline-flex items-center justify-center rounded-full bg-primary text-white px-6 py-3.5 text-center text-base font-semibold transition hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${className}`}
     target="_blank"
     rel="noreferrer"
   >

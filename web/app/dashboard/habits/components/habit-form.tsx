@@ -1,20 +1,19 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 
 import Button from "@/app/components/ui/button";
 import CalendarDropdown from "@/app/components/ui/calendar-dropdown";
 import TimeInput from "@/app/components/ui/time-input";
-import type { Cadence, HabitFormState, UnitCategory } from "../types";
+import type { HabitFormState, UnitCategory } from "../types";
+import {
+  DAY_LABELS,
+  daysToMask,
+  maskToDays,
+  cadenceSummary,
+} from "@/lib/cadence";
 
 interface HabitFormProps {
   mode?: "create" | "edit";
@@ -38,11 +37,6 @@ const countClassName =
 const dropdownSelectWrapperClassName =
   "relative overflow-visible rounded-2xl bg-card/30 border border-gray-100 hover:border-primary/40 transition-colors hover:border-primary/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-0";
 
-const cadenceOptions: Cadence[] = ["Daily", "Weekly", "Monthly"];
-const sanitizeDropdownValue = (value: string) =>
-  value.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase();
-const cadenceDropdownOptionsId = "habit-cadence-dropdown-options";
-
 const unitCategories: UnitCategory[] = ["Quantity", "Time"];
 const goalUnitsByCategory: Record<UnitCategory, string[]> = {
   Quantity: ["count", "steps", "ml", "ounce", "Cal", "g", "mg", "drink"],
@@ -63,7 +57,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
     () => ({
       name: "",
       description: "",
-      cadence: "Daily" as Cadence,
+      scheduledDays: maskToDays("1111111"), // daily by default
       startDate: today,
       timeWindow: "07:00",
       goalAmount: "1",
@@ -80,19 +74,8 @@ const HabitForm: React.FC<HabitFormProps> = ({
   const [saved, setSaved] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [cadenceMenuOpen, setCadenceMenuOpen] = useState(false);
-
-  const [cadenceDropDirection, setCadenceDropDirection] = useState<
-    "down" | "up"
-  >("down");
-  const cadenceToggleRef = useRef<HTMLButtonElement | null>(null);
-  const cadencePanelRef = useRef<HTMLDivElement | null>(null);
   const [showStartDateDropdown, setShowStartDateDropdown] = useState(false);
   const startDateToggleRef = useRef<HTMLButtonElement | null>(null);
-  const closeCadenceMenu = useCallback(() => {
-    setCadenceMenuOpen(false);
-    cadenceToggleRef.current?.blur();
-  }, []);
 
   const markDirty = useCallback(() => {
     setIsDirty(true);
@@ -104,70 +87,6 @@ const HabitForm: React.FC<HabitFormProps> = ({
     setIsDirty(false);
     setSaved(false);
   }, [buildDefaultForm, initialHabit]);
-
-  const updateDropdownDirection = (
-    toggleRef: React.RefObject<HTMLButtonElement | null>,
-    panelRef: React.RefObject<HTMLDivElement | null>,
-    setDirection: React.Dispatch<React.SetStateAction<"down" | "up">>,
-  ) => {
-    if (typeof window === "undefined") {
-      return;
-    }
-    const toggleRect = toggleRef.current?.getBoundingClientRect();
-    if (!toggleRect) {
-      return;
-    }
-    const panelHeight = panelRef.current?.getBoundingClientRect().height ?? 0;
-    const spacing = 8;
-    const spaceBelow = window.innerHeight - toggleRect.bottom;
-    const spaceAbove = toggleRect.top;
-    if (spaceBelow >= panelHeight + spacing) {
-      setDirection("down");
-    } else if (spaceAbove >= panelHeight + spacing) {
-      setDirection("up");
-    } else {
-      setDirection("down");
-    }
-  };
-
-  useEffect(() => {
-    if (!cadenceMenuOpen) return undefined;
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      const target = event.target as Node | null;
-      if (
-        cadencePanelRef.current?.contains(target) ||
-        cadenceToggleRef.current?.contains(target)
-      ) {
-        return;
-      }
-      setCadenceMenuOpen(false);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [cadenceMenuOpen]);
-
-  useLayoutEffect(() => {
-    if (!cadenceMenuOpen) {
-      return undefined;
-    }
-    const update = () =>
-      updateDropdownDirection(
-        cadenceToggleRef,
-        cadencePanelRef,
-        setCadenceDropDirection,
-      );
-    update();
-    window.addEventListener("resize", update);
-    window.addEventListener("scroll", update, true);
-    return () => {
-      window.removeEventListener("resize", update);
-      window.removeEventListener("scroll", update, true);
-    };
-  }, [cadenceMenuOpen]);
 
   const handleChange =
     (field: keyof HabitFormState) =>
@@ -200,7 +119,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
       const payload = {
         name: form.name,
         description: form.description,
-        cadence: form.cadence,
+        cadence: daysToMask(form.scheduledDays),
         startDate: form.startDate,
         timeWindow: form.timeWindow,
         goalAmount: form.goalAmount,
@@ -395,82 +314,42 @@ const HabitForm: React.FC<HabitFormProps> = ({
               </div>
             </label>
 
-            <div className="grid lg:grid-cols-2 lg:gap-2 xl:gap-4">
-              <label className="lg:space-y-1 xl:space-y-2 block">
-                <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
-                  <span>Cadence</span>
-                </div>
-                <div className={dropdownSelectWrapperClassName}>
+            {/* Day-of-week picker */}
+            <div className="lg:space-y-1 xl:space-y-2">
+              <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
+                <span>Repeat days</span>
+              </div>
+              <div className="flex items-center lg:gap-1 xl:gap-1.5">
+                {DAY_LABELS.map((label, i) => (
                   <button
+                    key={i}
                     type="button"
-                    ref={cadenceToggleRef}
                     onClick={() => {
-                      setCadenceMenuOpen((open) => !open);
+                      setForm((prev) => {
+                        const days = [...prev.scheduledDays];
+                        days[i] = !days[i];
+                        return { ...prev, scheduledDays: days };
+                      });
+                      markDirty();
                     }}
-                    aria-haspopup="listbox"
-                    aria-expanded={cadenceMenuOpen}
-                    aria-controls={cadenceDropdownOptionsId}
-                    className={fieldButtonClassName}
+                    className={`flex items-center justify-center rounded-full font-semibold transition select-none
+                      lg:w-7 lg:h-7 xl:w-16 xl:h-8 lg:text-[10px] xl:text-xs
+                      ${
+                        form.scheduledDays[i]
+                          ? "bg-primary text-white"
+                          : "bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary"
+                      }`}
                   >
-                    <span className="truncate">{form.cadence}</span>
-                    <ChevronDown
-                      className={`lg:w-2 lg:h-2 xl:h-3 xl:w-3 2xl:h-4 2xl:w-4 transition-transform ${
-                        cadenceMenuOpen
-                          ? "rotate-180 text-primary"
-                          : "text-muted-foreground"
-                      }`}
-                    />
+                    {label}
                   </button>
-                  {cadenceMenuOpen && (
-                    <div
-                      ref={cadencePanelRef}
-                      id={cadenceDropdownOptionsId}
-                      role="listbox"
-                      aria-activedescendant={
-                        form.cadence
-                          ? `cadence-option-${sanitizeDropdownValue(
-                              form.cadence,
-                            )}`
-                          : undefined
-                      }
-                      className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-md ${
-                        cadenceDropDirection === "down"
-                          ? "top-full mt-2"
-                          : "bottom-full mb-2"
-                      }`}
-                    >
-                      {cadenceOptions.map((cadence) => {
-                        const optionId = `cadence-option-${sanitizeDropdownValue(
-                          cadence,
-                        )}`;
-                        return (
-                          <button
-                            key={cadence}
-                            id={optionId}
-                            type="button"
-                            role="option"
-                            aria-selected={form.cadence === cadence}
-                            onClick={() => {
-                              setForm((prev) => ({
-                                ...prev,
-                                cadence,
-                              }));
-                              markDirty();
-                              closeCadenceMenu();
-                            }}
-                            className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs transition last:border-b-0 ${
-                              form.cadence === cadence && "font-semibold"
-                            }`}
-                          >
-                            {cadence}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              </label>
+                ))}
+              </div>
+              <p className="lg:text-[10px] xl:text-xs text-muted-foreground">
+                {cadenceSummary(form.scheduledDays)}
+              </p>
+            </div>
 
+            <div className="grid lg:grid-cols-2 lg:gap-2 xl:gap-4">
               <label className="lg:space-y-1 xl:space-y-2 block">
                 <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                   <span>Start date</span>

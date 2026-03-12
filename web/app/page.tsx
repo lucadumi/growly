@@ -244,13 +244,13 @@ export default function LandingPage() {
       </section>
 
       <section className="relative z-10 lg:px-4 2xl:px-28 xl:px-8 lg:mt-10 xl:mt-14 2xl:mt-16">
-        <div className="rounded-3xl backdrop-blur lg:p-4 xl:p-6 2xl:p-8 flex items-center justify-between lg:gap-4 xl:gap-6">
+        <div className="rounded-3xl backdrop-blur flex items-center justify-between lg:gap-4 xl:gap-6">
           <div className="lg:space-y-2 xl:space-y-3">
             <p className="lg:text-xs xl:text-sm 2xl:text-base uppercase tracking-[0.2em] text-muted-foreground">
               Ready when you are
             </p>
             <h3 className="lg:text-xl xl:text-2xl 2xl:text-3xl font-semibold text-foreground max-w-xl">
-              Let&apos;s make the tiny wins add up.
+              Let's make the tiny wins add up.
             </h3>
             <p className="text-muted-foreground lg:max-w-xl 2xl:max-w-2xl lg:text-[11px] xl:text-xs 2xl:text-sm">
               Join a calm space to design your rituals, protect your focus, and

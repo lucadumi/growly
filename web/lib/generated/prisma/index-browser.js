@@ -241,6 +241,7 @@ exports.Prisma.RoutineScalarFieldEnum = {
   anchor: 'anchor',
   notes: 'notes',
   timeWindow: 'timeWindow',
+  isDefault: 'isDefault',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

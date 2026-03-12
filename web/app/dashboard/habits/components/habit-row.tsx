@@ -6,6 +6,7 @@ import { ArrowRight, Asterisk, Check, Flame, Plus } from "lucide-react";
 import QuantityMenu from "./quantity-menu";
 import type { Habit, MenuPosition } from "../types";
 import type { HabitRisk } from "../lib/habit-risk";
+import { cadenceLabel } from "@/lib/cadence";
 
 type Props = {
   habit: Habit;
@@ -101,7 +102,7 @@ const HabitRow: React.FC<Props> = ({
           </div>
           <div className="flex items-center gap-2 text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold">
             <span className="rounded-full bg-muted/70 px-2 py-1">
-              {habit.cadence}
+              {cadenceLabel(habit.cadence)}
             </span>
             <span className="inline-flex items-center gap-1">
               <Flame className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-primary" />

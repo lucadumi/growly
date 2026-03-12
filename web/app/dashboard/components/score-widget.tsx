@@ -197,18 +197,15 @@ const ScoreWidget: React.FC = () => {
 
         <div className="lg:pt-2 xl:pt-4 border-t border-muted">
           <p className="lg:text-[10px] xl:text-xs font-semibold lg:mb-0.5 xl:mb-1 flex justify-between">
-            <span className={isNearLevelUp ? "text-amber-500 font-bold" : ""}>
-              {isNearLevelUp ? "Almost there!" : `XP to Level ${nextLevel}:`}
-            </span>
             <span
-              className={`font-extrabold ${isNearLevelUp ? "text-amber-500" : "text-green-soft"}`}
+              className={`font-extrabold ${isNearLevelUp ? "text-amber-300" : "text-green-soft"}`}
             >
               {formatNumber(xpGainedInLevel)} /{" "}
               {formatNumber(xpNeededForLevelUp)}
             </span>
           </p>
           <div
-            className={`w-full rounded-full lg:h-1.5 xl:h-2.5 bg-muted relative overflow-hidden ${isNearLevelUp ? "ring-1 ring-amber-400/50" : ""}`}
+            className={`w-full rounded-full lg:h-1.5 xl:h-2.5 bg-muted relative overflow-hidden`}
           >
             <div
               className={progressFillClassName}
@@ -216,7 +213,7 @@ const ScoreWidget: React.FC = () => {
             />
             {isNearLevelUp && (
               <div
-                className="absolute top-0 left-0 h-full bg-amber-300/40 animate-pulse rounded-full"
+                className="absolute top-0 left-0 h-full bg-amber-300 animate-pulse rounded-full"
                 style={{ width: `${safeProgress}%` }}
               />
             )}

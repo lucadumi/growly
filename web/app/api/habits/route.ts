@@ -50,7 +50,13 @@ export async function GET() {
         id: true,
         name: true,
         description: true,
+        cadence: true,
+        startDate: true,
         timeWindow: true,
+        goalAmount: true,
+        goalUnit: true,
+        goalUnitCategory: true,
+        dailyProgress: true,
       },
     });
 

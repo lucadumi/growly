@@ -4,6 +4,41 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/actions/habit-actions";
 
+export async function GET() {
+  try {
+    const userId = await requireUserId();
+    const routines = await prisma.routine.findMany({
+      where: { userId },
+      orderBy: [{ isDefault: "desc" }, { createdAt: "asc" }],
+      include: {
+        habits: {
+          orderBy: { position: "asc" },
+          include: {
+            habit: {
+              select: {
+                id: true,
+                name: true,
+                cadence: true,
+                timeWindow: true,
+                goalAmount: true,
+                goalUnit: true,
+                goalUnitCategory: true,
+                dailyProgress: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    return NextResponse.json({ routines });
+  } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    return NextResponse.json({ error: "Unable to load routines" }, { status: 500 });
+  }
+}
+
 type RoutinePayload = {
   id: string;
   habitIds: string[];

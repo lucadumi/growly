@@ -3,16 +3,19 @@
 import type { ReactNode } from "react";
 import type { Habit as PrismaHabit } from "@/lib/generated/prisma";
 
+export { maskToDays, daysToMask, cadenceLabel, cadenceSummary, DAY_LABELS } from "@/lib/cadence";
 
 export type HabitRiskLevel = "low" | "medium" | "high";
 
-export type Cadence = "Daily" | "Weekly" | "Monthly";
+/** Kept for legacy compatibility — cadence is now stored as a 7-char bitmask. */
+export type Cadence = string;
 export type UnitCategory = "Quantity" | "Time";
 
 export interface HabitFormState {
   name: string;
   description: string;
-  cadence: Cadence;
+  /** 7-element boolean array Mon→Sun, replaces the old cadence dropdown. */
+  scheduledDays: boolean[];
   startDate: string;
   timeWindow: string;
   goalAmount: string;

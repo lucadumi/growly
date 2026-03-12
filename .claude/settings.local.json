@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find b:/growly/web -type f -name *seed* -o -name *init*)",
+      "Bash(npx prisma:*)",
+      "Bash(ls /b/growly/web/.env*)",
+      "Bash(npx dotenv:*)",
+      "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_xD2pGIEHn6RQ@ep-wispy-morning-ag93p5g7-pooler.c-2.eu-central-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require&connection_limit=3\" npx prisma migrate dev --name add_routine_isdefault)",
+      "Bash(node -e \"require\\(''dotenv''\\).config\\(\\); console.log\\(process.env.DATABASE_URL ? ''found'' : ''not found''\\)\")",
+      "Bash(node -e \"require\\(''dotenv''\\).config\\({path:''.env''}\\); const {execSync} = require\\(''child_process''\\); execSync\\(''npx prisma migrate dev --name add_routine_isdefault'', {stdio:''inherit'', env: {...process.env}}\\)\")",
+      "Bash(node -e \":*)",
+      "Bash(node -e \"require\\(''dotenv''\\).config\\(\\); console.log\\(''CWD:'', process.cwd\\(\\), ''DB:'', !!process.env.DATABASE_URL\\)\")",
+      "Bash(node -e \"require\\(''dotenv''\\).config\\(\\); console.log\\(process.cwd\\(\\), process.env.DATABASE_URL ? ''yes'' : ''no''\\)\")",
+      "Bash(node -e \"require\\(''dotenv''\\).config\\(\\); const {execSync}=require\\(''child_process''\\); execSync\\(''npm run generate'', {stdio:''inherit'',env:process.env}\\);\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d.get\\(''''dependencies'''',{}\\).get\\(''''prisma''''\\) or d.get\\(''''devDependencies'''',{}\\).get\\(''''prisma''''\\) or d.get\\(''''prisma'''',''''?''''\\)\\)\")",
+      "Bash(node -e \"const d=require\\(''''fs''''\\).readFileSync\\(''''/dev/stdin'''',''''utf8''''\\); const p=JSON.parse\\(d\\); console.log\\(p.version\\)\")",
+      "Bash(node -e \"require\\(''dotenv''\\).config\\(\\); const {execSync}=require\\(''child_process''\\); execSync\\(''npx prisma generate --no-engine'', {stdio:''inherit'',env:process.env}\\);\")",
+      "Bash(grep -n \"$RoutinePayload\\\\|RoutinePayload\\\\|scalars.*Routine\\\\|Routine.*scalars\" /b/growly/web/lib/generated/prisma/index.d.ts)",
+      "Bash(node -e \"require\\(''''dotenv''''\\).config\\(\\); const e=process.env; const {execSync}=require\\(''''child_process''''\\); execSync\\(''''node --loader ts-node/esm node_modules/prisma/build/index.js generate'''', {stdio:''''inherit'''',env:e,cwd:''''/b/growly/web''''}\\);\")",
+      "Bash(node -e \"require\\(''dotenv''\\).config\\(\\); const {execSync}=require\\(''child_process''\\); execSync\\(''npx prisma generate'', {stdio:''inherit'',env:process.env}\\);\")",
+      "Bash(node /b/growly/web/register_migration.js)",
+      "Bash(node /b/growly/web/register_migration.cjs)",
+      "Bash(grep -r \"fetch\\\\|axios\\\\|http\" /b/growly/mobile/app --include=*.tsx --include=*.ts)",
+      "Bash(ls -la /b/growly/web/app/api/habits/[id]/)",
+      "Bash(find /b/growly/mobile/app -name *.tsx -o -name *.ts)",
+      "Bash(python3 -c \":*)",
+      "Bash(node -e \"const fs=require\\(''fs''\\); const c=fs.readFileSync\\(''/b/growly/mobile/app/new-habit.tsx'',''utf8''\\); console.log\\(c.length\\)\")",
+      "Bash(head -5 grep -r \"disableCSRFCheck\\\\|trustedOrigins\" b:/growly/web/node_modules/better-auth/dist/*.d.ts)",
+      "Bash(grep -r \"skipCSRFCheck\\\\|skipOriginCheck\" b:/growly/web/node_modules/better-auth/dist/*.d.ts b:/growly/web/node_modules/better-auth/dist/shared/*.d.ts)",
+      "Bash(npm install:*)",
+      "Bash(\"b:/growly/mobile/.env.example\":*)",
+      "Bash(ls \"b:/growly/mobile/app/\\(tabs\\)/\")",
+      "Bash(npx tsc:*)",
+      "Bash(powershell -Command \"Get-NetTCPConnection -LocalPort 8081 -ErrorAction SilentlyContinue | Select-Object -ExpandProperty OwningProcess | ForEach-Object { Stop-Process -Id $_-Force -ErrorAction SilentlyContinue }\")",
+      "Bash(netstat -ano)",
+      "Read(//b/growly/**)",
+      "Bash(xargs -I{} powershell -Command 'Stop-Process -Id {} -Force')",
+      "Bash(powershell -Command \"Get-Process -Name ''node'' | Stop-Process -Force\")"
+    ]
+  }
+}

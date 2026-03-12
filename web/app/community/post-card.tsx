@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ArrowUp, Clock, Repeat, Trash2 } from "lucide-react";
+import { cadenceLabel } from "@/lib/cadence";
 
 export type PostHabitData = {
   id: string;
@@ -183,7 +184,7 @@ export default function PostCard({
             )}
             {/* Cadence */}
             <span className="w-fit capitalize inline-flex items-center gap-1 rounded-full bg-muted lg:px-1.5 xl:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] text-muted-foreground font-medium">
-              <Repeat className="w-2.5 h-2.5" /> {habit.cadence}
+              <Repeat className="w-2.5 h-2.5" /> {cadenceLabel(habit.cadence)}
             </span>
           </div>
           <span className="inline-flex items-center gap-0.5 rounded-full bg-secondary/60 lg:px-1.5 xl:px-2 lg:py-0.5 lg:text-[9px] xl:text-[10px] font-medium shrink-0">
@@ -265,7 +266,7 @@ export default function PostCard({
           {/* Cadence */}
           <span className="inline-flex capitalize items-center gap-1 rounded-full bg-muted lg:px-2 xl:px-2.5 lg:py-0.5 lg:text-[9px] xl:text-[10px] text-muted-foreground font-medium">
             <Repeat className="w-2.5 h-2.5" />
-            {habit.cadence}
+            {cadenceLabel(habit.cadence)}
           </span>
 
           {/* Category */}
