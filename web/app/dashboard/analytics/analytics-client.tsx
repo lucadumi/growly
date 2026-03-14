@@ -501,33 +501,33 @@ const AnalyticsClient: React.FC<Props> = ({
               </div>
 
               <div className="grid grid-cols-7 lg:gap-4 xl:gap-3 lg:mt-1.5 xl:mt-2">
-                {weekdayPerformance.map((day) => {
+                {weekdayPerformance.map((day, i) => {
                   const barHeight = Math.min(
                     100,
                     Math.max(0, Math.round(day.value * 100)),
                   );
                   const isToday = day.dateLabel === todayDateLabel;
-                  const barColor =
-                    day.value >= 0.75
-                      ? "bg-green-500"
-                      : day.value >= 0.5
-                        ? "bg-secondary/90"
-                        : day.value >= 0.25
-                          ? "bg-amber-400"
-                          : barHeight > 0
-                            ? "bg-rose-400"
-                            : "bg-gray-200";
+                  const barColors = [
+                    "#5C3D2E",
+                    "hsl(8, 82%, 70%)",
+                    "hsl(18, 78%, 68%)",
+                    "#7B8C3E",
+                    "#C97DB5",
+                    "hsl(145, 45%, 60%)",
+                    "hsl(45, 90%, 75%)",
+                  ];
+                  const barColor = barColors[i % barColors.length]!;
                   return (
                     <div
                       key={day.label}
                       className="flex flex-col items-center lg:gap-1 xl:gap-2 text-center"
                     >
                       <div
-                        className={`lg:h-24 xl:h-28 w-full rounded-full bg-card/40 overflow-hidden flex items-end transition-all ${isToday ? "ring-2 ring-primary" : "border-2 border-gray-100"}`}
+                        className={`lg:h-24 xl:h-28 w-full rounded-full overflow-hidden flex items-end transition-all border-2 ${isToday ? "border-primary bg-primary/15" : "border-gray-100 bg-gray-100"}`}
                       >
                         <div
-                          className={`w-full ${barColor} transition-all duration-500`}
-                          style={{ height: `${barHeight}%` }}
+                          className="w-full rounded-full transition-all duration-500"
+                          style={{ height: `${barHeight}%`, backgroundColor: barColor }}
                         />
                       </div>
                       <div

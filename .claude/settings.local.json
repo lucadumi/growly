@@ -35,7 +35,8 @@
       "Bash(netstat -ano)",
       "Read(//b/growly/**)",
       "Bash(xargs -I{} powershell -Command 'Stop-Process -Id {} -Force')",
-      "Bash(powershell -Command \"Get-Process -Name ''node'' | Stop-Process -Force\")"
+      "Bash(powershell -Command \"Get-Process -Name ''node'' | Stop-Process -Force\")",
+      "Bash(find /b/growly/mobile -maxdepth 4 -type f \\\\\\(-name *.tsx -o -name *.ts \\\\\\) -not -path */node_modules/*)"
     ]
   }
 }

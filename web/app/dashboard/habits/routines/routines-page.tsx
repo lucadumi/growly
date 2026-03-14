@@ -361,39 +361,33 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                         </div>
                       )}
                     </div>
-                    <div className="flex flex-col items-end lg:gap-1.5 xl:gap-2">
-                      {routine.isDefault ? (
-                        <span className="lg:text-[8px] xl:text-[10px] font-semibold uppercase tracking-wide text-primary/70 border border-primary/20 rounded-full lg:px-1.5 xl:px-2 lg:py-0.5">
-                          Default
-                        </span>
-                      ) : (
-                        <div className="flex items-center lg:gap-2 xl:gap-3 2xl:gap-4">
-                          <button
-                            type="button"
-                            onClick={() => openEditRoutine(routine)}
-                            className="text-muted-foreground hover:text-primary transition-colors"
-                          >
-                            <Edit className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleDeleteRoutine(routine.id, routine.habits)
-                            }
-                            disabled={deletingRoutineId === routine.id}
-                            className="inline-flex lg:text-[9px] xl:text-[11px] 2xl:text-xs items-center lg:gap-1.5 xl:gap-2 rounded-full cursor-pointer text-red-400 disabled:cursor-not-allowed disabled:opacity-70"
-                          >
-                            <span>
-                              {deletingRoutineId === routine.id ? (
-                                "Deleting..."
-                              ) : (
-                                <Trash2 className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
-                              )}
-                            </span>
-                          </button>
-                        </div>
-                      )}
-                    </div>
+                    {!routine.isDefault && (
+                      <div className="flex items-center lg:gap-2 xl:gap-3 2xl:gap-4">
+                        <button
+                          type="button"
+                          onClick={() => openEditRoutine(routine)}
+                          className="text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          <Edit className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleDeleteRoutine(routine.id, routine.habits)
+                          }
+                          disabled={deletingRoutineId === routine.id}
+                          className="inline-flex lg:text-[9px] xl:text-[11px] 2xl:text-xs items-center lg:gap-1.5 xl:gap-2 rounded-full cursor-pointer text-red-400 disabled:cursor-not-allowed disabled:opacity-70"
+                        >
+                          <span>
+                            {deletingRoutineId === routine.id ? (
+                              "Deleting..."
+                            ) : (
+                              <Trash2 className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
+                            )}
+                          </span>
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                   <div className="lg:space-y-2 xl:space-y-3">
