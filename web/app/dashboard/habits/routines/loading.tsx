@@ -1,12 +1,12 @@
 export default function Loading() {
   return (
     <main
-      className="relative overflow-hidden w-full min-h-screen lg:pt-18 xl:pt-24 2xl:pt-28 text-foreground lg:pb-8 xl:pb-12 2xl:pb-16 bg-card"
+      className="relative overflow-hidden w-full min-h-screen lg:pt-14 xl:pt-20 2xl:pt-28 text-foreground lg:pb-8 xl:pb-12 2xl:pb-16 bg-card"
       role="status"
       aria-live="polite"
       aria-busy="true"
     >
-      <div className="lg:px-4 xl:px-8 2xl:px-28 space-y-8">
+      <div className="lg:px-6 xl:px-8 2xl:px-28 space-y-8">
         {/* PageHeading + tabs */}
         <div className="space-y-2 animate-pulse">
           <div className="h-3 w-24 rounded bg-muted/60" />

@@ -1,6 +1,6 @@
 export default function CommunityLoading() {
   return (
-    <main className="relative min-h-screen bg-card lg:px-6 xl:px-8 lg:pt-14 xl:pt-20">
+    <main className="relative min-h-screen bg-card lg:px-6 xl:px-8 2xl:px-28 lg:pt-14 xl:pt-20 2xl:pt-28">
       <div className="grid lg:gap-8 xl:gap-10 lg:pb-8 xl:pb-12 2xl:pb-16">
         {/* Search + Explore */}
         <div className="grid lg:grid-cols-3 xl:grid-cols-4 lg:gap-5 xl:gap-6">

@@ -223,7 +223,7 @@ export default async function AccountPage() {
     : null;
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-card lg:pt-14 xl:pt-20">
+    <main className="relative min-h-screen overflow-hidden bg-card lg:pt-14 xl:pt-20 2xl:pt-28">
       <div className="relative z-10 grid lg:grid-cols-5 xl:grid-cols-10 lg:gap-5 xl:gap-6 lg:px-6 xl:px-8 2xl:px-28 lg:pb-8 xl:pb-12 2xl:pb-16">
         {/* Left column */}
         <div className="lg:col-span-2 xl:col-span-3 grid lg:gap-6 xl:gap-8">
@@ -236,14 +236,10 @@ export default async function AccountPage() {
               Your Growly identity.
             </p>
             <div className="flex items-center gap-4">
-              <div className="lg:h-12 lg:w-12 xl:h-16 xl:w-16 2xl:h-20 2xl:w-20 shrink-0 rounded-2xl border border-gray-100 overflow-hidden pointer-events-none select-none">
-                <Image
-                  src={"/placeholder.png"}
-                  alt={name}
-                  width={80}
-                  height={80}
-                  className="w-full h-full object-cover"
-                />
+              <div className="lg:h-12 lg:w-12 xl:h-16 xl:w-16 2xl:h-20 2xl:w-20 shrink-0 rounded-2xl bg-primary/15 flex items-center justify-center pointer-events-none select-none">
+                <span className="lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-primary leading-none">
+                  {name.charAt(0).toUpperCase()}
+                </span>
               </div>
               <div className="flex flex-col gap-1 min-w-0">
                 <p className="lg:text-sm xl:text-base 2xl:text-lg font-semibold text-foreground truncate">

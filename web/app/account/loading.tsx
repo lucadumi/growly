@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
     <main
-      className="relative min-h-screen overflow-hidden bg-card lg:pt-14 xl:pt-20"
+      className="relative min-h-screen overflow-hidden bg-card lg:pt-14 xl:pt-20 2xl:pt-28"
       role="status"
       aria-busy="true"
     >

@@ -26,7 +26,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   privateAccount,
 }) => {
   return (
-    <main className="relative w-full lg:pt-14 xl:pt-20 bg-card overflow-hidden">
+    <main className="relative w-full lg:pt-14 xl:pt-20 2xl:pt-28 bg-card overflow-hidden">
       <div className="grid lg:grid-cols-5 xl:grid-cols-10 lg:gap-5 xl:gap-6 lg:px-6 xl:px-8 2xl:px-28 lg:pb-8 xl:pb-12 2xl:pb-16">
         <div className="h-full lg:col-span-1 xl:col-span-2 grid lg:gap-3 xl:gap-4 2xl:gap-6">
           <GreetingWidget />

@@ -1,12 +1,12 @@
 export default function Loading() {
   return (
     <main
-      className="relative w-full min-h-screen lg:pt-18 xl:pt-24 2xl:pt-28 text-foreground lg:pb-8 xl:pb-12 2xl:pb-16 overflow-x-hidden overflow-y-visible bg-card"
+      className="relative w-full min-h-screen lg:pt-14 xl:pt-20 2xl:pt-28 text-foreground lg:pb-8 xl:pb-12 2xl:pb-16 overflow-x-hidden overflow-y-visible bg-card"
       aria-busy="true"
       aria-live="polite"
     >
       <div className="relative z-10">
-        <div className="lg:px-4 xl:px-8 2xl:px-28 pb-8 space-y-8">
+        <div className="lg:px-6 xl:px-8 2xl:px-28 lg:pb-8 xl:pb-12 2xl:pb-16 space-y-8">
           <div className="relative overflow-visible lg:space-y-4 xl:space-y-6">
             {/* PageHeading */}
             <div className="lg:space-y-2 xl:space-y-3 animate-pulse">
@@ -42,7 +42,7 @@ export default function Loading() {
           </div>
         </div>
 
-        <div className="w-full h-auto lg:px-4 xl:px-8 2xl:px-28">
+        <div className="w-full h-auto lg:px-6 xl:px-8 2xl:px-28">
           <div className="space-y-4">
             {/* Board heading */}
             <div className="space-y-1 animate-pulse">

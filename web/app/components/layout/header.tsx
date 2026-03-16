@@ -226,16 +226,12 @@ function AccountDropdown({ session }: AccountDropdownProps) {
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         aria-label="Open account menu"
-        className="inline-flex items-center border border-gray-100 justify-center lg:gap-2 xl:gap-3 rounded-full lg:px-3 xl:px-4 lg:py-1 xl:py-2 bg-card text-xs font-semibold text-primary transition hover:bg-primary hover:text-white hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="group inline-flex items-center border border-gray-100 justify-center lg:gap-2 xl:gap-3 rounded-full lg:px-3 xl:px-4 lg:py-1 xl:py-2 bg-card text-xs font-semibold text-primary transition hover:bg-primary hover:text-white hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
-        <div className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 rounded-full overflow-hidden shrink-0">
-          <Image
-            src="/placeholder.png"
-            alt={name}
-            width={20}
-            height={20}
-            className="w-full h-full object-cover"
-          />
+        <div className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 rounded-full bg-primary/15 group-hover:bg-white/20 flex items-center justify-center shrink-0">
+          <span className="lg:text-[7px] xl:text-[8px] font-bold text-primary group-hover:text-white leading-none">
+            {name.charAt(0).toUpperCase()}
+          </span>
         </div>
         <p className="lg:text-[10px] xl:text-xs 2xl:text-sm truncate">{name}</p>
         <ChevronDown

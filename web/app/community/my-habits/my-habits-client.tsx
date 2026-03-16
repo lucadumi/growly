@@ -530,7 +530,7 @@ export default function MyHabitsClient({
   };
 
   return (
-    <main className="relative min-h-screen bg-card lg:pt-14 xl:pt-20">
+    <main className="relative min-h-screen bg-card lg:pt-14 xl:pt-20 2xl:pt-28">
       {showCreate && (
         <ShareModal
           userHabits={userHabits}

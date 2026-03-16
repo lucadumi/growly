@@ -454,8 +454,8 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
       {panelMode ? (
         <div className="space-y-6">{formGrid}</div>
       ) : (
-        <main className="relative overflow-hidden w-full min-h-screen lg:pt-18 xl:pt-24 2xl:pt-28 text-foreground lg:pb-8 xl:pb-12 2xl:pb-16 bg-linear-to-t from-white/90 via-light-yellow/55 to-green-soft/15">
-          <div className="lg:px-4 xl:px-8 2xl:px-28 space-y-8">
+        <main className="relative overflow-hidden w-full min-h-screen lg:pt-14 xl:pt-20 2xl:pt-28 text-foreground lg:pb-8 xl:pb-12 2xl:pb-16 bg-linear-to-t from-white/90 via-light-yellow/55 to-green-soft/15">
+          <div className="lg:px-6 xl:px-8 2xl:px-28 space-y-8">
             <PageHeading
               badgeLabel={pageHeading.badgeLabel}
               title={pageHeading.title}

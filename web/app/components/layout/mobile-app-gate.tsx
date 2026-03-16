@@ -1,24 +1,7 @@
-import { BellRing, Layers, Sprout, TrendingUp } from "lucide-react";
+import Image from "next/image";
+import { Sprout } from "lucide-react";
 
 const appStoreLink = "https://www.apple.com/app-store/";
-
-const featureTiles = [
-  {
-    icon: BellRing,
-    title: "Intention-only reminders",
-    copy: "Gentle nudges respect your focus windows.",
-  },
-  {
-    icon: Layers,
-    title: "Stacks with context",
-    copy: "Log how you feel, not just if you checked a box.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Momentum keeps living",
-    copy: "Reflective prompts and insights help the tiny wins compound, even offline.",
-  },
-];
 
 const AppLink = ({
   label,
@@ -63,26 +46,16 @@ export default function MobileAppGate() {
           </p>
         </div>
 
-        {/* feature tiles */}
-        <div className="w-full rounded-3xl border border-gray-100 bg-white p-1">
-          {featureTiles.map(({ icon: Icon, title, copy }, i) => (
-            <div
-              key={title}
-              className={`flex items-start gap-4 px-5 py-4 ${
-                i < featureTiles.length - 1 ? "border-b border-gray-50" : ""
-              }`}
-            >
-              <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                <Icon className="h-4 w-4 text-primary" />
-              </div>
-              <div className="flex flex-col gap-0.5">
-                <p className="text-sm font-semibold text-foreground">{title}</p>
-                <p className="text-xs leading-relaxed text-muted-foreground">
-                  {copy}
-                </p>
-              </div>
-            </div>
-          ))}
+        {/* phone mockup */}
+        <div className="w-full flex justify-center">
+          <Image
+            src="/mock/iphone-mockup-twisted.png"
+            alt="Growly app preview"
+            width={320}
+            height={534}
+            className="w-72 drop-shadow-xl"
+            priority
+          />
         </div>
 
         {/* CTA */}

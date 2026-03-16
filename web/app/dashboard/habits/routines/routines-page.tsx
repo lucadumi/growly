@@ -249,8 +249,8 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
 
   return (
     <>
-      <main className="relative overflow-hidden w-full min-h-screen lg:pt-18 xl:pt-24 2xl:pt-28 text-foreground g:pb-8 xl:pb-12 2xl:pb-16 bg-card">
-        <div className="lg:px-4 xl:px-8 2xl:px-28 lg:space-y-6 xl:space-y-8">
+      <main className="relative overflow-hidden w-full min-h-screen lg:pt-14 xl:pt-20 2xl:pt-28 text-foreground lg:pb-8 xl:pb-12 2xl:pb-16 bg-card">
+        <div className="lg:px-6 xl:px-8 2xl:px-28 lg:space-y-6 xl:space-y-8">
           <PageHeading
             badgeLabel="Routines"
             title="Group habits into routines"

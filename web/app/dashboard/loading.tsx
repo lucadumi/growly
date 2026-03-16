@@ -1,7 +1,7 @@
 export default function Loading() {
   return (
     <main
-      className="relative w-full lg:pt-14 xl:pt-20 bg-card overflow-hidden"
+      className="relative w-full lg:pt-14 xl:pt-20 2xl:pt-28 bg-card overflow-hidden"
       aria-busy="true"
       aria-live="polite"
     >

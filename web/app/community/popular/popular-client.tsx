@@ -57,7 +57,7 @@ export default function PopularClient({
     });
 
   return (
-    <main className="relative min-h-screen bg-card lg:pt-14 xl:pt-20">
+    <main className="relative min-h-screen bg-card lg:pt-14 xl:pt-20 2xl:pt-28">
       <div className="lg:px-6 xl:px-8 2xl:px-28 grid lg:gap-6 xl:gap-8 lg:pb-8 xl:pb-12 2xl:pb-16">
         <PageHeading
           badgeLabel="Community"

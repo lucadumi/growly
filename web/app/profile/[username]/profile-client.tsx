@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import {
   MapPin,
   Calendar,
@@ -78,7 +77,7 @@ export default function ProfileClient({
   }
 
   return (
-    <main className="relative min-h-screen bg-card lg:px-6 xl:px-8 lg:pt-14 xl:pt-20">
+    <main className="relative min-h-screen bg-card lg:px-6 xl:px-8 2xl:px-28 lg:pt-14 xl:pt-20 2xl:pt-28">
       <div className="grid lg:gap-6 xl:gap-8 lg:pb-8 xl:pb-12 2xl:pb-16">
         {/* ── Profile Header Card ── */}
         <div className="rounded-2xl border border-gray-100 bg-white overflow-hidden">
@@ -98,14 +97,10 @@ export default function ProfileClient({
           <div className="lg:px-5 xl:px-6 lg:pb-5 xl:pb-6">
             {/* Avatar row */}
             <div className="-mt-8 xl:-mt-10 mb-3 flex items-end justify-between">
-              <div className="z-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-2xl border-4 border-white overflow-hidden shadow-md shrink-0 bg-muted">
-                <Image
-                  src={"/placeholder.png"}
-                  alt={user.name}
-                  width={80}
-                  height={80}
-                  className="w-full h-full object-cover"
-                />
+              <div className="z-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-2xl border-4 border-white shadow-md shrink-0 bg-primary/15 flex items-center justify-center">
+                <span className="lg:text-2xl xl:text-3xl font-bold text-primary leading-none">
+                  {user.name.charAt(0).toUpperCase()}
+                </span>
               </div>
             </div>
 

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 type UserCardProps = {
@@ -15,14 +14,10 @@ export default function UserCard({ name, username }: UserCardProps) {
 
   const card = (
     <div className="flex items-center gap-4 rounded-2xl border border-gray-100 bg-white lg:p-3 xl:p-3.5 hover:bg-gray-100 transition cursor-pointer">
-      <div className="shrink-0 w-9 h-9 rounded-xl overflow-hidden border border-gray-100">
-        <Image
-          src="/placeholder.png"
-          alt={name}
-          width={36}
-          height={36}
-          className="w-full h-full object-cover"
-        />
+      <div className="shrink-0 w-9 h-9 rounded-xl bg-primary/15 flex items-center justify-center">
+        <span className="text-sm font-bold text-primary leading-none">
+          {name.charAt(0).toUpperCase()}
+        </span>
       </div>
       <div className="min-w-0 flex-1">
         <p className="font-semibold lg:text-[11px] xl:text-xs truncate">

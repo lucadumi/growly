@@ -36,7 +36,14 @@
       "Read(//b/growly/**)",
       "Bash(xargs -I{} powershell -Command 'Stop-Process -Id {} -Force')",
       "Bash(powershell -Command \"Get-Process -Name ''node'' | Stop-Process -Force\")",
-      "Bash(find /b/growly/mobile -maxdepth 4 -type f \\\\\\(-name *.tsx -o -name *.ts \\\\\\) -not -path */node_modules/*)"
+      "Bash(find /b/growly/mobile -maxdepth 4 -type f \\\\\\(-name *.tsx -o -name *.ts \\\\\\) -not -path */node_modules/*)",
+      "Bash(git -C \"b:/growly/web\" status --short)",
+      "Bash(grep -n \"return.*<main\\\\|<main\" /b/growly/web/app/profile/[username]/profile-client.tsx)",
+      "Bash(for f:*)",
+      "Bash(do)",
+      "Bash(sed -i 's/lg:pt-18 xl:pt-24 2xl:pt-28/lg:pt-14 xl:pt-20/g' \"$f\")",
+      "Bash(done)",
+      "Bash(xargs sed:*)"
     ]
   }
 }

@@ -695,9 +695,9 @@ const TodosPage: React.FC<TodosPageProps> = ({
 
   return (
     <>
-      <main className="relative w-full min-h-screen lg:pt-18 xl:pt-24 2xl:pt-28 text-foreground lg:pb-8 xl:pb-12 2xl:pb-16 overflow-x-hidden overflow-y-visible bg-card">
+      <main className="relative w-full min-h-screen lg:pt-14 xl:pt-20 2xl:pt-28 text-foreground lg:pb-8 xl:pb-12 2xl:pb-16 overflow-x-hidden overflow-y-visible bg-card">
         <div className="relative z-10">
-          <div className="lg:px-4 xl:px-8 2xl:px-28 pb-8 space-y-8">
+          <div className="lg:px-6 xl:px-8 2xl:px-28 pb-8 space-y-8">
             <div className="relative overflow-visible lg:space-y-4 xl:space-y-6">
               <div className="relative z-10 space-y-6">
                 <PageHeading
@@ -832,7 +832,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
               </div>
             </div>
           </div>
-          <div className="w-full h-auto lg:px-4 xl:px-8 2xl:px-28">
+          <div className="w-full h-auto lg:px-6 xl:px-8 2xl:px-28">
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div className="flex flex-col gap-1">

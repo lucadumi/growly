@@ -203,7 +203,7 @@ const AnalyticsClient: React.FC<Props> = ({
     .join(", ");
 
   return (
-    <main className="relative lg:px-4 xl:px-8 2xl:px-28 lg:pt-18 xl:pt-24 2xl:pt-28 lg:pb-8 xl:pb-12 2xl:pb-16 min-h-screen w-full bg-card text-foreground overflow-hidden">
+    <main className="relative lg:px-6 xl:px-8 2xl:px-28 lg:pt-14 xl:pt-20 2xl:pt-28 lg:pb-8 xl:pb-12 2xl:pb-16 min-h-screen w-full bg-card text-foreground overflow-hidden">
       <div className="lg:space-y-5 xl:space-y-7">
         <PageHeading
           badgeLabel="Analytics"

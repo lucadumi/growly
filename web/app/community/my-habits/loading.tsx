@@ -1,6 +1,6 @@
 export default function MyHabitsLoading() {
   return (
-    <main className="relative min-h-screen bg-card lg:pt-14 xl:pt-20">
+    <main className="relative min-h-screen bg-card lg:pt-14 xl:pt-20 2xl:pt-28">
       <div className="lg:px-6 xl:px-8 2xl:px-28 grid lg:gap-8 xl:gap-10 lg:pb-8 xl:pb-12 2xl:pb-16">
         {/* Page heading */}
         <div className="animate-pulse space-y-2">
@@ -23,13 +23,12 @@ export default function MyHabitsLoading() {
         </div>
 
         {/* Top habit callout */}
-        <div className="rounded-2xl bg-secondary/30 border border-secondary/40 lg:p-4 xl:p-5 flex items-center gap-3 animate-pulse">
-          <div className="w-10 h-10 rounded-xl bg-muted/40 shrink-0" />
-          <div className="flex-1 space-y-1.5">
+        <div className="rounded-2xl bg-gray-100 lg:p-4 xl:p-5 flex items-center justify-between animate-pulse">
+          <div className="flex-1 min-w-0 space-y-1.5">
             <div className="h-3 w-28 rounded bg-muted/40" />
             <div className="h-4 w-48 rounded bg-muted/60" />
-            <div className="h-3 w-32 rounded bg-muted/40" />
           </div>
+          <div className="w-10 h-10 rounded-xl bg-gray-300 shrink-0" />
         </div>
 
         {/* Habit cards */}
@@ -62,6 +61,10 @@ export default function MyHabitsLoading() {
               </div>
             </div>
           ))}
+        </div>
+        {/* Footer link */}
+        <div className="text-center animate-pulse">
+          <div className="h-3 w-56 rounded bg-muted/30 mx-auto" />
         </div>
       </div>
     </main>
