@@ -43,7 +43,11 @@
       "Bash(do)",
       "Bash(sed -i 's/lg:pt-18 xl:pt-24 2xl:pt-28/lg:pt-14 xl:pt-20/g' \"$f\")",
       "Bash(done)",
-      "Bash(xargs sed:*)"
+      "Bash(xargs sed:*)",
+      "Bash(xargs grep:*)",
+      "Bash(find /b/growly/web -path */app/* -name page.tsx -o -name page.ts -o -name layout.tsx)",
+      "Bash(grep -r \"HabitForm\\\\|habit-form\" /b/growly/web --include=*.tsx --include=*.ts -l)",
+      "Bash(find /b/growly -type f -name *.css -o -name *.scss -o -name globals.css)"
     ]
   }
 }

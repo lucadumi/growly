@@ -66,7 +66,7 @@ export default function PopularClient({
           actions={
             <Link
               href="/community/my-habits"
-              className="rounded-full bg-primary text-white lg:px-4 xl:px-5 lg:py-1.5 xl:py-2 lg:text-[10px] xl:text-xs font-semibold hover:-translate-y-0.5 transition"
+              className="rounded-full bg-primary text-white lg:px-4 xl:px-5 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold hover:-translate-y-0.5 transition"
             >
               Share a habit
             </Link>

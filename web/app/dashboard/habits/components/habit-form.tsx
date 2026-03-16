@@ -6,7 +6,6 @@ import { ChevronDown } from "lucide-react";
 
 import Button from "@/app/components/ui/button";
 import CalendarDropdown from "@/app/components/ui/calendar-dropdown";
-import TimeInput from "@/app/components/ui/time-input";
 import type { HabitFormState, UnitCategory } from "../types";
 import {
   DAY_LABELS,
@@ -37,6 +36,8 @@ const countClassName =
 const dropdownSelectWrapperClassName =
   "relative overflow-visible rounded-2xl bg-card/30 border border-gray-100 hover:border-primary/40 transition-colors hover:border-primary/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-0";
 
+const focusWindows = ["Anytime", "Morning", "Workday", "Evening"];
+
 const unitCategories: UnitCategory[] = ["Quantity", "Time"];
 const goalUnitsByCategory: Record<UnitCategory, string[]> = {
   Quantity: ["count", "steps", "ml", "ounce", "Cal", "g", "mg", "drink"],
@@ -59,7 +60,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
       description: "",
       scheduledDays: maskToDays("1111111"), // daily by default
       startDate: today,
-      timeWindow: "07:00",
+      timeWindow: "Anytime",
       goalAmount: "1",
       goalUnit: "count",
       goalUnitCategory: "Quantity" as UnitCategory,
@@ -103,11 +104,6 @@ const HabitForm: React.FC<HabitFormProps> = ({
     setForm((prev) => ({ ...prev, startDate: value }));
     markDirty();
     setShowStartDateDropdown(false);
-  };
-
-  const handleTimeInputChange = (value: string) => {
-    setForm((prev) => ({ ...prev, timeWindow: value }));
-    markDirty();
   };
 
   const submitHabit = useCallback(
@@ -392,15 +388,33 @@ const HabitForm: React.FC<HabitFormProps> = ({
                 </div>
               </label>
 
-              <label className="lg:space-y-1 xl:space-y-2 block">
-                <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
-                  <span>Preferred time</span>
+              <div className="lg:space-y-1 xl:space-y-2">
+                <div className="flex items-center justify-between lg:text-xs xl:text-sm font-semibold">
+                  <span>Focus window</span>
+                  <span className="lg:text-[9px] xl:text-[11px] 2xl:text-xs text-muted-foreground font-normal">
+                    {form.timeWindow}
+                  </span>
                 </div>
-                <TimeInput
-                  time={form.timeWindow}
-                  onChange={handleTimeInputChange}
-                />
-              </label>
+                <div className="flex flex-wrap lg:gap-1 xl:gap-1.5">
+                  {focusWindows.map((window) => (
+                    <button
+                      key={window}
+                      type="button"
+                      onClick={() => {
+                        setForm((prev) => ({ ...prev, timeWindow: window }));
+                        markDirty();
+                      }}
+                      className={`lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold rounded-full border transition ${
+                        form.timeWindow === window
+                          ? "bg-primary text-white border-primary"
+                          : "border-gray-200 bg-white text-muted-foreground hover:border-primary/40"
+                      }`}
+                    >
+                      {window}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 

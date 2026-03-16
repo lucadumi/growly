@@ -566,7 +566,7 @@ export default function HabitsBoard({
               <button
                 type="button"
                 onClick={openAddHabit}
-                className="inline-flex items-center gap-2 rounded-full bg-primary lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 text-xs font-semibold text-white transition hover:brightness-105 active:scale-95"
+                className="inline-flex items-center gap-2 rounded-full bg-primary lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
               >
                 <Plus className="h-4 w-4" />
                 Add Habit
@@ -1031,7 +1031,7 @@ export default function HabitsBoard({
                   <button
                     type="button"
                     onClick={() => setSelectedRoutineId(null)}
-                    className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold transition ${selectedRoutineId === null ? "bg-primary text-white" : "bg-gray-100 text-muted-foreground hover:text-foreground"}`}
+                    className={`rounded-full px-2.5 py-0.5 lg:text-[10px] 2xl:text-xs font-semibold transition ${selectedRoutineId === null ? "bg-primary text-white" : "bg-gray-100 text-muted-foreground hover:text-foreground"}`}
                   >
                     All
                   </button>
@@ -1044,7 +1044,7 @@ export default function HabitsBoard({
                           prev === r.id ? null : r.id,
                         )
                       }
-                      className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold transition ${selectedRoutineId === r.id ? "bg-primary text-white" : "bg-gray-100 text-muted-foreground hover:text-foreground"}`}
+                      className={`rounded-full px-2.5 py-0.5 lg:text-[10px] 2xl:text-xs font-semibold transition ${selectedRoutineId === r.id ? "bg-primary text-white" : "bg-gray-100 text-muted-foreground hover:text-foreground"}`}
                     >
                       {r.name}
                     </button>
@@ -1262,14 +1262,14 @@ export default function HabitsBoard({
                   type="button"
                   onClick={handleDeleteHabit}
                   disabled={isDeletingHabit}
-                  className="inline-flex items-center gap-2 rounded-full bg-red-400 px-4 py-1.5 text-xs font-semibold text-white transition hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-2 rounded-full bg-red-400 px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {isDeletingHabit ? "Deleting..." : "Delete"}
                 </button>
                 <button
                   type="submit"
                   form="edit-habit-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white transition hover:brightness-105 active:scale-95"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
                 >
                   Update habit
                 </button>
@@ -1346,7 +1346,7 @@ export default function HabitsBoard({
                 <button
                   type="submit"
                   form="add-habit-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white transition hover:brightness-105 active:scale-95"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
                 >
                   Create habit
                 </button>

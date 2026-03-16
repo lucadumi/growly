@@ -724,7 +724,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
                         {isCollectionView && (
                           <Link
                             href="/dashboard/todos"
-                            className={`${buttonBase} lg:text-[10px] xl:text-xs 2xl:text-sm lg:h-6 xl:h-8 2xl:h-10 lg:px-3 xl:px-4 2xl:px-6 bg-white border border-gray-100 hover:border-white`}
+                            className={`${buttonBase} lg:text-[11px] xl:text-[12px] 2xl:text-[13px] lg:h-6 xl:h-8 2xl:h-10 lg:px-3 xl:px-4 2xl:px-6 bg-white border border-gray-100 hover:border-white`}
                           >
                             Back to all todos
                           </Link>
@@ -732,7 +732,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
                       </div>
                       <div>
                         <Button
-                          className="inline-flex items-center gap-2 rounded-full bg-primary lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 text-xs font-semibold text-white transition hover:brightness-105 active:scale-95"
+                          className="inline-flex items-center gap-2 rounded-full bg-primary lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
                           onClick={() => {
                             handleCancelEdit();
                             openTodoSlideOver();
@@ -820,7 +820,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
                     deleteCompletedPending || visibleCompletedIds.length === 0
                   }
                   onClick={handleDeleteCompleted}
-                  className="cursor-pointer inline-flex items-center gap-2 rounded-full lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 text-xs font-semibold text-white transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-60 bg-red-400"
+                  className="cursor-pointer inline-flex items-center gap-2 rounded-full lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-60 bg-red-400"
                 >
                   Delete completed
                 </button>
@@ -1203,7 +1203,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
                     onClick={() => handleDeleteTodo(editTodoId)}
                     disabled={!!deletingTodoId}
                     aria-label="Delete todo"
-                    className="inline-flex items-center gap-1.5 rounded-full px-3 hover:opacity-90 py-1.5 text-xs font-semibold text-white bg-red-400 transition hover:bg-destructive/10 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-1.5 rounded-full px-3 hover:opacity-90 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white bg-red-400 transition hover:bg-destructive/10 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {deletingTodoId ? "Deleting…" : "Delete"}
                   </button>
@@ -1211,7 +1211,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
                 <button
                   type="button"
                   onClick={() => createFormRef.current?.saveChanges()}
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white transition hover:brightness-105 active:scale-95"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
                 >
                   {isEditingTodo ? "Update todo" : "Create todo"}
                 </button>
