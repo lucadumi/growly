@@ -224,6 +224,9 @@ const AnalyticsClient: React.FC<Props> = ({
                 <p className="lg:text-[11px] xl:text-xs 2xl:text-sm">
                   Average streak across {summary.totalHabits} habits
                 </p>
+                <p className="lg:text-[11px] xl:text-xs 2xl:text-sm">
+                  {summary.lookbackLabel}
+                </p>
               </div>
               <div className="lg:w-9 lg:h-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11 rounded-full bg-black/10 flex items-center justify-center shrink-0">
                 <Flame className="lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
@@ -242,7 +245,7 @@ const AnalyticsClient: React.FC<Props> = ({
                 </div>
                 <div className="w-full bg-gray-100 rounded-full lg:h-1 xl:h-1.5">
                   <div
-                    className="h-full rounded-full bg-muted-foreground transition-all duration-500"
+                    className="h-full rounded-full bg-accent transition-all duration-500"
                     style={{ width: `${summary.streakGoalProgress ?? 0}%` }}
                   />
                 </div>
@@ -320,7 +323,7 @@ const AnalyticsClient: React.FC<Props> = ({
                   Completion over time, weighted by all habits.
                 </p>
               </div>
-              <div className="lg:text-[8px] xl:text-[10px] 2xl:text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              <div className="lg:text-[8px] xl:text-[10px] 2xl:text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground bg-gray-100 px-3 rounded-full py-0.5">
                 {summary.lookbackLabel}
               </div>
             </div>
@@ -527,7 +530,10 @@ const AnalyticsClient: React.FC<Props> = ({
                       >
                         <div
                           className="w-full rounded-full transition-all duration-500"
-                          style={{ height: `${barHeight}%`, backgroundColor: barColor }}
+                          style={{
+                            height: `${barHeight}%`,
+                            backgroundColor: barColor,
+                          }}
                         />
                       </div>
                       <div

@@ -12,6 +12,8 @@ import { auth } from "@/lib/auth";
 import { buildHabitAnalytics } from "@/lib/habit-analytics";
 import { formatDayKey } from "@/lib/habit-progress";
 import { prisma } from "@/lib/prisma";
+import { XP_PER_TODO, XP_PER_HABIT } from "@/lib/xp";
+import { computeLevelState } from "@/lib/xp-level";
 
 export const dynamic = "force-dynamic";
 
@@ -120,6 +122,14 @@ export default async function AccountPage() {
     habits,
     progressEntries,
   );
+
+  const habitMap = new Map(habits.map((h) => [h.id, h]));
+  const totalHabitXP = progressEntries.reduce((sum, entry) => {
+    const goal = Math.max(1, habitMap.get(entry.habitId)?.goalAmount ?? 1);
+    return entry.progress >= goal ? sum + XP_PER_HABIT : sum;
+  }, 0);
+  const totalXP = completedTodos * XP_PER_TODO + totalHabitXP;
+  const { level, xpGainedInLevel, xpNeededForLevelUp, progress: xpProgress } = computeLevelState(totalXP);
 
   const bestStreak = habitsWithStats.reduce(
     (max, habit) => Math.max(max, habit.streak ?? 0),
@@ -248,6 +258,23 @@ export default async function AccountPage() {
                 <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground truncate">
                   {email}
                 </p>
+              </div>
+            </div>
+            {/* XP progress */}
+            <div className="lg:mt-3 xl:mt-4 space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span className="lg:text-[9px] xl:text-[10px] font-semibold text-muted-foreground">
+                  {xpGainedInLevel.toLocaleString()} / {xpNeededForLevelUp.toLocaleString()} XP
+                </span>
+                <span className="lg:text-[9px] xl:text-[10px] font-bold text-primary bg-primary/10 rounded-full lg:px-1.5 xl:px-2 lg:py-0.5">
+                  Level {level}
+                </span>
+              </div>
+              <div className="w-full lg:h-1.5 xl:h-2 rounded-full bg-muted overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-green-soft transition-all"
+                  style={{ width: `${xpProgress}%` }}
+                />
               </div>
             </div>
           </div>

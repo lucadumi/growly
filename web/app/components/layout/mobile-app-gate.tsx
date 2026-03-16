@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Sprout } from "lucide-react";
 
 const appStoreLink = "https://www.apple.com/app-store/";
 
@@ -28,7 +27,7 @@ export default function MobileAppGate() {
       <div className="relative mx-auto flex min-h-screen w-full max-w-lg flex-col items-center justify-center gap-8 px-6 py-14">
         {/* logo badge */}
         <div className="flex items-center gap-3">
-          <Sprout className="h-5 w-5 text-green-soft" />
+          <Image src="/leaf.png" alt="Growly leaf" width={20} height={20} />
           <span className="text-xs font-semibold uppercase tracking-[0.55em] text-muted-foreground">
             Growly
           </span>
@@ -49,7 +48,7 @@ export default function MobileAppGate() {
         {/* phone mockup */}
         <div className="w-full flex justify-center">
           <Image
-            src="/mock/iphone-mockup-twisted.png"
+            src="/mock/iphone-mockup.png"
             alt="Growly app preview"
             width={320}
             height={534}

@@ -47,7 +47,8 @@
       "Bash(xargs grep:*)",
       "Bash(find /b/growly/web -path */app/* -name page.tsx -o -name page.ts -o -name layout.tsx)",
       "Bash(grep -r \"HabitForm\\\\|habit-form\" /b/growly/web --include=*.tsx --include=*.ts -l)",
-      "Bash(find /b/growly -type f -name *.css -o -name *.scss -o -name globals.css)"
+      "Bash(find /b/growly -type f -name *.css -o -name *.scss -o -name globals.css)",
+      "Bash(ls b:/growly/mobile/app/\\\\\\(tabs\\\\\\)/)"
     ]
   }
 }

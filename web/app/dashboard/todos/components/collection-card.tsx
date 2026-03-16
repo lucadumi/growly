@@ -66,7 +66,7 @@ const CollectionCard: FC<CollectionCardProps> = ({
       className={`relative rounded-2xl border bg-card overflow-hidden transition-all ${
         isDropTarget
           ? "border-primary/60 ring-2 ring-primary/30 bg-primary/5 scale-[1.01]"
-          : "border-gray-100 hover:border-primary/30"
+          : "border-gray-100 hover:border-gray-200"
       }`}
     >
       {/* Drop target overlay */}
