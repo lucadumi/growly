@@ -69,7 +69,7 @@ const NavigationLoader: React.FC = () => {
   if (!isNavigating) return null;
 
   return (
-    <div className="loading-screen fixed inset-0 z-9999" role="status">
+    <div className="bg-card fixed inset-0 z-9999 flex items-center justify-center p-12" role="status">
       <div className="loading-card">
         <span className="loader" aria-hidden="true" />
         <span className="sr-only">Loading...</span>

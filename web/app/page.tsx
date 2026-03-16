@@ -144,7 +144,7 @@ export default function LandingPage() {
           </div>
 
           <div className="relative">
-            <div className="relative rounded-3xl bg-card lg:space-y-3 xl:space-y-4">
+            <div className="relative lg:space-y-3 xl:space-y-4">
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground">

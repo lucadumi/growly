@@ -261,7 +261,7 @@ function AccountDropdown({ session }: AccountDropdownProps) {
         <div className="border-t border-gray-50 lg:p-1 xl:p-2 space-y-1 lg:text-[8px] xl:text-[11px]">
           <Link
             href="/account"
-            className="block rounded-xl lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 2xl:py-2 font-semibold uppercase tracking-[0.4em] text-primary transition-colors hover:bg-primary/5"
+            className="block rounded-xl lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 2xl:py-2 font-semibold text-primary transition-colors hover:bg-primary/5"
             onClick={() => setIsOpen(false)}
           >
             Account
