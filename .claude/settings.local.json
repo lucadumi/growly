@@ -50,7 +50,15 @@
       "Bash(find /b/growly -type f -name *.css -o -name *.scss -o -name globals.css)",
       "Bash(ls b:/growly/mobile/app/\\\\\\(tabs\\\\\\)/)",
       "Bash(find /b/growly/web/app -type f \\\\\\( -name \"*.tsx\" -o -name \"*.ts\" \\\\\\) ! -path \"*/node_modules/*\" ! -path \"*/.next/*\" -exec wc -l {} +)",
-      "Bash(grep \"\\\\.tsx$\")"
+      "Bash(grep \"\\\\.tsx$\")",
+      "Bash(npm show:*)",
+      "Bash(nvm list:*)",
+      "Bash(fnm list:*)",
+      "Bash(volta list:*)",
+      "Bash(where node:*)",
+      "Bash(node node_modules/prisma/scripts/postinstall.js)",
+      "Bash(npx --yes prisma generate --schema=prisma/schema.prisma)",
+      "Bash(npm run:*)"
     ]
   }
 }

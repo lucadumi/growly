@@ -480,6 +480,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                       name: result.name,
                       anchor: result.anchor,
                       notes: result.notes,
+                      isDefault: false,
                       habits: routineHabits,
                     },
                   ]);
