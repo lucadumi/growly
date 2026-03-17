@@ -6,13 +6,12 @@ import {
   useCallback,
   useEffect,
   useImperativeHandle,
-  useRef,
   useState,
 } from "react";
 import type React from "react";
-import { ChevronDown } from "lucide-react";
 
 import Button from "@/app/components/ui/button";
+import Dropdown from "@/app/components/ui/dropdown";
 import TimeInput from "@/app/components/ui/time-input";
 import type { TodoInput } from "@/lib/actions/todo-actions";
 
@@ -64,44 +63,11 @@ const inputClassName =
 const dropdownSelectWrapperClassName =
   "relative overflow-visible lg:rounded-xl xl:rounded-2xl border border-gray-100 transition-colors hover:border-primary/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-0";
 
-const categoryOptions = ["Personal", "Work"];
+const categoryOptions = ["Personal", "Work"].map((o) => ({
+  label: o,
+  value: o,
+}));
 const CATEGORY_PLACEHOLDER = "Choose a category";
-
-const categoryDropdownOptionsId = "category-dropdown-options";
-
-const sanitizeDropdownValue = (value: string) =>
-  value.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase();
-
-const toDropdownOptionId = (field: string, value: string) =>
-  `${field}-option-${sanitizeDropdownValue(value)}`;
-
-const toCategoryOptionId = (value: string) =>
-  toDropdownOptionId("category", value);
-
-const DROPDOWN_VERTICAL_SPACING = 8;
-
-const updateDropdownDirection = (
-  toggleRef: React.RefObject<HTMLButtonElement | null>,
-  panelRef: React.RefObject<HTMLDivElement | null>,
-  setDirection: React.Dispatch<React.SetStateAction<"down" | "up">>,
-  fallbackHeight = 0,
-) => {
-  if (typeof window === "undefined") {
-    return;
-  }
-  const toggleRect = toggleRef.current?.getBoundingClientRect();
-  if (!toggleRect) {
-    return;
-  }
-  const panelNode = panelRef.current;
-  const measuredHeight = panelNode?.getBoundingClientRect().height ?? 0;
-  const scrollHeight = panelNode?.scrollHeight ?? 0;
-  const panelHeight = Math.max(measuredHeight, scrollHeight, fallbackHeight);
-  const spacing = DROPDOWN_VERTICAL_SPACING;
-  const spaceBelow = window.innerHeight - toggleRect.bottom;
-  const nextDirection = spaceBelow >= panelHeight + spacing ? "down" : "up";
-  setDirection((prev) => (prev === nextDirection ? prev : nextDirection));
-};
 
 const toPriorityLabel = (priority?: string | null): PriorityLabel => {
   switch (priority?.toUpperCase()) {
@@ -156,16 +122,6 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
     const mode = initialTodo?.id ? "edit" : modeProp;
     const [form, setForm] = useState<FormState>(buildDefaultForm(initialTodo));
     const [isDirty, setIsDirty] = useState(false);
-    const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
-    const [categoryDropDirection, setCategoryDropDirection] = useState<
-      "down" | "up"
-    >("down");
-    const categoryToggleRef = useRef<HTMLButtonElement | null>(null);
-    const categoryPanelRef = useRef<HTMLDivElement | null>(null);
-    const closeCategoryMenu = useCallback(() => {
-      setCategoryMenuOpen(false);
-      categoryToggleRef.current?.blur();
-    }, []);
     const router = useRouter();
 
     const markDirty = useCallback(() => {
@@ -176,64 +132,11 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
       const base = buildDefaultForm(initialTodo);
       setForm(base);
       setIsDirty(false);
-      setCategoryMenuOpen(false);
     }, [initialTodo]);
 
     useEffect(() => {
       resetFormState();
     }, [resetFormState]);
-
-    useEffect(() => {
-      if (!categoryMenuOpen) return;
-
-      const handleOutside = (event: Event) => {
-        const target = event.target as Node | null;
-        if (
-          categoryToggleRef.current?.contains(target) ||
-          categoryPanelRef.current?.contains(target)
-        ) {
-          return;
-        }
-        setCategoryMenuOpen(false);
-      };
-
-      const handleKeyDown = (event: KeyboardEvent) => {
-        if (event.key === "Escape") {
-          event.preventDefault();
-          setCategoryMenuOpen(false);
-          categoryToggleRef.current?.focus();
-        }
-      };
-
-      document.addEventListener("mousedown", handleOutside);
-      document.addEventListener("touchstart", handleOutside);
-      document.addEventListener("keydown", handleKeyDown);
-
-      return () => {
-        document.removeEventListener("mousedown", handleOutside);
-        document.removeEventListener("touchstart", handleOutside);
-        document.removeEventListener("keydown", handleKeyDown);
-      };
-    }, [categoryMenuOpen]);
-
-    useEffect(() => {
-      if (!categoryMenuOpen) {
-        return undefined;
-      }
-      const update = () =>
-        updateDropdownDirection(
-          categoryToggleRef,
-          categoryPanelRef,
-          setCategoryDropDirection,
-        );
-      update();
-      window.addEventListener("resize", update);
-      window.addEventListener("scroll", update, true);
-      return () => {
-        window.removeEventListener("resize", update);
-        window.removeEventListener("scroll", update, true);
-      };
-    }, [categoryMenuOpen]);
 
     const handleChange =
       (field: keyof FormState) =>
@@ -332,8 +235,6 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
       [buildPayload, mode, onSuccess, resetFormState, router, todoId],
     );
 
-    const categoryLabel = form.category || CATEGORY_PLACEHOLDER;
-
     useImperativeHandle(
       ref,
       () => ({
@@ -389,68 +290,18 @@ const TodoForm = forwardRef<TodoFormHandle, TodoFormProps>(
                     <div className="flex items-center lg:text-xs xl:text-sm font-semibold">
                       <span>Category</span>
                     </div>
-                    <div className={dropdownSelectWrapperClassName}>
-                      <button
-                        type="button"
-                        ref={categoryToggleRef}
-                        aria-haspopup="listbox"
-                        aria-expanded={categoryMenuOpen}
-                        aria-controls={categoryDropdownOptionsId}
-                        onClick={() => setCategoryMenuOpen((open) => !open)}
-                        className="w-full flex items-center justify-between  lg:rounded-xl xl:rounded-2xl border-none bg-transparent lg:px-3 lg:py-1.5 xl:px-4 xl:py-3 text-left text-foreground lg:text-[11px] xl:text-xs 2xl:text-sm focus:outline-none focus-visible:outline-none"
-                      >
-                        <span className="truncate">{categoryLabel}</span>
-                        <ChevronDown
-                          className={`2xl:h-4 2xl:w-4 xl:h-3 xl:w-3 lg:w-2 lg:h-2 transition-transform ${
-                            categoryMenuOpen
-                              ? "rotate-180 text-primary"
-                              : "text-muted-foreground"
-                          }`}
-                        />
-                      </button>
-                      {categoryMenuOpen && (
-                        <div
-                          ref={categoryPanelRef}
-                          id={categoryDropdownOptionsId}
-                          role="listbox"
-                          aria-activedescendant={
-                            form.category
-                              ? toCategoryOptionId(form.category)
-                              : undefined
-                          }
-                          className={`absolute left-0 right-0 z-20 max-h-60 overflow-hidden lg:rounded-xl xl:rounded-2xl border border-gray-100 bg-white shadow-lg ${
-                            categoryDropDirection === "down"
-                              ? "top-full mt-2"
-                              : "bottom-full mb-2"
-                          }`}
-                        >
-                          {categoryOptions.map((category) => (
-                            <button
-                              key={category}
-                              id={toCategoryOptionId(category)}
-                              role="option"
-                              type="button"
-                              aria-selected={form.category === category}
-                              onClick={() => {
-                                setForm((prev) => ({
-                                  ...prev,
-                                  category,
-                                }));
-                                markDirty();
-                                closeCategoryMenu();
-                              }}
-                              className={`w-full rounded-none border-b border-gray-100 lg:px-3 lg:py-1.5 xl:px-4 xl:py-3 text-left lg:text-[11px] xl:text-xs 2xl:text-sm transition last:border-b-0 ${
-                                form.category === category
-                                  ? "bg-primary/10 text-primary font-semibold"
-                                  : "text-foreground hover:bg-primary/5"
-                              }`}
-                            >
-                              {category}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    <Dropdown
+                      id="todo-category"
+                      options={categoryOptions}
+                      value={form.category}
+                      onChange={(category) => {
+                        setForm((prev) => ({ ...prev, category }));
+                        markDirty();
+                      }}
+                      placeholder={CATEGORY_PLACEHOLDER}
+                      wrapperClassName={dropdownSelectWrapperClassName}
+                      buttonClassName="w-full flex items-center justify-between lg:rounded-xl xl:rounded-2xl border-none bg-transparent lg:px-3 lg:py-1.5 xl:px-4 xl:py-3 text-left text-foreground lg:text-[11px] xl:text-xs 2xl:text-sm focus:outline-none focus-visible:outline-none"
+                    />
                   </label>
 
                   <div className="lg:space-y-1 xl:space-y-2">

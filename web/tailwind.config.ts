@@ -51,6 +51,9 @@ const config: Config = {
         "light-yellow": {
           DEFAULT: "#fefbee",
         },
+        "blue-400": {
+          DEFAULT: "#60a5fa",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -376,7 +376,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                             handleDeleteRoutine(routine.id, routine.habits)
                           }
                           disabled={deletingRoutineId === routine.id}
-                          className="inline-flex lg:text-[9px] xl:text-[11px] 2xl:text-xs items-center lg:gap-1.5 xl:gap-2 rounded-full cursor-pointer text-red-400 disabled:cursor-not-allowed disabled:opacity-70"
+                          className="inline-flex lg:text-[9px] xl:text-[11px] 2xl:text-xs items-center lg:gap-1.5 xl:gap-2 rounded-full cursor-pointer text-coral disabled:cursor-not-allowed disabled:opacity-70"
                         >
                           <span>
                             {deletingRoutineId === routine.id ? (

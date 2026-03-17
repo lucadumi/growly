@@ -117,7 +117,7 @@ function AddHabitButton({ habit }: { habit: PostHabitData }) {
       disabled={loading || added}
       title={added ? "Added to your habits" : "Add to my habits"}
       className={`flex items-center gap-1 text-white rounded-full lg:px-2 xl:px-2.5 lg:py-0.5 xl:py-1 lg:text-[9px] xl:text-[10px] font-semibold transition disabled:cursor-not-allowed ${
-        added ? "bg-accent" : "bg-blue-400 text-primary hover:opacity-60"
+        added ? "bg-accent" : "bg-primary hover:opacity-80"
       }`}
     >
       {added ? "Added" : "Add"}
@@ -245,7 +245,7 @@ export default function PostCard({
                 type="button"
                 onClick={handleDelete}
                 disabled={deleting}
-                className="text-red-400 disabled:opacity-40"
+                className="text-coral disabled:opacity-40"
                 title="Remove from community"
               >
                 <Trash2 className="w-3 h-3" />

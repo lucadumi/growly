@@ -2,16 +2,14 @@
 
 import {
   FormEvent,
-  useCallback,
   useEffect,
-  useLayoutEffect,
-  useRef,
   useState,
   useTransition,
 } from "react";
-import { ChevronDown, Lock } from "lucide-react";
+import { Lock } from "lucide-react";
 
 import { updateProfileAction } from "@/app/account/actions/update-profile";
+import Dropdown from "@/app/components/ui/dropdown";
 
 const FOCUS_AREAS = [
   "Health & Fitness",
@@ -24,7 +22,7 @@ const FOCUS_AREAS = [
   "Sleep",
   "Nutrition",
   "Other",
-];
+].map((o) => ({ label: o, value: o }));
 
 interface EditProfileFormProps {
   initialName: string;
@@ -43,11 +41,6 @@ const labelClass = "flex flex-col gap-1 lg:text-[11px] xl:text-xs 2xl:text-sm";
 
 const dropdownWrapperClass =
   "relative overflow-visible rounded-2xl bg-white border border-gray-100 hover:border-primary/40 transition-colors focus-within:border-primary/40";
-
-const sanitizeDropdownValue = (value: string) =>
-  value.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase();
-
-const focusAreaDropdownOptionsId = "focus-area-dropdown-options";
 
 export default function EditProfileForm({
   initialName,
@@ -68,61 +61,6 @@ export default function EditProfileForm({
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [isPending, startTransition] = useTransition();
-  const [focusAreaMenuOpen, setFocusAreaMenuOpen] = useState(false);
-  const [focusAreaDropDirection, setFocusAreaDropDirection] = useState<
-    "down" | "up"
-  >("down");
-  const focusAreaToggleRef = useRef<HTMLButtonElement | null>(null);
-  const focusAreaPanelRef = useRef<HTMLDivElement | null>(null);
-
-  const closeFocusAreaMenu = useCallback(() => {
-    setFocusAreaMenuOpen(false);
-    focusAreaToggleRef.current?.blur();
-  }, []);
-
-  useEffect(() => {
-    if (!focusAreaMenuOpen) return undefined;
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      const target = event.target as Node | null;
-      if (
-        focusAreaPanelRef.current?.contains(target) ||
-        focusAreaToggleRef.current?.contains(target)
-      ) {
-        return;
-      }
-      setFocusAreaMenuOpen(false);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [focusAreaMenuOpen]);
-
-  useLayoutEffect(() => {
-    if (!focusAreaMenuOpen) return undefined;
-    const update = () => {
-      const toggleRect = focusAreaToggleRef.current?.getBoundingClientRect();
-      if (!toggleRect) return;
-      const panelHeight =
-        focusAreaPanelRef.current?.getBoundingClientRect().height ?? 0;
-      const spaceBelow = window.innerHeight - toggleRect.bottom;
-      const spaceAbove = toggleRect.top;
-      setFocusAreaDropDirection(
-        spaceBelow >= panelHeight + 8 || spaceBelow >= spaceAbove
-          ? "down"
-          : "up",
-      );
-    };
-    update();
-    window.addEventListener("resize", update);
-    window.addEventListener("scroll", update, true);
-    return () => {
-      window.removeEventListener("resize", update);
-      window.removeEventListener("scroll", update, true);
-    };
-  }, [focusAreaMenuOpen]);
 
   useEffect(() => {
     setName(initialName);
@@ -235,67 +173,15 @@ export default function EditProfileForm({
         </label>
         <div className={labelClass}>
           <span className="text-muted-foreground">Focus area</span>
-          <div className={dropdownWrapperClass}>
-            <button
-              type="button"
-              ref={focusAreaToggleRef}
-              onClick={() => setFocusAreaMenuOpen((open) => !open)}
-              aria-haspopup="listbox"
-              aria-expanded={focusAreaMenuOpen}
-              aria-controls={focusAreaDropdownOptionsId}
-              className="w-full flex items-center justify-between rounded-2xl lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm font-medium text-foreground focus:outline-none"
-            >
-              <span className={focusArea ? "" : "text-muted-foreground"}>
-                {focusArea || "— Select a focus area —"}
-              </span>
-              <ChevronDown
-                className={`lg:w-2 lg:h-2 xl:h-3 xl:w-3 2xl:h-4 2xl:w-4 transition-transform ${
-                  focusAreaMenuOpen
-                    ? "rotate-180 text-primary"
-                    : "text-muted-foreground"
-                }`}
-              />
-            </button>
-            {focusAreaMenuOpen && (
-              <div
-                ref={focusAreaPanelRef}
-                id={focusAreaDropdownOptionsId}
-                role="listbox"
-                aria-activedescendant={
-                  focusArea
-                    ? `focus-area-option-${sanitizeDropdownValue(focusArea)}`
-                    : undefined
-                }
-                className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-y-auto rounded-2xl border border-gray-100 bg-white shadow-md ${
-                  focusAreaDropDirection === "down"
-                    ? "top-full mt-2"
-                    : "bottom-full mb-2"
-                }`}
-              >
-                {FOCUS_AREAS.map((area) => {
-                  const optionId = `focus-area-option-${sanitizeDropdownValue(area)}`;
-                  return (
-                    <button
-                      key={area}
-                      id={optionId}
-                      type="button"
-                      role="option"
-                      aria-selected={focusArea === area}
-                      onClick={() => {
-                        setFocusArea(area);
-                        closeFocusAreaMenu();
-                      }}
-                      className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs transition last:border-b-0 ${
-                        focusArea === area ? "font-semibold" : ""
-                      }`}
-                    >
-                      {area}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          <Dropdown
+            id="focus-area"
+            options={FOCUS_AREAS}
+            value={focusArea}
+            onChange={setFocusArea}
+            placeholder="— Select a focus area —"
+            wrapperClassName={dropdownWrapperClass}
+            buttonClassName="w-full flex items-center justify-between rounded-2xl lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-xs 2xl:text-sm font-medium text-foreground focus:outline-none"
+          />
         </div>
       </div>
 

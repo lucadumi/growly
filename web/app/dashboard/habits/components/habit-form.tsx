@@ -224,7 +224,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
               </div>
             </label>
 
-            <label className="lg:space-y-2 xl:space-y-3 block">
+            <div className="lg:space-y-2 xl:space-y-3">
               <div className="flex items-center gap-2 lg:text-xs xl:text-sm font-semibold">
                 <span>Goal value</span>
               </div>
@@ -308,7 +308,7 @@ const HabitForm: React.FC<HabitFormProps> = ({
                   </div>
                 </div>
               </div>
-            </label>
+            </div>
 
             {/* Day-of-week picker */}
             <div className="lg:space-y-1 xl:space-y-2">

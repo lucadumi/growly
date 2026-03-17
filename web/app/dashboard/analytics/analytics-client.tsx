@@ -245,7 +245,7 @@ const AnalyticsClient: React.FC<Props> = ({
                 </div>
                 <div className="w-full bg-gray-100 rounded-full lg:h-1 xl:h-1.5">
                   <div
-                    className="h-full rounded-full bg-accent transition-all duration-500"
+                    className="h-full rounded-full bg-gray-300 transition-all duration-500"
                     style={{ width: `${summary.streakGoalProgress ?? 0}%` }}
                   />
                 </div>
@@ -258,7 +258,7 @@ const AnalyticsClient: React.FC<Props> = ({
             )}
           </div>
 
-          <div className="rounded-2xl bg-[#41ab5d] text-white lg:p-3 xl:p-4 flex items-start justify-between">
+          <div className="rounded-2xl bg-accent text-white lg:p-3 xl:p-4 flex items-start justify-between">
             <div className="flex flex-col justify-between h-full">
               <p className="lg:text-[9px] xl:text-[11px] font-semibold uppercase tracking-[0.16em]">
                 Consistency
@@ -292,7 +292,7 @@ const AnalyticsClient: React.FC<Props> = ({
             </div>
           </div>
 
-          <div className="rounded-2xl bg-blue-500 text-white lg:p-3 xl:p-4 flex items-start justify-between">
+          <div className="rounded-2xl bg-blue-400 text-white lg:p-3 xl:p-4 flex items-start justify-between">
             <div className="flex flex-col justify-between h-full">
               <p className="lg:text-[9px] xl:text-[11px] 2xl:text-xs font-semibold uppercase tracking-[0.16em]">
                 Leader

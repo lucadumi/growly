@@ -9,14 +9,12 @@ import {
   Flame,
   LayoutGrid,
   List,
-  Pencil,
   Plus,
-  RotateCcw,
-  X,
 } from "lucide-react";
 
 import HabitForm from "./components/habit-form";
-
+import HabitSidebar from "./components/habit-sidebar";
+import SlideOver from "@/app/components/ui/slide-over";
 import PageHeading from "@/app/components/page-heading";
 import HabitsTabs from "./components/habits-tabs";
 import { formatDayKey, type ProgressByDayMap } from "@/lib/habit-progress";
@@ -1013,368 +1011,111 @@ export default function HabitsBoard({
 
           {/* ── Right: sidebar ── */}
           <div className="relative">
-            <aside className="absolute inset-0 flex flex-col overflow-hidden border-b border-gray-100 pb-2">
-              <div className="shrink-0 flex items-center justify-between px-1 mb-3">
-                <div>
-                  <p className="text-sm font-bold text-foreground">
-                    Today's habits
-                  </p>
-                </div>
-                <span
-                  className={`inline-flex items-center gap-1.5 rounded-full px-3 py-0.5 text-xs font-semibold ${completedToday === activeToday.length && activeToday.length > 0 ? "bg-green-soft/20 text-green-soft" : "bg-gray-200 text-muted-foreground"}`}
-                >
-                  {completedToday}/{activeToday.length}
-                </span>
-              </div>
-              {routines.length > 0 && (
-                <div className="shrink-0 flex flex-wrap gap-1 px-1 mb-3">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedRoutineId(null)}
-                    className={`rounded-full px-2.5 py-0.5 lg:text-[10px] 2xl:text-xs font-semibold transition ${selectedRoutineId === null ? "bg-primary text-white" : "bg-gray-100 text-muted-foreground hover:text-foreground"}`}
-                  >
-                    All
-                  </button>
-                  {routines.map((r) => (
-                    <button
-                      key={r.id}
-                      type="button"
-                      onClick={() =>
-                        setSelectedRoutineId((prev) =>
-                          prev === r.id ? null : r.id,
-                        )
-                      }
-                      className={`rounded-full px-2.5 py-0.5 lg:text-[10px] 2xl:text-xs font-semibold transition ${selectedRoutineId === r.id ? "bg-primary text-white" : "bg-gray-100 text-muted-foreground hover:text-foreground"}`}
-                    >
-                      {r.name}
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              <div className="flex-1 overflow-y-auto min-h-0 space-y-3 pr-0.5">
-                {sidebarHabits.length === 0 ? (
-                  <div className="rounded-2xl bg-card/30 px-5 py-6">
-                    <p className="text-sm font-semibold text-foreground">
-                      No habits yet
-                    </p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      Add a habit to start tracking.
-                    </p>
-                  </div>
-                ) : (
-                  (() => {
-                    const filteredSidebarHabits = selectedRoutineId
-                      ? sidebarHabits.filter((h) =>
-                          routines
-                            .find((r) => r.id === selectedRoutineId)
-                            ?.habitIds.includes(h.habit.id),
-                        )
-                      : sidebarHabits;
-
-                    const sidebarById = new Map(
-                      filteredSidebarHabits.map((h) => [h.habit.id, h]),
-                    );
-                    const assignedIds = new Set(
-                      routines.flatMap((r) => r.habitIds),
-                    );
-                    const ungrouped = filteredSidebarHabits.filter(
-                      (h) => !assignedIds.has(h.habit.id),
-                    );
-
-                    const renderHabitCard = (
-                      item: (typeof sidebarHabits)[number],
-                    ) => {
-                      const isPending = pending[item.habit.id] ?? false;
-                      const inputVal = inputValues[item.habit.id] ?? "1";
-                      return (
-                        <div
-                          key={item.habit.id}
-                          className={`rounded-2xl bg-card px-3 py-3 border border-gray-100 transition-all ${
-                            item.isComplete && item.palette.card
-                          }`}
-                        >
-                          <div className="flex items-center justify-between gap-2 mb-3">
-                            <button
-                              type="button"
-                              onClick={() => openEditHabit(item.habit)}
-                              className="flex items-center gap-2 min-w-0 group text-left"
-                              title="Edit habit"
-                            >
-                              <span className="truncate text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                                {item.habit.name}
-                              </span>
-                              <Pencil className="h-3 w-3 shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </button>
-                            <div className="flex shrink-0 items-center gap-1.5">
-                              {item.isComplete && (
-                                <span
-                                  className={`flex items-center gap-1 text-xs font-semibold ${item.palette.text}`}
-                                >
-                                  <Check className="h-3.5 w-3.5" />
-                                  Done
-                                </span>
-                              )}
-                              {(item.habit.streak ?? 0) > 0 && (
-                                <span className="inline-flex bg-secondary rounded-full px-2 py-0.5 text-[11px] items-center gap-0.5 text-xs font-bold text-primary">
-                                  <Flame className="h-3 w-3" />
-                                  {item.habit.streak}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                          <div className="space-y-1.5 mb-4">
-                            <div className="flex items-center justify-between text-xs font-semibold">
-                              <span className="text-muted-foreground">
-                                {fmt(item.progress)} / {fmt(item.goal)}
-                                {item.unit !== "count" && ` ${item.unit}`}
-                              </span>
-                              <span
-                                className={
-                                  item.pct >= 100
-                                    ? item.palette.text
-                                    : "text-muted-foreground"
-                                }
-                              >
-                                {item.pct}%
-                              </span>
-                            </div>
-                            <div className="h-1.5 w-full rounded-full bg-gray-100 overflow-hidden">
-                              <div
-                                className={`h-full rounded-full transition-all duration-500 ${item.palette.bar}`}
-                                style={{ width: `${item.pct}%` }}
-                              />
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <input
-                              type="number"
-                              min="0.1"
-                              step="0.1"
-                              value={inputVal}
-                              onChange={(e) =>
-                                setInputValues((v) => ({
-                                  ...v,
-                                  [item.habit.id]: e.target.value,
-                                }))
-                              }
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter") handleAdd(item.habit.id);
-                              }}
-                              className="w-16 rounded-xl border border-gray-200 px-2 py-1.5 text-center text-xs font-semibold outline-none focus:border-primary transition"
-                              disabled={isPending}
-                            />
-                            <button
-                              type="button"
-                              onClick={() => handleAdd(item.habit.id)}
-                              disabled={isPending}
-                              className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary transition hover:border-primary/40 hover:bg-primary/12 disabled:opacity-50"
-                            >
-                              <Plus className="h-3.5 w-3.5" />
-                              Add
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => handleReset(item.habit.id)}
-                              disabled={isPending || item.progress <= 0}
-                              title="Reset today's progress"
-                              className="grid h-8 w-8 shrink-0 place-items-center rounded-xl border border-gray-200 text-muted-foreground transition hover:border-gray-300 hover:text-foreground disabled:opacity-30"
-                            >
-                              <RotateCcw className="h-3.5 w-3.5" />
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    };
-
-                    if (filteredSidebarHabits.length === 0) {
-                      return (
-                        <div className="rounded-2xl bg-card/30 px-5 py-6">
-                          <p className="text-xs text-muted-foreground">
-                            No habits scheduled today for this routine.
-                          </p>
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <>
-                        {routines.map((routine) => {
-                          const items = routine.habitIds
-                            .map((id) => sidebarById.get(id))
-                            .filter(Boolean) as typeof sidebarHabits;
-                          if (items.length === 0) return null;
-                          return (
-                            <div key={routine.id} className="space-y-2">
-                              <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                                {routine.name}
-                              </p>
-                              <div className="grid grid-cols-2 gap-2">
-                                {items.map(renderHabitCard)}
-                              </div>
-                            </div>
-                          );
-                        })}
-                        {ungrouped.length > 0 && (
-                          <div className="space-y-2">
-                            {routines.length > 0 && (
-                              <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                                Other
-                              </p>
-                            )}
-                            <div className="grid grid-cols-2 gap-2">
-                              {ungrouped.map(renderHabitCard)}
-                            </div>
-                          </div>
-                        )}
-                      </>
-                    );
-                  })()
-                )}
-              </div>
-            </aside>
+            <HabitSidebar
+              sidebarHabits={sidebarHabits}
+              completedToday={completedToday}
+              activeTodayCount={activeToday.length}
+              routines={routines}
+              selectedRoutineId={selectedRoutineId}
+              onSelectRoutine={setSelectedRoutineId}
+              pending={pending}
+              inputValues={inputValues}
+              onInputChange={(habitId, value) =>
+                setInputValues((v) => ({ ...v, [habitId]: value }))
+              }
+              onAdd={handleAdd}
+              onReset={handleReset}
+              onEditHabit={openEditHabit}
+            />
           </div>
         </div>
       </div>
       {/* Edit habit slide-over */}
-      {showEditHabit && selectedHabit && (
-        <div
-          className={`fixed inset-0 z-50 flex justify-end transition-colors duration-300 ${editHabitVisible ? "bg-black/20" : "bg-black/0"}`}
-        >
-          <div
-            className="absolute inset-0 backdrop-blur-[2px]"
-            onClick={closeEditHabit}
+      <SlideOver
+        show={showEditHabit && !!selectedHabit}
+        visible={editHabitVisible}
+        onClose={closeEditHabit}
+        badge="Edit habit"
+        title={selectedHabit?.name ?? ""}
+        actions={
+          <>
+            <button
+              type="button"
+              onClick={handleDeleteHabit}
+              disabled={isDeletingHabit}
+              className="inline-flex items-center gap-2 rounded-full bg-coral px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {isDeletingHabit ? "Deleting..." : "Delete"}
+            </button>
+            <button
+              type="submit"
+              form="edit-habit-form"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
+            >
+              Update habit
+            </button>
+          </>
+        }
+      >
+        {selectedHabit && (
+          <HabitForm
+            key={selectedHabit.id}
+            formId="edit-habit-form"
+            mode="edit"
+            habitId={selectedHabit.id}
+            initialHabit={{
+              name: selectedHabit.name,
+              description: selectedHabit.description ?? "",
+              scheduledDays: maskToDays(selectedHabit.cadence ?? "Daily"),
+              startDate: selectedHabit.startDate
+                ? new Date(selectedHabit.startDate).toISOString().slice(0, 10)
+                : new Date().toISOString().slice(0, 10),
+              timeWindow: selectedHabit.timeWindow ?? "07:00",
+              goalAmount:
+                selectedHabit.goalAmount != null
+                  ? String(selectedHabit.goalAmount)
+                  : "1",
+              goalUnit: selectedHabit.goalUnit ?? "count",
+              goalUnitCategory:
+                (selectedHabit.goalUnitCategory as UnitCategory) ?? "Quantity",
+            }}
+            hideSubmitButton
+            onSuccess={() => {
+              closeEditHabit();
+              router.refresh();
+            }}
+            onCancel={closeEditHabit}
           />
-          <div
-            className={`relative h-full w-full max-w-5xl border-l-8 border-gray-100 bg-card flex flex-col transition-transform duration-300 ease-out ${editHabitVisible ? "translate-x-0" : "translate-x-full"}`}
-          >
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
-                  Edit habit
-                </p>
-                <h2 className="text-lg font-semibold text-foreground">
-                  {selectedHabit.name}
-                </h2>
-              </div>
-              <div className="flex items-center gap-4">
-                <button
-                  type="button"
-                  onClick={handleDeleteHabit}
-                  disabled={isDeletingHabit}
-                  className="inline-flex items-center gap-2 rounded-full bg-red-400 px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed"
-                >
-                  {isDeletingHabit ? "Deleting..." : "Delete"}
-                </button>
-                <button
-                  type="submit"
-                  form="edit-habit-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
-                >
-                  Update habit
-                </button>
-                <button
-                  type="button"
-                  onClick={closeEditHabit}
-                  aria-label="Close"
-                >
-                  <X className="h-4 w-4 text-muted-foreground" />
-                </button>
-              </div>
-            </div>
-            <div className="flex-1 overflow-y-auto">
-              <div className="min-h-full flex flex-col px-6 py-5">
-                <HabitForm
-                  key={selectedHabit.id}
-                  formId="edit-habit-form"
-                  mode="edit"
-                  habitId={selectedHabit.id}
-                  initialHabit={{
-                    name: selectedHabit.name,
-                    description: selectedHabit.description ?? "",
-                    scheduledDays: maskToDays(selectedHabit.cadence ?? "Daily"),
-                    startDate: selectedHabit.startDate
-                      ? new Date(selectedHabit.startDate)
-                          .toISOString()
-                          .slice(0, 10)
-                      : new Date().toISOString().slice(0, 10),
-                    timeWindow: selectedHabit.timeWindow ?? "07:00",
-                    goalAmount:
-                      selectedHabit.goalAmount != null
-                        ? String(selectedHabit.goalAmount)
-                        : "1",
-                    goalUnit: selectedHabit.goalUnit ?? "count",
-                    goalUnitCategory:
-                      (selectedHabit.goalUnitCategory as UnitCategory) ??
-                      "Quantity",
-                  }}
-                  hideSubmitButton
-                  onSuccess={() => {
-                    closeEditHabit();
-                    router.refresh();
-                  }}
-                  onCancel={closeEditHabit}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+        )}
+      </SlideOver>
 
       {/* Add habit slide-over */}
-      {showAddHabit && (
-        <div
-          className={`fixed inset-0 z-50 flex justify-end transition-colors duration-300 ${addHabitVisible ? "bg-black/20" : "bg-black/0"}`}
-        >
-          <div
-            className="absolute inset-0 backdrop-blur-[2px]"
-            onClick={closeAddHabit}
-          />
-          <div
-            className={`relative h-full w-full max-w-5xl bg-card border-l-8 border-gray-100 flex flex-col transition-transform duration-300 ease-out ${addHabitVisible ? "translate-x-0" : "translate-x-full"}`}
+      <SlideOver
+        show={showAddHabit}
+        visible={addHabitVisible}
+        onClose={closeAddHabit}
+        badge="Create habit"
+        title="Design a new habit"
+        actions={
+          <button
+            type="submit"
+            form="add-habit-form"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
           >
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
-                  Create habit
-                </p>
-                <h2 className="text-lg font-semibold text-foreground">
-                  Design a new habit
-                </h2>
-              </div>
-              <div className="flex items-center gap-4">
-                <button
-                  type="submit"
-                  form="add-habit-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
-                >
-                  Create habit
-                </button>
-                <button
-                  type="button"
-                  onClick={closeAddHabit}
-                  aria-label="Close"
-                >
-                  <X className="h-4 w-4 text-muted-foreground" />
-                </button>
-              </div>
-            </div>
-            <div className="flex-1 overflow-y-auto">
-              <div className="min-h-full flex flex-col px-6 py-5">
-                <HabitForm
-                  formId="add-habit-form"
-                  hideSubmitButton
-                  onSuccess={() => {
-                    closeAddHabit();
-                    router.refresh();
-                  }}
-                  onCancel={closeAddHabit}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+            Create habit
+          </button>
+        }
+      >
+        <HabitForm
+          formId="add-habit-form"
+          hideSubmitButton
+          onSuccess={() => {
+            closeAddHabit();
+            router.refresh();
+          }}
+          onCancel={closeAddHabit}
+        />
+      </SlideOver>
     </main>
   );
 }

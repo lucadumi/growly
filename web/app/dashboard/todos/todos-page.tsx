@@ -9,7 +9,6 @@ import {
   Target,
   Timer,
   Search,
-  X,
   GripVertical,
   Trash2,
 } from "lucide-react";
@@ -19,6 +18,8 @@ import TodoForm, { type TodoFormHandle } from "./components/todo-form";
 import type { Collection, Priority, Status, TodoRow } from "./types";
 import { priorityDots, statusColors } from "./constants";
 import Button from "@/app/components/ui/button";
+import SlideOver from "@/app/components/ui/slide-over";
+import StatCard from "@/app/components/ui/stat-card";
 import { useXP } from "@/app/context/xp-context";
 import { XP_PER_TODO } from "@/lib/xp";
 import PageHeading from "@/app/components/page-heading";
@@ -155,9 +156,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
   const queryActionRef = useRef<{ edit: string | null; create: string | null }>(
     { edit: null, create: null },
   );
-  const [showCreateFormGuard, setShowCreateFormGuard] = useState(false);
-  const [createFormGuardSaving, setCreateFormGuardSaving] = useState(false);
-  const [editTodoId, setEditTodoId] = useState<string | null>(null);
+const [editTodoId, setEditTodoId] = useState<string | null>(null);
   const [editTodoData, setEditTodoData] = useState<{
     id: string;
     title: string;
@@ -261,42 +260,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
   );
 
   const handleRequestCreateFormClose = useCallback(() => {
-    const isDirty = createFormRef.current?.isDirty() ?? false;
-    if (isDirty) {
-      setShowCreateFormGuard(true);
-      return;
-    }
     closeTodoSlideOver();
-  }, [closeTodoSlideOver]);
-
-  const handleCreateFormGuardKeep = useCallback(() => {
-    setShowCreateFormGuard(false);
-  }, []);
-
-  const handleCreateFormGuardDiscard = useCallback(() => {
-    createFormRef.current?.discardChanges();
-    setShowCreateFormGuard(false);
-    closeTodoSlideOver();
-  }, [closeTodoSlideOver]);
-
-  const handleCreateFormGuardSave = useCallback(async () => {
-    const formHandle = createFormRef.current;
-    if (!formHandle) {
-      setShowCreateFormGuard(false);
-      closeTodoSlideOver();
-      return;
-    }
-
-    setCreateFormGuardSaving(true);
-    try {
-      const saved = await formHandle.saveChanges();
-      if (saved) {
-        setShowCreateFormGuard(false);
-        closeTodoSlideOver();
-      }
-    } finally {
-      setCreateFormGuardSaving(false);
-    }
   }, [closeTodoSlideOver]);
 
   useEffect(() => {
@@ -746,71 +710,33 @@ const TodosPage: React.FC<TodosPageProps> = ({
                 />
               </div>
               <div className="grid md:grid-cols-3 lg:gap-3 xl:gap-4">
-                <div className="lg:rounded-xl xl:rounded-2xl bg-card border border-gray-100 lg:p-3 xl:p-4 2xl:p-5 flex items-center gap-3 relative overflow-hidden">
-                  <div className="lg:w-9 lg:h-9 xl:w-11 xl:h-11 2xl:w-13 2xl:h-13 shrink-0 rounded-full bg-green-soft/20 flex items-center justify-center">
-                    <CheckCircle2 className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 text-green-soft" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="lg:text-[10px] xl:text-[11px] 2xl:text-xs text-muted-foreground font-medium uppercase tracking-wide">
-                      Completed
-                    </p>
-                    <p className="lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-foreground leading-tight">
-                      {totals.completed}
-                    </p>
-                    <div className="mt-1 h-1 w-full rounded-full bg-green-soft/20 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-green-soft transition-all duration-500"
-                        style={{
-                          width: visibleTodos.length
-                            ? `${(totals.completed / visibleTodos.length) * 100}%`
-                            : "0%",
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="lg:rounded-xl xl:rounded-2xl bg-card border border-gray-100 lg:p-3 xl:p-4 2xl:p-5 flex items-center gap-3 relative overflow-hidden">
-                  <div className="lg:w-9 lg:h-9 xl:w-11 xl:h-11 2xl:w-13 2xl:h-13 shrink-0 rounded-full bg-primary/20 flex items-center justify-center">
-                    <Timer className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 text-primary" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="lg:text-[10px] xl:text-[11px] 2xl:text-xs text-muted-foreground font-medium uppercase tracking-wide">
-                      Active
-                    </p>
-                    <p className="lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-foreground leading-tight">
-                      {totals.active}
-                    </p>
-                    <div className="mt-1 h-1 w-full rounded-full bg-primary/20 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-primary transition-all duration-500"
-                        style={{
-                          width: visibleTodos.length
-                            ? `${(totals.active / visibleTodos.length) * 100}%`
-                            : "0%",
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="lg:rounded-xl xl:rounded-2xl bg-card border border-gray-100 lg:p-3 xl:p-4 2xl:p-5 flex items-center gap-3 relative overflow-hidden">
-                  <div className="lg:w-9 lg:h-9 xl:w-11 xl:h-11 2xl:w-13 2xl:h-13 shrink-0 rounded-full bg-coral/20 flex items-center justify-center">
-                    <Target className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 text-coral" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="lg:text-[10px] xl:text-[11px] 2xl:text-xs text-muted-foreground font-medium uppercase tracking-wide">
-                      Focus score
-                    </p>
-                    <p className="lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-foreground leading-tight">
-                      {focusStats.focusScore}%
-                    </p>
-                    <div className="mt-1 h-1 w-full rounded-full bg-coral/20 overflow-hidden">
-                      <div
-                        className="h-full rounded-full bg-coral transition-all duration-500"
-                        style={{ width: `${focusStats.focusScore}%` }}
-                      />
-                    </div>
-                  </div>
-                </div>
+                <StatCard
+                  icon={<CheckCircle2 className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 text-green-soft" />}
+                  iconBgClass="bg-green-soft/20"
+                  label="Completed"
+                  value={totals.completed}
+                  progressPct={visibleTodos.length ? (totals.completed / visibleTodos.length) * 100 : 0}
+                  progressBgClass="bg-green-soft/20"
+                  progressBarClass="bg-green-soft"
+                />
+                <StatCard
+                  icon={<Timer className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 text-primary" />}
+                  iconBgClass="bg-primary/20"
+                  label="Active"
+                  value={totals.active}
+                  progressPct={visibleTodos.length ? (totals.active / visibleTodos.length) * 100 : 0}
+                  progressBgClass="bg-primary/20"
+                  progressBarClass="bg-primary"
+                />
+                <StatCard
+                  icon={<Target className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 2xl:w-6 2xl:h-6 text-coral" />}
+                  iconBgClass="bg-coral/20"
+                  label="Focus score"
+                  value={`${focusStats.focusScore}%`}
+                  progressPct={focusStats.focusScore}
+                  progressBgClass="bg-coral/20"
+                  progressBarClass="bg-coral"
+                />
               </div>
 
               <div className="flex flex-col items-end gap-2">
@@ -820,7 +746,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
                     deleteCompletedPending || visibleCompletedIds.length === 0
                   }
                   onClick={handleDeleteCompleted}
-                  className="cursor-pointer inline-flex items-center gap-2 rounded-full lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-60 bg-red-400"
+                  className="cursor-pointer inline-flex items-center gap-2 rounded-full lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-60 bg-coral"
                 >
                   Delete completed
                 </button>
@@ -959,7 +885,7 @@ const TodosPage: React.FC<TodosPageProps> = ({
                                     onClick={() => handleDeleteTodo(todo.id)}
                                     disabled={!!deletingTodoId}
                                     aria-label="Delete todo"
-                                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 p-1 cursor-pointer transition text-red-400 disabled:cursor-not-allowed"
+                                    className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 p-1 cursor-pointer transition text-coral disabled:cursor-not-allowed"
                                   >
                                     <Trash2 className="lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5" />
                                   </button>
@@ -1174,108 +1100,85 @@ const TodosPage: React.FC<TodosPageProps> = ({
       </main>
 
       {/* Todo slide-over */}
-      {showTodoSlideOver && (
-        <div
-          className={`fixed inset-0 z-50 flex justify-end transition-colors duration-300 ${slideOverVisible ? "bg-black/20" : "bg-black/0"}`}
-        >
-          <div
-            className="absolute inset-0 backdrop-blur-[2px]"
-            onClick={handleRequestCreateFormClose}
-          />
-          <div
-            className={`relative h-full w-full max-w-5xl bg-card shadow-2xl border-l-8 border-gray-100 flex flex-col transition-transform duration-300 ease-out ${slideOverVisible ? "translate-x-0" : "translate-x-full"}`}
-          >
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 shrink-0">
-              <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
-                  {isEditingTodo ? "Edit todo" : "Create todo"}
-                </p>
-                <h2 className="text-lg font-semibold text-foreground">
-                  {isEditingTodo
-                    ? (editTodoData?.title ?? "Edit todo")
-                    : "Design a new todo"}
-                </h2>
-              </div>
-              <div className="flex items-center gap-4">
-                {isEditingTodo && editTodoId ? (
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteTodo(editTodoId)}
-                    disabled={!!deletingTodoId}
-                    aria-label="Delete todo"
-                    className="inline-flex items-center gap-1.5 rounded-full px-3 hover:opacity-90 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white bg-red-400 transition hover:bg-destructive/10 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {deletingTodoId ? "Deleting…" : "Delete"}
-                  </button>
-                ) : null}
-                <button
-                  type="button"
-                  onClick={() => createFormRef.current?.saveChanges()}
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
-                >
-                  {isEditingTodo ? "Update todo" : "Create todo"}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleRequestCreateFormClose}
-                  aria-label="Close"
-                >
-                  <X className="h-4 w-4 text-muted-foreground" />
-                </button>
-              </div>
-            </div>
-            <div className="flex-1 overflow-y-auto">
-              <div className="min-h-full flex flex-col px-6 py-5">
-                {editTodoError ? (
-                  <div className="mb-4 rounded-xl border border-destructive/50 bg-destructive/10 px-4 py-3 text-xs text-destructive">
-                    {editTodoError}
-                  </div>
-                ) : null}
-                {isEditingTodo ? (
-                  editTodoLoading ? (
-                    <div className="rounded-2xl border border-gray-100 bg-white/70 p-6 space-y-4 animate-pulse">
-                      <div className="space-y-2">
-                        <div className="h-3 w-20 rounded bg-muted/50" />
-                        <div className="h-9 w-full rounded-xl bg-muted/40" />
-                      </div>
-                      <div className="space-y-2">
-                        <div className="h-3 w-24 rounded bg-muted/50" />
-                        <div className="h-20 w-full rounded-xl bg-muted/40" />
-                      </div>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="space-y-2">
-                          <div className="h-3 w-16 rounded bg-muted/50" />
-                          <div className="h-9 w-full rounded-xl bg-muted/40" />
-                        </div>
-                        <div className="space-y-2">
-                          <div className="h-3 w-16 rounded bg-muted/50" />
-                          <div className="h-9 w-full rounded-xl bg-muted/40" />
-                        </div>
-                      </div>
-                      <div className="h-9 w-24 rounded-full bg-muted/40" />
-                    </div>
-                  ) : editInitialTodo ? (
-                    <TodoForm
-                      key={editTodoData?.id}
-                      ref={createFormRef}
-                      mode="edit"
-                      initialTodo={editInitialTodo}
-                      onSuccess={() => closeTodoSlideOver()}
-                    />
-                  ) : null
-                ) : (
-                  <TodoForm
-                    ref={createFormRef}
-                    mode="create"
-                    collectionId={collectionContext?.id}
-                    onSuccess={handleCreateSuccess}
-                  />
-                )}
-              </div>
-            </div>
+      <SlideOver
+        show={showTodoSlideOver}
+        visible={slideOverVisible}
+        onClose={handleRequestCreateFormClose}
+        badge={isEditingTodo ? "Edit todo" : "Create todo"}
+        title={
+          isEditingTodo
+            ? (editTodoData?.title ?? "Edit todo")
+            : "Design a new todo"
+        }
+        actions={
+          <>
+            {isEditingTodo && editTodoId ? (
+              <button
+                type="button"
+                onClick={() => handleDeleteTodo(editTodoId)}
+                disabled={!!deletingTodoId}
+                aria-label="Delete todo"
+                className="inline-flex items-center gap-1.5 rounded-full px-3 hover:opacity-90 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white bg-coral transition active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {deletingTodoId ? "Deleting…" : "Delete"}
+              </button>
+            ) : null}
+            <button
+              type="button"
+              onClick={() => createFormRef.current?.saveChanges()}
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white transition hover:brightness-105 active:scale-95"
+            >
+              {isEditingTodo ? "Update todo" : "Create todo"}
+            </button>
+          </>
+        }
+      >
+        {editTodoError ? (
+          <div className="mb-4 rounded-xl border border-destructive/50 bg-destructive/10 px-4 py-3 text-xs text-destructive">
+            {editTodoError}
           </div>
-        </div>
-      )}
+        ) : null}
+        {isEditingTodo ? (
+          editTodoLoading ? (
+            <div className="rounded-2xl border border-gray-100 bg-white/70 p-6 space-y-4 animate-pulse">
+              <div className="space-y-2">
+                <div className="h-3 w-20 rounded bg-muted/50" />
+                <div className="h-9 w-full rounded-xl bg-muted/40" />
+              </div>
+              <div className="space-y-2">
+                <div className="h-3 w-24 rounded bg-muted/50" />
+                <div className="h-20 w-full rounded-xl bg-muted/40" />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <div className="h-3 w-16 rounded bg-muted/50" />
+                  <div className="h-9 w-full rounded-xl bg-muted/40" />
+                </div>
+                <div className="space-y-2">
+                  <div className="h-3 w-16 rounded bg-muted/50" />
+                  <div className="h-9 w-full rounded-xl bg-muted/40" />
+                </div>
+              </div>
+              <div className="h-9 w-24 rounded-full bg-muted/40" />
+            </div>
+          ) : editInitialTodo ? (
+            <TodoForm
+              key={editTodoData?.id}
+              ref={createFormRef}
+              mode="edit"
+              initialTodo={editInitialTodo}
+              onSuccess={() => closeTodoSlideOver()}
+            />
+          ) : null
+        ) : (
+          <TodoForm
+            ref={createFormRef}
+            mode="create"
+            collectionId={collectionContext?.id}
+            onSuccess={handleCreateSuccess}
+          />
+        )}
+      </SlideOver>
     </>
   );
 };

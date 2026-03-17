@@ -7,6 +7,7 @@ import { CalendarDays, Flame, ShieldCheck } from "lucide-react";
 import DeleteAccountForm from "./components/delete-account-form";
 import EditProfileForm from "./components/edit-profile-form";
 import SignOutButton from "./components/sign-out-button";
+import SectionHeader from "@/app/components/ui/section-header";
 import type { AccountAnalytics } from "./types";
 import { auth } from "@/lib/auth";
 import { buildHabitAnalytics } from "@/lib/habit-analytics";
@@ -23,7 +24,7 @@ const focusAreas = [
     description:
       "Reflect on the rituals that feel effortless and adjust the rest.",
     icon: CalendarDays,
-    iconBg: "bg-blue-500",
+    iconBg: "bg-primary",
   },
   {
     title: "Energy supply",
@@ -36,7 +37,7 @@ const focusAreas = [
     title: "Guardrails",
     description: "Review quiet reminders and permissions to keep focus sacred.",
     icon: ShieldCheck,
-    iconBg: "bg-[#41ab5d]",
+    iconBg: "bg-accent",
   },
 ];
 
@@ -239,12 +240,7 @@ export default async function AccountPage() {
         <div className="lg:col-span-2 xl:col-span-3 grid lg:gap-6 xl:gap-8">
           {/* Profile widget */}
           <div className="h-full">
-            <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-              Profile
-            </h3>
-            <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-              Your Growly identity.
-            </p>
+            <SectionHeader title="Profile" description="Your Growly identity." />
             <div className="flex items-center gap-4">
               <div className="lg:h-12 lg:w-12 xl:h-16 xl:w-16 2xl:h-20 2xl:w-20 shrink-0 rounded-2xl bg-primary/15 flex items-center justify-center pointer-events-none select-none">
                 <span className="lg:text-xl xl:text-2xl 2xl:text-3xl font-bold text-primary leading-none">
@@ -281,12 +277,7 @@ export default async function AccountPage() {
 
           {/* Edit profile widget */}
           <div className="h-full flex flex-col">
-            <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-              Edit profile
-            </h3>
-            <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-              Keep your name and email current.
-            </p>
+            <SectionHeader title="Edit profile" description="Keep your name and email current." />
             <EditProfileForm
               initialName={editableName}
               initialEmail={editableEmail}
@@ -306,12 +297,7 @@ export default async function AccountPage() {
             <div className="col-span-1 h-full grid lg:gap-4 xl:gap-5">
               {/* This week */}
               <div>
-                <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-                  This week
-                </h3>
-                <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                  Days you showed up.
-                </p>
+                <SectionHeader title="This week" description="Days you showed up." />
                 <div className="flex flex-col lg:gap-3 xl:gap-4">
                   <div className="grid grid-cols-7 lg:gap-1.5 xl:gap-2">
                     {analytics.weekDays.map(({ label, active }, i) => (
@@ -347,12 +333,7 @@ export default async function AccountPage() {
               </div>
 
               <div className="flex flex-col min-h-0">
-                <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-                  Habit health
-                </h3>
-                <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                  Weekly completion over 8 weeks.
-                </p>
+                <SectionHeader title="Habit health" description="Weekly completion over 8 weeks." />
                 <div className="flex-1 min-h-0 overflow-hidden flex flex-col lg:gap-2 xl:gap-3">
                   {habitLineData.length > 0 ? (
                     <>
@@ -482,12 +463,7 @@ export default async function AccountPage() {
 
               <div className="flex flex-col justify-between">
                 <div>
-                  <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-                    Quick links
-                  </h3>
-                  <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                    Tap into what matters.
-                  </p>
+                  <SectionHeader title="Quick links" description="Tap into what matters." />
                 </div>
                 <div className="flex lg:gap-1.5 xl:gap-2">
                   {quickLinks.map((action) => (
@@ -505,35 +481,20 @@ export default async function AccountPage() {
 
             <div className="col-span-1 grid lg:gap-4 xl:gap-5">
               <div>
-                <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-                  Need a break?
-                </h3>
-                <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                  Log out and return to your calm landing page.
-                </p>
+                <SectionHeader title="Need a break?" description="Log out and return to your calm landing page." />
                 <SignOutButton />
               </div>
 
               <div>
                 <div>
-                  <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-                    Danger zone
-                  </h3>
-                  <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                    Permanent actions that cannot be undone.
-                  </p>
+                  <SectionHeader title="Danger zone" description="Permanent actions that cannot be undone." />
                 </div>
                 <DeleteAccountForm />
               </div>
 
               {/* Top streaks */}
               <div>
-                <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-                  Top streaks
-                </h3>
-                <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                  Habits on a roll right now.
-                </p>
+                <SectionHeader title="Top streaks" description="Habits on a roll right now." />
                 {topHabits.length > 0 ? (
                   <div className="flex flex-col lg:gap-2 xl:gap-2.5">
                     {topHabits.map((habit, i) => (
@@ -567,24 +528,19 @@ export default async function AccountPage() {
 
               <div className="flex flex-col justify-between">
                 <div>
-                  <h3 className="font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-                    Todo progress
-                  </h3>
-                  <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                    Your task breakdown at a glance.
-                  </p>
+                  <SectionHeader title="Todo progress" description="Your task breakdown at a glance." />
                 </div>
                 <div className="flex flex-col lg:gap-2 xl:gap-2.5">
                   {[
                     {
                       label: "Completed",
                       count: completedTodos,
-                      color: "bg-[#41ab5d]",
+                      color: "bg-accent",
                     },
                     {
                       label: "In progress",
                       count: inProgressTodos,
-                      color: "bg-blue-400",
+                      color: "bg-primary/70",
                     },
                     {
                       label: "Planned",
@@ -612,13 +568,13 @@ export default async function AccountPage() {
                   {totalTodos > 0 && (
                     <div className="w-full rounded-full bg-muted lg:h-1.5 xl:h-2 overflow-hidden flex lg:mt-1 xl:mt-1.5">
                       <div
-                        className="bg-[#41ab5d] h-full transition-all"
+                        className="bg-accent h-full transition-all"
                         style={{
                           width: `${Math.round((completedTodos / totalTodos) * 100)}%`,
                         }}
                       />
                       <div
-                        className="bg-blue-400 h-full transition-all"
+                        className="bg-primary/70 h-full transition-all"
                         style={{
                           width: `${Math.round((inProgressTodos / totalTodos) * 100)}%`,
                         }}
@@ -637,12 +593,7 @@ export default async function AccountPage() {
 
           <div className="flex flex-col justify-between">
             <div>
-              <h3 className="row-span-1 font-semibold lg:text-base xl:text-lg 2xl:text-xl">
-                Weekly focus
-              </h3>
-              <p className="text-muted-foreground lg:text-[9px] xl:text-[11px] 2xl:text-xs lg:mb-2 xl:mb-3">
-                Ritual notes that keep your energy anchored.
-              </p>
+              <SectionHeader title="Weekly focus" description="Ritual notes that keep your energy anchored." />
             </div>
 
             <div className="grid grid-cols-3 lg:gap-3 xl:gap-4">

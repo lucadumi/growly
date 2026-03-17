@@ -43,7 +43,7 @@ const barColors = [
   "bg-green-soft",
   "bg-coral",
   "bg-yellow-400",
-  "bg-blue-400",
+  "bg-yellow-soft",
   "bg-emerald-500",
   "bg-indigo-400",
   "bg-muted",
@@ -148,7 +148,7 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
       <div className="flex gap-4">
         <div className="min-w-40 flex lg:gap-2 xl:gap-3">
           <div className="flex flex-col lg:gap-2 xl:gap-3">
-            <div className="lg:py-2 lg:px-2 xl:px-3 2xl:py-4 xl:max-h-max rounded-tl-none lg:rounded-b-2xl 2xl:rounded-b-3xl lg:rounded-tr-2xl 2xl:rounded-tr-3xl border-0 bg-[#41ab5d]">
+            <div className="lg:py-2 lg:px-2 xl:px-3 2xl:py-4 xl:max-h-max rounded-tl-none lg:rounded-b-2xl 2xl:rounded-b-3xl lg:rounded-tr-2xl 2xl:rounded-tr-3xl border-0 bg-accent">
               <div className="flex items-center lg:gap-1 xl:gap-2 lg:mb-1 xl:mb-2">
                 <div className="lg:w-5 lg:h-5 xl:w-7 xl:h-7 2xl:w-8 2xl:h-8 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
                   <TrendingUp className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 text-white" />
@@ -162,7 +162,7 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
               </div>
             </div>
 
-            <div className="lg:py-2 lg:px-2 xl:px-3 2xl:py-4 xl:max-h-max lg:rounded-2xl 2xl:rounded-3xl border-0 bg-blue-500">
+            <div className="lg:py-2 lg:px-2 xl:px-3 2xl:py-4 xl:max-h-max lg:rounded-2xl 2xl:rounded-3xl border-0 bg-primary">
               <div className="flex items-center lg:gap-1 xl:gap-2 lg:mb-1 xl:mb-2">
                 <div className="lg:w-5 lg:h-5 xl:w-7 xl:h-7 2xl:w-8 2xl:h-8 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
                   <CheckCircle className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 text-white" />

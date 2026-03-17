@@ -48,7 +48,9 @@
       "Bash(find /b/growly/web -path */app/* -name page.tsx -o -name page.ts -o -name layout.tsx)",
       "Bash(grep -r \"HabitForm\\\\|habit-form\" /b/growly/web --include=*.tsx --include=*.ts -l)",
       "Bash(find /b/growly -type f -name *.css -o -name *.scss -o -name globals.css)",
-      "Bash(ls b:/growly/mobile/app/\\\\\\(tabs\\\\\\)/)"
+      "Bash(ls b:/growly/mobile/app/\\\\\\(tabs\\\\\\)/)",
+      "Bash(find /b/growly/web/app -type f \\\\\\( -name \"*.tsx\" -o -name \"*.ts\" \\\\\\) ! -path \"*/node_modules/*\" ! -path \"*/.next/*\" -exec wc -l {} +)",
+      "Bash(grep \"\\\\.tsx$\")"
     ]
   }
 }

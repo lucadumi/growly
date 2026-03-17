@@ -71,7 +71,7 @@ export default function DeleteAccountForm() {
       <Button
         type="submit"
         disabled={!canSubmit}
-        className="lg:text-[11px] xl:text-xs 2xl:text-sm text-white font-semibold bg-red-400 transition lg:py-1 xl:py-2 disabled:opacity-40 disabled:cursor-not-allowed"
+        className="lg:text-[11px] xl:text-xs 2xl:text-sm text-white font-semibold bg-coral transition lg:py-1 xl:py-2 disabled:opacity-40 disabled:cursor-not-allowed"
       >
         {isPending ? "Deleting…" : "Delete account"}
       </Button>

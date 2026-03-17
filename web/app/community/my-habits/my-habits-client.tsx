@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowUp, CheckCircle2, ChevronDown, Sprout, X } from "lucide-react";
+import { ArrowUp, CheckCircle2, Sprout, X } from "lucide-react";
+
+import Dropdown from "@/app/components/ui/dropdown";
 
 import PageHeading from "@/app/components/page-heading";
 import PostCard, { type PostHabitData } from "@/app/community/post-card";
@@ -25,16 +27,9 @@ type Stats = {
   topHabit: { title: string; votes: number } | null;
 };
 
-const CATEGORIES = [
-  "Health",
-  "Mindfulness",
-  "Productivity",
-  "Fitness",
-  "Learning",
-  "Creativity",
-  "Sleep",
-  "Nutrition",
-  "Relationships",
+const CATEGORY_OPTIONS = [
+  { label: "None", value: "" },
+  ...["Health", "Mindfulness", "Productivity", "Fitness", "Learning", "Creativity", "Sleep", "Nutrition", "Relationships"].map((c) => ({ label: c, value: c })),
 ];
 
 function ShareModal({
@@ -52,19 +47,6 @@ function ShareModal({
   const [category, setCategory] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [habitMenuOpen, setHabitMenuOpen] = useState(false);
-  const [categoryMenuOpen, setCategoryMenuOpen] = useState(false);
-  const [habitDropDirection, setHabitDropDirection] = useState<"down" | "up">(
-    "down",
-  );
-  const [categoryDropDirection, setCategoryDropDirection] = useState<
-    "down" | "up"
-  >("down");
-  const habitToggleRef = useRef<HTMLButtonElement | null>(null);
-  const habitPanelRef = useRef<HTMLDivElement | null>(null);
-  const categoryToggleRef = useRef<HTMLButtonElement | null>(null);
-  const categoryPanelRef = useRef<HTMLDivElement | null>(null);
-
   const [routineFilter, setRoutineFilter] = useState("");
 
   const selected = userHabits.find((h) => h.id === selectedId);
@@ -73,37 +55,11 @@ function ShareModal({
     ? available.filter((h) => h.routineIds.includes(routineFilter))
     : available;
 
-  const dropdownSelectWrapperClassName =
-    "relative overflow-visible rounded-2xl bg-card/30 border border-gray-100 hover:border-primary/40 transition-colors hover:border-primary/50 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-0";
+  const dropdownWrapperClass =
+    "relative overflow-visible rounded-2xl bg-card/30 border border-gray-100 hover:border-primary/40 transition-colors focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/30 focus-within:ring-offset-0";
 
-  const fieldButtonClassName =
-    "w-full flex items-center justify-between rounded-2xl lg:px-3 xl:px-4 lg:py-2 xl:py-2.5 lg:text-[11px] xl:text-xs font-medium text-foreground transition-all hover:border-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-0";
-
-  const sanitizeDropdownValue = (value: string) =>
-    value.replace(/[^a-zA-Z0-9]+/g, "-").toLowerCase();
-  const habitDropdownOptionsId = "share-habit-dropdown-options";
-  const categoryDropdownOptionsId = "share-category-dropdown-options";
-
-  const updateDropdownDirection = (
-    toggleRef: React.RefObject<HTMLButtonElement | null>,
-    panelRef: React.RefObject<HTMLDivElement | null>,
-    setDirection: React.Dispatch<React.SetStateAction<"down" | "up">>,
-  ) => {
-    if (typeof window === "undefined") return;
-    const toggleRect = toggleRef.current?.getBoundingClientRect();
-    if (!toggleRect) return;
-    const panelHeight = panelRef.current?.getBoundingClientRect().height ?? 0;
-    const spacing = 8;
-    const spaceBelow = window.innerHeight - toggleRect.bottom;
-    const spaceAbove = toggleRect.top;
-    if (spaceBelow >= panelHeight + spacing) {
-      setDirection("down");
-    } else if (spaceAbove >= panelHeight + spacing) {
-      setDirection("up");
-    } else {
-      setDirection("down");
-    }
-  };
+  const dropdownButtonClass =
+    "w-full flex items-center justify-between rounded-2xl lg:px-3 xl:px-4 lg:py-2 xl:py-2.5 lg:text-[11px] xl:text-xs font-medium text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-0";
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -111,80 +67,6 @@ function ShareModal({
       document.body.style.overflow = "";
     };
   }, []);
-
-  useEffect(() => {
-    if (!habitMenuOpen) return undefined;
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      const target = event.target as Node | null;
-      if (
-        habitPanelRef.current?.contains(target) ||
-        habitToggleRef.current?.contains(target)
-      ) {
-        return;
-      }
-      setHabitMenuOpen(false);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [habitMenuOpen]);
-
-  useEffect(() => {
-    if (!categoryMenuOpen) return undefined;
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      const target = event.target as Node | null;
-      if (
-        categoryPanelRef.current?.contains(target) ||
-        categoryToggleRef.current?.contains(target)
-      ) {
-        return;
-      }
-      setCategoryMenuOpen(false);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [categoryMenuOpen]);
-
-  useLayoutEffect(() => {
-    if (!habitMenuOpen) return undefined;
-    const update = () =>
-      updateDropdownDirection(
-        habitToggleRef,
-        habitPanelRef,
-        setHabitDropDirection,
-      );
-    update();
-    window.addEventListener("resize", update);
-    window.addEventListener("scroll", update, true);
-    return () => {
-      window.removeEventListener("resize", update);
-      window.removeEventListener("scroll", update, true);
-    };
-  }, [habitMenuOpen]);
-
-  useLayoutEffect(() => {
-    if (!categoryMenuOpen) return undefined;
-    const update = () =>
-      updateDropdownDirection(
-        categoryToggleRef,
-        categoryPanelRef,
-        setCategoryDropDirection,
-      );
-    update();
-    window.addEventListener("resize", update);
-    window.addEventListener("scroll", update, true);
-    return () => {
-      window.removeEventListener("resize", update);
-      window.removeEventListener("scroll", update, true);
-    };
-  }, [categoryMenuOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -311,75 +193,18 @@ function ShareModal({
                   ))}
                 </div>
               )}
-              <div className={dropdownSelectWrapperClassName}>
-                <button
-                  type="button"
-                  ref={habitToggleRef}
-                  onClick={() => {
-                    setHabitMenuOpen((open) => !open);
-                    setCategoryMenuOpen(false);
-                  }}
-                  aria-haspopup="listbox"
-                  aria-expanded={habitMenuOpen}
-                  aria-controls={habitDropdownOptionsId}
-                  className={fieldButtonClassName}
-                >
-                  <span
-                    className={`truncate ${selected ? "" : "text-muted-foreground"}`}
-                  >
-                    {selected ? selected.name : "Select a habit"}
-                  </span>
-                  <ChevronDown
-                    className={`lg:w-2.5 lg:h-2.5 xl:h-3 xl:w-3 transition-transform ${
-                      habitMenuOpen
-                        ? "rotate-180 text-primary"
-                        : "text-muted-foreground"
-                    }`}
-                  />
-                </button>
-                {habitMenuOpen && (
-                  <div
-                    ref={habitPanelRef}
-                    id={habitDropdownOptionsId}
-                    role="listbox"
-                    aria-activedescendant={
-                      selected
-                        ? `habit-option-${sanitizeDropdownValue(selected.id)}`
-                        : undefined
-                    }
-                    className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-y-auto rounded-2xl border border-gray-100 bg-white shadow-md ${
-                      habitDropDirection === "down"
-                        ? "top-full mt-2"
-                        : "bottom-full mb-2"
-                    }`}
-                  >
-                    {filteredAvailable.map((habit) => {
-                      const optionId = `habit-option-${sanitizeDropdownValue(
-                        habit.id,
-                      )}`;
-                      return (
-                        <button
-                          key={habit.id}
-                          id={optionId}
-                          type="button"
-                          role="option"
-                          aria-selected={selectedId === habit.id}
-                          onClick={() => {
-                            setSelectedId(habit.id);
-                            setHabitMenuOpen(false);
-                            setError("");
-                          }}
-                          className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs transition last:border-b-0 ${
-                            selectedId === habit.id && "font-semibold"
-                          }`}
-                        >
-                          {habit.name}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
+              <Dropdown
+                id="share-habit"
+                options={filteredAvailable.map((h) => ({ label: h.name, value: h.id }))}
+                value={selectedId}
+                onChange={(id) => {
+                  setSelectedId(id);
+                  setError("");
+                }}
+                placeholder="Select a habit"
+                wrapperClassName={dropdownWrapperClass}
+                buttonClassName={dropdownButtonClass}
+              />
             </div>
 
             {/* Category */}
@@ -388,89 +213,15 @@ function ShareModal({
                 Category{" "}
                 <span className="text-muted-foreground/60">(optional)</span>
               </span>
-              <div className={dropdownSelectWrapperClassName}>
-                <button
-                  type="button"
-                  ref={categoryToggleRef}
-                  onClick={() => {
-                    setCategoryMenuOpen((open) => !open);
-                    setHabitMenuOpen(false);
-                  }}
-                  aria-haspopup="listbox"
-                  aria-expanded={categoryMenuOpen}
-                  aria-controls={categoryDropdownOptionsId}
-                  className={fieldButtonClassName}
-                >
-                  <span
-                    className={`truncate ${category ? "" : "text-muted-foreground"}`}
-                  >
-                    {category || "None"}
-                  </span>
-                  <ChevronDown
-                    className={`lg:w-2.5 lg:h-2.5 xl:h-3 xl:w-3 transition-transform ${
-                      categoryMenuOpen
-                        ? "rotate-180 text-primary"
-                        : "text-muted-foreground"
-                    }`}
-                  />
-                </button>
-                {categoryMenuOpen && (
-                  <div
-                    ref={categoryPanelRef}
-                    id={categoryDropdownOptionsId}
-                    role="listbox"
-                    aria-activedescendant={
-                      category
-                        ? `category-option-${sanitizeDropdownValue(category)}`
-                        : "category-option-none"
-                    }
-                    className={`absolute left-0 right-0 z-20 lg:max-h-48 xl:max-h-60 overflow-y-auto rounded-2xl border border-gray-100 bg-white shadow-md ${
-                      categoryDropDirection === "down"
-                        ? "top-full mt-2"
-                        : "bottom-full mb-2"
-                    }`}
-                  >
-                    <button
-                      id="category-option-none"
-                      type="button"
-                      role="option"
-                      aria-selected={!category}
-                      onClick={() => {
-                        setCategory("");
-                        setCategoryMenuOpen(false);
-                      }}
-                      className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs transition ${
-                        !category && "font-semibold"
-                      }`}
-                    >
-                      None
-                    </button>
-                    {CATEGORIES.map((c) => {
-                      const optionId = `category-option-${sanitizeDropdownValue(
-                        c,
-                      )}`;
-                      return (
-                        <button
-                          key={c}
-                          id={optionId}
-                          type="button"
-                          role="option"
-                          aria-selected={category === c}
-                          onClick={() => {
-                            setCategory(c);
-                            setCategoryMenuOpen(false);
-                          }}
-                          className={`w-full rounded-none border-b border-gray-100 lg:px-3 xl:px-4 lg:py-2 xl:py-3 text-left lg:text-[11px] xl:text-xs transition last:border-b-0 ${
-                            category === c && "font-semibold"
-                          }`}
-                        >
-                          {c}
-                        </button>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
+              <Dropdown
+                id="share-category"
+                options={CATEGORY_OPTIONS}
+                value={category}
+                onChange={setCategory}
+                placeholder="None"
+                wrapperClassName={dropdownWrapperClass}
+                buttonClassName={dropdownButtonClass}
+              />
             </label>
 
             <div className="flex gap-2 pt-1">

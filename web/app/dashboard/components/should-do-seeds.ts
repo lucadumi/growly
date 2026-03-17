@@ -37,6 +37,6 @@ export const shouldDoSeeds: ShouldDoSeed[] = [
     description: "No routes, no excuses—drop a pin and sprint there.",
     likesCount: 2000,
     icon: Footprints,
-    iconColor: "text-blue-400",
+    iconColor: "text-accent",
   },
 ];

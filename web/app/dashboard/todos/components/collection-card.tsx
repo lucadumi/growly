@@ -115,7 +115,7 @@ const CollectionCard: FC<CollectionCardProps> = ({
               aria-label="Delete collection"
             >
               <Trash2
-                className={`lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 text-red-400 ${
+                className={`lg:w-3 lg:h-3 xl:w-3.5 xl:h-3.5 text-coral ${
                   deleting ? "animate-spin" : ""
                 }`}
               />

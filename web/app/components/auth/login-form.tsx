@@ -163,7 +163,7 @@ const LoginForm: React.FC<FormProps> = ({ setIsLogin }) => {
 
         {error ? (
           <p
-            className="lg:text-[11px] xl:text-xs 2xl:text-sm text-red-400"
+            className="lg:text-[11px] xl:text-xs 2xl:text-sm text-coral"
             role="alert"
           >
             {error}
