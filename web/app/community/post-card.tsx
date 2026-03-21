@@ -74,8 +74,8 @@ function VoteButton({
           : "border-gray-200 bg-white text-foreground hover:border-primary/60 hover:text-primary"
       }`}
     >
-      <ArrowUp className="lg:w-3 lg:h-3 xl:w-4 xl:h-4" />
-      <span className="lg:text-[10px] xl:text-xs font-bold mt-0.5">
+      <ArrowUp className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5" />
+      <span className="lg:text-[10px] xl:text-xs 2xl:text-sm font-bold mt-0.5">
         {habit.votesCount}
       </span>
     </button>
@@ -166,18 +166,18 @@ export default function PostCard({
 
   if (compact) {
     return (
-      <div className="justify-between rounded-2xl border border-gray-100 bg-white lg:p-3 xl:p-4 flex flex-col gap-2 hover:border-gray-200 transition">
+      <div className="justify-between rounded-2xl border border-gray-100 bg-white lg:p-3 xl:p-4 2xl:p-5 flex flex-col gap-2 hover:border-gray-200 transition">
         {/* Top row: rank + category + votes */}
         <div className="flex items-center justify-between gap-1">
           <div className="flex items-center gap-1.5 min-w-0">
             {rank !== undefined && rank < 3 && (
-              <span className="shrink-0 inline-flex items-center justify-center w-4 h-4 rounded-full bg-secondary text-secondary-foreground lg:text-[8px] font-bold">
+              <span className="shrink-0 inline-flex items-center justify-center w-4 h-4 rounded-full bg-secondary text-secondary-foreground lg:text-[8px] xl:text-[9px] 2xl:text-[10px] font-bold">
                 #{rank + 1}
               </span>
             )}
             {categoryColor && habit.category && (
               <span
-                className={`shrink-0 rounded-full lg:px-1.5 xl:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] font-semibold ${categoryColor.bg} ${categoryColor.text}`}
+                className={`shrink-0 rounded-full lg:px-1.5 xl:px-2 lg:py-0.5 lg:text-[8px] xl:text-[9px] 2xl:text-[10px] font-semibold ${categoryColor.bg} ${categoryColor.text}`}
               >
                 {habit.category}
               </span>
@@ -199,7 +199,7 @@ export default function PostCard({
 
         {/* User */}
         {habit.user && (
-          <p className="text-muted-foreground lg:text-[8px] xl:text-[9px] truncate">
+          <p className="text-muted-foreground lg:text-[8px] xl:text-[9px] 2xl:text-[10px] truncate">
             {habit.user.username
               ? `@${habit.user.username}`
               : (habit.user.name ?? "Anonymous")}
@@ -210,7 +210,7 @@ export default function PostCard({
   }
 
   return (
-    <div className="flex gap-3 rounded-2xl border border-gray-100 bg-white lg:p-3 xl:p-4 hover:border-gray-200 transition">
+    <div className="flex gap-3 rounded-2xl border border-gray-100 bg-white lg:p-3 xl:p-4 2xl:p-5 hover:border-gray-200 transition">
       {/* Vote button */}
       {showVote && onVote && <VoteButton habit={habit} onVote={onVote} />}
 
@@ -219,7 +219,7 @@ export default function PostCard({
         <div className="flex flex-col items-center justify-start shrink-0 lg:pt-0.5">
           <div className="flex flex-col items-center rounded-xl border-2 border-gray-100 bg-gray-50 lg:px-2 xl:px-2.5 lg:py-1.5 xl:py-2">
             <ArrowUp className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 text-muted-foreground" />
-            <span className="lg:text-[10px] xl:text-xs font-bold text-muted-foreground mt-0.5">
+            <span className="lg:text-[10px] xl:text-xs 2xl:text-sm font-bold text-muted-foreground mt-0.5">
               {habit.votesCount}
             </span>
           </div>
@@ -235,7 +235,7 @@ export default function PostCard({
           </p>
           <div className="flex items-center gap-1.5 shrink-0">
             {rank !== undefined && rank < 3 && (
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-secondary text-secondary-foreground lg:text-[9px] font-bold">
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-secondary text-secondary-foreground lg:text-[9px] 2xl:text-[10px] font-bold">
                 #{rank + 1}
               </span>
             )}
@@ -256,7 +256,7 @@ export default function PostCard({
 
         {/* Description */}
         {habit.description && (
-          <p className="text-muted-foreground lg:text-[9px] xl:text-[10px] line-clamp-2 leading-relaxed">
+          <p className="text-muted-foreground lg:text-[9px] xl:text-[10px] 2xl:text-[11px] line-clamp-2 leading-relaxed">
             {habit.description}
           </p>
         )}
@@ -264,7 +264,7 @@ export default function PostCard({
         {/* Badges row */}
         <div className="flex items-center flex-wrap gap-1.5">
           {/* Cadence */}
-          <span className="inline-flex capitalize items-center gap-1 rounded-full bg-muted lg:px-2 xl:px-2.5 lg:py-0.5 lg:text-[9px] xl:text-[10px] text-muted-foreground font-medium">
+          <span className="inline-flex capitalize items-center gap-1 rounded-full bg-muted lg:px-2 xl:px-2.5 lg:py-0.5 lg:text-[9px] xl:text-[10px] 2xl:text-[11px] text-muted-foreground font-medium">
             <Repeat className="w-2.5 h-2.5" />
             {cadenceLabel(habit.cadence)}
           </span>
@@ -272,19 +272,17 @@ export default function PostCard({
           {/* Category */}
           {categoryColor && habit.category && (
             <span
-              className={`inline-flex rounded-full lg:px-2 xl:px-2.5 lg:py-0.5 lg:text-[9px] xl:text-[10px] font-semibold ${categoryColor.bg} ${categoryColor.text}`}
+              className={`inline-flex rounded-full lg:px-2 xl:px-2.5 lg:py-0.5 lg:text-[9px] xl:text-[10px] 2xl:text-[11px] font-semibold ${categoryColor.bg} ${categoryColor.text}`}
             >
               {habit.category}
             </span>
           )}
-
-
         </div>
 
         {/* Footer: user + date */}
         <div className="flex items-center justify-between mt-auto pt-1.5 border-t border-gray-50">
           {habit.user ? (
-            <span className="text-muted-foreground lg:text-[9px] xl:text-[10px] truncate">
+            <span className="text-muted-foreground lg:text-[9px] xl:text-[10px] 2xl:text-[11px] truncate">
               {habit.user.username
                 ? `@${habit.user.username}`
                 : (habit.user.name ?? "Anonymous")}
@@ -292,7 +290,7 @@ export default function PostCard({
           ) : (
             <span />
           )}
-          <span className="text-muted-foreground lg:text-[9px] xl:text-[10px] shrink-0">
+          <span className="text-muted-foreground lg:text-[9px] xl:text-[10px] 2xl:text-[11px] shrink-0">
             {new Date(habit.createdAt).toLocaleDateString("en-US", {
               month: "short",
               day: "numeric",

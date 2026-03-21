@@ -115,6 +115,7 @@ export default async function AccountPage() {
         location: true,
         focusArea: true,
         privateAccount: true,
+        bannerColor: true,
       },
     }),
   ]);
@@ -254,6 +255,23 @@ export default async function AccountPage() {
                 <p className="lg:text-[11px] xl:text-xs 2xl:text-sm text-muted-foreground truncate">
                   {email}
                 </p>
+                <div className="flex items-center gap-2 flex-wrap lg:mt-0.5">
+                  <span className="lg:text-[9px] xl:text-[10px] text-muted-foreground font-medium">
+                    {habits.length} habit{habits.length !== 1 ? "s" : ""}
+                  </span>
+                  <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
+                  <span className="lg:text-[9px] xl:text-[10px] text-muted-foreground font-medium">
+                    {routineCount} routine{routineCount !== 1 ? "s" : ""}
+                  </span>
+                  {memberSince && (
+                    <>
+                      <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
+                      <span className="lg:text-[9px] xl:text-[10px] text-muted-foreground font-medium">
+                        Since {memberSince}
+                      </span>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
             {/* XP progress */}
@@ -286,6 +304,7 @@ export default async function AccountPage() {
               initialLocation={userRecord?.location}
               initialFocusArea={userRecord?.focusArea}
               initialPrivateAccount={userRecord?.privateAccount}
+              initialBannerColor={userRecord?.bannerColor}
             />
           </div>
         </div>

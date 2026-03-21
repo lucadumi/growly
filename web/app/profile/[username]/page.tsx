@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { headers } from "next/headers";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -15,8 +15,8 @@ export default async function ProfilePage({
   const { username } = await params;
   const session = await auth.api.getSession({ headers: await headers() });
 
-  const user = await prisma.user.findUnique({
-    where: { username },
+  const user = await prisma.user.findFirst({
+    where: { OR: [{ username }, { id: username }] },
     select: {
       id: true,
       name: true,
@@ -25,6 +25,7 @@ export default async function ProfilePage({
       location: true,
       focusArea: true,
       privateAccount: true,
+      bannerColor: true,
       createdAt: true,
       postHabits: {
         orderBy: [{ votesCount: "desc" }, { createdAt: "desc" }],
@@ -42,6 +43,11 @@ export default async function ProfilePage({
   });
 
   if (!user) notFound();
+
+  // If accessed by ID but the user has a username, redirect to the canonical URL
+  if (user.username && username !== user.username) {
+    redirect(`/profile/${user.username}`);
+  }
 
   const isOwnProfile = session?.user.id === user.id;
 
@@ -79,6 +85,7 @@ export default async function ProfilePage({
     location: user.location ?? null,
     focusArea: user.focusArea ?? null,
     privateAccount: user.privateAccount,
+    bannerColor: user.bannerColor ?? "#e2e8f0",
     joinedDate: new Date(user.createdAt).toLocaleDateString("en-US", {
       month: "long",
       year: "numeric",

@@ -30,31 +30,46 @@ const formatSegment = (segment: string) =>
     .join(" ")
     .trim();
 
-const isLikelyId = (segment: string) => /^[0-9a-fA-F-]{6,}$/.test(segment);
+const isLikelyId = (segment: string) =>
+  /^[0-9a-fA-F-]{6,}$/.test(segment) || segment.length > 20;
 
 type AccountDropdownProps = {
   session: NonNullable<ReturnType<typeof useSession>["session"]>;
 };
 
 function NotificationsDropdown() {
-  const { activityLog, markNotificationsRead } = useXP();
+  const { activityLog, markNotificationsRead, loading } = useXP();
   const [isOpen, setIsOpen] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [bellRing, setBellRing] = useState(false);
+  // Track how many notifications were visible the last time the dropdown was opened
+  const [seenCount, setSeenCount] = useState(0);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const prevCountRef = useRef(activityLog.length);
+  const prevCountRef = useRef(0);
+  const hasInitializedRef = useRef(false);
   const newTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // On first load completion, set the baseline so existing notifications
+  // don't trigger "new" or the dot. After that, detect genuinely new items.
   useEffect(() => {
+    if (!hasInitializedRef.current) {
+      if (!loading) {
+        hasInitializedRef.current = true;
+        setSeenCount(activityLog.length);
+        prevCountRef.current = activityLog.length;
+      }
+      return;
+    }
+
     if (activityLog.length > prevCountRef.current) {
       setShowNew(true);
       setBellRing(true);
       setTimeout(() => setBellRing(false), 600);
       if (newTimerRef.current) clearTimeout(newTimerRef.current);
-      newTimerRef.current = setTimeout(() => setShowNew(false), 4000);
+      newTimerRef.current = setTimeout(() => setShowNew(false), 3000);
     }
     prevCountRef.current = activityLog.length;
-  }, [activityLog.length]);
+  }, [activityLog.length, loading]);
 
   useEffect(() => {
     return () => {
@@ -71,50 +86,53 @@ function NotificationsDropdown() {
         setIsOpen(false);
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleToggle = () => {
+    const next = !isOpen;
+    setIsOpen(next);
+    if (next) {
+      // Dismiss "new" label and dot when opening
+      setShowNew(false);
+      setSeenCount(activityLog.length);
+      if (newTimerRef.current) clearTimeout(newTimerRef.current);
+    }
+  };
 
   const handleMarkXpRead = (id: string) => {
     void markNotificationsRead([id]);
   };
 
-  const totalXpNotifications = activityLog.length;
+  const totalCount = activityLog.length;
   const visibleXpNotifications = activityLog.slice(0, 5);
-  const xpOverflow = Math.max(
-    0,
-    totalXpNotifications - visibleXpNotifications.length,
-  );
-  const totalCount = totalXpNotifications;
-  const badgeLabel =
-    totalCount > 9 ? "9+" : totalCount > 0 ? totalCount.toString() : null;
-  const hasBadge = Boolean(badgeLabel);
+  const xpOverflow = Math.max(0, totalCount - visibleXpNotifications.length);
+  // Dot shows when there are notifications unseen since last open, and "new" label has faded
+  const showDot = totalCount > seenCount && !showNew && !isOpen;
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         type="button"
-        onClick={() => setIsOpen((prev) => !prev)}
+        onClick={handleToggle}
         aria-expanded={isOpen}
         aria-label="Open notifications"
         className="inline-flex items-center gap-1.5 rounded-full lg:p-1 xl:p-1.5 2xl:p-2 bg-card border border-gray-100 text-xs font-semibold text-muted-foreground transition hover:border-card hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
-        <Bell
-          className={`lg:h-4 lg:w-4 xl:h-4.5 xl:w-4.5 ${
-            hasBadge ? "lg:ml-0.5 xl:ml-1" : ""
-          } ${bellRing ? "animate-[ring_0.6s_ease-in-out]" : ""}`}
-        />
-        {badgeLabel ? (
-          <span className="inline-flex items-center justify-center rounded-full bg-primary text-white lg:w-4 lg:h-4 xl:w-5 xl:h-5 lg:text-[9px] xl:text-[10px] font-bold">
-            {badgeLabel}
-          </span>
-        ) : null}
-        {showNew ? (
-          <span className="inline-flex items-center justify-center rounded-full bg-green-500 text-white lg:px-1 xl:px-1.5 lg:h-4 xl:h-5 lg:text-[8px] xl:text-[9px] font-bold uppercase tracking-wide animate-[fadeInOut_4s_ease-in-out_forwards]">
+        <span className="relative">
+          <Bell
+            className={`lg:h-4 lg:w-4 xl:h-4.5 xl:w-4.5 ${bellRing ? "animate-[ring_0.6s_ease-in-out]" : ""}`}
+          />
+          {showDot && (
+            <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-coral ring-2 ring-card" />
+          )}
+        </span>
+        {showNew && (
+          <span className="inline-flex items-center justify-center rounded-full bg-green-500 text-white lg:px-1 xl:px-1.5 lg:h-4 xl:h-5 lg:text-[8px] xl:text-[9px] font-bold uppercase tracking-wide">
             new
           </span>
-        ) : null}
+        )}
       </button>
 
       <div
@@ -129,7 +147,7 @@ function NotificationsDropdown() {
             Notifications
           </p>
           <span className="lg:text-[9px] xl:text-[10px] text-muted-foreground">
-            {badgeLabel ? `${totalCount} unread` : "Up to date"}
+            {totalCount > 0 ? `${totalCount} unread` : "Up to date"}
           </span>
         </div>
         <div className="border-t border-gray-50 lg:px-3 xl:px-4 lg:py-2 xl:py-3 space-y-3">
@@ -226,7 +244,7 @@ function AccountDropdown({ session }: AccountDropdownProps) {
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         aria-label="Open account menu"
-        className="group inline-flex items-center border border-gray-100 justify-center lg:gap-2 xl:gap-3 rounded-full lg:px-3 xl:px-4 lg:py-1 xl:py-2 bg-card text-xs font-semibold text-primary transition hover:bg-primary hover:text-white hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        className="group inline-flex items-center border border-gray-100 justify-center lg:gap-2 xl:gap-3 rounded-full lg:px-2 xl:px-3 lg:py-1 xl:py-2 bg-card text-xs font-semibold text-primary transition hover:bg-primary hover:text-white hover:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
       >
         <div className="lg:w-4 lg:h-4 xl:w-5 xl:h-5 rounded-full bg-primary/15 group-hover:bg-white/20 flex items-center justify-center shrink-0">
           <span className="lg:text-[7px] xl:text-[8px] font-bold text-primary group-hover:text-white leading-none">
@@ -258,7 +276,7 @@ function AccountDropdown({ session }: AccountDropdownProps) {
             </p>
           )}
         </div>
-        <div className="border-t border-gray-50 lg:p-1 xl:p-2 space-y-1 lg:text-[8px] xl:text-[11px]">
+        <div className="border-t border-gray-50 lg:p-1 xl:p-2 space-y-1 lg:text-[10px] xl:text-[11px] 2xl:text-[13px]">
           <Link
             href="/account"
             className="block rounded-xl lg:px-2 xl:px-3 lg:py-0.5 xl:py-1 2xl:py-2 font-semibold text-primary transition-colors hover:bg-primary/5"
@@ -318,7 +336,7 @@ export default function Header() {
                   className="flex items-center lg:gap-0.5 xl:gap-1 2xl:gap-1.5"
                 >
                   <span
-                    className={`lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold uppercase tracking-[0.3em] transition ${
+                    className={`lg:text-[11px] xl:text-xs 2xl:text-sm font-semibold uppercase tracking-[0.15em] transition ${
                       index === 0 ? "text-foreground" : "text-muted-foreground"
                     }`}
                   >

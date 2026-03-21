@@ -4,7 +4,7 @@ import { Prisma } from "@/lib/generated/prisma";
 
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/actions/habit-actions";
-import { getUtcDayStart } from "@/lib/habit-progress";
+import { getUtcDayStart, parseClientDate } from "@/lib/habit-progress";
 
 const parseAmount = (value: unknown) => {
   const numeric = Number(value);
@@ -38,7 +38,7 @@ export async function PATCH(
       );
     }
 
-    const progressDate = getUtcDayStart(new Date());
+    const progressDate = parseClientDate(payload.date) ?? getUtcDayStart(new Date());
 
     const progressEntry = await prisma.habitDailyProgress.upsert({
       where: {

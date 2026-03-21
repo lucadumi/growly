@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 
 import { prisma } from "@/lib/prisma";
 import { parseHabitPayload, requireUserId } from "@/lib/actions/habit-actions";
+import { getUtcDayStart, parseClientDate } from "@/lib/habit-progress";
 
 const getErrorStatus = (message: string) => {
   if (message === "Unauthorized") return 401;
@@ -36,9 +37,12 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const userId = await requireUserId();
+    const url = new URL(request.url);
+    const today = parseClientDate(url.searchParams.get("date")) ?? getUtcDayStart(new Date());
+
     const habits = await prisma.habit.findMany({
       where: {
         userId,
@@ -56,11 +60,24 @@ export async function GET() {
         goalAmount: true,
         goalUnit: true,
         goalUnitCategory: true,
-        dailyProgress: true,
+        dailyProgressEntries: {
+          select: {
+            progress: true,
+          },
+          where: {
+            date: today,
+          },
+          take: 1,
+        },
       },
     });
 
-    return NextResponse.json({ habits });
+    const habitsWithProgress = habits.map(({ dailyProgressEntries, ...h }) => ({
+      ...h,
+      dailyProgress: dailyProgressEntries[0]?.progress ?? 0,
+    }));
+
+    return NextResponse.json({ habits: habitsWithProgress });
   } catch (error) {
     if (error instanceof Error) {
       const status = getErrorStatus(error.message);

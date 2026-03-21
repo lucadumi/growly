@@ -3,10 +3,13 @@ import { revalidatePath } from "next/cache";
 
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/actions/habit-actions";
+import { getUtcDayStart, parseClientDate } from "@/lib/habit-progress";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const userId = await requireUserId();
+    const url = new URL(request.url);
+    const today = parseClientDate(url.searchParams.get("date")) ?? getUtcDayStart(new Date());
     const routines = await prisma.routine.findMany({
       where: { userId },
       orderBy: [{ isDefault: "desc" }, { createdAt: "asc" }],
@@ -23,14 +26,30 @@ export async function GET() {
                 goalAmount: true,
                 goalUnit: true,
                 goalUnitCategory: true,
-                dailyProgress: true,
+                dailyProgressEntries: {
+                  select: { progress: true },
+                  where: { date: today },
+                  take: 1,
+                },
               },
             },
           },
         },
       },
     });
-    return NextResponse.json({ routines });
+
+    const serialized = routines.map((routine) => ({
+      ...routine,
+      habits: routine.habits.map(({ habit: { dailyProgressEntries, ...habit }, ...rh }) => ({
+        ...rh,
+        habit: {
+          ...habit,
+          dailyProgress: dailyProgressEntries[0]?.progress ?? 0,
+        },
+      })),
+    }));
+
+    return NextResponse.json({ routines: serialized });
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

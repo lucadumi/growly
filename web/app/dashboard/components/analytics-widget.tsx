@@ -66,7 +66,15 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
   );
   const [searchQuery, setSearchQuery] = useState("");
   const [habitPage, setHabitPage] = useState(0);
-  const HABITS_PER_PAGE = 7;
+  const barContainerRef = useRef<HTMLDivElement | null>(null);
+  const [habitsPerPage, setHabitsPerPage] = useState(4);
+
+  useEffect(() => {
+    const update = () => setHabitsPerPage(window.innerWidth >= 1280 ? 5 : 4);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -91,7 +99,7 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
 
   useEffect(() => {
     setHabitPage(0);
-  }, [searchQuery, selectedDayIndex]);
+  }, [searchQuery, selectedDayIndex, habitsPerPage]);
 
   const selectedDay = useMemo(() => {
     if (recentDays.length === 0) {
@@ -124,10 +132,10 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
     color: barColors[index % barColors.length],
   }));
 
-  const totalHabitPages = Math.ceil(habitsWithColors.length / HABITS_PER_PAGE);
+  const totalHabitPages = Math.ceil(habitsWithColors.length / habitsPerPage);
   const pagedHabits = habitsWithColors.slice(
-    habitPage * HABITS_PER_PAGE,
-    (habitPage + 1) * HABITS_PER_PAGE,
+    habitPage * habitsPerPage,
+    (habitPage + 1) * habitsPerPage,
   );
 
   const formattedDelta = `${
@@ -162,7 +170,7 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
               </div>
             </div>
 
-            <div className="lg:py-2 lg:px-2 xl:px-3 2xl:py-4 xl:max-h-max lg:rounded-2xl 2xl:rounded-3xl border-0 bg-primary">
+            <div className="lg:py-2 lg:px-2 xl:px-3 2xl:py-4 xl:max-h-max lg:rounded-2xl 2xl:rounded-3xl border-0 bg-blue-400">
               <div className="flex items-center lg:gap-1 xl:gap-2 lg:mb-1 xl:mb-2">
                 <div className="lg:w-5 lg:h-5 xl:w-7 xl:h-7 2xl:w-8 2xl:h-8 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center">
                   <CheckCircle className="lg:w-3 lg:h-3 xl:w-4 xl:h-4 2xl:w-5 2xl:h-5 text-white" />
@@ -268,10 +276,10 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
                   Log habit progress to see which is leading.
                 </div>
               ) : (
-                <div className="relative flex flex-col flex-1 overflow-hidden">
-                  <div className="flex w-full">
+                <div ref={barContainerRef} className="relative flex flex-col flex-1 overflow-hidden">
+                  <div className="flex w-full overflow-hidden">
                     {pagedHabits.map((habit) => {
-                      const barWidthPercent = `${100 / HABITS_PER_PAGE}%`;
+                      const barWidthPercent = `${100 / habitsPerPage}%`;
                       return (
                         <div
                           key={habit.id}
@@ -279,6 +287,7 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
                           style={{
                             flex: `0 0 ${barWidthPercent}`,
                             maxWidth: barWidthPercent,
+                            minWidth: 0,
                           }}
                         >
                           <div className="lg:text-[11px] xl:text-xs xl:mt-1 2xl:mt-2 truncate w-full font-medium">
@@ -291,13 +300,13 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
                       );
                     })}
                   </div>
-                  <div className="flex w-full lg:h-52 xl:h-60 2xl:h-72">
+                  <div className="flex w-full overflow-hidden lg:h-52 xl:h-60 2xl:h-72">
                     {pagedHabits.map((habit) => {
                       const heightPercent = Math.max(
                         0,
                         Math.min(100, habit.percentage),
                       );
-                      const barWidthPercent = `${100 / HABITS_PER_PAGE}%`;
+                      const barWidthPercent = `${100 / habitsPerPage}%`;
                       return (
                         <div
                           key={habit.id}
@@ -305,6 +314,7 @@ const AnalyticsWidget: React.FC<Props> = ({ data }) => {
                           style={{
                             flex: `0 0 ${barWidthPercent}`,
                             maxWidth: barWidthPercent,
+                            minWidth: 0,
                           }}
                         >
                           <div

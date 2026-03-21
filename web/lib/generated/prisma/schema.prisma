@@ -20,6 +20,7 @@ model User {
   focusArea         String?
   bio               String?
   location          String?
+  bannerColor       String?            @default("#e2e8f0")
   accounts          Account[]
   collections       Collection[]
   habits            Habit[]

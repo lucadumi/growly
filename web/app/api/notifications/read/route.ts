@@ -40,6 +40,7 @@ export async function POST(request: Request) {
   try {
     await (prisma as any).notificationRead.createMany({
       data: sanitized.map((notificationId: string) => ({
+        id: crypto.randomUUID(),
         userId: session.user!.id,
         notificationId,
       })),

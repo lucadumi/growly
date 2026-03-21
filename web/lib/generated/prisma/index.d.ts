@@ -2419,6 +2419,7 @@ export namespace Prisma {
     focusArea: string | null
     bio: string | null
     location: string | null
+    bannerColor: string | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2433,6 +2434,7 @@ export namespace Prisma {
     focusArea: string | null
     bio: string | null
     location: string | null
+    bannerColor: string | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2447,6 +2449,7 @@ export namespace Prisma {
     focusArea: number
     bio: number
     location: number
+    bannerColor: number
     _all: number
   }
 
@@ -2471,6 +2474,7 @@ export namespace Prisma {
     focusArea?: true
     bio?: true
     location?: true
+    bannerColor?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2485,6 +2489,7 @@ export namespace Prisma {
     focusArea?: true
     bio?: true
     location?: true
+    bannerColor?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2499,6 +2504,7 @@ export namespace Prisma {
     focusArea?: true
     bio?: true
     location?: true
+    bannerColor?: true
     _all?: true
   }
 
@@ -2600,6 +2606,7 @@ export namespace Prisma {
     focusArea: string | null
     bio: string | null
     location: string | null
+    bannerColor: string | null
     _count: UserCountAggregateOutputType | null
     _avg: UserAvgAggregateOutputType | null
     _sum: UserSumAggregateOutputType | null
@@ -2633,6 +2640,7 @@ export namespace Prisma {
     focusArea?: boolean
     bio?: boolean
     location?: boolean
+    bannerColor?: boolean
     accounts?: boolean | User$accountsArgs<ExtArgs>
     collections?: boolean | User$collectionsArgs<ExtArgs>
     habits?: boolean | User$habitsArgs<ExtArgs>
@@ -2657,6 +2665,7 @@ export namespace Prisma {
     focusArea?: boolean
     bio?: boolean
     location?: boolean
+    bannerColor?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2671,6 +2680,7 @@ export namespace Prisma {
     focusArea?: boolean
     bio?: boolean
     location?: boolean
+    bannerColor?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2685,9 +2695,10 @@ export namespace Prisma {
     focusArea?: boolean
     bio?: boolean
     location?: boolean
+    bannerColor?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "createdAt" | "updatedAt" | "streakGoalDays" | "privateAccount" | "username" | "focusArea" | "bio" | "location", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "createdAt" | "updatedAt" | "streakGoalDays" | "privateAccount" | "username" | "focusArea" | "bio" | "location" | "bannerColor", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     collections?: boolean | User$collectionsArgs<ExtArgs>
@@ -2728,6 +2739,7 @@ export namespace Prisma {
       focusArea: string | null
       bio: string | null
       location: string | null
+      bannerColor: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3171,6 +3183,7 @@ export namespace Prisma {
     readonly focusArea: FieldRef<"User", 'String'>
     readonly bio: FieldRef<"User", 'String'>
     readonly location: FieldRef<"User", 'String'>
+    readonly bannerColor: FieldRef<"User", 'String'>
   }
     
 
@@ -18550,7 +18563,8 @@ export namespace Prisma {
     username: 'username',
     focusArea: 'focusArea',
     bio: 'bio',
-    location: 'location'
+    location: 'location',
+    bannerColor: 'bannerColor'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -18908,6 +18922,7 @@ export namespace Prisma {
     focusArea?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
+    bannerColor?: StringNullableFilter<"User"> | string | null
     accounts?: AccountListRelationFilter
     collections?: CollectionListRelationFilter
     habits?: HabitListRelationFilter
@@ -18931,6 +18946,7 @@ export namespace Prisma {
     focusArea?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
+    bannerColor?: SortOrderInput | SortOrder
     accounts?: AccountOrderByRelationAggregateInput
     collections?: CollectionOrderByRelationAggregateInput
     habits?: HabitOrderByRelationAggregateInput
@@ -18957,6 +18973,7 @@ export namespace Prisma {
     focusArea?: StringNullableFilter<"User"> | string | null
     bio?: StringNullableFilter<"User"> | string | null
     location?: StringNullableFilter<"User"> | string | null
+    bannerColor?: StringNullableFilter<"User"> | string | null
     accounts?: AccountListRelationFilter
     collections?: CollectionListRelationFilter
     habits?: HabitListRelationFilter
@@ -18980,6 +18997,7 @@ export namespace Prisma {
     focusArea?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     location?: SortOrderInput | SortOrder
+    bannerColor?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
@@ -19002,6 +19020,7 @@ export namespace Prisma {
     focusArea?: StringNullableWithAggregatesFilter<"User"> | string | null
     bio?: StringNullableWithAggregatesFilter<"User"> | string | null
     location?: StringNullableWithAggregatesFilter<"User"> | string | null
+    bannerColor?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type SessionWhereInput = {
@@ -19994,6 +20013,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
@@ -20017,6 +20037,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
@@ -20040,6 +20061,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
@@ -20063,6 +20085,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
@@ -20086,6 +20109,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -20100,6 +20124,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -20114,6 +20139,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type SessionCreateInput = {
@@ -21321,6 +21347,7 @@ export namespace Prisma {
     focusArea?: SortOrder
     bio?: SortOrder
     location?: SortOrder
+    bannerColor?: SortOrder
   }
 
   export type UserAvgOrderByAggregateInput = {
@@ -21339,6 +21366,7 @@ export namespace Prisma {
     focusArea?: SortOrder
     bio?: SortOrder
     location?: SortOrder
+    bannerColor?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -21353,6 +21381,7 @@ export namespace Prisma {
     focusArea?: SortOrder
     bio?: SortOrder
     location?: SortOrder
+    bannerColor?: SortOrder
   }
 
   export type UserSumOrderByAggregateInput = {
@@ -24015,6 +24044,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
@@ -24037,6 +24067,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
@@ -24075,6 +24106,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
@@ -24097,6 +24129,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
@@ -24119,6 +24152,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     collections?: CollectionCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
     notification_read?: NotificationReadCreateNestedManyWithoutUserInput
@@ -24141,6 +24175,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
     notification_read?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -24179,6 +24214,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     collections?: CollectionUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
     notification_read?: NotificationReadUpdateManyWithoutUserNestedInput
@@ -24201,6 +24237,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -24245,6 +24282,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
@@ -24267,6 +24305,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
@@ -24331,6 +24370,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
@@ -24353,6 +24393,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
@@ -24375,6 +24416,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
     notification_read?: NotificationReadCreateNestedManyWithoutUserInput
@@ -24397,6 +24439,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
     notification_read?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -24457,6 +24500,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
     notification_read?: NotificationReadUpdateManyWithoutUserNestedInput
@@ -24479,6 +24523,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -24673,6 +24718,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
     notification_read?: NotificationReadCreateNestedManyWithoutUserInput
@@ -24695,6 +24741,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     notification_read?: NotificationReadUncheckedCreateNestedManyWithoutUserInput
@@ -24819,6 +24866,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
     notification_read?: NotificationReadUpdateManyWithoutUserNestedInput
@@ -24841,6 +24889,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     notification_read?: NotificationReadUncheckedUpdateManyWithoutUserNestedInput
@@ -25026,6 +25075,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
@@ -25048,6 +25098,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
@@ -25110,6 +25161,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
@@ -25132,6 +25184,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
@@ -25369,6 +25422,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
@@ -25391,6 +25445,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
@@ -25500,6 +25555,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
@@ -25522,6 +25578,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
@@ -25591,6 +25648,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
@@ -25613,6 +25671,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
@@ -25688,6 +25747,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
@@ -25710,6 +25770,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput
@@ -25732,6 +25793,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountCreateNestedManyWithoutUserInput
     collections?: CollectionCreateNestedManyWithoutUserInput
     habits?: HabitCreateNestedManyWithoutUserInput
@@ -25754,6 +25816,7 @@ export namespace Prisma {
     focusArea?: string | null
     bio?: string | null
     location?: string | null
+    bannerColor?: string | null
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     collections?: CollectionUncheckedCreateNestedManyWithoutUserInput
     habits?: HabitUncheckedCreateNestedManyWithoutUserInput
@@ -25792,6 +25855,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUpdateManyWithoutUserNestedInput
     collections?: CollectionUpdateManyWithoutUserNestedInput
     habits?: HabitUpdateManyWithoutUserNestedInput
@@ -25814,6 +25878,7 @@ export namespace Prisma {
     focusArea?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     location?: NullableStringFieldUpdateOperationsInput | string | null
+    bannerColor?: NullableStringFieldUpdateOperationsInput | string | null
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     collections?: CollectionUncheckedUpdateManyWithoutUserNestedInput
     habits?: HabitUncheckedUpdateManyWithoutUserNestedInput

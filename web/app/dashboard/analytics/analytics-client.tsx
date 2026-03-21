@@ -221,12 +221,6 @@ const AnalyticsClient: React.FC<Props> = ({
                 <h3 className="lg:text-2xl xl:text-3xl 2xl:text-4xl font-bold">
                   {summary.averageStreak}d
                 </h3>
-                <p className="lg:text-[11px] xl:text-xs 2xl:text-sm">
-                  Average streak across {summary.totalHabits} habits
-                </p>
-                <p className="lg:text-[11px] xl:text-xs 2xl:text-sm">
-                  {summary.lookbackLabel}
-                </p>
               </div>
               <div className="lg:w-9 lg:h-9 xl:h-10 xl:w-10 2xl:h-11 2xl:w-11 rounded-full bg-black/10 flex items-center justify-center shrink-0">
                 <Flame className="lg:w-4 lg:h-4 xl:w-5 xl:h-5" />
@@ -526,7 +520,7 @@ const AnalyticsClient: React.FC<Props> = ({
                       className="flex flex-col items-center lg:gap-1 xl:gap-2 text-center"
                     >
                       <div
-                        className={`lg:h-24 xl:h-28 w-full rounded-full overflow-hidden flex items-end transition-all border-2 ${isToday ? "border-primary bg-primary/15" : "border-gray-100 bg-gray-100"}`}
+                        className={`lg:h-24 xl:h-28 w-full rounded-full overflow-hidden flex items-end transition-all ${isToday ? "bg-primary/30" : "border-gray-100 bg-gray-100"}`}
                       >
                         <div
                           className="w-full rounded-full transition-all duration-500"

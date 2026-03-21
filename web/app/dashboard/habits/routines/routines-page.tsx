@@ -4,7 +4,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Clock3, Edit, GripVertical, Target, Trash2, X } from "lucide-react";
 import { cadenceLabel } from "@/lib/cadence";
 
-
 import PageHeading from "@/app/components/page-heading";
 import HabitsTabs from "../components/habits-tabs";
 
@@ -258,7 +257,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
             actions={
               <div className="flex flex-row lg:gap-2 xl:gap-3">
                 <Button
-                  className="lg:text-[10px] font-semibold xl:text-xs 2xl:text-sm text-white hover:brightness-105 transition lg:h-6 xl:h-8 2xl:h-10 bg-primary lg:px-3 xl:px-4"
+                  className="lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white hover:brightness-105 transition bg-primary"
                   onClick={openCreateRoutine}
                 >
                   Create routine
@@ -360,6 +359,11 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                           <span>{routine.anchor ?? "Not set"}</span>
                         </div>
                       )}
+                      {routine.notes && (
+                        <p className="lg:text-[9px] xl:text-[10px] text-muted-foreground/70 leading-relaxed line-clamp-2 italic">
+                          {routine.notes}
+                        </p>
+                      )}
                     </div>
                     {!routine.isDefault && (
                       <div className="flex items-center lg:gap-2 xl:gap-3 2xl:gap-4">
@@ -449,7 +453,7 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                 <button
                   type="submit"
                   form="create-routine-form"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-white hover:brightness-105 transition"
+                  className="inline-flex items-center gap-2 rounded-full bg-primary lg:px-3 xl:px-4 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold text-white hover:brightness-105 transition"
                 >
                   Create routine
                 </button>
@@ -485,7 +489,9 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                     },
                   ]);
                   const assignedIds = new Set(result.habitIds);
-                  setBacklog((prev) => prev.filter((h) => !assignedIds.has(h.id)));
+                  setBacklog((prev) =>
+                    prev.filter((h) => !assignedIds.has(h.id)),
+                  );
                   closeCreateRoutine();
                 }}
               />
@@ -552,9 +558,17 @@ const RoutinesPage: React.FC<RoutinesPageProps> = ({
                   const newRoutines = routines.map((r) =>
                     r.id !== result.id
                       ? r
-                      : { ...r, name: result.name, anchor: result.anchor, notes: result.notes, habits: routineHabits },
+                      : {
+                          ...r,
+                          name: result.name,
+                          anchor: result.anchor,
+                          notes: result.notes,
+                          habits: routineHabits,
+                        },
                   );
-                  const assignedIds = new Set(newRoutines.flatMap((r) => r.habits.map((h) => h.id)));
+                  const assignedIds = new Set(
+                    newRoutines.flatMap((r) => r.habits.map((h) => h.id)),
+                  );
                   setRoutines(newRoutines);
                   setBacklog(allHabits.filter((h) => !assignedIds.has(h.id)));
                   closeEditRoutine();

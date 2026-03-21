@@ -34,6 +34,7 @@ type ProfileUser = {
   location: string | null;
   focusArea: string | null;
   privateAccount: boolean;
+  bannerColor: string;
   joinedDate: string;
 };
 
@@ -82,11 +83,41 @@ export default function ProfileClient({
         {/* ── Profile Header Card ── */}
         <div className="rounded-2xl border border-gray-100 bg-white overflow-hidden">
           {/* Banner */}
-          <div className="lg:h-20 xl:h-24 bg-secondary relative">
+          <div className="lg:h-20 xl:h-24 relative overflow-hidden">
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 800 96"
+              preserveAspectRatio="xMidYMid slice"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <linearGradient id="banner-grad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stopColor="white" stopOpacity="0.10" />
+                  <stop offset="100%" stopColor="black" stopOpacity="0.18" />
+                </linearGradient>
+              </defs>
+              {/* Base color */}
+              <rect width="800" height="96" fill={user.bannerColor} />
+              {/* Diagonal sheen */}
+              <rect width="800" height="96" fill="url(#banner-grad)" />
+              {/* Concentric rings — top right */}
+              <circle cx="760" cy="-8" r="88"  fill="none" stroke="white" strokeWidth="2"   opacity="0.22" />
+              <circle cx="760" cy="-8" r="128" fill="none" stroke="white" strokeWidth="1.5" opacity="0.13" />
+              <circle cx="760" cy="-8" r="168" fill="none" stroke="white" strokeWidth="1"   opacity="0.08" />
+              {/* Soft filled glow — bottom left */}
+              <circle cx="70" cy="112" r="88" fill="white" opacity="0.07" />
+              <circle cx="70" cy="112" r="130" fill="white" opacity="0.04" />
+              {/* Wave layers at bottom */}
+              <path d="M0,58 C130,36 300,72 480,52 C620,36 720,58 800,46 L800,96 L0,96 Z" fill="white" opacity="0.09" />
+              <path d="M0,70 C180,52 380,80 580,64 C700,55 762,70 800,62 L800,96 L0,96 Z" fill="white" opacity="0.06" />
+              {/* Bottom highlight */}
+              <line x1="0" y1="95.5" x2="800" y2="95.5" stroke="white" strokeWidth="1" opacity="0.25" />
+            </svg>
+
             {isOwnProfile && (
               <Link
                 href="/account"
-                className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full border border-white/60 bg-white/80 backdrop-blur-sm lg:px-2.5 xl:px-3 lg:py-1 xl:py-1.5 lg:text-[9px] xl:text-[10px] font-semibold text-foreground hover:bg-white transition shadow-sm"
+                className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full border border-white bg-white backdrop-blur-sm lg:px-2.5 xl:px-3 lg:py-1 xl:py-1.5 lg:text-[9px] xl:text-[10px] font-semibold text-foreground hover:bg-white transition"
               >
                 <Settings className="w-3 h-3" />
                 Edit profile
@@ -97,8 +128,8 @@ export default function ProfileClient({
           <div className="lg:px-5 xl:px-6 lg:pb-5 xl:pb-6">
             {/* Avatar row */}
             <div className="-mt-8 xl:-mt-10 mb-3 flex items-end justify-between">
-              <div className="z-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-2xl border-4 border-white shadow-md shrink-0 bg-primary/15 flex items-center justify-center">
-                <span className="lg:text-2xl xl:text-3xl font-bold text-primary leading-none">
+              <div className="z-10 lg:w-16 lg:h-16 xl:w-20 xl:h-20 rounded-2xl border-4 border-white shrink-0 bg-primary flex items-center justify-center">
+                <span className="lg:text-2xl xl:text-3xl font-bold text-white leading-none">
                   {user.name.charAt(0).toUpperCase()}
                 </span>
               </div>

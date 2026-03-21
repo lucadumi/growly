@@ -41,8 +41,6 @@ interface XPContextValue extends GamificationState {
   refreshXP: () => Promise<void>;
   activityLog: XPActivityEntry[];
   loading: boolean;
-  celebration: CelebrationEvent | null;
-  clearCelebration: () => void;
   markNotificationsRead: (ids: string[]) => Promise<void>;
 }
 
@@ -52,20 +50,11 @@ interface XPProviderProps {
   children: React.ReactNode;
 }
 
-type CelebrationEvent =
-  | { type: CelebrationSource; xp: number }
-  | { type: "level"; xp: number; level: number };
-
-type CelebrationSource = "todo" | "habit";
-
 export const XPProvider: React.FC<XPProviderProps> = ({ children }) => {
   const { session } = useSession();
   const [totalXP, setTotalXP] = useState<number | null>(null);
   const [todayXP, setTodayXP] = useState<number | null>(null);
   const [streakBonus, setStreakBonus] = useState<number | null>(null);
-  const [celebration, setCelebration] = useState<CelebrationEvent | null>(
-    null
-  );
   const [activityLog, setActivityLog] = useState<XPActivityEntry[]>([]);
   const activityLogRef = useRef<XPActivityEntry[]>([]);
   const requestIdRef = useRef(0);
@@ -79,7 +68,6 @@ export const XPProvider: React.FC<XPProviderProps> = ({ children }) => {
       setTotalXP(null);
       setTodayXP(null);
       setStreakBonus(null);
-      setCelebration(null);
       setActivityLog([]);
       return;
     }
@@ -205,8 +193,7 @@ export const XPProvider: React.FC<XPProviderProps> = ({ children }) => {
         const nextTotal = Math.max(0, previousTotal + amount);
         const prevLevel = computeLevelState(previousTotal).level;
         const nextLevel = computeLevelState(nextTotal).level;
-        if (amount > 0) {
-          if (nextLevel > prevLevel) {
+        if (amount > 0 && nextLevel > prevLevel) {
             logActivityEntry({
               id: buildId("level"),
               source: "level",
@@ -215,13 +202,7 @@ export const XPProvider: React.FC<XPProviderProps> = ({ children }) => {
               timestamp,
               detail: `Total XP ${nextTotal}`,
             });
-            setCelebration({ type: "level", xp: amount, level: nextLevel });
-          } else {
-            const celebrationSource: CelebrationSource =
-              source === "habit" ? "habit" : "todo";
-            setCelebration({ type: celebrationSource, xp: amount });
           }
-        }
         return nextTotal;
       });
 
@@ -270,8 +251,6 @@ export const XPProvider: React.FC<XPProviderProps> = ({ children }) => {
     }
   }, [session?.user?.id]);
 
-  const clearCelebration = useCallback(() => setCelebration(null), []);
-
   const markNotificationsRead = useCallback(
     async (ids: string[]) => {
       if (!session?.user?.id) return;
@@ -314,8 +293,6 @@ export const XPProvider: React.FC<XPProviderProps> = ({ children }) => {
       activityLog,
       addXP,
       refreshXP,
-      celebration,
-      clearCelebration,
       markNotificationsRead,
       loading,
     }),
@@ -330,8 +307,6 @@ export const XPProvider: React.FC<XPProviderProps> = ({ children }) => {
       activityLog,
       addXP,
       refreshXP,
-      celebration,
-      clearCelebration,
       markNotificationsRead,
       loading,
     ]

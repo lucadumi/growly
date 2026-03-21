@@ -29,6 +29,7 @@ export async function updateProfileAction(formData: FormData) {
   const location = formData.get("location")?.toString().trim() || null;
   const focusArea = formData.get("focusArea")?.toString().trim() || null;
   const privateAccount = formData.get("privateAccount") === "true";
+  const bannerColor = formData.get("bannerColor")?.toString().trim() || "#e2e8f0";
 
   if (username) {
     const existing = await prisma.user.findUnique({
@@ -50,6 +51,7 @@ export async function updateProfileAction(formData: FormData) {
       location,
       focusArea,
       privateAccount,
+      bannerColor,
     },
   });
 

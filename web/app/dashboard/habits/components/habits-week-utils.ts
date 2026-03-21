@@ -168,7 +168,8 @@ export const formatRangeLabel = (start: Date) => {
 
 export const shouldShowHabitOnDate = (habit: HabitLike, day: Date) => {
   const start = toDate(habit.startDate);
-  const cadence = (habit.cadence ?? "").toLowerCase();
+  const cadence = (habit.cadence ?? "").trim();
+  const lowerCadence = cadence.toLowerCase();
   const target = startOfDay(day);
 
   if (start) {
@@ -176,19 +177,29 @@ export const shouldShowHabitOnDate = (habit: HabitLike, day: Date) => {
     if (target < startDay) {
       return false;
     }
-    if (cadence.includes("week")) {
+  }
+
+  // Handle bitmask format (7-char string of 0s and 1s, Mon=index 0 … Sun=index 6)
+  if (cadence.length === 7 && /^[01]+$/.test(cadence)) {
+    const jsDay = target.getDay(); // Sun=0, Mon=1, …, Sat=6
+    const maskIndex = (jsDay + 6) % 7; // Mon=0, …, Sun=6
+    return cadence[maskIndex] === "1";
+  }
+
+  if (!lowerCadence) return true; // unknown cadence? show it.
+  if (lowerCadence.includes("daily")) return true;
+  if (lowerCadence.includes("day")) return true;
+  if (start) {
+    const startDay = startOfDay(start);
+    if (lowerCadence.includes("week")) {
       return target.getDay() === startDay.getDay();
     }
-    if (cadence.includes("month")) {
+    if (lowerCadence.includes("month")) {
       return target.getDate() === startDay.getDate();
     }
   }
-
-  if (!cadence.trim()) return true; // unknown cadence? show it.
-  if (cadence.includes("day")) return true;
-  if (cadence.includes("daily")) return true;
-  if (cadence.includes("week")) return true; // no anchor day? show across the week.
-  if (cadence.includes("month")) return true; // no anchor date? show across the month.
+  if (lowerCadence.includes("week")) return true; // no anchor day? show across the week.
+  if (lowerCadence.includes("month")) return true; // no anchor date? show across the month.
   return true; // default to visible so habits are not hidden due to wording.
 };
 

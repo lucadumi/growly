@@ -131,7 +131,8 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   focusArea: 'focusArea',
   bio: 'bio',
-  location: 'location'
+  location: 'location',
+  bannerColor: 'bannerColor'
 };
 
 exports.Prisma.SessionScalarFieldEnum = {

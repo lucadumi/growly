@@ -200,13 +200,7 @@ const RoutineForm: React.FC<RoutineFormProps> = ({
         });
         return false;
       }
-      if (selectedHabitIds.length === 0) {
-        setStatus({
-          text: "Add at least one habit to make the routine actionable.",
-          tone: "error",
-        });
-        return false;
-      }
+
       if (mode === "edit" && !routineId) {
         setStatus({
           text: "Something went wrong. Please refresh and try again.",

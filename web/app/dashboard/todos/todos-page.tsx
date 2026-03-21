@@ -70,6 +70,13 @@ const formatStatus = (status: string): Status => {
   }
 };
 
+const PRIORITY_ORDER: Record<string, number> = {
+  Critical: 0,
+  High: 1,
+  Medium: 2,
+  Low: 3,
+};
+
 const formatPriority = (priority: string): Priority => {
   switch (priority?.toUpperCase()) {
     case "LOW":
@@ -312,7 +319,13 @@ const [editTodoId, setEditTodoId] = useState<string | null>(null);
     () =>
       statusLanes.map((status) => ({
         status,
-        items: visibleTodos.filter((todo) => todo.status === status),
+        items: visibleTodos
+          .filter((todo) => todo.status === status)
+          .sort(
+            (a, b) =>
+              (PRIORITY_ORDER[a.priority] ?? 2) -
+              (PRIORITY_ORDER[b.priority] ?? 2),
+          ),
       })),
     [visibleTodos],
   );
@@ -847,6 +860,24 @@ const [editTodoId, setEditTodoId] = useState<string | null>(null);
                                       </div>
                                       <GripVertical className="w-4 h-4 text-muted-foreground shrink-0 group-hover:opacity-0 transition-opacity" />
                                     </div>
+                                    {/* Category + tags */}
+                                    {(todo.category && todo.category !== "General" || todo.tags.length > 0) && (
+                                      <div className="flex flex-wrap gap-1 lg:mt-1.5 xl:mt-2">
+                                        {todo.category && todo.category !== "General" && (
+                                          <span className="inline-flex items-center rounded-full bg-primary/10 text-primary lg:px-1.5 xl:px-2 py-0.5 lg:text-[8px] xl:text-[9px] font-semibold">
+                                            {todo.category}
+                                          </span>
+                                        )}
+                                        {todo.tags.slice(0, 3).map((tag) => (
+                                          <span
+                                            key={tag}
+                                            className="inline-flex items-center rounded-full bg-muted text-muted-foreground lg:px-1.5 xl:px-2 py-0.5 lg:text-[8px] xl:text-[9px] font-medium"
+                                          >
+                                            #{tag}
+                                          </span>
+                                        ))}
+                                      </div>
+                                    )}
                                     <div className="lg:mt-2 xl:mt-3 flex items-center justify-between text-muted-foreground">
                                       <div className="flex items-center gap-2">
                                         <span

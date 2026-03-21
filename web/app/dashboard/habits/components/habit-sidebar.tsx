@@ -1,6 +1,17 @@
 "use client";
 
-import { Check, Flame, Pencil, Plus, RotateCcw } from "lucide-react";
+import {
+  Briefcase,
+  Check,
+  Clock,
+  Flame,
+  Moon,
+  Pencil,
+  Plus,
+  RotateCcw,
+  Sun,
+} from "lucide-react";
+
 import type { Habit } from "../types";
 
 type PaletteEntry = {
@@ -64,11 +75,11 @@ const HabitSidebar = ({
     return (
       <div
         key={item.habit.id}
-        className={`rounded-2xl bg-card px-3 py-3 border border-gray-100 transition-all ${
-          item.isComplete && item.palette.card
+        className={`flex flex-col justify-between rounded-2xl px-3 py-3 border transition-all ${
+          item.isComplete ? item.palette.card : "bg-card border-gray-100"
         }`}
       >
-        <div className="flex items-center justify-between gap-2 mb-3">
+        <div className="flex items-start justify-between gap-2 mb-2">
           <button
             type="button"
             onClick={() => onEditHabit(item.habit)}
@@ -82,11 +93,8 @@ const HabitSidebar = ({
           </button>
           <div className="flex shrink-0 items-center gap-1.5">
             {item.isComplete && (
-              <span
-                className={`flex items-center gap-1 text-xs font-semibold ${item.palette.text}`}
-              >
-                <Check className="h-3.5 w-3.5" />
-                Done
+              <span className={`${item.palette.text}`}>
+                <Check className="lg:w-3.5 lg:h-3.5 xl:h-4 xl:w-4" />
               </span>
             )}
             {(item.habit.streak ?? 0) > 0 && (
@@ -97,58 +105,68 @@ const HabitSidebar = ({
             )}
           </div>
         </div>
-        <div className="space-y-1.5 mb-4">
-          <div className="flex items-center justify-between text-xs font-semibold">
-            <span className="text-muted-foreground">
-              {fmt(item.progress)} / {fmt(item.goal)}
-              {item.unit !== "count" && ` ${item.unit}`}
-            </span>
-            <span
-              className={
-                item.pct >= 100 ? item.palette.text : "text-muted-foreground"
-              }
-            >
-              {item.pct}%
+        {/* Description row */}
+        {item.habit.description && (
+          <div className="flex items-center gap-1.5 mb-3 min-w-0">
+            <span className="truncate text-[10px] text-muted-foreground leading-snug">
+              {item.habit.description}
             </span>
           </div>
-          <div className="h-1.5 w-full rounded-full bg-gray-100 overflow-hidden">
-            <div
-              className={`h-full rounded-full transition-all duration-500 ${item.palette.bar}`}
-              style={{ width: `${item.pct}%` }}
+        )}
+        <div>
+          <div className="space-y-1.5 mb-3">
+            <div className="flex items-center justify-between text-xs font-semibold">
+              <span className="text-muted-foreground">
+                {fmt(item.progress)} / {fmt(item.goal)}
+                {item.unit !== "count" && ` ${item.unit}`}
+              </span>
+              <span
+                className={
+                  item.pct >= 100 ? item.palette.text : "text-muted-foreground"
+                }
+              >
+                {item.pct}%
+              </span>
+            </div>
+            <div className="h-1.5 w-full rounded-full bg-gray-100 overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all duration-500 ${item.palette.bar}`}
+                style={{ width: `${item.pct}%` }}
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              min="0.1"
+              step="0.1"
+              value={inputVal}
+              onChange={(e) => onInputChange(item.habit.id, e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") onAdd(item.habit.id);
+              }}
+              className="w-16 rounded-xl border border-gray-200 px-2 py-1.5 text-center text-xs font-semibold outline-none focus:border-primary transition"
+              disabled={isPending}
             />
+            <button
+              type="button"
+              onClick={() => onAdd(item.habit.id)}
+              disabled={isPending}
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary transition hover:border-primary/40 hover:bg-primary/12 disabled:opacity-50"
+            >
+              <Plus className="h-3.5 w-3.5" />
+              Add
+            </button>
+            <button
+              type="button"
+              onClick={() => onReset(item.habit.id)}
+              disabled={isPending || item.progress <= 0}
+              title="Reset today's progress"
+              className="grid h-8 w-8 shrink-0 place-items-center rounded-xl border border-gray-200 text-muted-foreground transition hover:border-gray-300 hover:text-foreground disabled:opacity-30"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+            </button>
           </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <input
-            type="number"
-            min="0.1"
-            step="0.1"
-            value={inputVal}
-            onChange={(e) => onInputChange(item.habit.id, e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") onAdd(item.habit.id);
-            }}
-            className="w-16 rounded-xl border border-gray-200 px-2 py-1.5 text-center text-xs font-semibold outline-none focus:border-primary transition"
-            disabled={isPending}
-          />
-          <button
-            type="button"
-            onClick={() => onAdd(item.habit.id)}
-            disabled={isPending}
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary transition hover:border-primary/40 hover:bg-primary/12 disabled:opacity-50"
-          >
-            <Plus className="h-3.5 w-3.5" />
-            Add
-          </button>
-          <button
-            type="button"
-            onClick={() => onReset(item.habit.id)}
-            disabled={isPending || item.progress <= 0}
-            title="Reset today's progress"
-            className="grid h-8 w-8 shrink-0 place-items-center rounded-xl border border-gray-200 text-muted-foreground transition hover:border-gray-300 hover:text-foreground disabled:opacity-30"
-          >
-            <RotateCcw className="h-3.5 w-3.5" />
-          </button>
         </div>
       </div>
     );

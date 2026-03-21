@@ -54,7 +54,7 @@ export default function CommunitySearch() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by name or username..."
-          className="w-full rounded-xl border border-gray-100 bg-white lg:pl-8 xl:pl-10 lg:pr-4 xl:pr-5 lg:py-2 xl:py-2.5 lg:text-[11px] xl:text-xs focus:border-primary/40 focus:outline-none"
+          className="w-full rounded-xl border border-gray-100 bg-white lg:pl-8 xl:pl-10 lg:pr-4 xl:pr-5 lg:py-2 xl:py-2.5 lg:text-[11px] xl:text-xs 2xl:text-sm focus:border-primary/40 focus:outline-none"
         />
         {loading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 rounded border-2 border-gray-300 border-t-transparent animate-spin" />
@@ -63,7 +63,7 @@ export default function CommunitySearch() {
 
       {searched && results.length === 0 && (
         <div className="rounded-2xl border-2 border-dashed border-gray-200 bg-muted/20 lg:p-4 xl:p-5 text-center">
-          <p className="text-muted-foreground lg:text-[11px] xl:text-xs">
+          <p className="text-muted-foreground lg:text-[11px] xl:text-xs 2xl:text-sm">
             No members found for &ldquo;{query}&rdquo;.
           </p>
         </div>

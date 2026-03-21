@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  FormEvent,
-  useEffect,
-  useState,
-  useTransition,
-} from "react";
+import { FormEvent, useEffect, useState, useTransition } from "react";
 import { Lock } from "lucide-react";
 
 import { updateProfileAction } from "@/app/account/actions/update-profile";
@@ -24,6 +19,24 @@ const FOCUS_AREAS = [
   "Other",
 ].map((o) => ({ label: o, value: o }));
 
+const BANNER_COLORS = [
+  "#e2e8f0", // slate (default)
+  "#dbeafe", // blue
+  "#dcfce7", // green
+  "#fce7f3", // pink
+  "#fef3c7", // amber
+  "#ede9fe", // purple
+  "#ffedd5", // orange
+  "#cffafe", // cyan
+  "#1e293b", // dark slate
+  "#6366f1", // indigo
+  "#10b981", // emerald
+  "#f43f5e", // rose
+  "#f59e0b", // amber vivid
+  "#8b5cf6", // violet
+  "#0ea5e9", // sky
+];
+
 interface EditProfileFormProps {
   initialName: string;
   initialEmail: string;
@@ -32,6 +45,7 @@ interface EditProfileFormProps {
   initialLocation?: string | null;
   initialFocusArea?: string | null;
   initialPrivateAccount?: boolean;
+  initialBannerColor?: string | null;
 }
 
 const inputClass =
@@ -50,6 +64,7 @@ export default function EditProfileForm({
   initialLocation,
   initialFocusArea,
   initialPrivateAccount = false,
+  initialBannerColor,
 }: EditProfileFormProps) {
   const [name, setName] = useState(initialName);
   const [email, setEmail] = useState(initialEmail);
@@ -58,6 +73,9 @@ export default function EditProfileForm({
   const [location, setLocation] = useState(initialLocation ?? "");
   const [focusArea, setFocusArea] = useState(initialFocusArea ?? "");
   const [privateAccount, setPrivateAccount] = useState(initialPrivateAccount);
+  const [bannerColor, setBannerColor] = useState(
+    initialBannerColor ?? "#e2e8f0",
+  );
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [isPending, startTransition] = useTransition();
@@ -80,6 +98,7 @@ export default function EditProfileForm({
     formData.set("location", location);
     formData.set("focusArea", focusArea);
     formData.set("privateAccount", String(privateAccount));
+    formData.set("bannerColor", bannerColor);
 
     startTransition(async () => {
       try {
@@ -199,6 +218,28 @@ export default function EditProfileForm({
         </label>
       </div>
 
+      {/* Banner color */}
+      <div className={labelClass}>
+        <span className="text-muted-foreground">Profile banner color</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          {BANNER_COLORS.map((color) => (
+            <button
+              key={color}
+              type="button"
+              onClick={() => setBannerColor(color)}
+              className={`lg:w-6 lg:h-6 xl:w-7 xl:h-7 rounded-full border-2 transition-transform hover:scale-110 ${
+                bannerColor === color
+                  ? "border-primary scale-110"
+                  : "border-transparent"
+              }`}
+              style={{ backgroundColor: color }}
+              title={color}
+            />
+          ))}
+        </div>
+        <input type="hidden" name="bannerColor" value={bannerColor} />
+      </div>
+
       {/* Privacy */}
       <div className="rounded-2xl bg-gray-100 lg:p-3 xl:p-4">
         <div className="flex items-center justify-between gap-3">
@@ -210,7 +251,7 @@ export default function EditProfileForm({
               <p className="lg:text-[11px] xl:text-xs font-semibold text-foreground">
                 Private profile
               </p>
-              <p className="lg:text-[9px] xl:text-[10px] text-muted-foreground">
+              <p className="lg:text-[9px] xl:text-[10px] 2xl:text-[11px] text-muted-foreground">
                 {privateAccount
                   ? "Only you can see your shared habits and profile."
                   : "Your profile and shared habits are visible to the community."}

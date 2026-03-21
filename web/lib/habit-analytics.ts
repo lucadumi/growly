@@ -7,6 +7,18 @@ import {
   type ProgressByDayMap,
 } from "./habit-progress";
 
+/** Returns true if the habit is scheduled on the given UTC day. */
+function isHabitScheduledOnDay(habit: Habit, day: Date): boolean {
+  const cadence = (habit.cadence ?? "").trim();
+  if (cadence.length === 7 && /^[01]+$/.test(cadence)) {
+    const jsDay = day.getUTCDay(); // Sun=0, Mon=1, …, Sat=6
+    const maskIndex = (jsDay + 6) % 7; // Mon=0, …, Sun=6
+    return cadence[maskIndex] === "1";
+  }
+  // Legacy / unknown cadence → treat as every day
+  return true;
+}
+
 export const HABIT_ANALYTICS_LOOKBACK_DAYS = 21;
 
 type HabitProgressEntry = {
@@ -81,10 +93,12 @@ export const buildHabitAnalytics = (
 
     Object.entries(rawProgressByDay).forEach(([date, sum]) => {
       const day = getUtcDayStart(new Date(date));
-      const activeHabitsForDay = habitStartDates.filter(
-        (start) => !Number.isNaN(start.getTime()) && start <= day
-      ).length;
-      const divisor = activeHabitsForDay > 0 ? activeHabitsForDay : totalHabits;
+      const scheduledHabitsForDay = habits.filter((habit) => {
+        const start = habitStartDateMap.get(habit.id);
+        if (!start || Number.isNaN(start.getTime()) || start > day) return false;
+        return isHabitScheduledOnDay(habit, day);
+      }).length;
+      const divisor = scheduledHabitsForDay > 0 ? scheduledHabitsForDay : totalHabits;
       progressByDay[date] = Math.min(1, sum / divisor);
     });
   }
@@ -116,12 +130,14 @@ export const buildHabitAnalytics = (
     let streak = 0;
     const streakCursor = getUtcDayStart(new Date(today));
     while (streakCursor >= habitStart) {
-      const key = formatDayKey(streakCursor);
-      const ratio = completionMap?.get(key) ?? 0;
-      if (ratio < HABIT_STREAK_THRESHOLD) {
-        break;
+      if (isHabitScheduledOnDay(habit, streakCursor)) {
+        const key = formatDayKey(streakCursor);
+        const ratio = completionMap?.get(key) ?? 0;
+        if (ratio < HABIT_STREAK_THRESHOLD) {
+          break;
+        }
+        streak += 1;
       }
-      streak += 1;
       streakCursor.setUTCDate(streakCursor.getUTCDate() - 1);
     }
 
@@ -135,6 +151,10 @@ export const buildHabitAnalytics = (
 
       if (day < habitStart) {
         break;
+      }
+
+      if (!isHabitScheduledOnDay(habit, day)) {
+        continue;
       }
 
       countedDays += 1;

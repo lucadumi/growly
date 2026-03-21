@@ -29,7 +29,17 @@ type Stats = {
 
 const CATEGORY_OPTIONS = [
   { label: "None", value: "" },
-  ...["Health", "Mindfulness", "Productivity", "Fitness", "Learning", "Creativity", "Sleep", "Nutrition", "Relationships"].map((c) => ({ label: c, value: c })),
+  ...[
+    "Health",
+    "Mindfulness",
+    "Productivity",
+    "Fitness",
+    "Learning",
+    "Creativity",
+    "Sleep",
+    "Nutrition",
+    "Relationships",
+  ].map((c) => ({ label: c, value: c })),
 ];
 
 function ShareModal({
@@ -195,7 +205,10 @@ function ShareModal({
               )}
               <Dropdown
                 id="share-habit"
-                options={filteredAvailable.map((h) => ({ label: h.name, value: h.id }))}
+                options={filteredAvailable.map((h) => ({
+                  label: h.name,
+                  value: h.id,
+                }))}
                 value={selectedId}
                 onChange={(id) => {
                   setSelectedId(id);
@@ -228,14 +241,14 @@ function ShareModal({
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 rounded-full border border-gray-200 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-xs font-semibold hover:bg-gray-100 transition"
+                className="flex-1 rounded-full border border-gray-200 lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold hover:bg-gray-100 transition"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading || !selectedId}
-                className="flex-1 rounded-full bg-primary text-white lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-xs font-semibold hover:-translate-y-0.5 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                className="flex-1 rounded-full bg-primary text-white lg:py-1.5 xl:py-2 lg:text-[11px] xl:text-[12px] 2xl:text-[13px] font-semibold hover:-translate-y-0.5 transition disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
               >
                 {loading ? "Sharing..." : "Share habit"}
               </button>

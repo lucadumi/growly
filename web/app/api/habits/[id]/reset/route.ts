@@ -4,7 +4,7 @@ import { Prisma } from "@/lib/generated/prisma";
 
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/actions/habit-actions";
-import { getUtcDayStart } from "@/lib/habit-progress";
+import { getUtcDayStart, parseClientDate } from "@/lib/habit-progress";
 
 const getErrorStatus = (message: string) => {
   if (message === "Unauthorized") return 401;
@@ -21,8 +21,8 @@ export async function POST(
 
   try {
     const userId = await requireUserId();
-
-    const progressDate = getUtcDayStart(new Date());
+    const body = await request.json().catch(() => ({}));
+    const progressDate = parseClientDate((body as Record<string, unknown>).date) ?? getUtcDayStart(new Date());
 
     await prisma.habitDailyProgress.upsert({
       where: {

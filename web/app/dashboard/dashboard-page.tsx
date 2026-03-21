@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import CelebrationToast from "../components/celebration-toast";
 import AnalyticsWidget from "./components/analytics-widget";
 import type { AnalyticsWidgetData } from "./components/analytics-widget";
 import CalendarWidget from "./components/calendar-widget";
