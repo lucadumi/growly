@@ -29,7 +29,7 @@ import HabitSidebar from "./components/habit-sidebar";
 import SlideOver from "@/app/components/ui/slide-over";
 import PageHeading from "@/app/components/page-heading";
 import HabitsTabs from "./components/habits-tabs";
-import { formatDayKey, type ProgressByDayMap } from "@/lib/habit-progress";
+import { formatDayKey, getLocalDayKey, type ProgressByDayMap } from "@/lib/habit-progress";
 import {
   addDays,
   shouldShowHabitOnDate,
@@ -210,7 +210,7 @@ export default function HabitsBoard({
   routines,
 }: HabitsBoardProps) {
   const today = new Date();
-  const todayKey = formatDayKey(today);
+  const todayKey = getLocalDayKey();
 
   const router = useRouter();
   const { addXP, level, todayXP } = useXP();

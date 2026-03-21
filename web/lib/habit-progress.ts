@@ -17,6 +17,11 @@ export const getUtcDayStart = (date: Date): Date =>
     Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())
   );
 
+export const getLocalDayKey = (): string => {
+  const now = new Date();
+  return buildDayKey(now.getFullYear(), now.getMonth(), now.getDate());
+};
+
 export const parseClientDate = (value: unknown): Date | null => {
   if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
     return null;

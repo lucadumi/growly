@@ -29,7 +29,7 @@ export async function PATCH(
 
   try {
     const userId = await requireUserId();
-    const payload = (await request.json()) as { amount?: unknown };
+    const payload = (await request.json()) as { amount?: unknown; date?: unknown };
     const amount = parseAmount(payload.amount);
     if (amount === null) {
       return NextResponse.json(

@@ -68,7 +68,13 @@
       "Bash(find /b/growly -type f -name *notification* -o -name *habit* -o -name *push*)",
       "Bash(grep -r Notification /b/growly/mobile --include=*.ts --include=*.tsx)",
       "Bash(npx expo:*)",
-      "Bash(grep -r \"lastProgressDate\\\\|lastResetDate\\\\|lastProgressedAt\" /b/growly --include=*.ts --include=*.tsx)"
+      "Bash(grep -r \"lastProgressDate\\\\|lastResetDate\\\\|lastProgressedAt\" /b/growly --include=*.ts --include=*.tsx)",
+      "Bash(ls -la /b/growly/web/app/api/habits/[id]/progress/)",
+      "Bash(ls -la /b/growly/web/app/api/habits/[id]/reset/)",
+      "Bash(ls -la /b/growly/mobile/app/\\\\\\(tabs\\\\\\)/)",
+      "Bash(wc -l /b/growly/mobile/app/\\\\\\(tabs\\\\\\)/habits.tsx)",
+      "Bash(grep -E \"\\\\.\\(ts|tsx|js|css\\)$\")",
+      "Bash(head -50 /b/growly/mobile/app/\\\\\\(tabs\\\\\\)/index.tsx)"
     ]
   }
 }

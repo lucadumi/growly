@@ -92,7 +92,7 @@ const CalendarWidget: React.FC<CalendarWidgetProps> = ({ progressByDay }) => {
     );
   };
 
-  const todayKey = formatDayKey(today);
+  const todayKey = buildDayKey(today.getFullYear(), today.getMonth(), today.getDate());
   const todayProgress = clamp(progressByDay[todayKey] ?? 0);
 
   return (

@@ -1,6 +1,6 @@
 "use client";
 
-import type { ProgressByDayMap } from "@/lib/habit-progress";
+import { getLocalDayKey, type ProgressByDayMap } from "@/lib/habit-progress";
 
 export const patchHabitProgress = async (
   habitId: string,
@@ -11,7 +11,7 @@ export const patchHabitProgress = async (
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ amount }),
+    body: JSON.stringify({ amount, date: getLocalDayKey() }),
   });
 
   if (!response.ok) {
@@ -26,6 +26,10 @@ export const resetHabitProgress = async (
 ): Promise<{ dailyProgress?: number }> => {
   const response = await fetch(`/api/habits/${habitId}/reset`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ date: getLocalDayKey() }),
   });
 
   if (!response.ok) {
