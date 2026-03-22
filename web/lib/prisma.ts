@@ -6,7 +6,7 @@ declare global {
 }
 
 function createPrismaClient() {
-  const adapter = new PrismaNeonHttp(process.env.DATABASE_URL!);
+  const adapter = new PrismaNeonHttp(process.env.DATABASE_URL!, {});
   return new PrismaClient({ adapter } as any);
 }
 

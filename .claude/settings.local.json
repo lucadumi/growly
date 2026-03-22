@@ -84,7 +84,9 @@
       "Bash(node -e \"const m = require\\(''''@prisma/adapter-neon''''\\); console.log\\(Object.keys\\(m\\)\\)\")",
       "Bash(node -e \"const {PrismaNeonHttp} = require\\(''@prisma/adapter-neon''\\); console.log\\(PrismaNeonHttp.toString\\(\\).slice\\(0, 200\\)\\)\")",
       "Bash(grep -r \"image\\\\|''''image''''\" b:/growly/web/node_modules/@better-auth/core/dist/ --include=*.cjs)",
-      "Bash(ls b:/growly/web/node_modules/@better-auth/core/dist/shared/*.cjs)"
+      "Bash(ls b:/growly/web/node_modules/@better-auth/core/dist/shared/*.cjs)",
+      "Bash(node -e \"const {PrismaNeon, PrismaNeonHttp} = require\\(''@prisma/adapter-neon''\\); console.log\\(''PrismaNeon:'', typeof PrismaNeon\\); console.log\\(''PrismaNeonHttp:'', typeof PrismaNeonHttp\\);\")",
+      "Bash(node -e \"const m = require\\(''@prisma/adapter-neon''\\); const src = m.PrismaNeonHttp.toString\\(\\); console.log\\(src.slice\\(0, 300\\)\\)\")"
     ]
   }
 }
