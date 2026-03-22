@@ -2411,6 +2411,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    emailVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     streakGoalDays: number | null
@@ -2426,6 +2427,7 @@ export namespace Prisma {
     id: string | null
     name: string | null
     email: string | null
+    emailVerified: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
     streakGoalDays: number | null
@@ -2441,6 +2443,7 @@ export namespace Prisma {
     id: number
     name: number
     email: number
+    emailVerified: number
     createdAt: number
     updatedAt: number
     streakGoalDays: number
@@ -2466,6 +2469,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    emailVerified?: true
     createdAt?: true
     updatedAt?: true
     streakGoalDays?: true
@@ -2481,6 +2485,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    emailVerified?: true
     createdAt?: true
     updatedAt?: true
     streakGoalDays?: true
@@ -2496,6 +2501,7 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
+    emailVerified?: true
     createdAt?: true
     updatedAt?: true
     streakGoalDays?: true
@@ -2598,6 +2604,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified: boolean
     createdAt: Date
     updatedAt: Date
     streakGoalDays: number | null
@@ -2632,6 +2639,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
@@ -2657,6 +2665,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
@@ -2672,6 +2681,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
@@ -2687,6 +2697,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
+    emailVerified?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     streakGoalDays?: boolean
@@ -2698,7 +2709,7 @@ export namespace Prisma {
     bannerColor?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "createdAt" | "updatedAt" | "streakGoalDays" | "privateAccount" | "username" | "focusArea" | "bio" | "location" | "bannerColor", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "createdAt" | "updatedAt" | "streakGoalDays" | "privateAccount" | "username" | "focusArea" | "bio" | "location" | "bannerColor", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     collections?: boolean | User$collectionsArgs<ExtArgs>
@@ -2731,6 +2742,7 @@ export namespace Prisma {
       id: string
       name: string
       email: string
+      emailVerified: boolean
       createdAt: Date
       updatedAt: Date
       streakGoalDays: number | null
@@ -3175,6 +3187,7 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
     readonly streakGoalDays: FieldRef<"User", 'Int'>
@@ -18556,6 +18569,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
+    emailVerified: 'emailVerified',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     streakGoalDays: 'streakGoalDays',
@@ -18800,6 +18814,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -18824,13 +18845,6 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -18914,6 +18928,7 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    emailVerified?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     streakGoalDays?: IntNullableFilter<"User"> | number | null
@@ -18938,6 +18953,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrderInput | SortOrder
@@ -18966,6 +18982,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
+    emailVerified?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     streakGoalDays?: IntNullableFilter<"User"> | number | null
@@ -18989,6 +19006,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrderInput | SortOrder
@@ -19012,6 +19030,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     streakGoalDays?: IntNullableWithAggregatesFilter<"User"> | number | null
@@ -20005,6 +20024,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -20029,6 +20049,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -20053,6 +20074,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -20077,6 +20099,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -20101,6 +20124,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -20116,6 +20140,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -20131,6 +20156,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -21198,6 +21224,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -21218,11 +21249,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -21339,6 +21365,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrder
@@ -21358,6 +21385,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrder
@@ -21373,6 +21401,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
+    emailVerified?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     streakGoalDays?: SortOrder
@@ -21406,6 +21435,14 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -21434,14 +21471,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -22322,6 +22351,10 @@ export namespace Prisma {
     set?: string
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -22332,10 +22365,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -23162,6 +23191,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -23182,11 +23216,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -23231,6 +23260,14 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -23270,14 +23307,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -24036,6 +24065,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24059,6 +24089,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24098,6 +24129,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24121,6 +24153,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24144,6 +24177,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24167,6 +24201,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24206,6 +24241,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24229,6 +24265,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24274,6 +24311,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24297,6 +24335,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24362,6 +24401,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24385,6 +24425,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24408,6 +24449,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24431,6 +24473,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24492,6 +24535,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24515,6 +24559,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24710,6 +24755,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24733,6 +24779,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -24858,6 +24905,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -24881,6 +24929,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25067,6 +25116,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25090,6 +25140,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25153,6 +25204,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25176,6 +25228,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25414,6 +25467,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25437,6 +25491,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25547,6 +25602,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25570,6 +25626,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25640,6 +25697,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25663,6 +25721,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25739,6 +25798,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25762,6 +25822,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25785,6 +25846,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25808,6 +25870,7 @@ export namespace Prisma {
     id: string
     name: string
     email: string
+    emailVerified?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     streakGoalDays?: number | null
@@ -25847,6 +25910,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null
@@ -25870,6 +25934,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     streakGoalDays?: NullableIntFieldUpdateOperationsInput | number | null

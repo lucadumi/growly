@@ -74,7 +74,17 @@
       "Bash(ls -la /b/growly/mobile/app/\\\\\\(tabs\\\\\\)/)",
       "Bash(wc -l /b/growly/mobile/app/\\\\\\(tabs\\\\\\)/habits.tsx)",
       "Bash(grep -E \"\\\\.\\(ts|tsx|js|css\\)$\")",
-      "Bash(head -50 /b/growly/mobile/app/\\\\\\(tabs\\\\\\)/index.tsx)"
+      "Bash(head -50 /b/growly/mobile/app/\\\\\\(tabs\\\\\\)/index.tsx)",
+      "Bash(ls b:/growly/web/.env*)",
+      "Bash(npx --yes better-auth@latest show-schema)",
+      "Bash(node -e \"const a = require\\(''b:/growly/web/node_modules/@prisma/adapter-neon''\\); console.log\\(Object.keys\\(a\\)\\)\")",
+      "Bash(node -e \"const a = require\\(''b:/growly/web/node_modules/@neondatabase/serverless''\\); console.log\\(Object.keys\\(a\\)\\)\")",
+      "Bash(node -e \"const {PrismaNeonHttp} = require\\(''b:/growly/web/node_modules/@prisma/adapter-neon''\\); console.log\\(PrismaNeonHttp.toString\\(\\).slice\\(0,300\\)\\)\")",
+      "Bash(find /b/growly/web -type f -name *auth* -o -name *register* -o -name *signup*)",
+      "Bash(node -e \"const m = require\\(''''@prisma/adapter-neon''''\\); console.log\\(Object.keys\\(m\\)\\)\")",
+      "Bash(node -e \"const {PrismaNeonHttp} = require\\(''@prisma/adapter-neon''\\); console.log\\(PrismaNeonHttp.toString\\(\\).slice\\(0, 200\\)\\)\")",
+      "Bash(grep -r \"image\\\\|''''image''''\" b:/growly/web/node_modules/@better-auth/core/dist/ --include=*.cjs)",
+      "Bash(ls b:/growly/web/node_modules/@better-auth/core/dist/shared/*.cjs)"
     ]
   }
 }

@@ -12,6 +12,7 @@ model User {
   id                String              @id
   name              String
   email             String              @unique
+  emailVerified     Boolean             @default(false)
   createdAt         DateTime            @default(now())
   updatedAt         DateTime            @default(now()) @updatedAt
   streakGoalDays    Int?                @default(21)
